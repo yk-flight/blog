@@ -14,13 +14,13 @@ spring:
     # 超时时间
     connect-timeout: 10000ms
     # 服务器地址
-    host: 49.234.13.224
+    host: localhost
     # 端口号
     port: 6379
     # 数据库
     database: 2
     # 本地暂时没有配置密码
-    password: ZrkiZzy
+    password: 123456
     lettuce:
       pool:
         # 最大连接数，默认8

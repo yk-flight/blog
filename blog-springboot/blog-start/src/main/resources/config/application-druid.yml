@@ -5,6 +5,6 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     druid:
       # 主库数据源
-      url: jdbc:mysql://49.234.13.224:3306/myblog?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+      url: jdbc:mysql://localhost:3306/myblog?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
       username: root
-      password: ZrkiZzy
+      password: 123456
