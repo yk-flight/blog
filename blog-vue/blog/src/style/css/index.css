@@ -1,0 +1,36 @@
+/* 修改垂直滚动条 */
+::-webkit-scrollbar {
+  width: 7px; /* 设置滚动条宽度 */
+}
+::-webkit-scrollbar-track {
+  background-color: #eee; /* 设置轨道颜色 */
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background-color: #cbcaca; /* 设置拖拽块颜色 */
+}
+/* 修改水平滚动条，与上面类似，只需将“vertical”改为“horizontal”即可 */
+::-webkit-scrollbar-horizontal {
+  height: 10px;
+}
+::-webkit-scrollbar-track-piece {
+    background-color:#eee;
+}
+ 
+::-webkit-scrollbar-thumb:hover{
+    border-radius: 3px;
+    background-color:#a9a9a9
+}
+ 
+ ::-webkit-resizer{
+     display:none
+ }
+
+ .v-toolbar__content, .v-toolbar__extension {
+  align-items: center;
+  display: flex;
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  padding: 12px 16px;
+} 

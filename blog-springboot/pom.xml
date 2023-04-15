@@ -1,0 +1,208 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.zrkizzy</groupId>
+    <artifactId>blog-springboot</artifactId>
+    <version>1.0.0</version>
+    <modules>
+        <module>blog-common</module>
+        <module>blog-web</module>
+        <module>blog-data</module>
+        <module>blog-start</module>
+        <module>blog-server</module>
+        <module>blog-security</module>
+    </modules>
+    <packaging>pom</packaging>
+
+    <name>blog-springboot</name>
+    <url>https://www.zrkizzy.com</url>
+    <description>基于SpringBoot + Vue开发的前后端分离的个人博客</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- 博客版本 -->
+        <blog.version>1.0.0</blog.version>
+        <!-- Java版本 -->
+        <java.version>17</java.version>
+        <!-- SpringBoot依赖 -->
+        <spring-boot.version>2.5.2</spring-boot.version>
+        <!-- 数据库依赖 -->
+        <mysql.version>8.0.13</mysql.version>
+        <druid.version>1.2.16</druid.version>
+        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+        <!-- 接口工具依赖 -->
+        <swagger.version>3.0.0</swagger.version>
+        <swagger-ui.version>3.0.2</swagger-ui.version>
+        <!-- 其他工具类依赖 -->
+        <lombok.version>1.18.24</lombok.version>
+        <commons-pool2.version>2.9.0</commons-pool2.version>
+        <hutool.version>5.7.10</hutool.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <fastjson.version>1.2.78</fastjson.version>
+        <jaxb.version>2.3.1</jaxb.version>
+        <captcha.version>1.6.2</captcha.version>
+        <script-engine.version>15.4</script-engine.version>
+    </properties>
+
+    <!-- 项目依赖管理：只声明版本，并不实现引入 -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- SpringBoot依赖 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- MySQL依赖 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!-- Druid连接池依赖 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <!-- MyBatisPlus依赖 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!-- Commons Pool依赖 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons-pool2.version}</version>
+            </dependency>
+
+            <!-- Swagger依赖 -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${swagger.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.swagger</groupId>
+                        <artifactId>swagger-models</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- SwaggerUI Knife4j -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${swagger-ui.version}</version>
+            </dependency>
+
+            <!-- 验证码依赖 -->
+            <dependency>
+                <groupId>com.github.whvcse</groupId>
+                <artifactId>easy-captcha</artifactId>
+                <version>${captcha.version}</version>
+            </dependency>
+
+            <!-- Hutool工具类 -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <!-- Lombok依赖 -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <!-- jjwt依赖 -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
+            <!-- Java对象与XML文档相互转换依赖 -->
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${jaxb.version}</version>
+            </dependency>
+
+            <!-- FastJson依赖 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <!-- JavaScript引擎 -->
+            <dependency>
+                <groupId>org.openjdk.nashorn</groupId>
+                <artifactId>nashorn-core</artifactId>
+                <version>${script-engine.version}</version>
+            </dependency>
+
+            <!-- 业务模块 -->
+            <dependency>
+                <groupId>com.zrkizzy</groupId>
+                <artifactId>blog-server</artifactId>
+                <version>${blog.version}</version>
+            </dependency>
+
+            <!-- 通用模块 -->
+            <dependency>
+                <groupId>com.zrkizzy</groupId>
+                <artifactId>blog-common</artifactId>
+                <version>${blog.version}</version>
+            </dependency>
+
+            <!-- 数据持久层模块 -->
+            <dependency>
+                <groupId>com.zrkizzy</groupId>
+                <artifactId>blog-data</artifactId>
+                <version>${blog.version}</version>
+            </dependency>
+
+            <!-- 系统接口模块 -->
+            <dependency>
+                <groupId>com.zrkizzy</groupId>
+                <artifactId>blog-web</artifactId>
+                <version>${blog.version}</version>
+            </dependency>
+
+            <!-- 权限模块 -->
+            <dependency>
+                <groupId>com.zrkizzy</groupId>
+                <artifactId>blog-security</artifactId>
+                <version>${blog.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
