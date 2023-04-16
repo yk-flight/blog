@@ -1,7 +1,7 @@
 <template>
   <div class="app-wrapper">
     <side-bar class="sidebar-container"></side-bar>
-    <div>
+    <div class="main-container">
       <div>
         <nav-bar></nav-bar>
         <tags-view></tags-view>
@@ -46,9 +46,5 @@ export default {
   height: 100%;
   width: 100%;
 }
-.sidebar-container {
-  width: 200px;
-  height: 100%;
-  // background: #304156;
-}
+
 </style>
