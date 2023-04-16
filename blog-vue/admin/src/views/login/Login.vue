@@ -167,7 +167,7 @@ export default {
 }
 
 .right-container {
-  background: url("../../assets/images/login-bg.jpg") no-repeat center;
+  background: url("../../assets/images/background.jpg") no-repeat center;
   background-size: cover;
   height: 100%;
   display: flex;
