@@ -1,11 +1,14 @@
 package com.zrkizzy.web.controller.system.core;
 
 import com.zrkizzy.common.utils.BeanCopyUtil;
+import com.zrkizzy.data.domain.User;
+import com.zrkizzy.security.util.SecurityUtil;
 import com.zrkizzy.server.service.core.IUserService;
 import com.zrkizzy.server.vo.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +27,15 @@ import java.util.List;
 public class UserController {
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private SecurityUtil securityUtil;
+
+    @ApiOperation("获取当前登录用户")
+    @GetMapping("/getLoginUser")
+    public User getLoginUser() {
+        return securityUtil.getLoginUser();
+    }
 
     @ApiOperation("获取所有用户")
     @PostMapping("/list")
