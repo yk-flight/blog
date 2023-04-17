@@ -6,12 +6,13 @@ import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.exception.TokenErrorException;
 import com.zrkizzy.common.exception.TokenExpiredException;
 import com.zrkizzy.common.utils.JwtTokenUtil;
+import com.zrkizzy.security.entity.MyUserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -63,7 +64,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                     String username = jwtTokenUtil.getUsernameFromToken(token);
                     // 如果当前Token不合法
                     log.info("当前进行鉴权的用户为：{}", username);
-                    UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                    MyUserDetails userDetails = (MyUserDetails) userDetailsService.loadUserByUsername(username);
                     // 用户详细信息（userDetails）、空密码、用户权限（userDetails.getAuthorities()）来获取认证令牌
                     UsernamePasswordAuthenticationToken authenticationToken =
                             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -80,6 +81,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                     render(response, HttpStatusEnum.TOKEN_EXPIRED);
                 } else if (e instanceof TokenErrorException) {
                     render(response, HttpStatusEnum.TOKEN_ERROR);
+                } else if (e instanceof UsernameNotFoundException) {
+                    render(response, HttpStatusEnum.USER_NOT_FOUND);
                 } else {
                     render(response, HttpStatusEnum.INTERNAL_SERVER_ERROR);
                 }

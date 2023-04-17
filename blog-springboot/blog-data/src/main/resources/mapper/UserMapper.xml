@@ -21,9 +21,11 @@
     
     <resultMap id="UserWithRole" type="com.zrkizzy.data.domain.User" extends="BaseResultMap">
         <collection property="roles" ofType="com.zrkizzy.data.domain.Role">
-            <id column="rid" property="id" />
+            <id column="role_id" property="id" />
             <result column="role_name" property="name" />
             <result column="description" property="description" />
+            <result column="role_create_time" property="createTime" />
+            <result column="role_update_time" property="updateTime" />
         </collection>
     </resultMap>
 
@@ -46,8 +48,11 @@
             status,
             u.create_time,
             u.update_time,
+            r.id AS role_id,
             r.name AS role_name,
-            r.description AS description
+            r.description AS description,
+            r.create_time AS role_create_time,
+            r.update_time AS role_update_time
         FROM
             tb_user u
         LEFT JOIN

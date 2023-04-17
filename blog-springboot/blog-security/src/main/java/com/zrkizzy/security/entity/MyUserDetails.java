@@ -44,6 +44,24 @@ public class MyUserDetails implements UserDetails {
     }
 
     /**
+     * 获取用户ID
+     *
+     * @return 用户ID
+     */
+    public Long getUserId() {
+        return user.getId();
+    }
+
+    /**
+     * 获取用户角色
+     *
+     * @return 用户角色
+     */
+    public String getRole() {
+        return user.getRoles().get(0).getName();
+    }
+
+    /**
      * 返回用户密码
      *
      * @return 密码
