@@ -1,5 +1,6 @@
 package com.zrkizzy.data.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zrkizzy.data.domain.Role;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * @author zhangrongkang
  * @since 2023/3/8
  */
-public interface RoleMapper {
+public interface RoleMapper extends BaseMapper<Role> {
 
     /**
      * 获取所有角色

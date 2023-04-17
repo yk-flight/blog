@@ -1,5 +1,7 @@
 package com.zrkizzy.data.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zrkizzy.data.domain.Resource;
 import com.zrkizzy.data.dto.ResourceRoleDTO;
 
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
  * @author zhangrongkang
  * @since 2023/3/16
  */
-public interface ResourceMapper {
+public interface ResourceMapper extends BaseMapper<Resource> {
 
     /**
      * 加载资源角色数据
