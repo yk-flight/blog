@@ -1,11 +1,14 @@
 package com.zrkizzy.data.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zrkizzy.common.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 /**
  * 菜单实体类
@@ -66,5 +69,12 @@ public class Menu extends BaseEntity {
      */
     @ApiModelProperty("图标")
     private String icon;
+
+    /**
+     * 子菜单
+     */
+    @TableField(exist = false)
+    @ApiModelProperty("子菜单")
+    private List<Menu> children;
 
 }

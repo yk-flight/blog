@@ -58,4 +58,14 @@ public class CommonConst {
      */
     public static final String EXPIRES = "Expires";
 
+    /**
+     * 布局组件
+     */
+    public static final String LAYOUT = "Layout";
+
+    /**
+     * 默认父ID
+     */
+    public static final Long PARENT_ID = 0L;
+
 }
