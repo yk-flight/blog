@@ -4,8 +4,8 @@
     <el-scrollbar>
       <el-menu
         :background-color="variable.menuBackground"
-        text-color="#fff"
-        active-text-color="#ffd04b"
+        :text-color="variable.menuText"
+        :active-text-color="variable.menuActiveText"
       >
         <sidebar-item
           v-for="(route, index) in sidebarRouters"
@@ -325,15 +325,15 @@ export default {
           ]
         },
         {
-          name: 'Http://ruoyi.vip',
-          path: 'http://ruoyi.vip',
+          name: 'Https://www.zrkizzy.com',
+          path: 'https://www.zrkizzy.com',
           hidden: false,
           component: 'Layout',
           meta: {
-            title: '若依官网',
+            title: '博客首页',
             icon: 'guide',
             noCache: false,
-            link: 'http://ruoyi.vip'
+            link: 'https://www.zrkizzy.com'
           }
         }
       ]

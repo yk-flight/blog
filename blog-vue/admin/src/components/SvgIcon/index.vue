@@ -29,12 +29,6 @@ export default {
       default: ''
     }
   },
-
-  data () {
-    return {}
-  },
-
-  mounted () {},
   computed: {
     /**
      * 判断当前图标是否为外部图标

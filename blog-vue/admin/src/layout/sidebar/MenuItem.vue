@@ -21,6 +21,7 @@ export default {
     const nodes = []
     if (icon) {
       // Svg-Icon
+      nodes.push(<svg-icon icon={(icon)}></svg-icon>)
     }
     if (title) {
       nodes.push(<span>{(title)}</span>)
