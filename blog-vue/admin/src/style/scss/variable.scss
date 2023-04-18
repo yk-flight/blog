@@ -1,5 +1,13 @@
 $base-menu-background: #304156;
+$base-menu-text: #bfcbd9;
+$menu-active-text: rgb(64, 158, 255);
 
 :export {
-  menuBackground: $base-menu-background
+  // 菜单背景色
+  menuBackground: $base-menu-background;
+  // 菜单字体颜色
+  menuText: $base-menu-text;
+  // 菜单激活字体颜色
+  menuActiveText: $menu-active-text
+
 }
