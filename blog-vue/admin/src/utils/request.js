@@ -1,5 +1,5 @@
 import axios from 'axios'
-import store from '../store'
+import { getItem } from './cookie'
 import { Message } from 'element-ui'
 
 const service = axios.create({
@@ -12,9 +12,11 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     // 统一注入 token
-    if (store.getters.token) {
+    var token = getItem('token')
+    if (token) {
       // 如果存在 Token 则在每一次请求的请求头中添加 Token
-      config.headers.Authorization = `${store.getters.token}`
+      config.headers.Authorization = `Bearer ${token}`
+      console.log(config.headers.Authorization)
     }
     return config
   },
@@ -35,11 +37,6 @@ service.interceptors.response.use((response) => {
       // 业务逻辑错误，输出错误信息并返回
       Message.error({ message: message })
       return Promise.reject(new Error(message))
-    }
-    // 如果存在提示信息则输出提示信息
-    if (message) {
-      // 输出提示信息
-      Message.success({ message: message })
     }
     return data
   } else {
