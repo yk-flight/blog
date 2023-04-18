@@ -69,7 +69,8 @@ public class SwaggerConfig {
         // 管理员安全策略上下文
         list.add(SecurityContext.builder()
                 .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.ant("/admin/**"))
+                // 自动注入全局Token的路径
+                .forPaths(PathSelectors.ant("/**"))
                 .build());
         return list;
     }
