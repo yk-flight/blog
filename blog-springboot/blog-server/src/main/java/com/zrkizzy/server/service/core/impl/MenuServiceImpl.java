@@ -155,6 +155,10 @@ public class MenuServiceImpl implements IMenuService {
      * @return 当前菜单对应访问路径
      */
     private String getRouterPath(Menu menu) {
+        // 外链直接返回
+        if (menu.getPath().startsWith("http://") || menu.getPath().startsWith("https://")) {
+            return menu.getPath();
+        }
         // 父菜单拼接路径，子菜单直接返回
         return menu.getParentId().equals(PARENT_ID) ? "/" + menu.getPath() : menu.getPath();
     }
