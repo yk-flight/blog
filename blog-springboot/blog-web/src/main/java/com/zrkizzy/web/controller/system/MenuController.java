@@ -1,4 +1,4 @@
-package com.zrkizzy.web.controller.system.common;
+package com.zrkizzy.web.controller.system;
 
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.server.service.core.IMenuService;

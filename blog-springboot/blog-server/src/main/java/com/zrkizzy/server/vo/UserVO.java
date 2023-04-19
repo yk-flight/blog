@@ -22,16 +22,6 @@ public class UserVO extends BaseVO {
     private String username;
 
     /**
-     * 密码
-     */
-    private String password;
-
-    /**
-     * 用户邮箱
-     */
-    private String email;
-
-    /**
      * 昵称
      */
     private String nickname;
@@ -45,5 +35,10 @@ public class UserVO extends BaseVO {
      * 状态，0：禁用，1：启用
      */
     private Boolean status;
+
+    /**
+     * 用户角色
+     */
+    private String roles;
 
 }

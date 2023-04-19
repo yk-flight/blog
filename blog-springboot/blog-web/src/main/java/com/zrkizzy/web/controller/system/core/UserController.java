@@ -1,5 +1,6 @@
 package com.zrkizzy.web.controller.system.core;
 
+import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.utils.BeanCopyUtil;
 import com.zrkizzy.data.domain.User;
 import com.zrkizzy.security.util.SecurityUtil;
@@ -33,8 +34,15 @@ public class UserController {
 
     @ApiOperation("获取当前登录用户")
     @GetMapping("/getLoginUser")
-    public User getLoginUser() {
-        return securityUtil.getLoginUser();
+    public Result<UserVO> getLoginUser() {
+        // 获取当前登录用户对象
+        User user = securityUtil.getLoginUser();
+        // 转换为用户数据返回对象
+        UserVO userVO = BeanCopyUtil.copy(user, UserVO.class);
+        // 单独定义用户角色（用户只有一个角色）
+        userVO.setRoles(user.getRoles().get(0).getName());
+        // 返回数据
+        return Result.success(userVO);
     }
 
     @ApiOperation("获取所有用户")
