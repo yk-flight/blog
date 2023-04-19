@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Api(tags = "菜单控制器")
 @RestController
-@RequestMapping("/menu")
+@RequestMapping("/admin/menu")
 public class MenuController {
     @Autowired
     private IMenuService menuService;

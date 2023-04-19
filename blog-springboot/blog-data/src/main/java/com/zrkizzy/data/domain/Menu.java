@@ -71,6 +71,12 @@ public class Menu extends BaseEntity {
     private String icon;
 
     /**
+     * 菜单顺序
+     */
+    @ApiModelProperty("菜单顺序")
+    private Integer order;
+
+    /**
      * 子菜单
      */
     @TableField(exist = false)

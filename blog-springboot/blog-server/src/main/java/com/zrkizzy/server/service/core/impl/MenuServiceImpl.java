@@ -13,10 +13,10 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import static com.zrkizzy.common.constant.CommonConst.LAYOUT;
-import static com.zrkizzy.common.constant.CommonConst.PARENT_ID;
+import static com.zrkizzy.common.constant.CommonConst.*;
 
 /**
  * 菜单业务逻辑接口实现类
@@ -44,7 +44,6 @@ public class MenuServiceImpl implements IMenuService {
         List<Menu> menus = securityUtil.isAdmin() ?
                 menuMapper.getAllRoutes() :
                 menuMapper.getRoutes(securityUtil.getLoginUserRole());
-
         // 封装菜单数据并返回
         return buildRoutes(menus);
     }
@@ -53,7 +52,6 @@ public class MenuServiceImpl implements IMenuService {
      * 构建菜单数据
      *
      * @param menus 用户所有菜单
-     * @param parentId 父ID
      * @return 菜单数据
      */
     private List<RouterVO> buildRoutes(List<Menu> menus) {
@@ -64,27 +62,19 @@ public class MenuServiceImpl implements IMenuService {
         // 遍历用户菜单集合转为路由集合
         for (Menu menu : menuList) {
             // 根据当前菜单构建路由
-            RouterVO routerVO = RouterVO.builder()
-                    // 组件名称 => path首字母转大写
-                    .name(StringUtils.capitalize(menu.getPath()))
-                    .component(getRouterComponent(menu))
-                    .hidden(menu.getVisible())
-                    // 拼接组件访问路径
-                    .path(getRouterPath(menu))
-                    .children(getRouterChildren(menu.getChildren()))
-                    .meta(new MetaVO(menu.getName(), menu.getIcon(), menu.getIsCache(), getRouterLink(menu)))
-                    .build();
+            RouterVO routerVO = buildRouteVO(menu);
             routes.add(routerVO);
         }
-        // 封装子菜单并返回
+        // 排序菜单并返回
+        Collections.sort(routes);
         return routes;
     }
 
     /**
      * 获取当前子菜单
      *
-     * @param children
-     * @return
+     * @param children 子菜单集合
+     * @return 子菜单集合
      */
     private List<RouterVO> getRouterChildren(List<Menu> children) {
         // 没有子菜单则返回
@@ -92,24 +82,35 @@ public class MenuServiceImpl implements IMenuService {
             return null;
         }
         // 返回路由集合
-        List<RouterVO> routes = new ArrayList<>();
+        List<RouterVO> childRoutes = new ArrayList<>();
         // 遍历用户菜单集合转为路由集合
         for (Menu menu : children) {
-            // 根据当前菜单构建路由
-            RouterVO routerVO = RouterVO.builder()
-                    // 组件名称 => path首字母转大写
-                    .name(StringUtils.capitalize(menu.getPath()))
-                    .component(getRouterComponent(menu))
-                    .hidden(menu.getVisible())
-                    // 拼接组件访问路径
-                    .path(getRouterPath(menu))
-                    .children(getRouterChildren(menu.getChildren()))
-                    .meta(new MetaVO(menu.getName(), menu.getIcon(), menu.getIsCache(), getRouterLink(menu)))
-                    .build();
-            routes.add(routerVO);
+            childRoutes.add(buildRouteVO(menu));
         }
-        // 封装子菜单并返回
-        return routes;
+        // 封装子菜单排序后返回
+        Collections.sort(childRoutes);
+        return childRoutes;
+    }
+
+    /**
+     * 根据菜单对象构建路由返回对象
+     *
+     * @param menu 菜单对象
+     * @return 路由返回对象
+     */
+    private RouterVO buildRouteVO(Menu menu) {
+        // 根据当前菜单构建路由
+        return RouterVO.builder()
+                // 组件名称 => path首字母转大写
+                .name(StringUtils.capitalize(menu.getPath()))
+                .component(getRouterComponent(menu))
+                .hidden(menu.getVisible())
+                // 拼接组件访问路径
+                .path(getRouterPath(menu))
+                .children(getRouterChildren(menu.getChildren()))
+                .order(menu.getOrder())
+                .meta(new MetaVO(menu.getName(), menu.getIcon(), menu.getIsCache(), getRouterLink(menu)))
+                .build();
     }
 
     /**
@@ -156,7 +157,7 @@ public class MenuServiceImpl implements IMenuService {
      */
     private String getRouterPath(Menu menu) {
         // 外链直接返回
-        if (menu.getPath().startsWith("http://") || menu.getPath().startsWith("https://")) {
+        if (menu.getPath().startsWith(HTTP_PREFIX) || menu.getPath().startsWith(HTTPS_PREFIX)) {
             return menu.getPath();
         }
         // 父菜单拼接路径，子菜单直接返回

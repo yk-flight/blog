@@ -1,5 +1,6 @@
 package com.zrkizzy.server.vo.route;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ import java.util.List;
 @Data
 @Builder
 @AllArgsConstructor
-public class RouterVO {
+public class RouterVO implements Comparable<RouterVO> {
 
     /**
      * 组件名称
@@ -47,4 +48,19 @@ public class RouterVO {
      */
     private List<RouterVO> children;
 
+    /**
+     * 菜单序号
+     */
+    @JsonIgnore
+    private Integer order;
+
+    /**
+     * 自定义排序规则
+     *
+     * @return 排序结果 升序：> 0，降序: < 0
+     */
+    @Override
+    public int compareTo(RouterVO routerVO) {
+        return this.order - routerVO.getOrder();
+    }
 }

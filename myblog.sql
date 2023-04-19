@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 18/04/2023 13:52:00
+ Date: 19/04/2023 17:28:18
 */
 
 SET NAMES utf8mb4;
@@ -31,6 +31,7 @@ CREATE TABLE `tb_menu` (
   `is_link` tinyint(4) DEFAULT NULL COMMENT '是否外链 （0: 不是外链 1: 外链）',
   `visible` tinyint(4) DEFAULT NULL COMMENT '是否隐藏 （0: 不隐藏 1: 隐藏）',
   `icon` varchar(50) DEFAULT NULL COMMENT '图标',
+  `order` int(11) DEFAULT NULL COMMENT '菜单顺序',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -40,10 +41,11 @@ CREATE TABLE `tb_menu` (
 -- Records of tb_menu
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `create_time`, `update_time`) VALUES (1647951751875133440, '文章管理', 0, 'article', NULL, 0, 0, 0, 'article', '2023-04-17 21:17:07', '2023-04-18 00:31:21');
-INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `create_time`, `update_time`) VALUES (1647951751875133441, '消息管理', 0, 'message', NULL, 0, 0, 0, 'message', '2023-04-17 21:17:46', '2023-04-18 00:31:25');
-INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `create_time`, `update_time`) VALUES (1647951751875133442, '博客首页', 0, 'http://www.zrkizzy.com', NULL, 0, 1, 0, 'guide', '2023-04-17 21:19:30', '2023-04-18 00:31:27');
-INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `create_time`, `update_time`) VALUES (1647952968122630144, '发布文章', 1647951751875133440, 'publish', 'article/publish/index', 0, 0, 0, 'create-article', '2023-04-17 21:22:42', '2023-04-17 13:22:44');
+INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1647951751875133440, '内容管理', 0, 'article', NULL, 0, 0, 0, 'article', 1, '2023-04-17 21:17:07', '2023-04-19 09:27:53');
+INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1647951751875133441, '消息管理', 0, 'message', NULL, 0, 0, 0, 'message', 2, '2023-04-17 21:17:46', '2023-04-19 08:49:53');
+INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1647951751875133442, '博客首页', 0, 'https://www.zrkizzy.com', NULL, 0, 1, 0, 'guide', 3, '2023-04-17 21:19:30', '2023-04-19 09:27:54');
+INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1647952968122630144, '发布文章', 1647951751875133440, 'publish', 'article/publish/index', 0, 0, 0, 'article-create', 2, '2023-04-17 21:22:42', '2023-04-19 09:27:56');
+INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1648539108017963008, '查看文章', 1647951751875133440, 'view', NULL, 0, 0, 0, 'article-create', 1, '2023-04-19 12:09:46', '2023-04-19 09:27:57');
 COMMIT;
 
 -- ----------------------------
@@ -67,6 +69,7 @@ INSERT INTO `tb_menu_role` (`id`, `role_id`, `menu_id`, `create_time`, `update_t
 INSERT INTO `tb_menu_role` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`) VALUES (1647963394059272193, 1633646396710060032, 1647951751875133441, '2023-04-17 22:02:31', '2023-04-17 14:02:32');
 INSERT INTO `tb_menu_role` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`) VALUES (1647963394059272194, 1633646396710060032, 1647951751875133442, '2023-04-17 22:02:57', '2023-04-17 14:02:59');
 INSERT INTO `tb_menu_role` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`) VALUES (1647963893261139968, 1633646396710060032, 1647952968122630144, '2023-04-17 22:03:20', '2023-04-17 14:03:22');
+INSERT INTO `tb_menu_role` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`) VALUES (1648539108017963009, 1633646396710060032, 1648539108017963008, '2023-04-19 12:10:58', '2023-04-19 04:11:00');
 COMMIT;
 
 -- ----------------------------
@@ -133,7 +136,7 @@ BEGIN;
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1636187548919267328, '获取所有用户', '获取当前系统中所有用户信息', 'POST', '/admin/user/list', 1636182933754609665, '2023-03-16 10:17:39', '2023-04-13 07:06:14');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1636187548919267329, '获取所有角色', '获取当前系统中所有角色的信息', 'POST', '/admin/role/list', 1636182933754609665, '2023-03-16 10:24:57', '2023-04-13 07:06:16');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1647860341062762496, '获取当前登录用户', '获取当前系统登录用户', 'GET', '/admin/user/getLoginUser', 1636182933754609665, '2023-04-17 15:12:14', '2023-04-17 21:24:19');
-INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1647952968122630145, '获取菜单列表', '获取菜单列表', 'GET', '/menu/getRoutes', 1636182933754609665, '2023-04-17 21:24:19', '2023-04-17 21:24:19');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1647952968122630145, '获取菜单列表', '获取菜单列表', 'GET', '/admin/menu/getRoutes', 1636182933754609665, '2023-04-17 21:24:19', '2023-04-19 08:28:04');
 COMMIT;
 
 -- ----------------------------
