@@ -16,7 +16,6 @@ service.interceptors.request.use(
     if (token) {
       // 如果存在 Token 则在每一次请求的请求头中添加 Token
       config.headers.Authorization = `Bearer ${token}`
-      console.log(config.headers.Authorization)
     }
     return config
   },
