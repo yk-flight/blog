@@ -70,7 +70,7 @@ public class SwaggerConfig {
         list.add(SecurityContext.builder()
                 .securityReferences(defaultAuth())
                 // 自动注入全局Token的路径
-                .forPaths(PathSelectors.ant("/**"))
+                .forPaths(PathSelectors.ant("/admin/**"))
                 .build());
         return list;
     }

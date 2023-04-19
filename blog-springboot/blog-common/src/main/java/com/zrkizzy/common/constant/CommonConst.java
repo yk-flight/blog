@@ -68,4 +68,14 @@ public class CommonConst {
      */
     public static final Long PARENT_ID = 0L;
 
+    /**
+     * http请求前缀
+     */
+    public static final String HTTP_PREFIX = "http://";
+
+    /**
+     * https请求前缀
+     */
+    public static final String HTTPS_PREFIX = "https://";
+
 }
