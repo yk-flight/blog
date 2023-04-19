@@ -10,3 +10,13 @@ export const login = (data) => {
     data: data
   })
 }
+
+/**
+ * 获取菜单
+ */
+export const generateRoutes = () => {
+  return request({
+    url: '/menu/getRoutes',
+    method: 'GET'
+  })
+}

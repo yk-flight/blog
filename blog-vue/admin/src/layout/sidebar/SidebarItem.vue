@@ -2,7 +2,7 @@
   <div v-if="!item.hidden">
     <template v-if="!item.children">
       <app-link :to="resolvePath(item.path)">
-        <el-menu-item>
+        <el-menu-item :index="item.path">
           <menu-item
             :icon="item.meta.icon"
             :title="item.meta.title"
