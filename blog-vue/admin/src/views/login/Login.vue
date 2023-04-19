@@ -129,7 +129,7 @@ export default {
       this.$refs.loginForm.validate((valid) => {
         this.loading = true
         if (valid) {
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
+          this.$store.dispatch('login', this.loginForm).then(() => {
             // 跳转到后台首页
             this.$router.replace('/home')
           }).catch(() => {

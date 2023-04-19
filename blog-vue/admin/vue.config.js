@@ -11,6 +11,8 @@ module.exports = {
     proxy: {
       // 所有带'/api'请求的都要进行代理转发
       '/api': {
+        // websocket
+        ws: false,
         // 代理的目标地址
         target: process.env.VUE_APP_BASE_URL,
         // 配置跨域
