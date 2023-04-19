@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { getItem } from './cookie'
 import { Message } from 'element-ui'
+import { TOKEN } from '../constant/index'
 
 const service = axios.create({
   baseURL: '/api',
@@ -12,7 +13,7 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     // 统一注入 token
-    var token = getItem('token')
+    var token = getItem(TOKEN)
     if (token) {
       // 如果存在 Token 则在每一次请求的请求头中添加 Token
       config.headers.Authorization = `Bearer ${token}`

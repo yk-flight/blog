@@ -1,19 +1,20 @@
 import { login } from '../../api/system'
 import { getLoginUser } from '../../api/user'
+import { TOKEN } from '../../constant/index'
 import { setItem, getItem } from '../../utils/cookie'
 
 const user = {
   state: {
     // 用户token
-    token: getItem('token'),
+    token: getItem(TOKEN),
     // 用户角色
     roles: ''
   },
   mutations: {
-    setToken (state, token) {
+    SET_TOKEN (state, token) {
       state.token = token
     },
-    setRoles (state, roles) {
+    SET_ROLES (state, roles) {
       state.roles = roles
     }
   },
@@ -29,8 +30,8 @@ const user = {
       return new Promise((resolve, reject) => {
         login({ username, password, code }).then((data) => {
           // 设置token值
-          commit('setToken', data)
-          setItem('token', data)
+          commit('SET_TOKEN', data)
+          setItem(TOKEN, data)
           resolve()
         }).catch((error) => {
           // 如果出现登录异常的情况将其捕获并抛出
@@ -50,7 +51,7 @@ const user = {
           const avatar = (user.avatar === '' || user.avatar === null) ? require('@/assets/images/logo.png') : user.avatar
           console.log(avatar)
           // 设置当前用户角色到Vuex中
-          commit('setRoles', user.roles)
+          commit('SET_ROLES', user.roles)
           resolve(user)
         }).catch((error) => {
           // 如果出现登录异常的情况将其捕获并抛出
