@@ -16,7 +16,7 @@ export const login = (data) => {
  */
 export const generateRoutes = () => {
   return request({
-    url: '/menu/getRoutes',
+    url: '/admin/menu/getRoutes',
     method: 'GET'
   })
 }
