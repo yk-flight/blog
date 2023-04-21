@@ -14,7 +14,7 @@
 <script>
 import SideBar from './sidebar/index'
 import NavBar from './NavBar'
-import TagsView from './tagsview/index'
+import TagsView from './components/tagsview/index'
 import AppMain from './AppMain.vue'
 
 export default {

@@ -1,4 +1,8 @@
 #app {
+  a {
+    text-decoration: none;   
+  }
+
   .main-container {
     margin-left: 200px;
     min-height: 100%;
@@ -10,7 +14,7 @@
     background: $base-menu-background;
     position: fixed;
     box-shadow: 2px 0 6px rgba(0,21,41,.35);
-  
+
     .el-menu {
       border: none;
     }

@@ -1,6 +1,6 @@
 import { generateRoutes } from '../../api/system'
 import { constantRoutes } from '../../router'
-import Layout from '../../layout/Layout'
+import Layout from '../../layout/index'
 
 const permission = {
   state: {
@@ -27,7 +27,6 @@ const permission = {
           // 根据组件的实际路径完成拼接动作
           const rewirteRoutes = filterAsyncRouter(routeData)
           const sidebarRoutes = filterAsyncRouter(sidebarData)
-          console.log('拼接合并好的路由为：', constantRoutes.concat(sidebarRoutes))
           // 拼接公共路由后设置当前用户角色到Vuex中
           commit('SET_ROUTES', constantRoutes.concat(sidebarRoutes))
           resolve(rewirteRoutes)
@@ -45,31 +44,24 @@ const permission = {
  */
 function filterAsyncRouter (asyncRouterMap) {
   return asyncRouterMap.filter(route => {
-    // 处理子菜单的路由
-    // if (route.children) {
-    //   route.children = filterChildren(route.children)
-    // }
     // 在component存在的情况下才能够进行处理
     if (route.component) {
+      // 如果当前路由的组件是Layout
       if (route.component === 'Layout') {
         route.component = Layout
       } else {
+        // 非父菜单组件都到views目录下加载
         route.component = loadComponent(route.component)
       }
     }
+    // 如果当前路由含有子路由
     if (route.children !== null && route.children && route.children.length > 0) {
+      // 递归加载子路由
       route.children = filterAsyncRouter(route.children)
     }
     return true
   })
 }
-
-// function filterChildren (childrenMap, lastRouter = false) {
-//   // var children = []
-//   childrenMap.forEach((el, index) => {
-//     console.log(el)
-//   })
-// }
 
 /**
  * 根据组件路径加载对应组件
