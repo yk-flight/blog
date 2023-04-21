@@ -54,12 +54,6 @@ export default {
       default: ''
     }
   },
-  created () {
-    console.log('******************* 创建新组件 *******************')
-    console.log('组件参数菜单子项：', this.item)
-    console.log('组件参数基本路径：', this.basePath)
-    console.log('******************* 完成新组件 *******************')
-  },
   data () {
     // 只有一个子菜单时
     this.onlyOneChild = null
@@ -71,11 +65,6 @@ export default {
      * 拼接路由
      */
     resolvePath (routePath) {
-      console.log('================== resolvePath() ================ start')
-      console.log('基础路由：', this.basePath)
-      console.log('传来的onlyChildRoute子菜单路由：', routePath)
-      console.log('传来路由是否为外链：', isExternal(routePath))
-      console.log('基础路由是否为外链：', isExternal(this.basePath))
       // 如果链接是外部链接
       if (isExternal(routePath)) {
         return routePath
@@ -84,23 +73,17 @@ export default {
       if (isExternal(this.basePath)) {
         return this.basePath
       }
-      console.log('合并路由：', path.resolve(this.basePath, routePath))
-      console.log('================== resolvePath() ================ end')
       return path.resolve(this.basePath, routePath)
     },
     /**
      * 返回只有一个子菜单时是否展示
      */
     hasOneShowChild (children, parent) {
-      console.log('------------------ hasOneShowChild() ------------------ start')
-      console.log('当前传来进行判断的子路由为：', children)
-      console.log('当前传来进行判断的父路由为：', parent)
       // 如果不存在子菜单
       if (!children) {
         // 直接将子菜单置空
         children = []
       }
-      console.log('进入子路由的循环...')
       const showingChildren = children.filter(item => {
         // 子菜单隐藏
         if (item.hidden) {
@@ -110,25 +93,24 @@ export default {
           return true
         }
       })
-      console.log('遍历结束后的onlyOneChild为：', this.onlyOneChild)
-      console.log('showingChildren：', showingChildren)
       if (showingChildren.length === 1) {
-        console.log('------------------ hasOneShowChild() ------------------ end')
         return true
       }
 
+      // 递归到底时，此时的parent就是要加载的每一个子菜单项
       if (showingChildren.length === 0) {
-        this.onlyOneChild = {
-          ...parent,
-          path: ''
+        if (isExternal(parent.path)) {
+          this.onlyOneChild = {
+            ...parent
+          }
+        } else {
+          this.onlyOneChild = {
+            ...parent,
+            path: ''
+          }
         }
-        console.log('重新赋值后的onlyOneChild为：', this.onlyOneChild)
-        console.log('当前是否可以设置路由：true')
-        console.log('------------------ hasOneShowChild() ------------------ end')
         return true
       }
-      console.log('当前是否可以设置路由：false')
-      console.log('------------------ hasOneShowChild() ------------------ end')
       return false
     }
   }
