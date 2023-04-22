@@ -1,6 +1,12 @@
 $base-menu-background: #304156;
 $base-menu-text: #bfcbd9;
 $menu-active-text: rgb(64, 158, 255);
+$base-menu-color-active: #f4f4f5;
+
+$base-sidebar-width: 200px;
+
+$base-sub-menu-background: #1f2d3d;
+$base-sub-menu-hover: #001528;
 
 :export {
   // 菜单背景色
@@ -8,6 +14,11 @@ $menu-active-text: rgb(64, 158, 255);
   // 菜单字体颜色
   menuText: $base-menu-text;
   // 菜单激活字体颜色
-  menuActiveText: $menu-active-text
-
+  menuActiveText: $menu-active-text;
+  // 子菜单默认背景色
+  subMenuBackground: $base-sub-menu-background;
+  // 子菜单默认移动背景色
+  subMenuHover: $base-sub-menu-hover;
+  // 菜单基本宽度
+  sideBarWidth: $base-sidebar-width;
 }
