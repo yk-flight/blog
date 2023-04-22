@@ -1,25 +1,157 @@
 #app {
-  a {
+  a, span {
     text-decoration: none;   
   }
 
   .main-container {
+    transition: margin-left .28s;
     margin-left: 200px;
     min-height: 100%;
   }
   
   .sidebar-container {
+    -webkit-transition: width .28s;
+    transition: width 0.28s;
     width: 200px;
     height: 100%;
     background: $base-menu-background;
     position: fixed;
     box-shadow: 2px 0 6px rgba(0,21,41,.35);
+    overflow: hidden;
+
+    // 重置 element 的css
+    .horizontal-collapse-transition {
+      transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
+    }
+
+    .scrollbar-wrapper {
+      overflow-x: hidden !important;
+    }
+
+    .el-scrollbar__bar.is-vertical {
+      right: 0px;
+    }
+
+    .el-scrollbar {
+      height: 100%;
+    }
+
+    &.has-logo {
+      .el-scrollbar {
+        height: calc(100% - 50px);
+      }
+    }
+
+    .is-horizontal {
+      display: none;
+    }
+
+    .svg-icon {
+      margin-right: 16px;
+    }
+
+    .sub-el-icon {
+      margin-right: 12px;
+      margin-left: -2px;
+    }
 
     .el-menu {
       border: none;
+      height: 100%;
+      width: 100% !important;
     }
-    .svg-icon {
-      margin-right: 15px;
+
+    .is-active > .el-submenu__title {
+      color: #f4f4f5 !important;
+    }
+
+    & .nest-menu .el-submenu > .el-submenu__title,
+    & .el-submenu .el-menu-item {
+      min-width: 200px !important;
+      background-color: #1f2d3d!important;
+    }
+
+    & .nest-menu .el-submenu > .el-submenu__title,
+    & .el-submenu .el-menu-item:hover {
+      background-color: #001528!important;
+    }
+
+  }
+
+  .hideSidebar {
+
+    h1 {
+      display: none;
+    }
+
+    .sidebar-container {
+      width: 50px !important;
+
+      .logo-container {
+        width: 50px !important;
+      }
+    }
+
+    .main-container {
+      margin-left: 50px;
+    }
+
+    .el-submenu {
+      overflow: hidden;
+
+      & > .el-submenu__title {
+        padding: 0 !important;
+        .svg-icon {
+          margin-left: 20px;
+        }
+        .sub-el-icon {
+          margin-left: 19px;
+        }
+        .el-submenu__icon-arrow {
+          display: none;
+        }
+      }
+    }
+
+    .el-menu--collapse {
+      .el-submenu {
+        & > .el-submenu__title {
+          & > span {
+            height: 0;
+            width: 0;
+            overflow: hidden;
+            visibility: hidden;
+            display: inline-block;
+          }
+        }
+      }
+    }
+
+    .el-menu--vertical {
+      
+      & > .el-menu {
+        a {
+          text-decoration: none;
+        }
+        & > .el-menu-item {
+          .svg-icon {
+            margin-right: 16px;
+          }
+          .sub-el-icon {
+            margin-right: 12px;
+            margin-left: -2px;
+          }
+        }
+      }
+    }
+
+    .logo-container {
+      width: 50px;
+      height: 50px;
+      margin: auto auto;
+      vertical-align: middle;
     }
   }
+
+  
 }

@@ -1,8 +1,9 @@
 <template>
   <div>
-    <logo></logo>
+    <logo :collapse="this.$store.getters.isCollapse"></logo>
     <el-scrollbar>
       <el-menu
+        :collapse="this.$store.getters.isCollapse"
         :background-color="variable.menuBackground"
         :text-color="variable.menuText"
         :active-text-color="variable.menuActiveText"

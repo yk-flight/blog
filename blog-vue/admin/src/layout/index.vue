@@ -1,5 +1,7 @@
 <template>
-  <div class="app-wrapper">
+  <div
+    class="app-wrapper"
+    :class="this.$store.getters.isCollapse ? 'hideSidebar' : 'openSidebar'">
     <side-bar class="sidebar-container"></side-bar>
     <div class="main-container">
       <div>
@@ -28,6 +30,14 @@ export default {
   data () {
     return {
 
+    }
+  },
+
+  computed: {
+    sidebarClass () {
+      return {
+        hideSidebar: this.$store.getters.isCollapse
+      }
     }
   },
 

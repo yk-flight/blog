@@ -45,7 +45,8 @@ export default {
           // 跳转路径
           href: to,
           // 空白页面打开
-          target: '_blank'
+          target: '_blank',
+          style: 'text-decoration: none'
         }
       }
       return {

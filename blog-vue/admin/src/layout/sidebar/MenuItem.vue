@@ -24,7 +24,7 @@ export default {
       nodes.push(<svg-icon icon={(icon)}></svg-icon>)
     }
     if (title) {
-      nodes.push(<span>{(title)}</span>)
+      nodes.push(<span slot='title'>{(title)}</span>)
     }
     return nodes
   }
