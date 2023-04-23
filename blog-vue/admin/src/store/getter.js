@@ -7,7 +7,9 @@ const getters = {
   // 是否折叠菜单
   isCollapse: state => state.app.isCollapse,
   // 右侧功能栏
-  rightPanelShow: state => state.app.rightPanelShow
+  rightPanelShow: state => state.app.rightPanelShow,
+  // 标签页
+  tagsViewList: state => state.app.tagsViewList
 }
 
 export default getters

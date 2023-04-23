@@ -3,6 +3,12 @@
     <hamburger class="hamburger-container"></hamburger>
     <breadcrumb class="breadcrumb-container"></breadcrumb>
     <div class="right-menu">
+        <el-tooltip effect="dark" content="博客地址" placement="bottom">
+          <a :href="blogUrl" target="__blank">
+            <svg-icon icon="link" class="right-menu-item hover-effect"></svg-icon>
+          </a>
+        </el-tooltip>
+
         <el-tooltip effect="dark" content="Github" placement="bottom">
           <a :href="GithubUrl" target="__blank">
             <svg-icon icon="github" class="right-menu-item hover-effect"></svg-icon>
@@ -52,7 +58,9 @@ export default {
       // 项目Github地址
       GithubUrl: 'https://gitee.com/dream-flight/blog',
       // 项目Gitee地址
-      GiteeUrl: 'https://gitee.com/dream-flight/blog'
+      GiteeUrl: 'https://gitee.com/dream-flight/blog',
+      // 博客前台地址
+      blogUrl: 'https://www.zrkizzy.com'
     }
   },
 
@@ -107,9 +115,12 @@ export default {
     display: inline-block;
     padding: 0 8px;
     height: 100%;
-    font-size: 18px;
     color: #5a5e66;
     vertical-align: text-bottom;
+
+    &.svg-icon {
+      font-size: 18px;
+    }
 
     &.hover-effect {
       cursor: pointer;
