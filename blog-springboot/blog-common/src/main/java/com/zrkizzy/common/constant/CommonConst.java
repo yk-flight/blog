@@ -78,4 +78,9 @@ public class CommonConst {
      */
     public static final String HTTPS_PREFIX = "https://";
 
+    /**
+     * 无需重定向
+     */
+    public static final String NO_REDIRECT = "noRedirect";
+
 }

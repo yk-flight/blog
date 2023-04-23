@@ -108,9 +108,20 @@ public class MenuServiceImpl implements IMenuService {
                 // 拼接组件访问路径
                 .path(getRouterPath(menu))
                 .children(getRouterChildren(menu.getChildren()))
+                .redirect(getRouterRedirect(menu.getChildren()))
                 .order(menu.getOrder())
                 .meta(new MetaVO(menu.getName(), menu.getIcon(), menu.getIsCache(), getRouterLink(menu)))
                 .build();
+    }
+
+    /**
+     * 配置路由返回对象是否重定向
+     *
+     * @param children 子菜单
+     * @return String 是否重定向
+     */
+    private String getRouterRedirect(List<Menu> children) {
+        return CollectionUtils.isEmpty(children) ? null : NO_REDIRECT;
     }
 
     /**

@@ -44,6 +44,11 @@ public class RouterVO implements Comparable<RouterVO> {
     private MetaVO meta;
 
     /**
+     * 是否可以跳转，定义了noRedirect后在面包屑导航中不可被点击
+     */
+    private String redirect;
+
+    /**
      * 子菜单
      */
     private List<RouterVO> children;
