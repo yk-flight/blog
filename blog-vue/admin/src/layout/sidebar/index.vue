@@ -1,13 +1,14 @@
 <template>
   <div>
-    <logo :collapse="this.$store.getters.isCollapse"></logo>
+    <logo :collapse="isCollapse"></logo>
     <el-scrollbar>
       <el-menu
-        :collapse="this.$store.getters.isCollapse"
+        :default-active="activeMenu"
+        :collapse="isCollapse"
         :background-color="variable.menuBackground"
         :text-color="variable.menuText"
         :active-text-color="variable.menuActiveText"
-        mode="vertical"
+        :collapse-transition="false"
       >
         <sidebar-item
           v-for="(route, index) in sidebarRouters"
@@ -24,7 +25,7 @@
 import Logo from './Logo.vue'
 import variable from '../../style/scss/variable.scss'
 import SidebarItem from './SidebarItem'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'Sidebar',
@@ -38,9 +39,21 @@ export default {
   },
   computed: {
     ...mapGetters(['sidebarRouters']),
-    // 监听scss文件中的颜色变量
+    ...mapState(['isCollapse']),
+    activeMenu () {
+      const route = this.$route
+      const { meta, path } = route
+      // if set path, the sidebar will highlight the path you set
+      if (meta.activeMenu) {
+        return meta.activeMenu
+      }
+      return path
+    },
     variable () {
       return variable
+    },
+    isCollapse () {
+      return this.$store.getters.isCollapse
     }
   },
   mounted () {},

@@ -99,15 +99,9 @@ export default {
 
       // 递归到底时，此时的parent就是要加载的每一个子菜单项
       if (showingChildren.length === 0) {
-        if (isExternal(parent.path)) {
-          this.onlyOneChild = {
-            ...parent
-          }
-        } else {
-          this.onlyOneChild = {
-            ...parent,
-            path: ''
-          }
+        this.onlyOneChild = {
+          ...parent,
+          path: ''
         }
         return true
       }

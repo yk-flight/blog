@@ -9,14 +9,16 @@
         <tags-view></tags-view>
       </div>
       <app-main></app-main>
+      <right-panel></right-panel>
     </div>
   </div>
 </template>
 
 <script>
-import SideBar from './sidebar/index'
+import RightPanel from '../components/RightPanel'
+import SideBar from './SideBar/index'
 import NavBar from './NavBar'
-import TagsView from './components/tagsview/index'
+import TagsView from './components/TagsView/index'
 import AppMain from './AppMain.vue'
 
 export default {
@@ -25,7 +27,8 @@ export default {
     SideBar,
     NavBar,
     TagsView,
-    AppMain
+    AppMain,
+    RightPanel
   },
   data () {
     return {
