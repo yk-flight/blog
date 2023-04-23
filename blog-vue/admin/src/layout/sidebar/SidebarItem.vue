@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import MenuItem from './MenuItem.vue'
-import AppLink from './AppLink.vue'
+import MenuItem from './MenuItem'
+import AppLink from './AppLink'
 import path from 'path'
 import { isExternal } from '../../utils/validate'
 

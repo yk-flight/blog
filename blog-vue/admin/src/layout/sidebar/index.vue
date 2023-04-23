@@ -25,7 +25,7 @@
 import Logo from './Logo.vue'
 import variable from '../../style/scss/variable.scss'
 import SidebarItem from './SidebarItem'
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Sidebar',
@@ -39,7 +39,6 @@ export default {
   },
   computed: {
     ...mapGetters(['sidebarRouters']),
-    ...mapState(['isCollapse']),
     activeMenu () {
       const route = this.$route
       const { meta, path } = route

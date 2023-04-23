@@ -1,10 +1,15 @@
 <template>
-  <div>
-    <div class="rightPanel-container">
-    </div>
+  <div ref="rightPanel"  :class="{show:show}">
+    <div class="rightPanel-background" />
     <div class="rightPanel">
-      <div class="handle-button" :style="{'top':buttonTop+'px','background-color': '#409EFF'}" @click="show=!show">
-        <i class="el-icon-setting" />
+      <div
+        class="handle-button"
+        :style="{'top':buttonTop+'px','background-color': '#409EFF'}"
+        @click="show=!show">
+        <i :class="show?'el-icon-close':'el-icon-setting'" />
+      </div>
+      <div class="rightPanel-items">
+        <div>测试</div>
       </div>
     </div>
   </div>
@@ -15,6 +20,10 @@
 export default {
   name: 'RightPanel',
   props: {
+    clickNotClose: {
+      default: false,
+      type: Boolean
+    },
     buttonTop: {
       default: 250,
       type: Number
@@ -22,21 +31,63 @@ export default {
   },
   data () {
     return {
-
+      show: false
     }
   },
-
-  mounted () {
-
+  computed: {
+    closeRightPanel () {
+      return this.$store.rightPanelShow
+    }
   },
-
+  mounted () {
+    this.insertToBody()
+  },
+  beforeDestroy () {
+    const elx = this.$refs.rightPanel
+    elx.remove()
+  },
+  watch: {
+    show (value) {
+      if (value && !this.clickNotClose) {
+        this.addEventClick()
+      }
+      if (value) {
+        // 在body的class样式后拼接
+        document.body.classList.add('showRightPanel')
+      } else {
+        // 如果点击标签则移除当前样式
+        document.body.classList.remove('showRightPanel')
+      }
+    }
+  },
   methods: {
-
+    // 添加鼠标点击事件
+    addEventClick () {
+      window.addEventListener('click', this.closeSidebar)
+    },
+    closeSidebar (evt) {
+      const parent = evt.target.closest('.rightPanel')
+      if (!parent) {
+        this.show = false
+        window.removeEventListener('click', this.closeSidebar)
+      }
+    },
+    insertToBody () {
+      const elx = this.$refs.rightPanel
+      const body = document.querySelector('body')
+      body.insertBefore(elx, body.firstChild)
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.showRightPanel {
+  overflow: hidden;
+  position: relative;
+  width: calc(100% - 15px);
+}
+
 .rightPanel-background {
   position: fixed;
   top: 0;
@@ -59,6 +110,21 @@ export default {
   transform: translate(100%);
   background: #fff;
   z-index: 40000;
+}
+
+.show {
+  transition: all .3s cubic-bezier(.7, .3, .1, 1);
+
+  .rightPanel-background {
+    z-index: 9999;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+  }
+
+  .rightPanel {
+    transform: translate(0);
+  }
 }
 
 .handle-button {

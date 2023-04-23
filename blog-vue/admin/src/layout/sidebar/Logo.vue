@@ -32,7 +32,8 @@ export default {
       title: '后台管理系统'
     }
   },
-
+  computed: {
+  },
   mounted () {
 
   },
@@ -58,7 +59,7 @@ export default {
   width: 100%;
   height: 50px;
   line-height: 50px;
-  background: #304156;
+  background: #2b2f3a;
   text-align: center;
   overflow: hidden;
 

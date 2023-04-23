@@ -5,7 +5,9 @@ const getters = {
   // 用户菜单
   sidebarRouters: state => state.permission.sidebarRouters,
   // 是否折叠菜单
-  isCollapse: state => state.app.isCollapse
+  isCollapse: state => state.app.isCollapse,
+  // 右侧功能栏
+  rightPanelShow: state => state.app.rightPanelShow
 }
 
 export default getters
