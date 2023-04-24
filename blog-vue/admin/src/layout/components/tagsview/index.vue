@@ -95,7 +95,7 @@ export default {
   }
 
   .tags-view-left {
-    width: 100%;
+    width: calc(100vw - 100px);
     /* 设置超出滚动 */
     overflow-x: auto;
     overflow-y: hidden;
@@ -143,6 +143,8 @@ export default {
     }
     &.active {
       color: #fff;
+      border: none;
+      padding: 0 15px;
       &::before {
         content: "";
         background: #fff;
