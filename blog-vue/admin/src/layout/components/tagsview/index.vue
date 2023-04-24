@@ -64,22 +64,16 @@ export default {
         type: 'index',
         index
       })
-      var path = this.$store.getters.tagsViewList[
-        this.$store.getters.tagsViewList.length - 1
-      ].path
-      if (!this.$route.path.includes(path)) {
-        // 当前路径中不包括本path就执行
-        this.$router.push(path)
-      }
       // 如果关闭的是当前标签页则返回上一个标签页
+      this.$router.push(this.$store.getters.tagsViewList[
+        this.$store.getters.tagsViewList.length - 1
+      ].path)
     },
     // 关闭全部标签事件
     closeAll () {
       this.$store.commit('CLOSE_ALL_TAGS')
-      if (!this.$route.path.includes('/home')) {
-        // 当前路径中不包括本path就执行
-        this.$router.push('/home')
-      }
+      // 跳转到工作台页面
+      this.$router.push('/home')
     }
   }
 }

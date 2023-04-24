@@ -51,19 +51,19 @@ export default {
      */
     getBreadcrumb () {
       // 匹配面包屑导航数组中含有meta.title的路由，只对meta中含有title的路由进行展示
-      let matched = this.$route.matched.filter(item => item.meta && item.meta.title)
-      // 获取第一个元素用于判断是否为首页
-      const home = matched[0]
-      // 判断当前的元素是否为首页
-      if (!this.isHome(home)) {
-        // 使用首页路由拼接过滤的路由
-        matched = [{ path: '/home', meta: { title: '首页' } }].concat(matched)
-      }
+      const matched = this.$route.matched.filter(item => item.meta && item.meta.title)
+      // 获取第一个元素用于判断是否为工作台
+      // const home = matched[1]
+      // // 判断当前的元素是否为工作台
+      // if (!this.isHome(home)) {
+      //   // 使用工作台路由拼接过滤的路由
+      //   matched = [{ path: '/home', meta: { title: '工作台' } }].concat(matched)
+      // }
       // 过滤当前路由数组中符合条件的路由
       this.breadList = matched.filter(item => item.meta && item.meta.title)
     },
     /**
-     * 判断当前路由是否为首页
+     * 判断当前路由是否为工作台
      *
      * @param {*} route
      */
@@ -74,7 +74,7 @@ export default {
       if (!name) {
         return false
       }
-      // 判断组件名称是否为首页
+      // 判断组件名称是否为工作台
       return name.trim() === 'Home'
     },
     handleLink (item) {
@@ -83,6 +83,7 @@ export default {
         this.$router.push(redirect)
         return
       }
+      // 跳转到指定路径
       this.$router.push(path)
     }
   }
