@@ -54,21 +54,24 @@ export default {
     isActive (tag) {
       return tag.path === this.$route.path
     },
-    // 关闭 tag 的点击事件
+    /**
+     * 关闭 tag 的点击事件
+     *
+     * @param {*} index 当前标签页的索引
+     */
     onCloseClick (index) {
-      this.selectIndex = index
       this.$store.commit('REMOVE_TAGS_VIEW', {
         type: 'index',
         index
       })
-      // 如果关闭的是当前标签页则返回上一个标签页
-      if (index === this.selectIndex) {
-        this.$router.push(
-          this.$store.getters.tagsViewList[
-            this.$store.getters.tagsViewList.length - 1
-          ].path
-        )
+      var path = this.$store.getters.tagsViewList[
+        this.$store.getters.tagsViewList.length - 1
+      ].path
+      if (!this.$route.path.includes(path)) {
+        // 当前路径中不包括本path就执行
+        this.$router.push(path)
       }
+      // 如果关闭的是当前标签页则返回上一个标签页
     },
     // 关闭全部标签事件
     closeAll () {

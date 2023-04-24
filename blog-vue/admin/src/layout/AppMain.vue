@@ -15,7 +15,12 @@ export default {
 
     }
   },
-
+  mounted () {
+    // 如果vuex中的标签页只有首页并且当前路由不是首页
+    if (this.$store.getters.tagsViewList.length === 1 && this.$route.path !== '/home') {
+      this.addTagsViewList(this.$route)
+    }
+  },
   watch: {
     $route (to, from) {
       this.addTagsViewList(to)
