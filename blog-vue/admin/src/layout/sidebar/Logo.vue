@@ -1,19 +1,21 @@
 <template>
-  <div class="sidebar-logo-container" :class="{'collapse': collapse}">
+  <div class="sidebar-logo-container" :class="{'collapse': collapse}" :style="{ backgroundColor: settings.sideTheme === 'theme-dark' ? '#2b2f3a' : variable.menuLightBackground }">
     <transition name="sidebarLogoFade">
       <router-link to="/home" key="collapse" class="sidebar-logo-link" v-if="collapse">
         <img :src="logo" alt="" class="sidebar-logo"/>
       </router-link>
       <router-link to="/home" key="expand" class="sidebar-logo-link" v-else>
         <img :src="logo" alt="" class="sidebar-logo"/>
-        <h1 class="sidebar-title">{{ title }}</h1>
+        <h1 class="sidebar-title" :style="{ color: settings.sideTheme === 'theme-dark' ? '#ffffff' : variable.menuActiveText }">{{ title }}</h1>
       </router-link>
     </transition>
   </div>
 </template>
 
 <script>
+import variable from '../../style/scss/variable.scss'
 import logoImage from '../../assets/images/logo.png'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Logo',
@@ -33,6 +35,11 @@ export default {
     }
   },
   computed: {
+    ...mapState(['settings']),
+    // scss样式
+    variable () {
+      return variable
+    }
   },
   mounted () {
 
@@ -59,7 +66,6 @@ export default {
   width: 100%;
   height: 50px;
   line-height: 50px;
-  background: #2b2f3a;
   text-align: center;
   overflow: hidden;
 
@@ -80,7 +86,7 @@ export default {
       color: #fff;
       font-weight: 600;
       line-height: 50px;
-      font-size: 14px;
+      font-size: 16px;
       font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;
     }

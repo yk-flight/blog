@@ -17,7 +17,9 @@ const getters = {
   // 是否固定顶部导航栏
   fixedHeader: state => state.settings.fixedHeader,
   // 是否显示侧边栏Logo
-  sidebarLogo: state => state.settings.sidebarLogo
+  sidebarLogo: state => state.settings.sidebarLogo,
+  // 主题色
+  theme: state => state.settings.theme
 }
 
 export default getters

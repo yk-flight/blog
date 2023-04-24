@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <logo :collapse="isCollapse"></logo>
-    <el-scrollbar>
+  <div :class="{'has-logo':showLogo}" :style="{ backgroundColor: settings.sideTheme === 'theme-dark' ? variable.menuBackground : variable.menuLightBackground }">
+    <logo v-if="showLogo" :collapse="isCollapse"></logo>
+    <el-scrollbar :class="settings.sideTheme">
       <el-menu
         :default-active="activeMenu"
         :collapse="isCollapse"
-        :background-color="variable.menuBackground"
-        :text-color="variable.menuText"
-        :active-text-color="variable.menuActiveText"
+        :background-color="settings.sideTheme === 'theme-dark' ? variable.menuBackground : variable.menuLightBackground"
+        :text-color="settings.sideTheme === 'theme-dark' ? variable.menuText : variable.menuLightText"
+        :active-text-color="settings.theme"
         :collapse-transition="false"
       >
         <sidebar-item
@@ -25,7 +25,7 @@
 import Logo from './Logo.vue'
 import variable from '../../style/scss/variable.scss'
 import SidebarItem from './SidebarItem'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'Sidebar',
@@ -38,6 +38,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['settings']),
     ...mapGetters(['sidebarRouters']),
     activeMenu () {
       const route = this.$route
@@ -48,11 +49,17 @@ export default {
       }
       return path
     },
+    // scss样式
     variable () {
       return variable
     },
+    // 菜单栏是否折叠
     isCollapse () {
       return this.$store.getters.isCollapse
+    },
+    // 是否展示logo
+    showLogo () {
+      return this.$store.getters.sidebarLogo
     }
   },
   mounted () {},

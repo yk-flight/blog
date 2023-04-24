@@ -7,6 +7,8 @@ const storageSetting = JSON.parse(localStorage.getItem('layout-setting')) || ''
 const setting = {
   namespaced: true,
   state: {
+    // 主题色
+    theme: storageSetting.theme || '#409EFF',
     // 侧边栏样式
     sideTheme: storageSetting.sideTheme || sideTheme,
     // 是否开启标签页
