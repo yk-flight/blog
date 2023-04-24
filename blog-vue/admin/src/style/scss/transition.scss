@@ -1,4 +1,4 @@
-/* breadcrumb transition */
+/* 面包屑切换动画 */
 .breadcrumb-enter-active,
 .breadcrumb-leave-active {
   transition: all .5s;
@@ -16,4 +16,22 @@
 
 .breadcrumb-leave-active {
   position: absolute;
+}
+
+/* 路由切换动画 */
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all 0.5s;
+}
+
+.fade-transform-enter {
+  /* 透明度为0 */
+  opacity: 0;
+  /* 横向移动 30px */
+  transform: translateX(-30px);
+}
+
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }

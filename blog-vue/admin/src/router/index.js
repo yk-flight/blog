@@ -28,16 +28,16 @@ export const constantRoutes = [
         component: () => import('../views/dashboard/Home.vue'),
         meta: {
           title: '工作台',
-          icon: 'dashboard'
+          icon: 'home'
         }
       },
       {
-        path: 'analys',
-        name: 'Analys',
-        component: () => import('../views/dashboard/Analys.vue'),
+        path: 'analysis',
+        name: 'Analysis',
+        component: () => import('../views/dashboard/Analysis.vue'),
         meta: {
           title: '分析页',
-          icon: 'dashboard'
+          icon: 'analysis'
         }
       }
     ]

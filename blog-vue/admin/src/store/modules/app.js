@@ -12,7 +12,7 @@ const app = {
         path: '/home',
         meta: {
           title: '工作台',
-          icon: 'dashboard'
+          icon: 'home'
         }
       }
     ]
@@ -74,7 +74,7 @@ const app = {
           path: '/home',
           meta: {
             title: '工作台',
-            icon: 'dashboard'
+            icon: 'home'
           }
         }
       ]
