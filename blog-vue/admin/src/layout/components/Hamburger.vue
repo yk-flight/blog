@@ -24,7 +24,7 @@ export default {
   methods: {
     // 获取vuex中设置菜单是否折叠的方法
     setCollapse () {
-      this.$store.commit('SET_COLLAPSE')
+      this.$store.commit('app/SET_COLLAPSE')
     }
   }
 }

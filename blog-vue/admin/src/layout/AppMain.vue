@@ -36,7 +36,7 @@ export default {
       if (!isTags(to.path)) return
       // 从 to 中解构出想要的属性
       const { fullPath, meta, name, params, path, query } = to
-      this.$store.commit('ADD_TAGS_VIEW', {
+      this.$store.commit('app/ADD_TAGS_VIEW', {
         fullPath,
         meta,
         name,

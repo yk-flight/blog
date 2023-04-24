@@ -60,7 +60,7 @@ export default {
      * @param {*} index 当前标签页的索引
      */
     onCloseClick (index) {
-      this.$store.commit('REMOVE_TAGS_VIEW', {
+      this.$store.commit('app/REMOVE_TAGS_VIEW', {
         type: 'index',
         index
       })
@@ -71,7 +71,7 @@ export default {
     },
     // 关闭全部标签事件
     closeAll () {
-      this.$store.commit('CLOSE_ALL_TAGS')
+      this.$store.commit('app/CLOSE_ALL_TAGS')
       // 跳转到工作台页面
       this.$router.push('/home')
     }

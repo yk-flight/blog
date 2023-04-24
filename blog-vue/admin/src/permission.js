@@ -24,7 +24,7 @@ router.beforeEach(async (to, from, next) => {
       if (store.getters.roles.length === 0) {
         store.dispatch('getUserInfo').then(res => {
           // 调用生成菜单的方法
-          store.dispatch('generateRoutes').then((accessRoutes) => {
+          store.dispatch('permission/generateRoutes').then((accessRoutes) => {
             for (const item of accessRoutes) {
               router.addRoute(item)
             }

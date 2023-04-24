@@ -3,6 +3,7 @@ import { constantRoutes } from '../../router'
 import Layout from '../../layout/index'
 
 const permission = {
+  namespaced: true,
   state: {
     // 侧边栏
     sidebarRouters: []

@@ -9,7 +9,7 @@
         <i :class="show?'el-icon-close':'el-icon-setting'" />
       </div>
       <div class="rightPanel-items">
-        <div>测试</div>
+        <slot />
       </div>
     </div>
   </div>

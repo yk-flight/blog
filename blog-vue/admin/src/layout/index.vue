@@ -9,12 +9,15 @@
         <tags-view></tags-view>
       </div>
       <app-main></app-main>
-      <right-panel></right-panel>
+      <right-panel>
+        <setting></setting>
+      </right-panel>
     </div>
   </div>
 </template>
 
 <script>
+import Setting from './components/Setting.vue'
 import RightPanel from '../components/RightPanel'
 import SideBar from './SideBar/index'
 import NavBar from './NavBar'
@@ -28,7 +31,8 @@ export default {
     NavBar,
     TagsView,
     AppMain,
-    RightPanel
+    RightPanel,
+    Setting
   },
   data () {
     return {

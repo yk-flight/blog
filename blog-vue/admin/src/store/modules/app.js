@@ -1,4 +1,5 @@
 const app = {
+  namespaced: true,
   state: {
     // 菜单是否折叠
     isCollapse: false,
