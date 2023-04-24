@@ -1,7 +1,7 @@
 <template>
   <div class="tags-view-container">
-    <el-scrollbar >
-      <div class="tags-view-left">
+    <div class="tags-view-left">
+      <el-scrollbar>
         <router-link
           class="tags-view-item"
           v-for="(tag, index) in this.$store.getters.tagsViewList"
@@ -18,32 +18,24 @@
             @click.prevent.stop="onCloseClick(index)"
           ></i>
         </router-link>
-     </div>
-
-    </el-scrollbar>
+      </el-scrollbar>
+    </div>
     <!-- 关闭全部 -->
     <div class="tags-view-right">
-      <span class="tags-btn" @click="closeAll">
-        关闭全部
-      </span>
+      <el-button size="mini" @click="closeAll" plain>关闭全部</el-button>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'TagsView',
 
   data () {
-    return {
-
-    }
+    return {}
   },
 
-  mounted () {
-
-  },
+  mounted () {},
 
   methods: {
     /**
@@ -65,9 +57,11 @@ export default {
         index
       })
       // 如果关闭的是当前标签页则返回上一个标签页
-      this.$router.push(this.$store.getters.tagsViewList[
-        this.$store.getters.tagsViewList.length - 1
-      ].path)
+      this.$router.push(
+        this.$store.getters.tagsViewList[
+          this.$store.getters.tagsViewList.length - 1
+        ].path
+      )
     },
     // 关闭全部标签事件
     closeAll () {
@@ -81,9 +75,6 @@ export default {
 
 <style lang="scss" scoped>
 .tags-view-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   height: 34px;
   width: 100%;
   background: #fff;
@@ -91,33 +82,35 @@ export default {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
 
   .el-scrollbar {
-    width: calc(100% - 100px);
+    width: 100%;
   }
 
   .tags-view-left {
-    width: calc(100vw - 100px);
-    /* 设置超出滚动 */
+    float: left;
+    width: calc(100% - 110px);
+    // /* 设置超出滚动 */
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
   }
 
   .tags-view-right {
+    float: right;
     width: 90px;
-    height: 70%;
+    height: 26px;
     display: flex;
-    border: #DCDFE6 solid 1px;
+    // border: #dcdfe6 solid 1px;
     border-radius: 4px;
     font-size: 12px;
     justify-content: center;
     align-items: center;
-    margin-right: 10px;
+    margin: 4px 10px 4px 0;
     cursor: pointer;
-    transition: background .3s;
+    transition: background 0.3s;
 
-    &:hover {
-      background: rgba(0, 0, 0, .085);
-    }
+    // &:hover {
+    //   background: rgba(0, 0, 0, 0.085);
+    // }
   }
 
   .tags-view-item {

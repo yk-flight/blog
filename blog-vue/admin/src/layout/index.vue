@@ -1,14 +1,12 @@
 <template>
-  <div
-    class="app-wrapper"
-    :class="this.$store.getters.isCollapse ? 'hideSidebar' : 'openSidebar'">
+  <div class="app-wrapper" :class="isCollapse ? 'hideSidebar' : 'openSidebar'">
     <side-bar class="sidebar-container"></side-bar>
     <div class="main-container">
-      <div>
+      <div :class="{'fixed-header':fixedHeader}">
         <nav-bar></nav-bar>
-        <tags-view></tags-view>
+        <tags-view v-if="tagsView"></tags-view>
       </div>
-      <app-main></app-main>
+      <app-main :class="fixedHeader ? 'app-container' : ''"></app-main>
       <right-panel>
         <setting></setting>
       </right-panel>
@@ -41,10 +39,21 @@ export default {
   },
 
   computed: {
+    // 侧边栏样式
     sidebarClass () {
-      return {
-        hideSidebar: this.$store.getters.isCollapse
-      }
+      return this.$store.getters.isCollapse
+    },
+    // 是否开启标签页
+    tagsView () {
+      return this.$store.getters.tagsView
+    },
+    // 是否固定顶部导航栏
+    fixedHeader () {
+      return this.$store.getters.fixedHeader
+    },
+    // 侧边栏是否折叠
+    isCollapse () {
+      return this.$store.getters.isCollapse
     }
   },
 
@@ -59,9 +68,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../style/scss/variable.scss";
+
 .app-wrapper {
   height: 100%;
   width: 100%;
 }
 
+.fixed-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9;
+  width: calc(100% - #{$base-sidebar-width});
+  transition: width 0.28s;
+}
+
+.hideSidebar .fixed-header {
+ width: calc(100% - 54px);
+}
+
+.sidebarHide .fixed-header {
+  width: 100%;
+}
+
+.app-container {
+  position: relative;
+  padding-top: 85px;
+}
 </style>

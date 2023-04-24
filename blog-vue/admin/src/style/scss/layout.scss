@@ -107,8 +107,6 @@
       }
     }
 
-    // & .theme-dark .el-submenu>.el-submenu__title,
-    // & .theme-dark .el-menu .el-menu-item  {
     & .theme-dark .nest-menu .el-submenu>.el-submenu__title,
     & .theme-dark .el-submenu .el-menu-item {
       background-color: $base-sub-menu-background !important;
@@ -223,6 +221,10 @@
       background-color: rgba(0, 0, 0, 0.06) !important;
     }
   }
+
+    & .theme-light .el-submenu .is-active {
+      background-color: $base-sub-menu-light-active !important;
+    }
 
   // the scroll bar appears when the subMenu is too long
   >.el-menu--popup {

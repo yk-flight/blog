@@ -6,13 +6,12 @@
       </div>
 
       <div class="setting-drawer-block-checbox">
+        <!-- 暗色主题 -->
         <div class="setting-drawer-block-checbox-item" @click="handleTheme('theme-dark')">
           <img src="@/assets/images/dark.svg" alt="dark" />
         </div>
-        <div
-          class="setting-drawer-block-checbox-item"
-          @click="handleTheme('theme-light')"
-        >
+        <!-- 亮色主题 -->
+        <div class="setting-drawer-block-checbox-item" @click="handleTheme('theme-light')">
           <img src="@/assets/images/light.svg" alt="light" />
         </div>
       </div>
@@ -40,8 +39,11 @@
 
     <el-divider/>
 
-    <el-button size="small" type="primary" plain icon="el-icon-document-add" @click="saveSetting">保存配置</el-button>
-    <el-button size="small" plain icon="el-icon-refresh" @click="resetSetting">重置配置</el-button>
+    <div style="text-align: center;">
+      <el-button size="small" type="primary" plain icon="el-icon-document-add" @click="saveSetting">保存配置</el-button>
+      <el-button size="small" plain icon="el-icon-refresh" @click="resetSetting">重置配置</el-button>
+    </div>
+
   </div>
 </template>
 
