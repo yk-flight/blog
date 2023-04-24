@@ -1,7 +1,7 @@
 import { login } from '../../api/system'
 import { getLoginUser } from '../../api/user'
 import { TOKEN } from '../../constant/index'
-import { setItem, getItem } from '../../utils/cookie'
+import { setItem, getItem, removeItem } from '../../utils/cookie'
 
 const user = {
   state: {
@@ -58,6 +58,12 @@ const user = {
           reject(error)
         })
       })
+    },
+    logout ({ commit }) {
+      // 清除Token
+      removeItem(TOKEN)
+      // 清除用户角色数据
+      commit('SET_ROLES', '')
     }
   }
 }

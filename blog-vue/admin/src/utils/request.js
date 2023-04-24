@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { getItem } from './cookie'
-import { Message } from 'element-ui'
+import { Message, MessageBox } from 'element-ui'
 import { TOKEN } from '../constant/index'
+import store from '../store/index'
 
 const service = axios.create({
   baseURL: '/api',
@@ -25,6 +26,9 @@ service.interceptors.request.use(
   }
 )
 
+// 在过期时可能会拦截多个接口请求，为了只显示一次错误信息
+export let messageShow = false
+
 // 响应拦截器
 service.interceptors.response.use((response) => {
   // 从服务端返回的数据中提取到需要的数据
@@ -32,6 +36,23 @@ service.interceptors.response.use((response) => {
   // 处理请求成功的情况
   if (response.status && response.status === 200) {
     // Token失效的情况
+    if (code === 506) {
+      if (!messageShow) {
+        messageShow = true
+        MessageBox.confirm('登录状态已过期，请重新登录', '系统提示',
+          { confirmButtonText: '重新登录', cancelButtonText: '取消', type: 'warning' })
+          .then(() => {
+            messageShow = false
+            store.dispatch('logout').then(() => {
+            // 跳转到登录页面
+              location.href = '/login'
+            })
+          }).catch(() => {
+            // 发生异常
+            messageShow = false
+          })
+      }
+    }
     // 根据服务器返回数据中的状态码进行返回
     if (code !== 200) {
       // 业务逻辑错误，输出错误信息并返回
