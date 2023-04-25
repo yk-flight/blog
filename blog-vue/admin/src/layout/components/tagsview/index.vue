@@ -137,7 +137,7 @@ export default {
     &.active {
       color: #fff;
       border: none;
-      padding: 0 15px;
+      padding: 1px 13px;
       &::before {
         content: "";
         background: #fff;
