@@ -6,7 +6,7 @@
         <el-col :span="12">
           <el-row type="flex" justify="space-between">
             <div class="home-avatar">
-              <img src="https://s1.ax1x.com/2023/04/26/p9K181A.jpg" alt="" class="avatar-image" />
+              <el-avatar src="https://s1.ax1x.com/2023/04/26/p9K181A.jpg" alt="" class="avatar-image"></el-avatar>
             </div>
             <el-col style="padding-left: 18px;">
               <el-row>
@@ -32,14 +32,75 @@
           </el-row>
           <!-- 技术栈内容 -->
           <el-row style="margin: 20px 0;">
+            <!-- Vue -->
             <el-col :span="8">
-              <div class="card-item-content">技术栈1</div>
+              <div class="card-item-content">
+                <el-row type="flex" align="middle">
+                  <svg-icon icon="vue"></svg-icon>
+                  <a href="https://cn.vuejs.org/" target="__blank" class="content-header">Vue</a>
+                </el-row>
+                <span class="content-body">一套用于构建用户界面的渐进式框架。</span>
+              </div>
             </el-col>
+            <!-- SpringBoot -->
             <el-col :span="8">
-              <div class="card-item-content">技术栈1</div>
+              <div class="card-item-content">
+                <el-row type="flex" align="middle">
+                  <svg-icon icon="spring-boot" style="color: #238E23;"></svg-icon>
+                  <a href="https://spring.io/projects/spring-boot" target="__blank" class="content-header">SpringBoot</a>
+                </el-row>
+                <span class="content-body">
+                  Spring Boot通过自动配置功能，降低了复杂性，同时支持基于JVM的多种开源框架，可以缩短开发时间，使开发更加简单和高效。
+                </span>
+              </div>
             </el-col>
+            <!-- ElementUI -->
             <el-col :span="8">
-              <div class="card-item-content">技术栈1</div>
+              <div class="card-item-content">
+                <el-row type="flex" align="middle">
+                  <svg-icon icon="element"></svg-icon>
+                  <a href="https://element.eleme.cn/#/zh-CN" target="__blank" class="content-header">ElementUI</a>
+                </el-row>
+                <span class="content-body">
+                  Element，一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库。
+                </span>
+              </div>
+            </el-col>
+            <!-- MyBatisPlus -->
+            <el-col :span="8">
+              <div class="card-item-content">
+                <el-row type="flex" align="middle">
+                  <svg-icon icon="mybatis-plus"></svg-icon>
+                  <a href="https://baomidou.com/" target="__blank" class="content-header">MyBatisPlus</a>
+                </el-row>
+                <span class="content-body">
+                  🚀为简化开发而生
+                </span>
+              </div>
+            </el-col>
+            <!-- Redis -->
+            <el-col :span="8">
+              <div class="card-item-content">
+                <el-row type="flex" align="middle">
+                  <svg-icon icon="redis" style="color: #dc382c;"></svg-icon>
+                  <a href="https://redis.io/" target="__blank" class="content-header">Redis</a>
+                </el-row>
+                <span class="content-body">
+                  Redis是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。
+                </span>
+              </div>
+            </el-col>
+            <!-- RabbitMQ -->
+            <el-col :span="8">
+              <div class="card-item-content">
+                <el-row type="flex" align="middle">
+                  <svg-icon icon="rabbitmq" style="color: #FF6600;"></svg-icon>
+                  <a href="https://www.rabbitmq.com/" target="__blank" class="content-header">RabbitMQ</a>
+                </el-row>
+                <span class="content-body">
+                  RabbitMQ是实现了高级消息队列协议（AMQP）的开源消息代理软件。
+                </span>
+              </div>
             </el-col>
           </el-row>
         </el-card>
@@ -130,12 +191,38 @@ export default {
   }
 
   .card-item-content {
+    display: flex;
+    align-items: left;
+    flex-direction: column;
     height: 90px;
     padding: 24px;
     transition: all 0.3s;
 
+    .svg-icon {
+      font-size: 40px;
+    }
+
     &:hover {
       box-shadow: darkgrey 1px 1px 3px 1px;
+    }
+
+    .content-header {
+      margin-left: 0.5rem;
+      font-weight: 600;
+      font-size: 20px;
+      color: #000;
+    }
+
+    .content-body {
+      margin-top: 5px;
+      letter-spacing: 1px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      color: #909399;
+      font-size: 14px;
     }
   }
 }
