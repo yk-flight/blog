@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 26/04/2023 21:56:00
+ Date: 26/04/2023 22:30:06
 */
 
 SET NAMES utf8mb4;
@@ -43,7 +43,7 @@ CREATE TABLE `tb_menu` (
 BEGIN;
 INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1647951751875133440, '内容管理', 0, 'content', NULL, 0, 0, 0, 'dict', 1, '2023-04-17 21:17:07', '2023-04-21 08:24:42');
 INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1647951751875133441, '网站管理', 0, 'settings', NULL, 0, 0, 0, 'message', 2, '2023-04-17 21:17:46', '2023-04-26 13:30:13');
-INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1647951751875133442, '项目文档', 0, 'https://www.zrkizzy.com', NULL, 0, 1, 0, 'guide', 3, '2023-04-17 21:19:30', '2023-04-23 07:12:19');
+INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1647951751875133442, '项目文档', 0, 'https://www.zrkizzy.com', NULL, 0, 1, 0, 'guide', 4, '2023-04-17 21:19:30', '2023-04-26 14:15:19');
 INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1647952968122630144, '文章管理', 1647951751875133440, 'article', 'content/article/index', 0, 0, 0, 'article-create', 1, '2023-04-17 21:22:42', '2023-04-26 01:51:59');
 INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1648539108017963008, '评论管理', 1647951751875133440, 'comment', 'content/comment/index', 0, 0, 0, 'comments', 2, '2023-04-19 12:09:46', '2023-04-26 01:52:00');
 INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1651040949146484736, '留言管理', 1647951751875133440, 'message', 'content/message/index', 0, 0, 0, 'message', 3, '2023-04-26 09:51:28', '2023-04-26 01:53:57');
@@ -59,6 +59,12 @@ INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache
 INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1651217423560343559, '字典管理', 1647951751875133441, 'dictionary', 'website/dictionary/index', 0, 0, 0, 'dict', 8, '2023-04-26 21:33:29', '2023-04-26 13:52:34');
 INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1651217423560343560, '菜单管理', 1647951751875133441, 'menu', 'website/menu/index', 0, 0, 0, 'menu', 9, '2023-04-26 21:33:29', '2023-04-26 13:52:30');
 INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1651217423560343561, '关于我', 1647951751875133441, 'about', 'website/about/index', 0, 0, 0, 'edit', 10, '2023-04-26 21:33:29', '2023-04-26 13:52:41');
+INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1651227500568641536, '系统监控', 0, 'monitor', NULL, 0, 0, 0, 'monitor', 3, '2023-04-26 22:15:11', '2023-04-26 14:21:09');
+INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1651227500568641537, '在线用户', 1651227500568641536, 'online', 'monitor/online/index', 0, 0, 0, 'online', 1, '2023-04-26 22:15:55', '2023-04-26 14:21:40');
+INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1651227500568641538, '服务监控', 1651227500568641536, 'server', 'monitor/server/index', 0, 0, 0, 'server', 2, '2023-04-26 22:16:24', '2023-04-26 14:21:47');
+INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1651227500568641539, '缓存监控', 1651227500568641536, 'cache', 'monitor/cache/index', 0, 0, 0, 'redis', 3, '2023-04-26 22:16:59', '2023-04-26 14:21:54');
+INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1651227500568641540, '操作日志', 1651227500568641536, 'operate-log', 'monitor/operate-log/index', 0, 0, 0, 'form', 4, '2023-04-26 22:18:09', '2023-04-26 14:22:03');
+INSERT INTO `tb_menu` (`id`, `name`, `parent_id`, `path`, `component`, `is_cache`, `is_link`, `visible`, `icon`, `order`, `create_time`, `update_time`) VALUES (1651227500568641541, '登录日志', 1651227500568641536, 'login-log', 'monitor/login-log/index', 0, 0, 0, 'logininfor', 5, '2023-04-26 22:18:32', '2023-04-26 14:24:06');
 COMMIT;
 
 -- ----------------------------
@@ -97,6 +103,12 @@ INSERT INTO `tb_menu_role` (`id`, `role_id`, `menu_id`, `create_time`, `update_t
 INSERT INTO `tb_menu_role` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`) VALUES (1651218840626921475, 1633646396710060032, 1651217423560343559, '2023-04-26 13:39:59', '2023-04-26 13:41:26');
 INSERT INTO `tb_menu_role` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`) VALUES (1651218840626921476, 1633646396710060032, 1651217423560343560, '2023-04-26 13:39:59', '2023-04-26 13:41:30');
 INSERT INTO `tb_menu_role` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`) VALUES (1651218840626921477, 1633646396710060032, 1651217423560343561, '2023-04-26 13:39:59', '2023-04-26 13:41:36');
+INSERT INTO `tb_menu_role` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`) VALUES (1651230337214185472, 1633646396710060032, 1651227500568641536, '2023-04-26 14:23:30', '2023-04-26 14:24:09');
+INSERT INTO `tb_menu_role` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`) VALUES (1651230337214185473, 1633646396710060032, 1651227500568641537, '2023-04-26 14:23:30', '2023-04-26 14:24:11');
+INSERT INTO `tb_menu_role` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`) VALUES (1651230337214185474, 1633646396710060032, 1651227500568641538, '2023-04-26 14:23:30', '2023-04-26 14:24:13');
+INSERT INTO `tb_menu_role` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`) VALUES (1651230337214185475, 1633646396710060032, 1651227500568641539, '2023-04-26 14:23:30', '2023-04-26 14:24:16');
+INSERT INTO `tb_menu_role` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`) VALUES (1651230337214185476, 1633646396710060032, 1651227500568641540, '2023-04-26 14:23:30', '2023-04-26 14:24:20');
+INSERT INTO `tb_menu_role` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`) VALUES (1651230337214185477, 1633646396710060032, 1651227500568641541, '2023-04-26 14:23:30', '2023-04-26 14:24:24');
 COMMIT;
 
 -- ----------------------------
