@@ -38,7 +38,7 @@ public class SnowFlakeUtil {
 
     public static void main(String[] args) {
         SnowFlakeUtil snowFlakeUtil = new SnowFlakeUtil();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 10; i++) {
             System.out.println(snowFlakeUtil.nextId());
         }
     }

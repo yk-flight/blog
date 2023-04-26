@@ -27,7 +27,7 @@
 
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
-          <img src="../assets/images/logo.png" class="user-avatar">
+          <img src="https://s1.ax1x.com/2023/04/26/p9K181A.jpg" class="user-avatar">
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
