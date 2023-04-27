@@ -3,27 +3,25 @@
     <!-- 工作台顶部描述 -->
     <el-card shadow="never">
       <el-row>
-        <el-col :span="12">
+        <el-col :xs="24" :sm="20" :md="21">
           <el-row type="flex" justify="space-between">
             <div class="home-avatar">
               <el-avatar src="https://s1.ax1x.com/2023/04/26/p9K181A.jpg" alt="" class="avatar-image"></el-avatar>
             </div>
-            <el-col style="padding-left: 18px;">
-              <el-row>
-                <span class="font-title">你好，世纪末的架构师，今天又是充满活力的一天</span>
-              </el-row>
+            <el-col style="padding: 0px 18px;">
+              <span class="font-title">你好，世纪末的架构师，今天又是充满活力的一天</span>
               <p class="font-content">须知少时凌云志，曾许人间第一流</p>
             </el-col>
           </el-row>
         </el-col>
-        <el-col :span="12">
+        <el-col :xs="0" :sm="4" :md="3">
           项目数
         </el-col>
       </el-row>
     </el-card>
 
     <el-row :gutter="24">
-      <el-col :span="15">
+      <el-col :lg="15" :md="24">
         <!-- 项目主要技术栈 -->
         <el-card>
           <el-row type="flex" justify="space-between">
@@ -111,9 +109,49 @@
           </el-row>
         </el-card>
       </el-col>
-      <el-col :span="9">
+      <el-col :lg="9" :md="24">
         <el-card>
           <span class="card-item-title">快捷操作</span>
+          <!-- 快捷操作内容 -->
+          <el-row style="margin: 20px 0;">
+            <el-col :span="8">
+              <!-- 发布文章 -->
+              <div class="operate-container">
+                <svg-icon icon="article-create" style="color: #409EFF;"></svg-icon>
+                <span>发布文章</span>
+              </div>
+            </el-col>
+            <el-col :span="8">
+              <div class="operate-container">
+                <svg-icon icon="comments" style="color: #67C23A;"></svg-icon>
+                <span>评论管理</span>
+              </div>
+            </el-col>
+            <el-col :span="8">
+              <div class="operate-container">
+                <svg-icon icon="user" style="color: #F56C6C;"></svg-icon>
+                <span>用户管理</span>
+              </div>
+            </el-col>
+            <el-col :span="8">
+              <div class="operate-container">
+                <svg-icon icon="article-ranking" style="color: #E6A23C;"></svg-icon>
+                <span>文件管理</span>
+              </div>
+            </el-col>
+            <el-col :span="8">
+              <div class="operate-container">
+                <svg-icon icon="email" style="color: #909399;"></svg-icon>
+                <span>公告管理</span>
+              </div>
+            </el-col>
+            <el-col :span="8">
+              <div class="operate-container">
+                <svg-icon icon="personnel" style="color: #7238D1;"></svg-icon>
+                <span>友链管理</span>
+              </div>
+            </el-col>
+          </el-row>
         </el-card>
         <el-card>
           <span class="card-item-title">创意</span>
@@ -223,6 +261,34 @@ export default {
       -webkit-box-orient: vertical;
       color: #909399;
       font-size: 14px;
+    }
+  }
+
+  .operate-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 6rem;
+    border: 1px solid #dcdfe6;
+    margin: 1px;
+    transition: all .3s;
+
+    .svg-icon {
+      font-size: 35px;
+    }
+
+    span {
+      font-size: 14px;
+      padding-top: 10px;
+      color: #303133;
+      font-weight: 500;
+    }
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: darkgrey 1px 1px 3px 1px;
     }
   }
 }
