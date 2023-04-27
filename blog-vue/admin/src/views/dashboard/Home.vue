@@ -31,7 +31,7 @@
           <!-- 技术栈内容 -->
           <el-row style="margin: 20px 0;">
             <!-- Vue -->
-            <el-col :span="8">
+            <el-col :lg="8" :md="8" :sm="12" :xs="24">
               <div class="card-item-content">
                 <el-row type="flex" align="middle">
                   <svg-icon icon="vue"></svg-icon>
@@ -41,7 +41,7 @@
               </div>
             </el-col>
             <!-- SpringBoot -->
-            <el-col :span="8">
+            <el-col :lg="8" :md="8" :sm="12" :xs="24">
               <div class="card-item-content">
                 <el-row type="flex" align="middle">
                   <svg-icon icon="spring-boot" style="color: #238E23;"></svg-icon>
@@ -53,7 +53,7 @@
               </div>
             </el-col>
             <!-- ElementUI -->
-            <el-col :span="8">
+            <el-col :lg="8" :md="8" :sm="12" :xs="24">
               <div class="card-item-content">
                 <el-row type="flex" align="middle">
                   <svg-icon icon="element"></svg-icon>
@@ -65,7 +65,7 @@
               </div>
             </el-col>
             <!-- MyBatisPlus -->
-            <el-col :span="8">
+            <el-col :lg="8" :md="8" :sm="12" :xs="24">
               <div class="card-item-content">
                 <el-row type="flex" align="middle">
                   <svg-icon icon="mybatis-plus"></svg-icon>
@@ -77,7 +77,7 @@
               </div>
             </el-col>
             <!-- Redis -->
-            <el-col :span="8">
+            <el-col :lg="8" :md="8" :sm="12" :xs="24">
               <div class="card-item-content">
                 <el-row type="flex" align="middle">
                   <svg-icon icon="redis" style="color: #dc382c;"></svg-icon>
@@ -89,7 +89,7 @@
               </div>
             </el-col>
             <!-- RabbitMQ -->
-            <el-col :span="8">
+            <el-col :lg="8" :md="8" :sm="12" :xs="24">
               <div class="card-item-content">
                 <el-row type="flex" align="middle">
                   <svg-icon icon="rabbitmq" style="color: #FF6600;"></svg-icon>
@@ -114,40 +114,40 @@
           <span class="card-item-title">快捷操作</span>
           <!-- 快捷操作内容 -->
           <el-row style="margin: 20px 0;">
-            <el-col :span="8">
+            <el-col :md="8" :sm="12">
               <!-- 发布文章 -->
               <div class="operate-container">
                 <svg-icon icon="article-create" style="color: #409EFF;"></svg-icon>
                 <span>发布文章</span>
               </div>
             </el-col>
-            <el-col :span="8">
+            <el-col :md="8" :sm="12">
               <div class="operate-container">
                 <svg-icon icon="comments" style="color: #67C23A;"></svg-icon>
                 <span>评论管理</span>
               </div>
             </el-col>
-            <el-col :span="8">
+            <el-col :md="8" :sm="12">
               <div class="operate-container">
                 <svg-icon icon="user" style="color: #F56C6C;"></svg-icon>
                 <span>用户管理</span>
               </div>
             </el-col>
-            <el-col :span="8">
+            <el-col :md="8" :sm="12">
               <div class="operate-container">
                 <svg-icon icon="article-ranking" style="color: #E6A23C;"></svg-icon>
                 <span>文件管理</span>
               </div>
             </el-col>
-            <el-col :span="8">
+            <el-col :md="8" :sm="12">
               <div class="operate-container">
-                <svg-icon icon="email" style="color: #909399;"></svg-icon>
+                <svg-icon icon="email" style="color: #7238D1;"></svg-icon>
                 <span>公告管理</span>
               </div>
             </el-col>
-            <el-col :span="8">
+            <el-col :md="8" :sm="12">
               <div class="operate-container">
-                <svg-icon icon="personnel" style="color: #7238D1;"></svg-icon>
+                <svg-icon icon="personnel" style="color: #909399;"></svg-icon>
                 <span>友链管理</span>
               </div>
             </el-col>
