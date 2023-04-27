@@ -52,6 +52,7 @@ service.interceptors.response.use((response) => {
             messageShow = false
           })
       }
+      return Promise.reject(new Error('会话已过期，请重新登录'))
     }
     // 根据服务器返回数据中的状态码进行返回
     if (code !== 200) {
