@@ -21,7 +21,7 @@
 
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
-          <img src="https://s1.ax1x.com/2023/04/26/p9K181A.jpg" class="user-avatar">
+          <img :src="avatar" class="user-avatar">
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
@@ -41,6 +41,7 @@
 import ScreenFull from '../components/ScreenFull/index.vue'
 import Hamburger from './components/Hamburger.vue'
 import Breadcrumb from './components/Breadcrumb.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'NavBar',
@@ -56,8 +57,8 @@ export default {
     }
   },
 
-  mounted () {
-
+  computed: {
+    ...mapGetters(['avatar'])
   },
 
   methods: {

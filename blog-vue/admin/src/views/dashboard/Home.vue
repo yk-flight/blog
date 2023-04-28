@@ -160,6 +160,19 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <el-dialog
+      center
+      title="系统通知"
+      :visible.sync="homeDialogShow"
+      width="680px"
+      :close-on-press-escape="false"
+      :close-on-click-modal="false"
+      :before-close="handleClose">
+      <b>尊敬的用户：</b><br>
+      <p>欢迎来到我的个人博客! 我是Dream_飞翔，非常感谢您的来访。这里是我分享自己生活、学习和工作中的一些体验与见解的地方。您可以随意浏览我的文章以及后台的所有页面，也可以在评论区分享您的想法和反馈。如果您有任何问题或建议，请与我联系，祝您生活愉快！</p>
+      <b>其他：</b>
+    </el-dialog>
   </div>
 </template>
 
@@ -179,12 +192,20 @@ export default {
     }
   },
 
-  mounted () {
+  computed: {
+    homeDialogShow () {
+      return this.$store.getters.homeDialogShow
+    }
+  },
 
+  mounted () {
   },
 
   methods: {
-
+    // 关闭对话框
+    handleClose () {
+      this.$store.commit('app/SET_HOME_DIALOG')
+    }
   }
 }
 </script>

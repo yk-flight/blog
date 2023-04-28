@@ -9,7 +9,9 @@ const user = {
     // 用户token
     token: getItem(TOKEN),
     // 用户角色
-    roles: ''
+    roles: '',
+    // 用户头像
+    avatar: ''
   },
   mutations: {
     SET_TOKEN (state, token) {
@@ -17,6 +19,9 @@ const user = {
     },
     SET_ROLES (state, roles) {
       state.roles = roles
+    },
+    SET_AVATAR (state, avatar) {
+      state.avatar = avatar
     }
   },
   // 异步处理方式
@@ -50,7 +55,7 @@ const user = {
           // 存储用户信息
           const user = res
           const avatar = (user.avatar === '' || user.avatar === null) ? require('@/assets/images/logo.png') : user.avatar
-          console.log(avatar)
+          commit('SET_AVATAR', avatar)
           // 设置当前用户角色到Vuex中
           commit('SET_ROLES', user.roles)
           resolve(user)

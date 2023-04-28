@@ -16,7 +16,9 @@ const app = {
           icon: 'home'
         }
       }
-    ]
+    ],
+    // 首页内容提示框
+    homeDialogShow: true
   },
   mutations: {
     SET_COLLAPSE (state) {
@@ -24,6 +26,9 @@ const app = {
     },
     SET_RIGHT_PANEL (state) {
       state.rightPanelShow = !state.rightPanelShow
+    },
+    SET_HOME_DIALOG (state) {
+      state.homeDialogShow = !state.homeDialogShow
     },
     // 添加标签页
     ADD_TAGS_VIEW (state, tag) {

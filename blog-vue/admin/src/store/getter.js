@@ -2,6 +2,10 @@
 const getters = {
   // 角色
   roles: state => state.user.roles,
+  // 头像
+  avatar: state => state.user.avatar,
+  // 首页对话框
+  homeDialogShow: state => state.app.homeDialogShow,
   // 用户菜单
   sidebarRouters: state => state.permission.sidebarRouters,
   // 是否折叠菜单
