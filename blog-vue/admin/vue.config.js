@@ -3,6 +3,8 @@ const path = require('path')
 function resolve (dir) {
   return path.join(__dirname, dir)
 }
+// 网站标题
+const name = process.env.VUE_APP_TITLE || '后台管理系统'
 
 module.exports = {
   devServer: {
@@ -36,5 +38,14 @@ module.exports = {
         symbolId: 'icon-[name]'
       })
       .end()
+  },
+  // 配置网站标题
+  configureWebpack: {
+    name: name,
+    resolve: {
+      alias: {
+        '@': resolve('src')
+      }
+    }
   }
 }
