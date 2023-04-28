@@ -1,11 +1,12 @@
 package com.zrkizzy.data.domain;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zrkizzy.common.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
 
 /**
  * 用户角色关联实体类
@@ -14,10 +15,16 @@ import lombok.EqualsAndHashCode;
  * @since 2023/3/15
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @ApiModel("用户角色关联对象")
 @TableName("tb_user_role")
-public class UserRole extends BaseEntity {
+public class UserRole implements Serializable {
+
+    /**
+     * 主键
+     */
+    @TableId
+    @ApiModelProperty("主键")
+    private Long id;
 
     /**
      * 用户主键
