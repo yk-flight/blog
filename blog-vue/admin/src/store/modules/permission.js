@@ -26,11 +26,13 @@ const permission = {
           const routeData = JSON.parse(JSON.stringify(res))
           const sidebarData = JSON.parse(JSON.stringify(res))
           // 根据组件的实际路径完成拼接动作
-          const rewirteRoutes = filterAsyncRouter(routeData)
+          const rewriteRoutes = filterAsyncRouter(routeData)
           const sidebarRoutes = filterAsyncRouter(sidebarData)
+          // 将没有匹配到的路由全部替换为404
+          rewriteRoutes.push({ path: '*', redirect: '/404', hidden: true })
           // 拼接公共路由后设置当前用户角色到Vuex中
           commit('SET_ROUTES', constantRoutes.concat(sidebarRoutes))
-          resolve(rewirteRoutes)
+          resolve(rewriteRoutes)
         }).catch((error) => {
           // 如果出现登录异常的情况将其捕获并抛出
           reject(error)

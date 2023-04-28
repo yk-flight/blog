@@ -8,10 +8,20 @@ export const constantRoutes = [
     path: '/login',
     name: 'Login',
     hidden: true,
-    component: () => import('../views/login/Login.vue'),
+    component: () => import('../views/login/Login.vue')
+  },
+  {
+    path: '/404',
+    component: () => import('../views/system/error/404/index.vue'),
+    hidden: true,
     meta: {
-      title: '个人博客登录页'
+      title: '404 Not Found'
     }
+  },
+  {
+    path: '/401',
+    component: () => import('../views/system/error/401/index.vue'),
+    hidden: true
   },
   {
     path: '/',
@@ -39,6 +49,20 @@ export const constantRoutes = [
           title: '分析页',
           icon: 'analysis'
         }
+      }
+    ]
+  },
+  {
+    path: '/user',
+    component: () => import('../layout/index.vue'),
+    hidden: true,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'profile',
+        component: () => import('@/views/system/profile/index'),
+        name: 'Profile',
+        meta: { title: '个人中心', icon: 'user' }
       }
     ]
   }

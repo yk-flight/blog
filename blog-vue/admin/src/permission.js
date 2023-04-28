@@ -28,7 +28,8 @@ router.beforeEach(async (to, from, next) => {
             for (const item of accessRoutes) {
               router.addRoute(item)
             }
-            next()
+            // hack方法 确保路由生成已完成
+            next({ ...to, replace: true })
           })
         }).catch(error => {
           Message.error(error)
