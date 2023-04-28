@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import SvgIcons from './icons'
 import ElementUI from 'element-ui'
+import TagCloud from './utils/tag-cloud'
 import './permission'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/display.css'
@@ -14,6 +15,7 @@ import './style/scss/index.scss'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(SvgIcons)
+Vue.use(TagCloud)
 
 new Vue({
   router,
