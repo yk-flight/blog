@@ -1,5 +1,7 @@
 <template>
   <div class="home-container">
+    <!-- Github角标 -->
+    <github-corner class="github-corner" />
     <!-- 工作台顶部描述 -->
     <el-card shadow="never">
       <el-row>
@@ -162,8 +164,14 @@
 </template>
 
 <script>
+import GithubCorner from '../../components/GithubCorner/index.vue'
+
 export default {
   name: 'Home',
+
+  components: {
+    GithubCorner
+  },
 
   data () {
     return {
@@ -184,6 +192,12 @@ export default {
 <style lang="scss" scoped>
 .home-container {
   padding: 0px 20px;
+
+  .github-corner {
+    position: absolute;
+    border: 0;
+    right: 0;
+  }
 
   a {
     font-size: 14px;
