@@ -70,7 +70,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$store.dispatch('logout').then(() => {
+        this.$store.dispatch('user/logout').then(() => {
           location.href = '/login'
         })
       }).catch(() => {})
