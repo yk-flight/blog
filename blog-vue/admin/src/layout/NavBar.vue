@@ -9,12 +9,6 @@
           </a>
         </el-tooltip>
 
-        <el-tooltip effect="dark" content="Github" placement="bottom">
-          <a :href="GithubUrl" target="__blank">
-            <svg-icon icon="github" class="right-menu-item hover-effect"></svg-icon>
-          </a>
-        </el-tooltip>
-
         <el-tooltip effect="dark" content="Gitee" placement="bottom">
           <a :href="GiteeUrl" target="__blank">
             <svg-icon icon="gitee" class="right-menu-item hover-effect"></svg-icon>
@@ -55,8 +49,6 @@ export default {
 
   data () {
     return {
-      // 项目Github地址
-      GithubUrl: 'https://gitee.com/dream-flight/blog',
       // 项目Gitee地址
       GiteeUrl: 'https://gitee.com/dream-flight/blog',
       // 博客前台地址
