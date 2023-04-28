@@ -22,7 +22,7 @@ router.beforeEach(async (to, from, next) => {
     } else {
       // 判断用户信息是否存在，如果不存在则获取用户信息
       if (store.getters.roles.length === 0) {
-        store.dispatch('getUserInfo').then(res => {
+        store.dispatch('user/getUserInfo').then(res => {
           // 调用生成菜单的方法
           store.dispatch('permission/generateRoutes').then((accessRoutes) => {
             for (const item of accessRoutes) {

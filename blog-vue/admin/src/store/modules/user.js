@@ -4,6 +4,7 @@ import { TOKEN } from '../../constant/index'
 import { setItem, getItem, removeItem } from '../../utils/cookie'
 
 const user = {
+  namespaced: true,
   state: {
     // 用户token
     token: getItem(TOKEN),
