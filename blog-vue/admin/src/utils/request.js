@@ -43,7 +43,7 @@ service.interceptors.response.use((response) => {
           { confirmButtonText: '重新登录', cancelButtonText: '取消', type: 'warning' })
           .then(() => {
             messageShow = false
-            store.dispatch('logout').then(() => {
+            store.dispatch('user/logout').then(() => {
             // 跳转到登录页面
               location.href = '/login'
             })
