@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 29/04/2023 22:26:33
+ Date: 01/05/2023 01:20:04
 */
 
 SET NAMES utf8mb4;
@@ -176,6 +176,7 @@ INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1636187548919267329, '获取所有角色', '获取当前系统中所有角色的信息', 'POST', '/admin/role/list', 1636182933754609665, '2023-03-16 10:24:57', '2023-04-13 07:06:16');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1647860341062762496, '获取当前登录用户', '获取当前系统登录用户', 'GET', '/admin/user/getLoginUser', 1636182933754609665, '2023-04-17 15:12:14', '2023-04-17 21:24:19');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1647952968122630145, '获取菜单列表', '获取菜单列表', 'GET', '/admin/menu/getRoutes', 1636182933754609665, '2023-04-17 21:24:19', '2023-04-19 08:28:04');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1652715951180742656, '获取用户个人信息', '获取用户个人信息', 'GET', '/admin/user/getUserInfo', 1636182933754609665, '2023-05-01 00:46:55', '2023-04-30 16:47:03');
 COMMIT;
 
 -- ----------------------------
