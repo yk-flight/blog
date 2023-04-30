@@ -43,6 +43,7 @@
         <jaxb.version>2.3.1</jaxb.version>
         <captcha.version>1.6.2</captcha.version>
         <script-engine.version>15.4</script-engine.version>
+        <userAgent.version>1.21</userAgent.version>
     </properties>
 
     <!-- 项目依赖管理：只声明版本，并不实现引入 -->
@@ -173,6 +174,13 @@
                 <groupId>com.zrkizzy</groupId>
                 <artifactId>blog-data</artifactId>
                 <version>${blog.version}</version>
+            </dependency>
+
+            <!-- 解析客户端操作系统、浏览器依赖 -->
+            <dependency>
+                <groupId>eu.bitwalker</groupId>
+                <artifactId>UserAgentUtils</artifactId>
+                <version>${userAgent.version}</version>
             </dependency>
 
             <!-- 系统接口模块 -->
