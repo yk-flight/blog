@@ -3,6 +3,7 @@ package com.zrkizzy.server.service.core;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.data.domain.User;
 import com.zrkizzy.data.dto.LoginDTO;
+import com.zrkizzy.server.vo.UserInfoVO;
 
 import java.util.List;
 
@@ -27,4 +28,11 @@ public interface IUserService {
      * @return 公共返回对象
      */
     Result<String> login(LoginDTO loginDTO);
+
+    /**
+     * 获取登录用户个人信息
+     *
+     * @return 个人信息数据返回对象
+     */
+    Result<UserInfoVO> getUserInfo();
 }

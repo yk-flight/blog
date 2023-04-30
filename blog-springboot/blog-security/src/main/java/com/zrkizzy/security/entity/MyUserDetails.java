@@ -62,6 +62,15 @@ public class MyUserDetails implements UserDetails {
     }
 
     /**
+     * 获取角色名称
+     *
+     * @return 角色名称
+     */
+    public String getRoleName() {
+        return user.getRoles().get(0).getDescription();
+    }
+
+    /**
      * 返回用户密码
      *
      * @return 密码

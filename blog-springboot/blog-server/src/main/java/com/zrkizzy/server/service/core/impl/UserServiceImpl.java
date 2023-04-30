@@ -3,17 +3,24 @@ package com.zrkizzy.server.service.core.impl;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.service.IRedisService;
+import com.zrkizzy.common.utils.BeanCopyUtil;
+import com.zrkizzy.common.utils.IpUtil;
 import com.zrkizzy.common.utils.JwtTokenUtil;
 import com.zrkizzy.data.domain.User;
 import com.zrkizzy.data.dto.LoginDTO;
 import com.zrkizzy.data.mapper.UserMapper;
+import com.zrkizzy.security.util.SecurityUtil;
 import com.zrkizzy.security.util.UserDetailUtil;
 import com.zrkizzy.server.service.core.IUserService;
+import com.zrkizzy.server.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static com.zrkizzy.common.constant.RedisConst.CAPTCHA_PREFIX;
@@ -34,6 +41,8 @@ public class UserServiceImpl implements IUserService {
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private UserDetailUtil userDetailUtil;
+    @Autowired
+    private SecurityUtil securityUtil;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -94,6 +103,32 @@ public class UserServiceImpl implements IUserService {
         redisService.set(USER_PREFIX + username, user, TWO_HOUR);
         // 根据用户详细信息生成Token
         return Result.success(jwtTokenUtil.generateToken(userDetailUtil.convertUserDetails(user)));
+    }
+
+    /**
+     * 获取用户个人信息
+     *
+     * @return 个人信息数据返回对象
+     */
+    @Override
+    public Result<UserInfoVO> getUserInfo() {
+        // 从SecurityUtil中获取到当前登录用户对象
+        User user = securityUtil.getLoginUser();
+        // 根据查询到的User对象复制UserInfo对象
+        UserInfoVO userInfo = BeanCopyUtil.copy(user, UserInfoVO.class);
+        // 获取 request 请求
+        HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
+        // 返回数据
+        return Result.success(
+                // 角色名称
+                userInfo.setRoleName(securityUtil.getLoginUserRoleName())
+                        // IP地址
+                        .setIpAddress(IpUtil.getIpAddress(request))
+                        // IP属地
+                        .setIpSource(IpUtil.getIpLocation(userInfo.getIpAddress()))
+                        // 登录设备
+                        .setDevice(securityUtil.getUserAgent(request))
+        );
     }
 
 }

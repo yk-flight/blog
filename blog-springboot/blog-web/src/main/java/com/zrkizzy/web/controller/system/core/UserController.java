@@ -5,14 +5,12 @@ import com.zrkizzy.common.utils.BeanCopyUtil;
 import com.zrkizzy.data.domain.User;
 import com.zrkizzy.security.util.SecurityUtil;
 import com.zrkizzy.server.service.core.IUserService;
+import com.zrkizzy.server.vo.UserInfoVO;
 import com.zrkizzy.server.vo.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,6 +41,13 @@ public class UserController {
         userVO.setRoles(user.getRoles().get(0).getName());
         // 返回数据
         return Result.success(userVO);
+    }
+
+    @ApiOperation("用户个人信息")
+    @GetMapping("/getUserInfo")
+    public Result<UserInfoVO> getUserInfo () {
+        // 获取用户信息
+        return userService.getUserInfo();
     }
 
     @ApiOperation("获取所有用户")

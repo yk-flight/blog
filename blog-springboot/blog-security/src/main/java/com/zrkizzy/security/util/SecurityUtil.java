@@ -3,10 +3,14 @@ package com.zrkizzy.security.util;
 import com.zrkizzy.common.service.IRedisService;
 import com.zrkizzy.data.domain.User;
 import com.zrkizzy.security.entity.MyUserDetails;
+import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
+
+import static com.zrkizzy.common.constant.CommonConst.USER_AGENT;
 import static com.zrkizzy.common.constant.RedisConst.USER_PREFIX;
 import static com.zrkizzy.common.constant.SecurityConst.ADMIN;
 
@@ -46,6 +50,26 @@ public class SecurityUtil {
      */
     public String getLoginUserRole() {
         return getUserDetails().getRole();
+    }
+
+    /**
+     * 获取当前登录用户的角色名称
+     *
+     * @return 角色名称
+     */
+    public String getLoginUserRoleName() {
+        return getUserDetails().getRoleName();
+    }
+
+    /**
+     * 获取用户登录设备信息
+     *
+     * @return 用户登录设备信息（操作系统 浏览器版本）
+     */
+    public String getUserAgent(HttpServletRequest request) {
+        // 获取用户登录设备信息对象
+        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader(USER_AGENT));
+        return userAgent.getOperatingSystem() + " " + userAgent.getBrowser();
     }
 
     /**
