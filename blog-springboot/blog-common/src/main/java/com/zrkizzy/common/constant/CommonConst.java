@@ -29,11 +29,6 @@ public class CommonConst {
     public static final String BEARER = "Bearer";
 
     /**
-     * 本地IP地址
-     */
-    public static final String LOCAL_HOST = "127.0.0.1";
-
-    /**
      * 图片格式
      */
     public static final String IMAGE_JPEG = "image/jpeg";
@@ -83,4 +78,23 @@ public class CommonConst {
      */
     public static final String NO_REDIRECT = "noRedirect";
 
+    /**
+     * 本地登录
+     */
+    public static final String LOCAL_NAME = "本地登录";
+
+    /**
+     * 用户解析信息
+     */
+    public static final String USER_AGENT = "User-Agent";
+
+    /**
+     * 本地IP地址
+     */
+    public static final String LOCAL_HOST = "127.0.0.1";
+
+    /**
+     * 环回地址
+     */
+    public static final String LOOP_BACK_HOST = "0:0:0:0:0:0:0:1";
 }

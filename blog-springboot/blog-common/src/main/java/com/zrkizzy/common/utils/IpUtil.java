@@ -1,6 +1,7 @@
 package com.zrkizzy.common.utils;
 
 import com.alibaba.fastjson.JSON;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -8,6 +9,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
+
+import static com.zrkizzy.common.constant.CommonConst.*;
 
 
 /**
@@ -34,6 +37,10 @@ public class IpUtil {
         if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getRemoteAddr();
         }
+        if (!StringUtils.hasLength(ipAddress)) {
+            ipAddress = LOCAL_HOST;
+        }
+
         return ipAddress;
     }
 
@@ -44,6 +51,9 @@ public class IpUtil {
      * @return 解析后的ip地址
      */
     public static String getIpLocation(String ipAddress) {
+        if (LOCAL_HOST.equals(ipAddress) || LOOP_BACK_HOST.equals(ipAddress)) {
+            return LOCAL_NAME;
+        }
         try {
             URL url = new URL("http://opendata.baidu.com/api.php?query=" + ipAddress + "&co=&resource_id=6006&oe=utf8");
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openConnection().getInputStream(), "utf-8"));
