@@ -9,3 +9,13 @@ export const getLoginUser = () => {
     method: 'GET'
   })
 }
+
+/**
+ * 更新用户个人信息 
+ */
+export const updateUserInfo = () => {
+  return request({
+    url: '/admin/user/updateUserInfo',
+    method: 'POST'
+  })
+}
