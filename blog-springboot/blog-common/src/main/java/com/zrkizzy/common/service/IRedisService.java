@@ -71,6 +71,14 @@ public interface IRedisService {
     Long increment(String key);
 
     /**
+     * 获取Key值的失效时间
+     *
+     * @param key 键
+     * @return 失效时间（秒）
+     */
+    Long getExpire(String key);
+
+    /**
      * 判断Redis中是否存在指定键
      *
      * @param key 键

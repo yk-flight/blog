@@ -125,4 +125,15 @@ public class RedisServiceImpl implements IRedisService {
         return redisTemplate.opsForValue().increment(key);
     }
 
+    /**
+     * 获取Key值的失效时间
+     *
+     * @param key 键
+     * @return 失效时间（秒）
+     */
+    @Override
+    public Long getExpire(String key) {
+        return redisTemplate.getExpire(key, TimeUnit.SECONDS);
+    }
+
 }
