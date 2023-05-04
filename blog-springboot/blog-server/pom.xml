@@ -17,12 +17,6 @@
     </properties>
 
     <dependencies>
-        <!-- Spring Web依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
         <!-- 数据持久化模块 -->
         <dependency>
             <groupId>com.zrkizzy</groupId>
