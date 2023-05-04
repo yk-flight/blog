@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 01/05/2023 01:20:04
+ Date: 04/05/2023 10:56:24
 */
 
 SET NAMES utf8mb4;
@@ -176,7 +176,9 @@ INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1636187548919267329, '获取所有角色', '获取当前系统中所有角色的信息', 'POST', '/admin/role/list', 1636182933754609665, '2023-03-16 10:24:57', '2023-04-13 07:06:16');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1647860341062762496, '获取当前登录用户', '获取当前系统登录用户', 'GET', '/admin/user/getLoginUser', 1636182933754609665, '2023-04-17 15:12:14', '2023-04-17 21:24:19');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1647952968122630145, '获取菜单列表', '获取菜单列表', 'GET', '/admin/menu/getRoutes', 1636182933754609665, '2023-04-17 21:24:19', '2023-04-19 08:28:04');
-INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1652715951180742656, '获取用户个人信息', '获取用户个人信息', 'GET', '/admin/user/getUserInfo', 1636182933754609665, '2023-05-01 00:46:55', '2023-04-30 16:47:03');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1652715951180742656, '获取用户个人信息', '获取用户个人信息', 'GET', '/admin/user/getUserInfo', 1636182933754609665, '2023-05-01 00:46:55', '2023-05-03 15:57:05');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1653929645323583488, '更新用户个人信息', '更新用户个人信息', 'POST', '/admin/user/updateUserInfo', 1636182933754609665, '2023-05-01 00:46:55', '2023-05-03 15:57:05');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1653929645323583489, '更新用户个人信息', '更新用户个人信息', 'POST', '/admin/user/updateUserInfo', 1636182933754609665, '2023-05-01 00:46:55', '2023-05-03 15:57:05');
 COMMIT;
 
 -- ----------------------------
@@ -212,9 +214,10 @@ CREATE TABLE `tb_user` (
   `nickname` varchar(50) DEFAULT NULL COMMENT '昵称',
   `avatar` varchar(255) DEFAULT NULL COMMENT '头像',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态，0：禁用，1：启用',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '备注',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `username` (`username`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表';
 
@@ -222,7 +225,26 @@ CREATE TABLE `tb_user` (
 -- Records of tb_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_user` (`id`, `username`, `password`, `nickname`, `avatar`, `status`, `create_time`, `update_time`) VALUES (1633027432405532672, '1072876976@qq.com', '$2a$10$Kbb.k6umlihAQBRtSxNGiuHaqT5YP4IVP9Cmytfn8xsecp7Z4e50G', '世纪末的架构师', 'https://s1.ax1x.com/2023/04/26/p9K181A.jpg', 1, '2023-03-07 16:52:16', '2023-04-28 07:04:14');
+INSERT INTO `tb_user` (`id`, `username`, `password`, `nickname`, `avatar`, `status`, `remark`, `create_time`, `update_time`) VALUES (1633027432405532672, '1072876976@qq.com', '$2a$10$Kbb.k6umlihAQBRtSxNGiuHaqT5YP4IVP9Cmytfn8xsecp7Z4e50G', '世纪末的架构师', 'https://s1.ax1x.com/2023/04/26/p9K181A.jpg', 1, NULL, '2023-03-07 16:52:16', '2023-04-28 07:04:14');
+INSERT INTO `tb_user` (`id`, `username`, `password`, `nickname`, `avatar`, `status`, `remark`, `create_time`, `update_time`) VALUES (1653794265890816000, 'test@qq.com', '$2a$10$Kbb.k6umlihAQBRtSxNGiuHaqT5YP4IVP9Cmytfn8xsecp7Z4e50G', '测试账号', 'https://s1.ax1x.com/2023/04/26/p9K181A.jpg', 1, '自古英雄出炼狱，破马长枪定乾坤！111', '2023-05-03 16:15:23', '2023-05-03 16:15:39');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for tb_user_info
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_user_info`;
+CREATE TABLE `tb_user_info` (
+  `id` bigint(20) NOT NULL COMMENT '主键（同user主键）',
+  `phone` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '手机号码',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of tb_user_info
+-- ----------------------------
+BEGIN;
 COMMIT;
 
 -- ----------------------------
@@ -241,6 +263,7 @@ CREATE TABLE `tb_user_role` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `tb_user_role` (`id`, `user_id`, `role_id`) VALUES (1635171865322323968, 1633027432405532672, 1633646396710060032);
+INSERT INTO `tb_user_role` (`id`, `user_id`, `role_id`) VALUES (1653794265890816001, 1653794265890816000, 1633646396710060032);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

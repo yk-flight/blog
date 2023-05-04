@@ -4,7 +4,7 @@
 <mapper namespace="com.zrkizzy.data.mapper.UserMapper">
 
     <sql id="base_column">
-        id, username, password, nickname, avatar, status, create_time, update_time
+        id, username, password, nickname, avatar, status, remark, create_time, update_time
     </sql>
 
     <!-- 通用查询映射结果 -->
@@ -15,6 +15,7 @@
         <result column="avatar" property="avatar" />
         <result column="nickname" property="nickname" />
         <result column="status" property="status" />
+        <result column="remark" property="remark" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
@@ -46,6 +47,7 @@
             nickname,
             avatar,
             status,
+            remark,
             u.create_time,
             u.update_time,
             r.id AS role_id,

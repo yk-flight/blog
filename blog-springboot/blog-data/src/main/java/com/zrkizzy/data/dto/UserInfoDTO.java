@@ -1,20 +1,27 @@
-package com.zrkizzy.server.vo;
+package com.zrkizzy.data.dto;
 
-import com.zrkizzy.common.base.response.BaseVO;
+import com.zrkizzy.common.base.BaseDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+
 /**
- * 用户数据返回对象
+ * 用户个人信息数据传输对象
  *
  * @author zhangrongkang
- * @since 2023/3/7
+ * @since 2023/5/3
  */
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
-public class UserVO extends BaseVO {
+public class UserInfoDTO extends BaseDTO {
+
+    /**
+     * 头像
+     */
+    private String avatar;
 
     /**
      * 用户名
@@ -27,24 +34,14 @@ public class UserVO extends BaseVO {
     private String nickname;
 
     /**
-     * 头像
+     * 备注
      */
-    private String avatar;
-
-    /**
-     * 状态，0：禁用，1：启用
-     */
-    private Boolean status;
-
-    /**
-     * 用户角色
-     */
-    private String roles;
+    @NotBlank(message = "手机号不能为空")
+    private String phone;
 
     /**
      * 备注
      */
     private String remark;
-
 
 }

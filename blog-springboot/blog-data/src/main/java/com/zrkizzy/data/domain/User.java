@@ -61,4 +61,11 @@ public class User extends BaseEntity {
     @TableField(exist = false)
     private List<Role> roles;
 
+    /**
+     * 备注
+     */
+    @ApiModelProperty("备注")
+    private String remark;
+
+
 }

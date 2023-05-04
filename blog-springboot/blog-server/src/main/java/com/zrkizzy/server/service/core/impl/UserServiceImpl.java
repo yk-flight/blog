@@ -1,5 +1,6 @@
 package com.zrkizzy.server.service.core.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.service.IRedisService;
@@ -7,15 +8,19 @@ import com.zrkizzy.common.utils.BeanCopyUtil;
 import com.zrkizzy.common.utils.IpUtil;
 import com.zrkizzy.common.utils.JwtTokenUtil;
 import com.zrkizzy.data.domain.User;
+import com.zrkizzy.data.domain.UserInfo;
 import com.zrkizzy.data.dto.LoginDTO;
+import com.zrkizzy.data.dto.UserInfoDTO;
 import com.zrkizzy.data.mapper.UserMapper;
 import com.zrkizzy.security.util.SecurityUtil;
 import com.zrkizzy.security.util.UserDetailUtil;
+import com.zrkizzy.server.service.core.IUserInfoService;
 import com.zrkizzy.server.service.core.IUserService;
 import com.zrkizzy.server.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -48,6 +53,8 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private IRedisService redisService;
+    @Autowired
+    private IUserInfoService userInfoService;
 
     @Autowired
     private UserMapper userMapper;
@@ -114,21 +121,68 @@ public class UserServiceImpl implements IUserService {
     public Result<UserInfoVO> getUserInfo() {
         // 从SecurityUtil中获取到当前登录用户对象
         User user = securityUtil.getLoginUser();
-        // 根据查询到的User对象复制UserInfo对象
-        UserInfoVO userInfo = BeanCopyUtil.copy(user, UserInfoVO.class);
+        // 根据查询到的User对象复制UserInfoVO对象
+        UserInfoVO userInfoVO = BeanCopyUtil.copy(user, UserInfoVO.class);
+        // 查询当前用户对应UserInfo对象
+        UserInfo userInfo = userInfoService.getUserInfoById(user.getId());
+        if (null != userInfo) {
+            // 手机号码
+            userInfoVO.setPhone(userInfo.getPhone());
+        }
         // 获取 request 请求
         HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
         // 返回数据
         return Result.success(
                 // 角色名称
-                userInfo.setRoleName(securityUtil.getLoginUserRoleName())
+                userInfoVO.setRoleName(securityUtil.getLoginUserRoleName())
                         // IP地址
                         .setIpAddress(IpUtil.getIpAddress(request))
                         // IP属地
-                        .setIpSource(IpUtil.getIpLocation(userInfo.getIpAddress()))
+                        .setIpSource(IpUtil.getIpLocation(userInfoVO.getIpAddress()))
                         // 登录设备
                         .setDevice(securityUtil.getUserAgent(request))
         );
+    }
+
+    /**
+     * 更新用户个人信息
+     *
+     * @param userInfoDTO 用户个人信息数据传输对象
+     * @return 公告返回对象
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Result<?> updateUserInfo(UserInfoDTO userInfoDTO) {
+        System.out.println(userInfoDTO);
+        // 查看手机号是否绑定
+        if (!StringUtils.hasLength(userInfoDTO.getPhone())) {
+            return Result.failure(HttpStatusEnum.FIRST_BIND_PHONE);
+        }
+        // 根据ID查询个人信息
+        User user = userMapper.selectById(userInfoDTO.getId());
+        if ((!StringUtils.hasLength(userInfoDTO.getUsername()))|| !StringUtils.hasLength(userInfoDTO.getNickname())) {
+            return Result.failure(HttpStatusEnum.USERNAME_OR_NICKNAME_NOT_NULL);
+        }
+        // 修改后的用户名和昵称是否重复
+        Long count = userMapper.selectCount(new QueryWrapper<User>().eq("username", userInfoDTO.getUsername())
+                .or().eq("nickname", userInfoDTO.getNickname()));
+        // 校验修改内容的合法性
+        if (null != count && count > 0) {
+            // 是否修改昵称
+            if (!user.getNickname().equals(userInfoDTO.getNickname())) {
+                return Result.failure(HttpStatusEnum.NICKNAME_REPEAT);
+            }
+            // 是否修改用户名
+            if (!user.getUsername().equals(userInfoDTO.getUsername())) {
+                return Result.failure(HttpStatusEnum.USERNAME_REPEAT);
+            }
+        }
+        // 更新数据并返回结果
+        user.setNickname(userInfoDTO.getNickname());
+        user.setUsername(userInfoDTO.getUsername());
+        user.setRemark(userInfoDTO.getRemark());
+        return userMapper.updateById(user) > 0 ?
+                Result.success() : Result.failure(HttpStatusEnum.INTERNAL_SERVER_ERROR);
     }
 
 }

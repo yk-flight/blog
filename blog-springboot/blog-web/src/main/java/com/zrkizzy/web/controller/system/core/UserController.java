@@ -3,6 +3,7 @@ package com.zrkizzy.web.controller.system.core;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.utils.BeanCopyUtil;
 import com.zrkizzy.data.domain.User;
+import com.zrkizzy.data.dto.UserInfoDTO;
 import com.zrkizzy.security.util.SecurityUtil;
 import com.zrkizzy.server.service.core.IUserService;
 import com.zrkizzy.server.vo.UserInfoVO;
@@ -10,6 +11,7 @@ import com.zrkizzy.server.vo.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,6 +50,12 @@ public class UserController {
     public Result<UserInfoVO> getUserInfo () {
         // 获取用户信息
         return userService.getUserInfo();
+    }
+
+    @ApiOperation("更新用户个人信息")
+    @PostMapping("/updateUserInfo")
+    public Result<?> updateUserInfo(@RequestBody @Validated UserInfoDTO userInfoDTO) {
+        return userService.updateUserInfo(userInfoDTO);
     }
 
     @ApiOperation("获取所有用户")

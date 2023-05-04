@@ -49,6 +49,11 @@ public class UserInfoVO extends BaseVO {
     private String ipSource;
 
     /**
+     * 电话号码
+     */
+    private String phone;
+
+    /**
      * 登录设备
      */
     private String device;
