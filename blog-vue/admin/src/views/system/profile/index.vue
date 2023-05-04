@@ -32,7 +32,7 @@
             <el-divider></el-divider>
 
             <div class="card-panel-footer">
-              <el-button type="danger" icon="el-icon-lock" size="small">修改密码</el-button>
+              <el-button type="danger" icon="el-icon-lock" size="small" @click="openPasswordDialog">修改密码</el-button>
             </div>
 
           </el-col>
@@ -96,17 +96,25 @@
           </el-col>
         </el-row>
       </div>
-
     </div>
+
+    <password
+      v-bind:username="userInfo.username"
+      v-bind:passwordVisible="passwordVisible"
+      @func="closePasswordDialog">
+    </password>
   </div>
 </template>
 
 <script>
 import { getUserInfo, updateUserInfo } from '../../../api/user'
 import { mapGetters } from 'vuex'
+import Password from './component/Password.vue'
 
 export default {
   name: 'Profile',
+
+  components: { Password },
 
   computed: {
     ...mapGetters(['avatar'])
@@ -116,6 +124,10 @@ export default {
     return {
       // 保存按钮等待框
       saveLoading: false,
+      // 更新密码按钮等待框
+      passwordLoading: false,
+      // 更新密码对话框
+      passwordVisible: false,
       // 用户信息
       userInfo: {
         // 用户ID
@@ -156,6 +168,18 @@ export default {
       })
     },
     /**
+     * 打开更新用户密码弹窗
+     */
+    openPasswordDialog () {
+      this.passwordVisible = true
+    },
+    /**
+     * 关闭更新用户密码弹窗
+     */
+    closePasswordDialog () {
+      this.passwordVisible = false
+    },
+    /**
      * 更新用户个人信息
      */
     updateUserInfo () {
@@ -166,7 +190,7 @@ export default {
         avatar: this.userInfo.avatar,
         username: this.userInfo.username,
         nickname: this.userInfo.nickname,
-        phone: '15234417033',
+        phone: '',
         remark: this.userInfo.remark
       }).then((res) => {
         this.$message.success('更新成功')
@@ -176,7 +200,6 @@ export default {
         // 关闭更新等待框
         this.saveLoading = false
       })
-      console.log(this.userInfo)
     }
   }
 }
