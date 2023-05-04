@@ -26,6 +26,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.zrkizzy.common.constant.RedisConst.CAPTCHA_PREFIX;
@@ -153,34 +154,37 @@ public class UserServiceImpl implements IUserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Result<?> updateUserInfo(UserInfoDTO userInfoDTO) {
-        System.out.println(userInfoDTO);
-        // 查看手机号是否绑定
-        if (!StringUtils.hasLength(userInfoDTO.getPhone())) {
-            return Result.failure(HttpStatusEnum.FIRST_BIND_PHONE);
-        }
         // 根据ID查询个人信息
-        User user = userMapper.selectById(userInfoDTO.getId());
-        if ((!StringUtils.hasLength(userInfoDTO.getUsername()))|| !StringUtils.hasLength(userInfoDTO.getNickname())) {
-            return Result.failure(HttpStatusEnum.USERNAME_OR_NICKNAME_NOT_NULL);
-        }
-        // 修改后的用户名和昵称是否重复
-        Long count = userMapper.selectCount(new QueryWrapper<User>().eq("username", userInfoDTO.getUsername())
-                .or().eq("nickname", userInfoDTO.getNickname()));
-        // 校验修改内容的合法性
-        if (null != count && count > 0) {
-            // 是否修改昵称
-            if (!user.getNickname().equals(userInfoDTO.getNickname())) {
-                return Result.failure(HttpStatusEnum.NICKNAME_REPEAT);
-            }
-            // 是否修改用户名
-            if (!user.getUsername().equals(userInfoDTO.getUsername())) {
+        User user = userMapper.getUserByUserId(userInfoDTO.getId());
+        // 如果修改用户名
+        if (!user.getUsername().equals(userInfoDTO.getUsername())) {
+            // 校验修改后用户名的合法性
+            Long count = userMapper.selectCount(new QueryWrapper<User>().eq("username", userInfoDTO.getUsername()));
+            // 校验修改内容的合法性，如果没有修改用户名则能查出1条
+            if (null != count && count > 0) {
+                // 确保用户名是唯一的
                 return Result.failure(HttpStatusEnum.USERNAME_REPEAT);
             }
         }
-        // 更新数据并返回结果
+        // 将用户密码提前保存下来，在Redis中不缓存密码
+        String password = user.getPassword();
+        // 获取当前更新个人信息用户缓存的失效时间
+        Long expire = redisService.getExpire(USER_PREFIX + user.getUsername());
+        // 删除Redis中缓存的用户个人信息
+        redisService.del(USER_PREFIX + user.getUsername());
+
+        // 设置用户信息
         user.setNickname(userInfoDTO.getNickname());
         user.setUsername(userInfoDTO.getUsername());
         user.setRemark(userInfoDTO.getRemark());
+        user.setUpdateTime(LocalDateTime.now());
+        // Redis中不展示密码
+        user.setPassword(null);
+        // 更新缓存中的用户个人信息，缓存失效时间不改变
+        redisService.set(USER_PREFIX + user.getUsername(), user, expire);
+        user.setPassword(password);
+
+        // 更新数据库
         return userMapper.updateById(user) > 0 ?
                 Result.success() : Result.failure(HttpStatusEnum.INTERNAL_SERVER_ERROR);
     }

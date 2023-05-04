@@ -35,8 +35,8 @@ service.interceptors.response.use((response) => {
   const { message, data, code } = response.data
   // 处理请求成功的情况
   if (response.status && response.status === 200) {
-    // Token失效的情况
-    if (code === 506) {
+    // Token失效的情况，或管理员强制下线情况
+    if (code === 506 || code === 2000) {
       if (!messageShow) {
         messageShow = true
         MessageBox.confirm('登录状态已过期，请重新登录', '系统提示',

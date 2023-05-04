@@ -11,11 +11,22 @@ export const getLoginUser = () => {
 }
 
 /**
- * 更新用户个人信息 
+ * 获取用户个人信息
  */
-export const updateUserInfo = () => {
+export const getUserInfo = () => {
+  return request({
+    url: '/admin/user/getUserInfo',
+    method: 'GET'
+  })
+}
+
+/**
+ * 更新用户个人信息
+ */
+export const updateUserInfo = (data) => {
   return request({
     url: '/admin/user/updateUserInfo',
-    method: 'POST'
+    method: 'POST',
+    data: data
   })
 }

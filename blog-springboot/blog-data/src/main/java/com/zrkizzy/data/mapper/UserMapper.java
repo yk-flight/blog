@@ -27,4 +27,12 @@ public interface UserMapper extends BaseMapper<User> {
      * @return 用户对象
      */
     User getUserByUsername(String username);
+
+    /**
+     * 通过用户ID来获取用户对象
+     *
+     * @param userId 用户ID
+     * @return 用户对象
+     */
+    User getUserByUserId(Long userId);
 }

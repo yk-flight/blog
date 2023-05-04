@@ -68,10 +68,7 @@ public enum HttpStatusEnum {
     USER_NOT_EXIST(2002, "用户不存在"),
     USER_ENABLE(2003, "当前用户已禁用，请联系管理员"),
     PASSWORD_ERROR(2004, "密码错误"),
-    USERNAME_OR_NICKNAME_NOT_NULL(2005, "用户名或昵称不能为空"),
-    USERNAME_REPEAT(2006, "用户名重复，当前用户名已存在"),
-    NICKNAME_REPEAT(2007, "昵称重复，当前昵称已存在"),
-    FIRST_BIND_PHONE(2008, "请先绑定手机号码");
+    USERNAME_REPEAT(2005, "用户名重复，当前用户名已存在");
 
     /**
      * 状态码

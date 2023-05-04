@@ -8,7 +8,7 @@
         <el-col :xs="24" :sm="20" :md="21">
           <el-row type="flex" justify="space-between">
             <div class="home-avatar">
-              <el-avatar src="https://s1.ax1x.com/2023/04/26/p9K181A.jpg" alt="" class="avatar-image"></el-avatar>
+              <el-avatar :src="avatar" alt="" class="avatar-image"></el-avatar>
             </div>
             <el-col style="padding: 0px 18px;">
               <span class="font-title">你好，世纪末的架构师，今天又是充满活力的一天</span>
@@ -193,6 +193,11 @@ export default {
   },
 
   computed: {
+    // 登录用户头像
+    avatar () {
+      return this.$store.getters.avatar
+    },
+    // 首页通知框
     homeDialogShow () {
       return this.$store.getters.homeDialogShow
     }

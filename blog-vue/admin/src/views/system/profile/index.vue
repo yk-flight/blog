@@ -9,17 +9,22 @@
             </div>
             <div class="card-panel-body-content">
               <div class="card-panel-body-nick">
-                世纪末的架构师
+                {{ userInfo.nickname }}
               </div>
               <div class="card-panel-body-create">
-                创建时间：2023-03-07 16:52:16
+                创建时间：{{ userInfo.createTime | dateFilter }}
               </div>
             </div>
             <el-divider content-position="center">信息绑定</el-divider>
 
             <div class="card-panel-body-info">
               <div class="card-panel-body-info-item">
-                <span>手机：15234417033</span>
+                <span>
+                  手机：
+                  <span v-if="userInfo.phone">15234417033</span>
+                  <span v-else>暂未绑定手机</span>
+                </span>
+
                 <el-button type="success" icon="el-icon-mobile-phone" size="mini">修改手机</el-button>
               </div>
             </div>
@@ -78,7 +83,14 @@
                 </el-form-item>
               </el-form>
               <div class="card-panel-content-button">
-                <el-button type="primary" icon="el-icon-success" size="small">保存</el-button>
+                <el-button
+                  type="primary"
+                  icon="el-icon-success"
+                  size="small"
+                  @click="updateUserInfo"
+                  :loading="saveLoading">
+                  保存
+                </el-button>
               </div>
             </div>
           </el-col>
@@ -90,6 +102,7 @@
 </template>
 
 <script>
+import { getUserInfo, updateUserInfo } from '../../../api/user'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -101,32 +114,70 @@ export default {
 
   data () {
     return {
+      // 保存按钮等待框
+      saveLoading: false,
       // 用户信息
       userInfo: {
+        // 用户ID
+        id: undefined,
         // 用户名
-        username: '1072876976@qq.com',
+        username: undefined,
         // 用户昵称
-        nickname: '世纪末的架构师',
+        nickname: undefined,
         // 角色名称
-        roleName: '超级管理员',
+        roleName: undefined,
         // 登录IP
-        ipAddress: '114.218.92.101',
+        ipAddress: undefined,
         // IP属地
-        ipSource: '江苏省苏州市',
+        ipSource: undefined,
         // 登录设备
-        device: 'Mac OS X CHROME11',
+        device: undefined,
         // 备注
-        remark: '自古英雄出炼狱，破马长枪定乾坤。'
+        remark: undefined,
+        // 手机号码
+        phone: undefined,
+        // 创建时间
+        createTime: undefined
       }
     }
   },
 
   mounted () {
-
+    this.getUserInfo()
   },
 
   methods: {
-
+    /**
+     * 获取用户个人信息
+     */
+    getUserInfo () {
+      getUserInfo().then((res) => {
+        this.userInfo = res
+      })
+    },
+    /**
+     * 更新用户个人信息
+     */
+    updateUserInfo () {
+      // 开启等待框
+      this.saveLoading = true
+      updateUserInfo({
+        id: this.userInfo.id,
+        avatar: this.userInfo.avatar,
+        username: this.userInfo.username,
+        nickname: this.userInfo.nickname,
+        phone: '15234417033',
+        remark: this.userInfo.remark
+      }).then((res) => {
+        this.$message.success('更新成功')
+        // 关闭更新等待框
+        this.saveLoading = false
+      }).catch(() => {
+        // 关闭更新等待框
+        this.saveLoading = false
+      })
+      console.log(this.userInfo)
+    }
   }
 }
 </script>

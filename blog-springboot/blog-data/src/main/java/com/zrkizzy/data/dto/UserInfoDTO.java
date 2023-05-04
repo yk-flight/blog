@@ -26,17 +26,18 @@ public class UserInfoDTO extends BaseDTO {
     /**
      * 用户名
      */
+    @NotBlank(message = "用户名不能为空")
     private String username;
 
     /**
      * 昵称
      */
+    @NotBlank(message = "昵称不能为空")
     private String nickname;
 
     /**
      * 备注
      */
-    @NotBlank(message = "手机号不能为空")
     private String phone;
 
     /**
