@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 04/05/2023 10:56:24
+ Date: 05/05/2023 16:10:52
 */
 
 SET NAMES utf8mb4;
@@ -178,7 +178,7 @@ INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1647952968122630145, '获取菜单列表', '获取菜单列表', 'GET', '/admin/menu/getRoutes', 1636182933754609665, '2023-04-17 21:24:19', '2023-04-19 08:28:04');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1652715951180742656, '获取用户个人信息', '获取用户个人信息', 'GET', '/admin/user/getUserInfo', 1636182933754609665, '2023-05-01 00:46:55', '2023-05-03 15:57:05');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1653929645323583488, '更新用户个人信息', '更新用户个人信息', 'POST', '/admin/user/updateUserInfo', 1636182933754609665, '2023-05-01 00:46:55', '2023-05-03 15:57:05');
-INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1653929645323583489, '更新用户个人信息', '更新用户个人信息', 'POST', '/admin/user/updateUserInfo', 1636182933754609665, '2023-05-01 00:46:55', '2023-05-03 15:57:05');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1654391949517389824, '修改密码发送邮件验证码', '修改密码发送邮件验证码', 'GET', '/admin/email/password', 1636182933754609665, '2023-05-05 15:46:37', '2023-05-05 07:50:01');
 COMMIT;
 
 -- ----------------------------
@@ -226,7 +226,7 @@ CREATE TABLE `tb_user` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `tb_user` (`id`, `username`, `password`, `nickname`, `avatar`, `status`, `remark`, `create_time`, `update_time`) VALUES (1633027432405532672, '1072876976@qq.com', '$2a$10$Kbb.k6umlihAQBRtSxNGiuHaqT5YP4IVP9Cmytfn8xsecp7Z4e50G', '世纪末的架构师', 'https://s1.ax1x.com/2023/04/26/p9K181A.jpg', 1, NULL, '2023-03-07 16:52:16', '2023-04-28 07:04:14');
-INSERT INTO `tb_user` (`id`, `username`, `password`, `nickname`, `avatar`, `status`, `remark`, `create_time`, `update_time`) VALUES (1653794265890816000, 'test@qq.com', '$2a$10$Kbb.k6umlihAQBRtSxNGiuHaqT5YP4IVP9Cmytfn8xsecp7Z4e50G', '测试账号', 'https://s1.ax1x.com/2023/04/26/p9K181A.jpg', 1, '自古英雄出炼狱，破马长枪定乾坤！111', '2023-05-03 16:15:23', '2023-05-03 16:15:39');
+INSERT INTO `tb_user` (`id`, `username`, `password`, `nickname`, `avatar`, `status`, `remark`, `create_time`, `update_time`) VALUES (1653794265890816000, '2675525537@qq.com', '$2a$10$Kbb.k6umlihAQBRtSxNGiuHaqT5YP4IVP9Cmytfn8xsecp7Z4e50G', '哈哈哈', 'https://s1.ax1x.com/2023/05/04/p9tnRu4.jpg', 1, '自古英雄出炼狱，破马长枪定乾坤！', '2023-05-03 16:15:23', '2023-05-04 23:41:08');
 COMMIT;
 
 -- ----------------------------
