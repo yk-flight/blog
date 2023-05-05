@@ -19,8 +19,18 @@ public class RedisConst {
     public static final String USER_PREFIX = "user:";
 
     /**
-     * 验证码前缀
+     * 登录验证码前缀
      */
     public static final String CAPTCHA_PREFIX = "captcha:";
+
+    /**
+     * 邮箱验证码前缀
+     */
+    public static final String CAPTCHA_EMAIL_PREFIX = "captcha:email:";
+
+    /**
+     * 手机短信验证码前缀
+     */
+    public static final String CAPTCHA_SMS_PREFIX = "captcha:sms:";
 
 }

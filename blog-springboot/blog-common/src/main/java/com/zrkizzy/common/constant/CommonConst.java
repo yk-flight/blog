@@ -97,4 +97,5 @@ public class CommonConst {
      * 环回地址
      */
     public static final String LOOP_BACK_HOST = "0:0:0:0:0:0:0:1";
+
 }

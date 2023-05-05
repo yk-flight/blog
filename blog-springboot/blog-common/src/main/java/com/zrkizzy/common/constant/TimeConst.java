@@ -2,6 +2,7 @@ package com.zrkizzy.common.constant;
 
 /**
  * <p>时间全局静态常量（秒）</p>
+ *
  * 在RedisServiceImpl中定义过期时间为秒
  *
  * @author zhangrongkang
