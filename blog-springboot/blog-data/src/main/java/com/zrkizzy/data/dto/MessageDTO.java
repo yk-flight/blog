@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 邮件发送数据传递对象
+ * 消息发送数据传递对象
  *
  * @author zhangrongkang
  * @since 2023/5/5
@@ -15,25 +15,25 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmailMessageDTO {
+public class MessageDTO {
 
     /**
-     * 发件人
+     * 发送人
      */
     private String sender;
 
     /**
-     * 收件人
+     * 接收人
      */
     private String senderTo;
 
     /**
-     * 邮件主题
+     * 消息主题
      */
     private String subject;
 
     /**
-     * 邮件发送类型
+     * 消息发送类型
      */
     private String type;
 

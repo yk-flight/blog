@@ -1,7 +1,7 @@
 package com.zrkizzy.web.controller.system;
 
 import com.alibaba.fastjson.JSON;
-import com.zrkizzy.data.dto.EmailMessageDTO;
+import com.zrkizzy.data.dto.MessageDTO;
 import com.zrkizzy.security.util.SecurityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,7 +41,7 @@ public class EmailController {
     @GetMapping("/password")
     public void password() {
         // 定义邮件发送对象
-        EmailMessageDTO emailMessageDTO = EmailMessageDTO.builder()
+        MessageDTO emailMessageDTO = MessageDTO.builder()
                 // 发件人
                 .sender(sender)
                 // 收件人
