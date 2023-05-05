@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MessageDTO {
+public class MessageSenderDTO {
 
     /**
      * 发送人

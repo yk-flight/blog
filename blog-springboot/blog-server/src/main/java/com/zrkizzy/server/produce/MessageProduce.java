@@ -1,7 +1,7 @@
 package com.zrkizzy.server.produce;
 
 import com.alibaba.fastjson.JSON;
-import com.zrkizzy.data.dto.MessageDTO;
+import com.zrkizzy.data.dto.MessageSenderDTO;
 import com.zrkizzy.server.factory.MessageSenderFactory;
 import com.zrkizzy.server.template.AbstractMessageSender;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -26,11 +26,11 @@ public class MessageProduce {
     @RabbitHandler
     public void process(byte[] data) {
         // 获取邮件数据传输对象
-        MessageDTO messageDTO = JSON.parseObject(new String(data), MessageDTO.class);
+        MessageSenderDTO messageSenderDTO = JSON.parseObject(new String(data), MessageSenderDTO.class);
         // 获取具体消息发送实例
-        AbstractMessageSender messageSender = messageSenderFactory.getInstance(messageDTO.getMethod());
+        AbstractMessageSender messageSender = messageSenderFactory.getInstance(messageSenderDTO.getMethod());
         // 调用钩子方法发送邮件
-        messageSender.sendMessage(messageDTO);
+        messageSender.sendMessage(messageSenderDTO);
     }
 
 }

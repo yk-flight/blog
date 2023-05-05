@@ -1,6 +1,6 @@
 package com.zrkizzy.server.template.impl;
 
-import com.zrkizzy.data.dto.MessageDTO;
+import com.zrkizzy.data.dto.MessageSenderDTO;
 import com.zrkizzy.server.template.AbstractMessageSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -26,11 +26,11 @@ public class EmailMessageSender extends AbstractMessageSender {
      * @param messageDTO 消息发送数据传递对象
      */
     @Override
-    public void sendMessage(MessageDTO messageDTO) {
+    public void sendMessage(MessageSenderDTO messageSenderDTO) {
         // 获取存储到Redis中的验证码
-        String verifyCode = verifyCode(EMAIL, messageDTO.getSenderTo());
+        String verifyCode = verifyCode(EMAIL, messageSenderDTO.getSenderTo());
         // 判断邮件发送的类型来定义邮件内容
-        String content = switch (messageDTO.getType()) {
+        String content = switch (messageSenderDTO.getType()) {
             // 修改密码验证码
             case CHANGE_PASSWORD ->
                     "【雅康博客】您正在修改您的登录密码，您的验证码是 " + verifyCode + " ，有效时间为5分钟，请及时更改。转发给他人可能导致账号被盗，请勿泄漏，谨防被骗。";
@@ -44,11 +44,11 @@ public class EmailMessageSender extends AbstractMessageSender {
         };
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         // 发件人
-        simpleMailMessage.setFrom(messageDTO.getSender());
+        simpleMailMessage.setFrom(messageSenderDTO.getSender());
         // 收件人
-        simpleMailMessage.setTo(messageDTO.getSenderTo());
+        simpleMailMessage.setTo(messageSenderDTO.getSenderTo());
         // 邮件主题
-        simpleMailMessage.setSubject(messageDTO.getSubject());
+        simpleMailMessage.setSubject(messageSenderDTO.getSubject());
         // 邮件内容
         simpleMailMessage.setText(content);
 
