@@ -18,7 +18,7 @@ import java.util.List;
  * @author zhangrongkang
  * @since 2023/3/8
  */
-@Api(tags = "角色管理模块")
+@Api(tags = "角色管理控制器")
 @RestController
 @RequestMapping("/admin/role")
 public class RoleController {

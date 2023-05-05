@@ -24,7 +24,7 @@ import static com.zrkizzy.common.constant.RabbitMqConst.EMAIL_EXCHANGE;
  * @author zhangrongkang
  * @since 2023/5/4
  */
-@Api(tags = "邮件控制器")
+@Api(tags = "邮件发送控制器")
 @RestController
 @RequestMapping("/admin/email")
 public class EmailController {

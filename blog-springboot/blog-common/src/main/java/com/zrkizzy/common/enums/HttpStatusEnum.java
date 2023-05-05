@@ -57,7 +57,7 @@ public enum HttpStatusEnum {
     SERVICE_UNAVAILABLE(503, "服务不可用"),
     CODE_EXPIRED(504, "验证码已过期，请刷新验证码"),
     CODE_ERROR(505, "验证码错误，请重新输入"),
-    TOKEN_EXPIRED(506, "Token已过期"),
+    TOKEN_EXPIRED(506, "当前Token已过期，请重新登录"),
     TOKEN_ERROR(507, "Token不合法"),
     /**
      * 其他状态码

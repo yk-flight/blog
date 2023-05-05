@@ -3,6 +3,7 @@ package com.zrkizzy.web.controller.system.core;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.utils.BeanCopyUtil;
 import com.zrkizzy.data.domain.User;
+import com.zrkizzy.data.dto.PasswordDTO;
 import com.zrkizzy.data.dto.UserInfoDTO;
 import com.zrkizzy.security.util.SecurityUtil;
 import com.zrkizzy.server.service.core.IUserService;
@@ -22,7 +23,7 @@ import java.util.List;
  * @author zhangrongkang
  * @since 2023/3/7
  */
-@Api(tags = "用户管理模块")
+@Api(tags = "用户管理控制器")
 @RestController
 @RequestMapping("/admin/user")
 public class UserController {
@@ -56,6 +57,12 @@ public class UserController {
     @PostMapping("/updateUserInfo")
     public Result<?> updateUserInfo(@RequestBody @Validated UserInfoDTO userInfoDTO) {
         return userService.updateUserInfo(userInfoDTO);
+    }
+
+    @ApiOperation("更新用户密码")
+    @PostMapping("/updatePassword")
+    public Result<?> updatePassword(@RequestBody @Validated PasswordDTO passwordDTO) {
+        return userService.updatePassword(passwordDTO);
     }
 
     @ApiOperation("获取所有用户")
