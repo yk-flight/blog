@@ -4,6 +4,8 @@ const getters = {
   roles: state => state.user.roles,
   // 头像
   avatar: state => state.user.avatar,
+  // 用户昵称
+  nickname: state => state.user.nickname,
   // 首页对话框
   homeDialogShow: state => state.app.homeDialogShow,
   // 用户菜单

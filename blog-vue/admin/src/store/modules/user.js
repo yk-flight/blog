@@ -11,7 +11,9 @@ const user = {
     // 用户角色
     roles: '',
     // 用户头像
-    avatar: ''
+    avatar: '',
+    // 用户昵称
+    nickname: ''
   },
   mutations: {
     SET_TOKEN (state, token) {
@@ -22,6 +24,9 @@ const user = {
     },
     SET_AVATAR (state, avatar) {
       state.avatar = avatar
+    },
+    SET_NICK (state, nickname) {
+      state.nickname = nickname
     }
   },
   // 异步处理方式
@@ -58,6 +63,8 @@ const user = {
           commit('SET_AVATAR', avatar)
           // 设置当前用户角色到Vuex中
           commit('SET_ROLES', user.roles)
+          // 设置当前用户昵称到Vuex中
+          commit('SET_NICK', user.nickname)
           resolve(user)
         }).catch((error) => {
           // 如果出现登录异常的情况将其捕获并抛出

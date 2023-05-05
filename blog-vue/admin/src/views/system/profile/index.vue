@@ -99,6 +99,7 @@
     </div>
 
     <password
+      v-bind:id="userInfo.id"
       v-bind:username="userInfo.username"
       v-bind:passwordVisible="passwordVisible"
       @func="closePasswordDialog">
@@ -194,6 +195,8 @@ export default {
         remark: this.userInfo.remark
       }).then((res) => {
         this.$message.success('更新成功')
+        // 重新获取一次个人信息
+        this.$store.dispatch('user/getUserInfo')
         // 关闭更新等待框
         this.saveLoading = false
       }).catch(() => {

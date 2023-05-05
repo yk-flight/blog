@@ -11,7 +11,7 @@
               <el-avatar :src="avatar" alt="" class="avatar-image"></el-avatar>
             </div>
             <el-col style="padding: 0px 18px;">
-              <span class="font-title">你好，世纪末的架构师，今天又是充满活力的一天</span>
+              <span class="font-title">你好，{{ nickname }}，今天又是充满活力的一天</span>
               <p class="font-content">须知少时凌云志，曾许人间第一流</p>
             </el-col>
           </el-row>
@@ -196,6 +196,10 @@ export default {
     // 登录用户头像
     avatar () {
       return this.$store.getters.avatar
+    },
+    // 登录用户昵称
+    nickname () {
+      return this.$store.getters.nickname
     },
     // 首页通知框
     homeDialogShow () {
