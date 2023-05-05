@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.zrkizzy.common.constant.MessageConst.CHANGE_PASSWORD;
+import static com.zrkizzy.common.constant.MessageConst.EMAIL;
 import static com.zrkizzy.common.constant.RabbitMqConst.EMAIL_EXCHANGE;
 
 /**
@@ -41,7 +42,9 @@ public class EmailController {
     @GetMapping("/password")
     public void password() {
         // 定义邮件发送对象
-        MessageDTO emailMessageDTO = MessageDTO.builder()
+        MessageDTO messageDTO = MessageDTO.builder()
+                // 发送方式
+                .method(EMAIL)
                 // 发件人
                 .sender(sender)
                 // 收件人
@@ -51,6 +54,6 @@ public class EmailController {
                 // 邮件主题
                 .subject("验证身份").build();
         // 将邮件数据传输对象发送到RabbitMQ中
-        rabbitTemplate.convertAndSend(EMAIL_EXCHANGE, "*", new Message(JSON.toJSONBytes(emailMessageDTO), new MessageProperties()));
+        rabbitTemplate.convertAndSend(EMAIL_EXCHANGE, "*", new Message(JSON.toJSONBytes(messageDTO), new MessageProperties()));
     }
 }

@@ -37,4 +37,9 @@ public class MessageDTO {
      */
     private String type;
 
+    /**
+     * 消息发送方式：email: 邮件 sms：短信
+     */
+    private String method;
+
 }

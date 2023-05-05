@@ -1,8 +1,7 @@
 package com.zrkizzy.server.template;
 
 import com.zrkizzy.common.service.IRedisService;
-import com.zrkizzy.data.dto.EmailMessageDTO;
-import com.zrkizzy.security.util.SecurityUtil;
+import com.zrkizzy.data.dto.MessageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +9,8 @@ import java.util.Random;
 
 import static com.zrkizzy.common.constant.MessageConst.EMAIL;
 import static com.zrkizzy.common.constant.MessageConst.SMS;
-import static com.zrkizzy.common.constant.RedisConst.*;
+import static com.zrkizzy.common.constant.RedisConst.CAPTCHA_EMAIL_PREFIX;
+import static com.zrkizzy.common.constant.RedisConst.CAPTCHA_SMS_PREFIX;
 import static com.zrkizzy.common.constant.TimeConst.FIVE_MINUTE;
 
 /**
@@ -20,18 +20,17 @@ import static com.zrkizzy.common.constant.TimeConst.FIVE_MINUTE;
  * @since 2023/5/5
  */
 @Component
-public abstract class MessageSenderTemplate {
-    @Autowired
-    private SecurityUtil securityUtil;
+public abstract class AbstractMessageSender {
+
     @Autowired
     private IRedisService redisService;
 
     /**
-     * 发送邮件信息到指定用户
+     * 发送消息到指定用户
      *
-     * @param emailMessageDTO 邮件发送数据传递对象
+     * @param messageDTO 邮件发送数据传递对象
      */
-    public abstract void sendMessage(EmailMessageDTO emailMessageDTO);
+    public abstract void sendMessage(MessageDTO messageDTO);
 
     /**
      * 生成当前登录用户验证码并存储到Redis中
