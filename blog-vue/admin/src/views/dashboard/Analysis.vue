@@ -421,7 +421,7 @@ export default {
     height: 20px;
     font-size: 18px;
     font-weight: 500;
-    color: #000;
+    color: #494a4b;
   }
 }
 </style>

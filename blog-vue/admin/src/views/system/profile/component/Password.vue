@@ -8,30 +8,32 @@
     :close-on-click-modal="false"
   >
     <p>
-      我们将要向
+      点击下面的按钮即可向
       <span style="color: #409eff">{{ username }}</span>
-      发送一封邮件，请您查看邮件中的验证码
+      发送一封邮件，我们将通过邮件中的验证码来确定您的身份
     </p>
     <el-form>
       <el-form-item>
-        <el-row type="flex" :gutter="20" justify="center">
-          <el-col :span="16">
+        <el-row type="flex" :gutter="10" justify="center">
+          <el-col :span="14">
             <el-input
               placeholder="请输入邮箱中的验证码"
               prefix-icon="el-icon-circle-check"
               v-model="code"
             ></el-input>
           </el-col>
-          <el-col :span="8">
-            <el-button icon="el-icon-s-promotion" type="success"
-              >发送邮件</el-button
-            >
+          <el-col :span="10">
+            <el-button :disabled="!show" icon="el-icon-s-promotion" type="success" @click="getEmailCode">
+              {{ show ? '发送邮件' : '请 ' + count + ' 秒后重新获取' }}
+
+            </el-button>
           </el-col>
         </el-row>
       </el-form-item>
 
       <el-form-item>
         <el-input
+          prefix-icon="el-icon-lock"
           placeholder="请输入新密码"
           type="password"
           v-model="password"
@@ -48,10 +50,17 @@
 </template>
 
 <script>
+import { sendEmailCode } from '../../../../api/user'
+
 export default {
   name: 'Password',
 
   props: {
+    // 用户ID
+    id: {
+      type: Number,
+      require: true
+    },
     // 用户账号（用于发送验证码）
     username: {
       type: String,
@@ -72,7 +81,13 @@ export default {
       // 验证码
       code: '',
       // 用户输入密码
-      password: ''
+      password: '',
+      // 是否显示发送邮件按钮
+      show: true,
+      // 发送邮件倒计时
+      count: 60,
+      // 定时器
+      intervalButton: {}
     }
   },
 
@@ -89,12 +104,37 @@ export default {
       this.passwordVisibled = false
       // 组件内变更后向外部发送事件通知
       this.$emit('func', this.passwordVisibled)
+    },
+    // 发送邮箱验证码
+    getEmailCode () {
+      // 切换按钮状态
+      this.show = false
+      const TIME_COUNT = 60
+      sendEmailCode().then((res) => {
+        this.$message.success('邮件发送成功，请注意查看邮箱')
+      }).catch(() => {})
+      // 开始60秒倒计时
+      this.intervalButton = setInterval(() => {
+        if (this.count > 0 && this.count <= TIME_COUNT) {
+          this.count--
+        } else {
+          // 切换按钮状态
+          this.show = true
+          // 清除计时器
+          clearInterval(this.intervalButton)
+          // 重置计时器
+          this.count = 60
+        }
+      }, 1000)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.el-dialog__body {
+  padding: 0 20px;
+}
 .button-container {
   width: 100%;
   height: 100%;

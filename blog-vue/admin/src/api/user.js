@@ -30,3 +30,13 @@ export const updateUserInfo = (data) => {
     data: data
   })
 }
+
+/**
+ * 发送邮箱验证码
+ */
+export const sendEmailCode = () => {
+  return request({
+    url: '/admin/email/password',
+    method: 'GET'
+  })
+}
