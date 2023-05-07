@@ -1,6 +1,7 @@
 package com.zrkizzy.data.dto;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 
@@ -33,6 +34,7 @@ public class PasswordDTO {
      * 用户新密码
      */
     @NotBlank(message = "用户密码不能为空")
+    @Length(min = 6, max = 20)
     private String password;
 
 }
