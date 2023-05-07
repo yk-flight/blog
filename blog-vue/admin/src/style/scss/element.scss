@@ -1,0 +1,39 @@
+.el-message--error{
+  background-color:#fff;
+  border-color: #fff;
+  box-shadow: 0px 4px 12px #00000026;
+}
+
+.el-message,.el-message--error .el-message__content{
+  color:#909399;
+}
+
+.el-message--success{
+  background-color:#fff;
+  border-color: #fff;
+  box-shadow: 0px 4px 12px #00000026;
+}
+
+.el-message,.el-message--success .el-message__content{
+  color:#909399;
+}
+
+.el-message--info{
+  background-color:#fff;
+  border-color: #fff;
+  box-shadow: 0px 4px 12px #00000026;
+}
+
+.el-message,.el-message--info .el-message__content{
+  color:#909399;
+}
+
+.el-message--warning{
+  background-color:#fff;
+  border-color: #fff;
+  box-shadow: 0px 4px 12px #00000026;
+}
+
+.el-message,.el-message--warning .el-message__content{
+  color:#909399;
+}
