@@ -5,7 +5,10 @@
         <el-row>
           <el-col :lg="10" :xs="24" class="card-panel-body-left">
             <div class="card-panel-body-avatar">
-              <el-avatar :src="avatar" :size="150"></el-avatar>
+              <!-- 用户上传头像 -->
+              <div class="user-info-head" @click="editAvatar">
+                <el-avatar :src="avatar" :size="150"></el-avatar>
+              </div>
             </div>
             <div class="card-panel-body-content">
               <div class="card-panel-body-nick">
@@ -203,6 +206,12 @@ export default {
         // 关闭更新等待框
         this.saveLoading = false
       })
+    },
+    /**
+     * 更新用户头像
+     */
+    editAvatar () {
+      this.$message.error('测试')
     }
   }
 }
@@ -313,6 +322,30 @@ export default {
     .el-button {
       width: 100%;
     }
+  }
+
+  .user-info-head {
+    position: relative;
+    display: inline-block;
+    height: 150px;
+  }
+
+  .user-info-head:hover:after {
+    content: '+';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    color: #eee;
+    background: rgba(0, 0, 0, 0.5);
+    font-size: 24px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: pointer;
+    line-height: 150px;
+    border-radius: 50%;
   }
 }
 </style>
