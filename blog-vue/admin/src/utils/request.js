@@ -44,7 +44,7 @@ service.interceptors.response.use((response) => {
           .then(() => {
             messageShow = false
             store.dispatch('user/logout').then(() => {
-            // 跳转到登录页面
+              // 跳转到登录页面
               location.href = '/login'
             })
           }).catch(() => {

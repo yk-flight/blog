@@ -40,3 +40,14 @@ export const sendEmailCode = () => {
     method: 'GET'
   })
 }
+
+/**
+ * 更新用户密码
+ */
+export const updatePassword = (data) => {
+  return request({
+    url: '/admin/user/updatePassword',
+    method: 'POST',
+    data: data
+  })
+}

@@ -10,6 +10,7 @@ import com.zrkizzy.common.utils.JwtTokenUtil;
 import com.zrkizzy.data.domain.User;
 import com.zrkizzy.data.domain.UserInfo;
 import com.zrkizzy.data.dto.LoginDTO;
+import com.zrkizzy.data.dto.PasswordDTO;
 import com.zrkizzy.data.dto.UserInfoDTO;
 import com.zrkizzy.data.mapper.UserMapper;
 import com.zrkizzy.security.util.SecurityUtil;
@@ -29,11 +30,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.zrkizzy.common.constant.RedisConst.CAPTCHA_PREFIX;
-import static com.zrkizzy.common.constant.RedisConst.USER_PREFIX;
+import static com.zrkizzy.common.constant.RedisConst.*;
 import static com.zrkizzy.common.constant.TimeConst.TWO_HOUR;
-import static com.zrkizzy.common.enums.HttpStatusEnum.CODE_ERROR;
-import static com.zrkizzy.common.enums.HttpStatusEnum.CODE_EXPIRED;
+import static com.zrkizzy.common.enums.HttpStatusEnum.*;
 
 /**
  * 用户业务逻辑接口实现类
@@ -187,6 +186,48 @@ public class UserServiceImpl implements IUserService {
         // 更新数据库
         return userMapper.updateById(user) > 0 ?
                 Result.success() : Result.failure(HttpStatusEnum.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
+     * 更新用户密码
+     *
+     * @param passwordDTO 用户更新密码数据传递对象
+     * @return 公共返回对象
+     */
+    @Override
+    public Result<?> updatePassword(PasswordDTO passwordDTO) {
+        // TODO 短信验证码Key
+        // Redis中邮件验证码Key
+        String emailKey = CAPTCHA_EMAIL_PREFIX + passwordDTO.getUsername();
+        // 判断Redis中的验证码是否过期
+        if (!redisService.hasKey(emailKey)) {
+            return Result.failure(CODE_EXPIRED);
+        }
+        // 验证码存在则获取到验证码
+        String code = redisService.get(emailKey, String.class);
+        // 对比当前验证码与用户输入验证码是否一致
+        if (!code.equals(passwordDTO.getCode())) {
+            return Result.failure(CODE_ERROR);
+        }
+        // 获取数据库中用户
+        User user = userMapper.selectById(passwordDTO.getId());
+        // 与原密码对比是否一致
+        if (passwordEncoder.matches(passwordDTO.getPassword(), user.getPassword())) {
+            // 原密码和新密码不能相同
+            return Result.failure(HttpStatusEnum.PASSWORD_SAME);
+        }
+        // 获取Redis中存储的Key
+        String userKey = USER_PREFIX + user.getUsername();
+        // 更新密码
+        user.setPassword(passwordEncoder.encode(passwordDTO.getPassword()));
+        // 更新用户更新时间
+        user.setUpdateTime(LocalDateTime.now());
+        if (userMapper.updateById(user) > 0) {
+            // 清除Redis重新登录
+            redisService.del(userKey);
+            return Result.success();
+        }
+        return Result.failure(PASSWORD_UPDATE_ERROR);
     }
 
 }

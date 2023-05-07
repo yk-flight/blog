@@ -1,6 +1,7 @@
 package com.zrkizzy.web.controller.system;
 
 import com.alibaba.fastjson.JSON;
+import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.data.dto.MessageSenderDTO;
 import com.zrkizzy.security.util.SecurityUtil;
 import io.swagger.annotations.Api;
@@ -40,7 +41,7 @@ public class EmailController {
 
     @ApiOperation("修改密码验证码")
     @GetMapping("/password")
-    public void password() {
+    public Result<?> password() {
         // 定义邮件发送对象
         MessageSenderDTO messageSenderDTO = MessageSenderDTO.builder()
                 // 发送方式
@@ -55,5 +56,7 @@ public class EmailController {
                 .subject("验证身份").build();
         // 将邮件数据传输对象发送到RabbitMQ中
         rabbitTemplate.convertAndSend(EMAIL_EXCHANGE, "*", new Message(JSON.toJSONBytes(messageSenderDTO), new MessageProperties()));
+        // 返回成功结果，如果失败则会被全局异常处理捕获
+        return Result.success();
     }
 }

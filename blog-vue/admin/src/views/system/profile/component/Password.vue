@@ -43,14 +43,14 @@
 
     <span slot="footer">
       <div class="button-container">
-        <el-button type="primary">确认修改</el-button>
+        <el-button type="primary" @click="updateUserPassword" :loading="passwordLoading">确认修改</el-button>
       </div>
     </span>
   </el-dialog>
 </template>
 
 <script>
-import { sendEmailCode } from '../../../../api/user'
+import { sendEmailCode, updatePassword } from '../../../../api/user'
 
 export default {
   name: 'Password',
@@ -87,7 +87,9 @@ export default {
       // 发送邮件倒计时
       count: 60,
       // 定时器
-      intervalButton: {}
+      intervalButton: {},
+      // 修改密码按钮加载框
+      passwordLoading: false
     }
   },
 
@@ -126,6 +128,38 @@ export default {
           this.count = 60
         }
       }, 1000)
+    },
+    // 更新密码
+    updateUserPassword () {
+      // 开启加载密码等待框
+      this.passwordLoading = true
+      updatePassword({
+        id: this.id,
+        username: this.username,
+        code: this.code,
+        password: this.password
+      }).then((res) => {
+        // 关闭加载密码等待框
+        this.passwordLoading = false
+        // 提示重新登录
+        this.$notify({
+          title: '更新成功',
+          message: '3秒后将自动退出系统，请重新登录',
+          type: 'success'
+        })
+        // 防止出现this指代不明的情况
+        const that = this
+        // 3秒后执行退出登录方法
+        setTimeout(function () {
+          // 清除当前用户信息
+          that.$store.dispatch('user/logout')
+          // 刷新当前页面即可
+          location.reload()
+        }, 3000)
+      }).catch(() => {
+        // 关闭加载密码等待框
+        this.passwordLoading = false
+      })
     }
   }
 }
