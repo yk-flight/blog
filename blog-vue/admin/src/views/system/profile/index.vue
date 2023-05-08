@@ -101,12 +101,14 @@
       </div>
     </div>
 
-    <password
-      v-bind:id="userInfo.id"
-      v-bind:username="userInfo.username"
-      v-bind:passwordVisible="passwordVisible"
-      @func="closePasswordDialog">
+    <!-- 修改密码对话框 -->
+    <password :id="userInfo.id"
+      :username="userInfo.username"
+      :visible="passwordVisible"
+      @close="closePasswordDialog">
     </password>
+
+    <file-space :visible="avatarVisible" @close="closeFileSpace"></file-space>
   </div>
 </template>
 
@@ -114,11 +116,12 @@
 import { getUserInfo, updateUserInfo } from '../../../api/user'
 import { mapGetters } from 'vuex'
 import Password from './component/Password.vue'
+import FileSpace from '../../../components/FileSpace/index.vue'
 
 export default {
   name: 'Profile',
 
-  components: { Password },
+  components: { Password, FileSpace },
 
   computed: {
     ...mapGetters(['avatar'])
@@ -132,6 +135,8 @@ export default {
       passwordLoading: false,
       // 更新密码对话框
       passwordVisible: false,
+      // 修改头像对话框
+      avatarVisible: false,
       // 用户信息
       userInfo: {
         // 用户ID
@@ -211,7 +216,11 @@ export default {
      * 更新用户头像
      */
     editAvatar () {
-      this.$message.error('测试')
+      this.avatarVisible = true
+    },
+    // 关闭文件选择框
+    closeFileSpace () {
+      this.avatarVisible = false
     }
   }
 }
