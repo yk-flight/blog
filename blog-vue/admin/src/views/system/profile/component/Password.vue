@@ -103,7 +103,7 @@ export default {
     // 关闭对话框
     handleDialogClose () {
       // 组件内变更后向外部发送事件通知
-      this.$emit('close', this.visible)
+      this.$emit('close')
     },
     // 发送邮箱验证码
     getEmailCode () {
