@@ -9,6 +9,7 @@ import com.zrkizzy.server.vo.route.RouterVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -39,6 +40,7 @@ public class MenuServiceImpl implements IMenuService {
      * @return 当前登录用户的菜单
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public List<RouterVO> getRoutes() {
         // 根据用户角色获取对应数据
         List<Menu> menus = securityUtil.isAdmin() ?
