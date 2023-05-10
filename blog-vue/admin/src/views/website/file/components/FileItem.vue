@@ -75,8 +75,6 @@ export default {
 
   data () {
     return {
-      // 选中文件列表
-      selectFileList: [],
       // 是否预览文件
       showViewer: false,
       // 文件预览路径
@@ -86,18 +84,11 @@ export default {
     }
   },
 
-  mounted () {},
-
   methods: {
     // 选中对应图片
     select (file) {
-      // 如果当前文件已经选择
-      if (this.isSelect(file)) {
-        // 移除当前文件
-        this.selectFileList.splice(this.selectFileList.indexOf(file), 1)
-        return
-      }
-      this.selectFileList.push(file)
+      // 通知父组件选中了当前文件
+      this.$emit('confirm', file)
     },
     // 判断当前文件分类是否被选中
     isActive (path) {
@@ -105,7 +96,7 @@ export default {
     },
     // 是否选中图片
     isSelect (file) {
-      return this.selectFileList.includes(file)
+      return this.$parent.selection.includes(file)
     },
     // 查看当前图片
     openPreview (file) {

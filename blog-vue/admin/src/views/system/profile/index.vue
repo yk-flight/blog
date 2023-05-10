@@ -108,7 +108,11 @@
       @close="closePasswordDialog">
     </password>
 
-    <file-space :visible="avatarVisible" @close="closeFileSpace"></file-space>
+    <file-space
+      :visible="avatarVisible"
+      :limit="1"
+      @close="closeFileSpace">
+    </file-space>
   </div>
 </template>
 

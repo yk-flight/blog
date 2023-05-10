@@ -1,5 +1,8 @@
 <template>
-  <div class="space-container">
+  <div class="space-container"
+    v-loading="loading"
+    element-loading-text="拼命加载文件资源中"
+    >
     <!-- 左侧文件菜单类型容器 -->
     <div :class="isCollapse ? 'hideLeft' : 'space-left'">
       <!-- 文件菜单内容 -->
@@ -49,15 +52,50 @@
       </div>
       <!-- 文件选项 -->
       <div class="button-group">
-        <el-button size="small">刷新</el-button>
-        <el-button type="primary" size="small">点击上传</el-button>
-        <el-button type="danger" disabled size="small">删除选中文件</el-button>
+        <!-- 刷新文件 -->
+        <el-button
+          icon="el-icon-refresh"
+          size="small">
+          刷新
+        </el-button>
+        <!-- 上传文件 -->
+        <el-button
+          icon="el-icon-upload"
+          type="primary"
+          size="small">
+          上传文件
+        </el-button>
+        <!-- 清空选中文件 -->
+        <el-button
+          icon="el-icon-folder-opened"
+          type="warning"
+          :disabled="selection.length === 0"
+          size="small"
+          @click="clearSelect()"
+          >
+          清空选中文件
+        </el-button>
+        <!-- 删除选中文件 -->
+        <el-button
+          icon="el-icon-delete"
+          type="danger"
+          :disabled="selection.length === 0"
+          size="small">
+          删除选中文件
+        </el-button>
       </div>
 
       <!-- 文件内容 -->
       <div class="list">
         <!-- 单个文件 -->
-        <file-item v-for="file in fileList" :file="file" :key="file.id"></file-item>
+        <file-item
+          v-for="file in fileList"
+          :file="file"
+          :key="file.id"
+          @confirm="confirm"
+          @selection="selection"
+          >
+        </file-item>
       </div>
     </div>
   </div>
@@ -69,12 +107,22 @@ import FileItem from './components/FileItem.vue'
 export default {
   name: 'Space',
 
+  props: {
+    // 可以选择文件的数量
+    limit: {
+      type: Number,
+      default: 9
+    }
+  },
+
   components: {
     FileItem
   },
 
   data () {
     return {
+      // 是否加载
+      loading: false,
       // 文件分类列表
       fileMenuList: [
         {
@@ -132,11 +180,22 @@ export default {
           src: 'https://s1.ax1x.com/2023/05/09/p90roQI.jpg',
           type: '图片'
         }
-      ]
+      ],
+      // 选中的文件集合
+      selection: []
     }
   },
 
-  mounted () {},
+  watch: {
+    // 监听父组件中选择文件列表的变化
+    selection: {
+      handler (value, oldValue) {
+        this.$emit('updateSelect', value)
+      },
+      // 开启深度监听
+      deep: true
+    }
+  },
 
   methods: {
     // 判断当前文件分类是否被选中
@@ -157,6 +216,32 @@ export default {
     // 设置菜单栏折叠或展开
     setCollapse () {
       this.isCollapse = !this.isCollapse
+    },
+    // 确认选中的文件
+    confirm (data) {
+      // 获取当前选中文件在已经选择的文件列表中的索引
+      const index = this.selection.indexOf(data)
+      // 如果当前文件已经选中，则将其从选中文件列表中删除
+      if (index >= 0) {
+        this.selection.splice(index, 1)
+      // 判断当前选中文件列表中的文件是否超过限制
+      } else {
+        // 如果当前文件选择数量限制为1则进行替换
+        if (this.limit === 1) {
+          this.selection = [data]
+        } else {
+          // 如果当前选择文件数量没有超过限制则直接添加
+          if (this.selection.length < this.limit) {
+            // 将当前文件添加到选择文件列表中
+            this.selection.push(data)
+          }
+        }
+      }
+    },
+    // 清空选中的文件
+    clearSelect () {
+      // 将当前选中文件列表清空
+      this.selection = []
     }
   }
 }

@@ -7,13 +7,17 @@
     :close-on-press-escape="false"
     :close-on-click-modal="false"
   >
-
-    <space class="space-component"></space>
+    <!-- 文件空间 -->
+    <space
+      class="space-component"
+      :limit="limit"
+      @updateSelect="updateSelect"
+      ></space>
 
     <span slot="footer">
       <div style="margin-top: 10px">
         <el-button @click="closeFileSpace">取消</el-button>
-        <el-button type="success" :loading="loading">选择 0/9</el-button>
+        <el-button type="success" :loading="loading">选择 {{ selection.length }}/{{ limit }}</el-button>
       </div>
     </span>
   </el-dialog>
@@ -35,6 +39,11 @@ export default {
     visible: {
       type: Boolean,
       default: false
+    },
+    // 可以选择文件的数量
+    limit: {
+      type: Number,
+      default: 9
     }
   },
 
@@ -44,7 +53,9 @@ export default {
 
   data () {
     return {
-      loading: false
+      loading: false,
+      // 选中文件
+      selection: []
     }
   },
 
@@ -55,6 +66,11 @@ export default {
     closeFileSpace () {
       // 调用外部组件绑定的close方法
       this.$emit('close', false)
+    },
+    // 更新选择文件内容
+    updateSelect (data) {
+      // 使用子组件中传来的值覆盖掉当前组件中选中文件的值
+      this.selection = data
     }
   }
 }

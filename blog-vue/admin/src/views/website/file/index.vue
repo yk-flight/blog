@@ -12,20 +12,6 @@ export default {
 
   components: {
     Space
-  },
-
-  data () {
-    return {
-
-    }
-  },
-
-  mounted () {
-
-  },
-
-  methods: {
-
   }
 }
 </script>
