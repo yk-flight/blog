@@ -11,11 +11,62 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 05/05/2023 16:10:52
+ Date: 12/05/2023 08:45:15
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for tb_file
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_file`;
+CREATE TABLE `tb_file` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `name` varchar(50) DEFAULT NULL COMMENT '文件名称',
+  `path` varchar(255) NOT NULL COMMENT '文件路径',
+  `size` bigint(20) DEFAULT NULL COMMENT '文件大小',
+  `type` varchar(20) DEFAULT NULL COMMENT '文件类型',
+  `file_type_id` bigint(20) DEFAULT NULL COMMENT '文件分类ID',
+  `creator` varchar(50) DEFAULT NULL COMMENT '上传人',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='文件表';
+
+-- ----------------------------
+-- Records of tb_file
+-- ----------------------------
+BEGIN;
+INSERT INTO `tb_file` (`id`, `name`, `path`, `size`, `type`, `file_type_id`, `creator`, `create_time`, `update_time`) VALUES (1656816998182551552, '1.jpg', 'https://s1.ax1x.com/2023/05/09/p90rISA.jpg', 1, '图片', 1656676089927303168, '世纪末的架构师', '2023-05-12 08:22:45', '2023-05-12 08:22:47');
+INSERT INTO `tb_file` (`id`, `name`, `path`, `size`, `type`, `file_type_id`, `creator`, `create_time`, `update_time`) VALUES (1656816998182551553, '2.jpg', 'https://s1.ax1x.com/2023/05/04/p9tnRu4.jpg', 2, '图片', 1656676089927303168, '世纪末的架构师', '2023-05-12 08:23:53', '2023-05-12 08:23:56');
+INSERT INTO `tb_file` (`id`, `name`, `path`, `size`, `type`, `file_type_id`, `creator`, `create_time`, `update_time`) VALUES (1656816998182551554, '3.jpg', 'https://s1.ax1x.com/2023/04/26/p9K181A.jpg', 3, '图片', 1656676089927303168, '世纪末的架构师', '2023-05-12 08:24:46', '2023-05-12 00:25:01');
+INSERT INTO `tb_file` (`id`, `name`, `path`, `size`, `type`, `file_type_id`, `creator`, `create_time`, `update_time`) VALUES (1656816998182551555, '4.jpg', 'https://s1.ax1x.com/2023/05/09/p90roQI.jpg', 4, '图片', 1656676089927303168, '世纪末的架构师', '2023-05-12 08:25:11', '2023-05-12 08:25:15');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for tb_file_type
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_file_type`;
+CREATE TABLE `tb_file_type` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `name` varchar(50) NOT NULL COMMENT '文件分类名称',
+  `description` varchar(255) DEFAULT NULL COMMENT '文件分类描述',
+  `sort` int(11) DEFAULT NULL COMMENT '文件分类排序',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='文件分类表';
+
+-- ----------------------------
+-- Records of tb_file_type
+-- ----------------------------
+BEGIN;
+INSERT INTO `tb_file_type` (`id`, `name`, `description`, `sort`, `create_time`, `update_time`) VALUES (1656676089927303168, '阿里云', '阿里云对象存储', 1, '2023-05-11 23:02:37', '2023-05-11 23:02:40');
+INSERT INTO `tb_file_type` (`id`, `name`, `description`, `sort`, `create_time`, `update_time`) VALUES (1656676089927303169, '腾讯云', '腾讯云对象存储', 2, '2023-05-11 23:03:05', '2023-05-11 23:03:07');
+INSERT INTO `tb_file_type` (`id`, `name`, `description`, `sort`, `create_time`, `update_time`) VALUES (1656676089927303170, '七牛云', '七牛云对象存储', 3, '2023-05-11 23:03:24', '2023-05-11 23:03:26');
+INSERT INTO `tb_file_type` (`id`, `name`, `description`, `sort`, `create_time`, `update_time`) VALUES (1656676089927303171, '本地', '本地对象存储', 4, '2023-05-11 23:03:45', '2023-05-11 23:03:48');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for tb_menu
@@ -179,6 +230,8 @@ INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1652715951180742656, '获取用户个人信息', '获取用户个人信息', 'GET', '/admin/user/getUserInfo', 1636182933754609665, '2023-05-01 00:46:55', '2023-05-03 15:57:05');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1653929645323583488, '更新用户个人信息', '更新用户个人信息', 'POST', '/admin/user/updateUserInfo', 1636182933754609665, '2023-05-01 00:46:55', '2023-05-03 15:57:05');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1654391949517389824, '修改密码发送邮件验证码', '修改密码发送邮件验证码', 'GET', '/admin/email/password', 1636182933754609665, '2023-05-05 15:46:37', '2023-05-05 07:50:01');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1654642840078123008, '用户更新密码', '用户个人信息更新密码', 'POST', '/admin/user/updatePassword', 1636182933754609665, '2023-05-06 08:22:27', '2023-05-06 00:22:58');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1656679330433990656, '获取文件列表', '用户获取文件列表', 'GET', '/admin/file/list', 1636182933754609665, '2023-05-11 23:15:37', '2023-05-11 15:15:45');
 COMMIT;
 
 -- ----------------------------
@@ -216,7 +269,7 @@ CREATE TABLE `tb_user` (
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态，0：禁用，1：启用',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '备注',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `username` (`username`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表';
@@ -226,7 +279,7 @@ CREATE TABLE `tb_user` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `tb_user` (`id`, `username`, `password`, `nickname`, `avatar`, `status`, `remark`, `create_time`, `update_time`) VALUES (1633027432405532672, '1072876976@qq.com', '$2a$10$Kbb.k6umlihAQBRtSxNGiuHaqT5YP4IVP9Cmytfn8xsecp7Z4e50G', '世纪末的架构师', 'https://s1.ax1x.com/2023/04/26/p9K181A.jpg', 1, NULL, '2023-03-07 16:52:16', '2023-04-28 07:04:14');
-INSERT INTO `tb_user` (`id`, `username`, `password`, `nickname`, `avatar`, `status`, `remark`, `create_time`, `update_time`) VALUES (1653794265890816000, '2675525537@qq.com', '$2a$10$Kbb.k6umlihAQBRtSxNGiuHaqT5YP4IVP9Cmytfn8xsecp7Z4e50G', '哈哈哈', 'https://s1.ax1x.com/2023/05/04/p9tnRu4.jpg', 1, '自古英雄出炼狱，破马长枪定乾坤！', '2023-05-03 16:15:23', '2023-05-04 23:41:08');
+INSERT INTO `tb_user` (`id`, `username`, `password`, `nickname`, `avatar`, `status`, `remark`, `create_time`, `update_time`) VALUES (1653794265890816000, '2675525537@qq.com', '$2a$10$d4plA8fBNLdMFCQjo86vP.zrt714ei8llHZ.bvJk/OM1T.g77m5I2', '哈哈哈', 'https://s1.ax1x.com/2023/05/09/p90rISA.jpg', 1, '自古英雄出炼狱，破马长枪定乾坤！', '2023-05-03 16:15:23', '2023-05-09 00:08:11');
 COMMIT;
 
 -- ----------------------------
@@ -239,7 +292,7 @@ CREATE TABLE `tb_user_info` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户信息表';
 
 -- ----------------------------
 -- Records of tb_user_info
