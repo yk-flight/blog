@@ -30,6 +30,11 @@ public class FileTypeVO extends BaseVO {
     private String description;
 
     /**
+     * 文件分类标识
+     */
+    private String mark;
+
+    /**
      * 文件分类排序
      */
     private Integer sort;

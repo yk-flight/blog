@@ -1,5 +1,6 @@
 package com.zrkizzy.server.service.common.impl;
 
+import com.zrkizzy.common.utils.BeanCopyUtil;
 import com.zrkizzy.data.mapper.FileMapper;
 import com.zrkizzy.data.mapper.FileTypeMapper;
 import com.zrkizzy.server.service.common.IFileService;
@@ -32,6 +33,7 @@ public class FileServiceImpl implements IFileService {
      */
     @Override
     public List<FileTypeVO> listFiles() {
-        return null;
+        // 查询文件数据并返回
+        return BeanCopyUtil.copyList(fileTypeMapper.listFiles(), FileTypeVO.class);
     }
 }

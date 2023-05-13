@@ -3,4 +3,50 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zrkizzy.data.mapper.FileTypeMapper">
 
+    <sql id="base_column">
+        id, username, password, nickname, avatar, status, remark, create_time, update_time
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.FileType">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="mark" property="mark" />
+        <result column="sort" property="sort" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <collection property="fileList" ofType="com.zrkizzy.data.domain.File">
+            <id column="file_id" property="id" />
+            <result column="file_name" property="name" />
+            <result column="path" property="path" />
+            <result column="size" property="size" />
+            <result column="type" property="type" />
+            <result column="creator" property="creator" />
+            <result column="file_create_time" property="createTime" />
+            <result column="file_update_time" property="updateTime" />
+        </collection>
+    </resultMap>
+
+    <!-- 查询文件分类树以及对应数据 -->
+    <select id="listFiles" resultMap="BaseResultMap">
+        SELECT
+            ft.id AS id,
+            ft.name AS name,
+            ft.mark AS mark,
+            ft.sort AS sort,
+            ft.create_time AS create_time,
+            ft.update_time AS update_time,
+            f.id AS file_id,
+            f.name AS file_name,
+            f.path AS path,
+            f.size AS `size`,
+            f.type AS type,
+            f.creator AS creator,
+            f.create_time AS file_create_time,
+            f.update_time AS file_update_time
+        FROM
+            tb_file_type ft
+                LEFT JOIN tb_file f
+                    ON ft.id = f.file_type_id
+        ORDER BY ft.sort ASC
+    </select>
 </mapper>
