@@ -1,7 +1,6 @@
 package com.zrkizzy.data.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zrkizzy.common.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -47,7 +46,6 @@ public class File extends BaseEntity {
     /**
      * 文件分类ID（在查询时不返回前端）
      */
-    @JsonIgnore
     @ApiModelProperty("文件分类ID")
     private Long fileTypeId;
 

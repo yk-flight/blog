@@ -2,16 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zrkizzy.data.mapper.FileTypeMapper">
-
-    <sql id="base_column">
-        id, username, password, nickname, avatar, status, remark, create_time, update_time
-    </sql>
-
+    <!-- 通用返回数据 -->
     <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.FileType">
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="mark" property="mark" />
         <result column="sort" property="sort" />
+        <result column="description" property="description" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
         <collection property="fileList" ofType="com.zrkizzy.data.domain.File">
@@ -33,6 +30,7 @@
             ft.name AS name,
             ft.mark AS mark,
             ft.sort AS sort,
+            ft.description AS description,
             ft.create_time AS create_time,
             ft.update_time AS update_time,
             f.id AS file_id,

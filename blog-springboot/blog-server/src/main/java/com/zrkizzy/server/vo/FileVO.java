@@ -5,42 +5,40 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.util.List;
-
 /**
- * 文件类型数据返回对象
+ * 文件数据返回对象
  *
  * @author zhangrongkang
- * @since 2023/5/11
+ * @since 2023/5/13
  */
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
-public class FileTypeVO extends BaseVO {
+public class FileVO extends BaseVO {
 
     /**
-     * 文件分类名称
+     * 文件名称
      */
     private String name;
 
     /**
-     * 文件分类描述
+     * 文件路径
      */
-    private String description;
+    private String path;
 
     /**
-     * 文件分类标识
+     * 文件大小
      */
-    private String mark;
+    private Long size;
 
     /**
-     * 文件分类排序
+     * 文件类型
      */
-    private Integer sort;
+    private String type;
 
     /**
-     * 当前文件分类对应文件
+     * 上传人
      */
-    private List<FileVO> fileList;
+    private String creator;
 
 }
