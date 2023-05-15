@@ -3,7 +3,7 @@
     <div class="image-file_wrap">
       <div class="item-file" @click="select(file)">
         <!-- 文件 -->
-        <el-image :src="file.preview" fit="contain"></el-image>
+        <el-image :src="file.path" fit="contain"></el-image>
         <!-- 图片预览 -->
         <pre-view
           :showViewer="showViewer"

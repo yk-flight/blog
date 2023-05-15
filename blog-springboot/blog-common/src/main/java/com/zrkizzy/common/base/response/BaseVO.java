@@ -1,5 +1,6 @@
 package com.zrkizzy.common.base.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,6 +18,7 @@ public class BaseVO implements Serializable {
     /**
      * 主键（雪花算法）
      */
+    @JsonFormat(shape =JsonFormat.Shape.STRING )
     private Long id;
 
     /**

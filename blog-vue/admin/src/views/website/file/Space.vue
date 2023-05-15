@@ -138,37 +138,7 @@ export default {
       // 菜单栏是否折叠
       isCollapse: false,
       // 文件列表
-      fileList: [
-        {
-          id: 1,
-          name: 'p90rISA.jpg',
-          preview: 'https://s1.ax1x.com/2023/05/09/p90rISA.jpg',
-          src: 'https://s1.ax1x.com/2023/05/09/p90rISA.jpg',
-          type: '图片'
-        },
-        {
-          id: 2,
-          name: 'p9tnRu4.jpg',
-          preview: 'https://s1.ax1x.com/2023/05/04/p9tnRu4.jpg',
-          src: 'https://s1.ax1x.com/2023/05/04/p9tnRu4.jpg',
-          type: '图片'
-        },
-        {
-          id: 3,
-          name: 'p9K181A.jpg',
-          preview: 'https://s1.ax1x.com/2023/04/26/p9K181A.jpg',
-          src: 'https://s1.ax1x.com/2023/04/26/p9K181A.jpg',
-          type: '图片'
-        },
-        {
-          id: 4,
-          name: 'p90roQI.jpg',
-          // 预览
-          preview: 'https://s1.ax1x.com/2023/05/09/p90roQI.jpg',
-          src: 'https://s1.ax1x.com/2023/05/09/p90roQI.jpg',
-          type: '图片'
-        }
-      ],
+      fileList: [],
       // 选中的文件集合
       selection: []
     }
@@ -189,13 +159,12 @@ export default {
     // 获取文件列表
     listFiles () {
       listFiles().then((res) => {
+        this.fileMenuList = res
         console.log(res)
-        this.fileMenuList = res.fileList
       })
     },
     // 判断当前文件分类是否被选中
     isActive (mark) {
-      console.log('判断是否被选中')
       return this.activeMenu.mark === mark
     },
     // 切换文件分类
@@ -204,6 +173,9 @@ export default {
       if (this.activeMenu.mark === data.mark) {
         return
       }
+      // 更改当前选中文件分类的内容
+      this.fileList = data.fileList
+      console.log(this.fileList)
       // 更改当前选中文件的名称
       this.activeMenu.name = data.name
       // 更改当前文件类型的路径
