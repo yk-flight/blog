@@ -29,13 +29,13 @@
           <!-- 文件类型菜单 -->
           <div
             v-for="item in fileMenuList"
-            :key="item.path"
+            :key="item.mark"
             class="list-item"
-            :class="isActive(item.path) ? 'active' : ''"
+            :class="isActive(item.mark) ? 'active' : ''"
             @click="change(item)"
           >
             <span>{{ item.name }}</span>
-            <svg-icon :icon="isActive(item.path) ? 'more' : ''"></svg-icon>
+            <svg-icon :icon="isActive(item.mark) ? 'more' : ''"></svg-icon>
           </div>
         </div>
       </el-scrollbar>
@@ -48,7 +48,7 @@
         <div class="right-icon" @click="setCollapse">
           <svg-icon :icon="isCollapse ? 'right' : 'left'"></svg-icon>
         </div>
-        <span>文件列表 - {{ fileMenu.name }}</span>
+        <span>文件列表 - {{ activeMenu.name }}</span>
       </div>
       <!-- 文件选项 -->
       <div class="button-group">
@@ -103,6 +103,7 @@
 
 <script>
 import FileItem from './components/FileItem.vue'
+import { listFiles } from '../../../api/file'
 
 export default {
   name: 'Space',
@@ -119,33 +120,20 @@ export default {
     FileItem
   },
 
+  created () {
+    this.listFiles()
+  },
+
   data () {
     return {
       // 是否加载
       loading: false,
       // 文件分类列表
-      fileMenuList: [
-        {
-          name: '阿里云',
-          path: 'aliyun'
-        },
-        {
-          name: '腾讯云',
-          path: 'tencent'
-        },
-        {
-          name: '七牛云',
-          path: 'qiniucloud'
-        },
-        {
-          name: '本地',
-          path: 'local'
-        }
-      ],
+      fileMenuList: [],
       // 当前选中的文件分类对象
-      fileMenu: {
+      activeMenu: {
         name: '本地',
-        path: 'local'
+        mark: 'local'
       },
       // 菜单栏是否折叠
       isCollapse: false,
@@ -198,20 +186,28 @@ export default {
   },
 
   methods: {
+    // 获取文件列表
+    listFiles () {
+      listFiles().then((res) => {
+        console.log(res)
+        this.fileMenuList = res.fileList
+      })
+    },
     // 判断当前文件分类是否被选中
-    isActive (path) {
-      return this.fileMenu.path === path
+    isActive (mark) {
+      console.log('判断是否被选中')
+      return this.activeMenu.mark === mark
     },
     // 切换文件分类
     change (data) {
       // 如果当前选中标签相同则直接返回，防止多次请求
-      if (this.fileMenu.path === data.path) {
+      if (this.activeMenu.mark === data.mark) {
         return
       }
       // 更改当前选中文件的名称
-      this.fileMenu.name = data.name
+      this.activeMenu.name = data.name
       // 更改当前文件类型的路径
-      this.fileMenu.path = data.path
+      this.activeMenu.mark = data.mark
     },
     // 设置菜单栏折叠或展开
     setCollapse () {
