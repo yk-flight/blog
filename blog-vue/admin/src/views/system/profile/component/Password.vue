@@ -66,7 +66,7 @@ export default {
   props: {
     // 用户ID
     id: {
-      type: Number,
+      type: String,
       require: true
     },
     // 用户账号（用于发送验证码）

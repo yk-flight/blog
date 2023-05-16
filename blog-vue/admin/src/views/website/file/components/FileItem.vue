@@ -101,7 +101,7 @@ export default {
     // 查看当前图片
     openPreview (file) {
       // 赋值当前文件预览到组件文件预览路径中
-      this.showViewerUrl = file.preview
+      this.showViewerUrl = file.path
       // 查看当前图片
       this.showViewer = true
     },

@@ -132,8 +132,8 @@ export default {
       fileMenuList: [],
       // 当前选中的文件分类对象
       activeMenu: {
-        name: '本地',
-        mark: 'local'
+        name: undefined,
+        mark: undefined
       },
       // 菜单栏是否折叠
       isCollapse: false,
@@ -158,10 +158,26 @@ export default {
   methods: {
     // 获取文件列表
     listFiles () {
+      // 开启加载框
+      this.loading = true
       listFiles().then((res) => {
         this.fileMenuList = res
-        console.log(res)
+        // 默认选中第一个文件分类
+        if (this.fileMenuList) {
+          this.changeData(this.fileMenuList[0])
+        }
+        // 关闭加载框
+        this.loading = false
       })
+    },
+    // 切换文件分类名称与文件列表
+    changeData (data) {
+      // 更改当前选中文件分类的内容
+      this.fileList = data.fileList
+      // 更改当前选中文件的名称
+      this.activeMenu.name = data.name
+      // 更改当前文件类型的路径
+      this.activeMenu.mark = data.mark
     },
     // 判断当前文件分类是否被选中
     isActive (mark) {
@@ -173,13 +189,8 @@ export default {
       if (this.activeMenu.mark === data.mark) {
         return
       }
-      // 更改当前选中文件分类的内容
-      this.fileList = data.fileList
-      console.log(this.fileList)
-      // 更改当前选中文件的名称
-      this.activeMenu.name = data.name
-      // 更改当前文件类型的路径
-      this.activeMenu.mark = data.mark
+      // 修改当前页面数据
+      this.changeData(data)
     },
     // 设置菜单栏折叠或展开
     setCollapse () {
