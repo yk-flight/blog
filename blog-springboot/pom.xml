@@ -35,6 +35,7 @@
         <swagger.version>3.0.0</swagger.version>
         <swagger-ui.version>3.0.2</swagger-ui.version>
         <!-- 其他工具类依赖 -->
+        <aliyun-oss.version>3.10.2</aliyun-oss.version>
         <lombok.version>1.18.24</lombok.version>
         <commons-pool2.version>2.9.0</commons-pool2.version>
         <hutool.version>5.7.10</hutool.version>
@@ -44,6 +45,8 @@
         <captcha.version>1.6.2</captcha.version>
         <script-engine.version>15.4</script-engine.version>
         <userAgent.version>1.21</userAgent.version>
+        <activation.version>1.1.1</activation.version>
+        <jaxb-runtime.version>2.3.3</jaxb-runtime.version>
     </properties>
 
     <!-- 项目依赖管理：只声明版本，并不实现引入 -->
@@ -153,6 +156,26 @@
                 <groupId>org.openjdk.nashorn</groupId>
                 <artifactId>nashorn-core</artifactId>
                 <version>${script-engine.version}</version>
+            </dependency>
+
+            <!-- 阿里云OSS -->
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${aliyun-oss.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.activation</groupId>
+                <artifactId>activation</artifactId>
+                <version>${activation.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>jaxb-runtime</artifactId>
+                <version>${jaxb-runtime.version}</version>
             </dependency>
 
             <!-- 业务模块 -->
