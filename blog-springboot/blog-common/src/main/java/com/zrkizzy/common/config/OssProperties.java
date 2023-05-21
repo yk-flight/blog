@@ -6,5 +6,5 @@ package com.zrkizzy.common.config;
  * @author zhangrongkang
  * @since 2023/5/20
  */
-public class OssConfig {
+public class OssProperties {
 }
