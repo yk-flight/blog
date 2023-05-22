@@ -111,6 +111,7 @@
     <file-space
       :visible="avatarVisible"
       :limit="1"
+      :text="'只能上传jpg/png文件，且不超过500kb'"
       @close="closeFileSpace">
     </file-space>
   </div>

@@ -62,7 +62,8 @@
         <el-button
           icon="el-icon-upload"
           type="primary"
-          size="small">
+          size="small"
+          @click="uploadVisible = true">
           上传文件
         </el-button>
         <!-- 清空选中文件 -->
@@ -98,6 +99,48 @@
         </file-item>
       </div>
     </div>
+
+    <el-dialog
+      :visible="uploadVisible"
+      :before-close="handleClose"
+      :modal-append-to-body="true"
+      :append-to-body="true"
+      width="500px"
+      title="文件上传">
+      <div class="upload-container">
+        <div class="select-item">
+          <el-select v-model="value" placeholder="请选择上传方式" size="small" style="width: 360px;">
+            <el-option
+              v-for="item in fileMenuList"
+              :key="item.mark"
+              :label="item.name"
+              :value="item.mark">
+              <span style="float: left">{{ item.name }}</span>
+              <span style="float: right; color: #8492a6; font-size: 13px">{{ item.mark }}</span>
+            </el-option>
+          </el-select>
+        </div>
+
+        <div class="upload-item">
+          <el-upload
+            drag
+            action="#"
+            multiple
+            :show-file-list="false"
+            >
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            <div class="el-upload__tip" slot="tip">{{ text }}</div>
+          </el-upload>
+        </div>
+      </div>
+
+      <div slot="footer">
+        <el-button size="small" type="danger" @click="uploadVisible = false">取 消</el-button>
+        <el-button size="small" type="success" @click="uploadVisible = false">确 定</el-button>
+      </div>
+
+    </el-dialog>
   </div>
 </template>
 
@@ -113,6 +156,16 @@ export default {
     limit: {
       type: Number,
       default: 9
+    },
+    // 接受文件上传类型
+    accept: {
+      type: Array,
+      default: () => []
+    },
+    // 文件上传描述
+    text: {
+      type: String,
+      require: true
     }
   },
 
@@ -140,7 +193,11 @@ export default {
       // 文件列表
       fileList: [],
       // 选中的文件集合
-      selection: []
+      selection: [],
+      // 文件上传对话框
+      uploadVisible: false,
+      // 文件对话框分类
+      value: ''
     }
   },
 
@@ -221,6 +278,10 @@ export default {
     clearSelect () {
       // 将当前选中文件列表清空
       this.selection = []
+    },
+    // 关闭文件上传对话框
+    handleClose () {
+      this.uploadVisible = false
     }
   }
 }

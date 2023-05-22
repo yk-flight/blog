@@ -7,3 +7,16 @@ html, body, #app {
 a {
   text-decoration: none;
 }
+
+.upload-container {
+  text-align: center !important;
+}
+
+.upload-item {
+  margin: 10px 0px;
+}
+
+.select-item {
+  margin: 20px 0px;
+  width: 100%;
+}

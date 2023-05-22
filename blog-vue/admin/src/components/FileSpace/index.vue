@@ -11,6 +11,7 @@
     <space
       class="space-component"
       :limit="limit"
+      :text="text"
       @updateSelect="updateSelect"
       ></space>
 
@@ -44,6 +45,11 @@ export default {
     limit: {
       type: Number,
       default: 9
+    },
+    // 文件上传描述
+    text: {
+      type: String,
+      require: true
     }
   },
 
