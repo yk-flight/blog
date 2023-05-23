@@ -1,5 +1,6 @@
 package com.zrkizzy.web.controller.tool;
 
+import com.zrkizzy.common.base.response.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +68,10 @@ public class TestController {
             e.printStackTrace();
             System.out.println("发送邮件失败："+e.getMessage());
         }
+    }
+
+    @GetMapping("/testOssProperties")
+    public Result<?> testOssProperties() {
+        return Result.success();
     }
 }
