@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 12/05/2023 08:45:15
+ Date: 24/05/2023 09:29:06
 */
 
 SET NAMES utf8mb4;
@@ -38,10 +38,10 @@ CREATE TABLE `tb_file` (
 -- Records of tb_file
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_file` (`id`, `name`, `path`, `size`, `type`, `file_type_id`, `creator`, `create_time`, `update_time`) VALUES (1656816998182551552, '1.jpg', 'https://s1.ax1x.com/2023/05/09/p90rISA.jpg', 1, '图片', 1656676089927303168, '世纪末的架构师', '2023-05-12 08:22:45', '2023-05-12 08:22:47');
-INSERT INTO `tb_file` (`id`, `name`, `path`, `size`, `type`, `file_type_id`, `creator`, `create_time`, `update_time`) VALUES (1656816998182551553, '2.jpg', 'https://s1.ax1x.com/2023/05/04/p9tnRu4.jpg', 2, '图片', 1656676089927303168, '世纪末的架构师', '2023-05-12 08:23:53', '2023-05-12 08:23:56');
-INSERT INTO `tb_file` (`id`, `name`, `path`, `size`, `type`, `file_type_id`, `creator`, `create_time`, `update_time`) VALUES (1656816998182551554, '3.jpg', 'https://s1.ax1x.com/2023/04/26/p9K181A.jpg', 3, '图片', 1656676089927303168, '世纪末的架构师', '2023-05-12 08:24:46', '2023-05-12 00:25:01');
-INSERT INTO `tb_file` (`id`, `name`, `path`, `size`, `type`, `file_type_id`, `creator`, `create_time`, `update_time`) VALUES (1656816998182551555, '4.jpg', 'https://s1.ax1x.com/2023/05/09/p90roQI.jpg', 4, '图片', 1656676089927303168, '世纪末的架构师', '2023-05-12 08:25:11', '2023-05-12 08:25:15');
+INSERT INTO `tb_file` (`id`, `name`, `path`, `size`, `type`, `file_type_id`, `creator`, `create_time`, `update_time`) VALUES (1656816998182551552, 'p90rISA.jpg', 'https://s1.ax1x.com/2023/05/09/p90rISA.jpg', 1, 'jpg', 1656676089927303168, '世纪末的架构师', '2023-05-12 08:22:45', '2023-05-24 01:28:09');
+INSERT INTO `tb_file` (`id`, `name`, `path`, `size`, `type`, `file_type_id`, `creator`, `create_time`, `update_time`) VALUES (1656816998182551553, 'p9tnRu4.jpg', 'https://s1.ax1x.com/2023/05/04/p9tnRu4.jpg', 2, 'jpg', 1656676089927303168, '世纪末的架构师', '2023-05-12 08:23:53', '2023-05-24 01:28:27');
+INSERT INTO `tb_file` (`id`, `name`, `path`, `size`, `type`, `file_type_id`, `creator`, `create_time`, `update_time`) VALUES (1656816998182551554, 'p9K181A.jpg', 'https://s1.ax1x.com/2023/04/26/p9K181A.jpg', 3, 'jpg', 1656676089927303168, '世纪末的架构师', '2023-05-12 08:24:46', '2023-05-24 01:28:47');
+INSERT INTO `tb_file` (`id`, `name`, `path`, `size`, `type`, `file_type_id`, `creator`, `create_time`, `update_time`) VALUES (1656816998182551555, 'p90roQI.jpg', 'https://s1.ax1x.com/2023/05/09/p90roQI.jpg', 4, 'jpg', 1656676089927303168, '世纪末的架构师', '2023-05-12 08:25:11', '2023-05-24 01:28:54');
 COMMIT;
 
 -- ----------------------------
@@ -51,6 +51,7 @@ DROP TABLE IF EXISTS `tb_file_type`;
 CREATE TABLE `tb_file_type` (
   `id` bigint(20) NOT NULL COMMENT '主键',
   `name` varchar(50) NOT NULL COMMENT '文件分类名称',
+  `mark` varchar(50) DEFAULT NULL COMMENT '文件分类标识',
   `description` varchar(255) DEFAULT NULL COMMENT '文件分类描述',
   `sort` int(11) DEFAULT NULL COMMENT '文件分类排序',
   `create_time` datetime NOT NULL COMMENT '创建时间',
@@ -62,10 +63,10 @@ CREATE TABLE `tb_file_type` (
 -- Records of tb_file_type
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_file_type` (`id`, `name`, `description`, `sort`, `create_time`, `update_time`) VALUES (1656676089927303168, '阿里云', '阿里云对象存储', 1, '2023-05-11 23:02:37', '2023-05-11 23:02:40');
-INSERT INTO `tb_file_type` (`id`, `name`, `description`, `sort`, `create_time`, `update_time`) VALUES (1656676089927303169, '腾讯云', '腾讯云对象存储', 2, '2023-05-11 23:03:05', '2023-05-11 23:03:07');
-INSERT INTO `tb_file_type` (`id`, `name`, `description`, `sort`, `create_time`, `update_time`) VALUES (1656676089927303170, '七牛云', '七牛云对象存储', 3, '2023-05-11 23:03:24', '2023-05-11 23:03:26');
-INSERT INTO `tb_file_type` (`id`, `name`, `description`, `sort`, `create_time`, `update_time`) VALUES (1656676089927303171, '本地', '本地对象存储', 4, '2023-05-11 23:03:45', '2023-05-11 23:03:48');
+INSERT INTO `tb_file_type` (`id`, `name`, `mark`, `description`, `sort`, `create_time`, `update_time`) VALUES (1656676089927303168, '封面图片', 'cover', '文章封面图片', 1, '2023-05-11 23:02:37', '2023-05-23 16:02:28');
+INSERT INTO `tb_file_type` (`id`, `name`, `mark`, `description`, `sort`, `create_time`, `update_time`) VALUES (1656676089927303169, '文章图片', 'article', '文章中的图片', 2, '2023-05-11 23:03:05', '2023-05-23 16:02:50');
+INSERT INTO `tb_file_type` (`id`, `name`, `mark`, `description`, `sort`, `create_time`, `update_time`) VALUES (1656676089927303170, '头像文件', 'avatar', '分类图片', 3, '2023-05-11 23:03:24', '2023-05-23 16:06:41');
+INSERT INTO `tb_file_type` (`id`, `name`, `mark`, `description`, `sort`, `create_time`, `update_time`) VALUES (1656676089927303171, '其他文件', 'other', '其他类型文件', 4, '2023-05-11 23:03:45', '2023-05-23 16:03:01');
 COMMIT;
 
 -- ----------------------------
@@ -232,6 +233,7 @@ INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1654391949517389824, '修改密码发送邮件验证码', '修改密码发送邮件验证码', 'GET', '/admin/email/password', 1636182933754609665, '2023-05-05 15:46:37', '2023-05-05 07:50:01');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1654642840078123008, '用户更新密码', '用户个人信息更新密码', 'POST', '/admin/user/updatePassword', 1636182933754609665, '2023-05-06 08:22:27', '2023-05-06 00:22:58');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1656679330433990656, '获取文件列表', '用户获取文件列表', 'GET', '/admin/file/list', 1636182933754609665, '2023-05-11 23:15:37', '2023-05-11 15:15:45');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1661030954518446080, '获取文件上传模式', '用户获取文件上传模式', 'GET', '/admin/file/listModes', 1636182933754609665, '2023-05-23 23:26:23', '2023-05-23 15:29:01');
 COMMIT;
 
 -- ----------------------------

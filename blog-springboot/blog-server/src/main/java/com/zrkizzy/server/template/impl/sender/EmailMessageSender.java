@@ -1,4 +1,4 @@
-package com.zrkizzy.server.template.impl;
+package com.zrkizzy.server.template.impl.sender;
 
 import com.zrkizzy.data.dto.MessageSenderDTO;
 import com.zrkizzy.server.template.AbstractMessageSender;

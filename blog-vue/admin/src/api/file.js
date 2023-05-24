@@ -9,3 +9,13 @@ export const listFiles = () => {
     method: 'GET'
   })
 }
+
+/**
+ * 获取文件上传模式
+ */
+export const listModes = () => {
+  return request({
+    url: '/admin/file/listModes',
+    method: 'GET'
+  })
+}

@@ -63,7 +63,7 @@
           icon="el-icon-upload"
           type="primary"
           size="small"
-          @click="uploadVisible = true">
+          @click="handleShow">
           上传文件
         </el-button>
         <!-- 清空选中文件 -->
@@ -107,16 +107,35 @@
       :append-to-body="true"
       width="500px"
       title="文件上传">
-      <div class="upload-container">
+      <div class="upload-container" v-loading="uploadLoading" element-loading-text="正在加载文件上传资源...">
         <div class="select-item">
-          <el-select v-model="value" placeholder="请选择上传方式" size="small" style="width: 360px;">
+          <span>上传模式：</span>
+          <el-select v-model="mode" placeholder="请选择上传方式" size="small" style="width: 290px;">
+            <el-option
+              v-for="item in uploadMode"
+              :key="item.mark"
+              :label="item.mode"
+              :value="item.mark">
+              <span style="float: left">{{ item.mode }}</span>
+              <span style="float: right; color: #8492a6; font-size: 13px">
+                {{ item.mark }}
+              </span>
+            </el-option>
+          </el-select>
+        </div>
+
+        <div class="select-item">
+          <span>文件分类：</span>
+          <el-select v-model="value" placeholder="请选择文件分类" size="small" style="width: 290px;">
             <el-option
               v-for="item in fileMenuList"
               :key="item.mark"
               :label="item.name"
               :value="item.mark">
               <span style="float: left">{{ item.name }}</span>
-              <span style="float: right; color: #8492a6; font-size: 13px">{{ item.mark }}</span>
+              <span style="float: right; color: #8492a6; font-size: 13px">
+                {{ item.mark }}
+              </span>
             </el-option>
           </el-select>
         </div>
@@ -146,7 +165,7 @@
 
 <script>
 import FileItem from './components/FileItem.vue'
-import { listFiles } from '../../../api/file'
+import { listFiles, listModes } from '../../../api/file'
 
 export default {
   name: 'Space',
@@ -194,9 +213,15 @@ export default {
       fileList: [],
       // 选中的文件集合
       selection: [],
+      // 文件上传对话框加载
+      uploadLoading: false,
       // 文件上传对话框
       uploadVisible: false,
-      // 文件对话框分类
+      // 文件上传模式数据
+      uploadMode: [],
+      // 文件上传模式
+      mode: '',
+      // 文件所属分类
       value: ''
     }
   },
@@ -278,6 +303,19 @@ export default {
     clearSelect () {
       // 将当前选中文件列表清空
       this.selection = []
+    },
+    // 打开文件上传对话框
+    handleShow () {
+      // 打开对话框
+      this.uploadVisible = true
+      // 显示加载框
+      this.uploadLoading = true
+      // 获取文件上传模式
+      listModes().then((res) => {
+        this.uploadMode = res
+      })
+      // 关闭加载框
+      this.uploadLoading = false
     },
     // 关闭文件上传对话框
     handleClose () {
@@ -411,6 +449,12 @@ export default {
     align-items: center;
     height: 50px;
     padding: 5px 10px;
+  }
+
+  .select-item {
+    .el-select {
+      width: 290px;
+    }
   }
 }
 </style>
