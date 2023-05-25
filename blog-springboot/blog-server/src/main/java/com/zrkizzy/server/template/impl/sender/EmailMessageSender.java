@@ -23,7 +23,7 @@ public class EmailMessageSender extends AbstractMessageSender {
     /**
      * 发送邮件信息到指定用户
      *
-     * @param messageDTO 消息发送数据传递对象
+     * @param messageSenderDTO 消息发送数据传递对象
      */
     @Override
     public void sendMessage(MessageSenderDTO messageSenderDTO) {

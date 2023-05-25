@@ -1,6 +1,7 @@
 package com.zrkizzy.web.controller.tool;
 
 import com.zrkizzy.common.base.response.Result;
+import com.zrkizzy.common.config.OssProperties;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,8 @@ public class TestController {
      */
     @Value("${spring.mail.username}")
     private String sender;
-
+    @Autowired
+    private OssProperties ossProperties;
     @Autowired
     private JavaMailSender javaMailSender;
 
@@ -72,6 +74,11 @@ public class TestController {
 
     @GetMapping("/testOssProperties")
     public Result<?> testOssProperties() {
-        return Result.success();
+        String builder = ossProperties.getDomain() + "\\n" +
+                ossProperties.getEndpoint() + "\\n" +
+                ossProperties.getAccessKeyId() + "\\n" +
+                ossProperties.getAccessKeySecret() + "\\n" +
+                ossProperties.getBucketName() + "\\n";
+        return Result.success(builder);
     }
 }

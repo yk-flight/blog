@@ -1,7 +1,7 @@
 package com.zrkizzy.server.factory;
 
 import com.zrkizzy.server.template.AbstractMessageSender;
-import com.zrkizzy.server.template.impl.EmailMessageSender;
+import com.zrkizzy.server.template.impl.sender.EmailMessageSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

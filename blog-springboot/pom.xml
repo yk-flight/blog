@@ -38,6 +38,7 @@
         <aliyun-oss.version>3.10.2</aliyun-oss.version>
         <lombok.version>1.18.24</lombok.version>
         <commons-pool2.version>2.9.0</commons-pool2.version>
+        <commons-codec.version>1.15</commons-codec.version>
         <hutool.version>5.7.10</hutool.version>
         <jjwt.version>0.9.1</jjwt.version>
         <fastjson.version>1.2.78</fastjson.version>
@@ -171,6 +172,12 @@
                 <version>${activation.version}</version>
             </dependency>
 
+            <!-- 摘要运算、编码解码依赖 -->
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codec.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.glassfish.jaxb</groupId>
