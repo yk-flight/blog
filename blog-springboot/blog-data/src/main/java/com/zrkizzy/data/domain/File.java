@@ -48,6 +48,12 @@ public class File extends BaseEntity {
     private String type;
 
     /**
+     * 文件MD5哈希值
+     */
+    @ApiModelProperty("文件MD5哈希值")
+    private String md5;
+
+    /**
      * 文件分类ID（在查询时不返回前端）
      */
     @ApiModelProperty("文件分类ID")

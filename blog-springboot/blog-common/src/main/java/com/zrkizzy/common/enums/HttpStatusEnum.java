@@ -55,10 +55,11 @@ public enum HttpStatusEnum {
      */
     INTERNAL_SERVER_ERROR(500, "服务器内部错误"),
     SERVICE_UNAVAILABLE(503, "服务不可用"),
-    CODE_EXPIRED(504, "验证码已过期，请重新获取验证码"),
-    CODE_ERROR(505, "验证码错误，请重新输入"),
     TOKEN_EXPIRED(506, "当前Token已过期，请重新登录"),
     TOKEN_ERROR(507, "Token不合法"),
+    CODE_EXPIRED(508, "验证码已过期，请重新获取验证码"),
+    CODE_ERROR(509, "验证码错误，请重新输入"),
+
     /**
      * 其他状态码
      */
@@ -70,7 +71,9 @@ public enum HttpStatusEnum {
     PASSWORD_ERROR(2004, "密码错误"),
     USERNAME_REPEAT(2005, "用户名重复，当前用户名已存在"),
     PASSWORD_SAME(2006, "新密码不能与旧密码相同"),
-    PASSWORD_UPDATE_ERROR(2007, "密码更新失败");
+    PASSWORD_UPDATE_ERROR(2007, "密码更新失败"),
+    FILE_EXIST_ERROR(3000, "当前文件已经存在，请勿重复上传"),
+    FILE_UPLOAD_ERROR(3001, "文件上传失败");
 
     /**
      * 状态码
