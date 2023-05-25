@@ -2,6 +2,7 @@ package com.zrkizzy.common.handler;
 
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.HttpStatusEnum;
+import com.zrkizzy.common.exception.BusinessException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -40,6 +41,18 @@ public class GlobalExceptionHandler {
     public Result<?> exceptionHandler(UsernameNotFoundException e) {
         // 返回对应的错误信息到前端
         return Result.failure(HttpStatusEnum.USER_NOT_FOUND, e.getMessage());
+    }
+
+    /**
+     * 业务逻辑异常全局处理
+     *
+     * @param e 参数异常
+     * @return 前端响应对象
+     */
+    @ExceptionHandler(BusinessException.class)
+    public Result<?> exceptionHandler(BusinessException e) {
+        // 返回对应的错误信息到前端
+        return Result.failure(e.getHttpStatusEnum(), e.getMessage());
     }
 
     /**

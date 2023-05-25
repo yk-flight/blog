@@ -1,6 +1,8 @@
 package com.zrkizzy.server.service.common.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zrkizzy.common.utils.BeanCopyUtil;
+import com.zrkizzy.data.domain.File;
 import com.zrkizzy.data.domain.FileType;
 import com.zrkizzy.data.mapper.FileMapper;
 import com.zrkizzy.data.mapper.FileTypeMapper;
@@ -48,5 +50,30 @@ public class FileServiceImpl implements IFileService {
         }
         // 处理后的文件数据进行返回
         return fileList;
+    }
+
+    /**
+     * 通过MD5查询文件分类对应文件
+     *
+     * @param md5        MD5哈希值
+     * @param fileTypeId 文件分类ID
+     * @return 对应文件对象
+     */
+    @Override
+    public File getFileByMd5(String md5, Long fileTypeId) {
+        // 查询并返回查询结果
+        return fileMapper.selectOne(new QueryWrapper<File>()
+                .eq("file_type_id", fileTypeId).eq("md5", md5));
+    }
+
+    /**
+     * 保存文件数据
+     *
+     * @param file 文件对象
+     * @return 受影响行数
+     */
+    @Override
+    public Integer save(File file) {
+        return fileMapper.insert(file);
     }
 }

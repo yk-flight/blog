@@ -17,6 +17,7 @@
             <result column="path" property="path" />
             <result column="size" property="size" />
             <result column="type" property="type" />
+            <result column="md5" property="md5" />
             <result column="creator" property="creator" />
             <result column="file_create_time" property="createTime" />
             <result column="file_update_time" property="updateTime" />
@@ -38,6 +39,7 @@
             f.path AS path,
             f.size AS `size`,
             f.type AS type,
+            f.md5 AS md5,
             f.creator AS creator,
             f.create_time AS file_create_time,
             f.update_time AS file_update_time
