@@ -4,7 +4,7 @@ import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.utils.FileUtil;
 import com.zrkizzy.common.utils.TimeUtil;
-import com.zrkizzy.data.domain.File;
+import com.zrkizzy.data.dto.FileDTO;
 import com.zrkizzy.security.util.SecurityUtil;
 import com.zrkizzy.server.service.common.IFileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,7 +93,7 @@ public abstract class AbstractFileUpload {
         String accessPath = upload(file, fileTypeId, fileName);
 
         // 保存当前文件数据到数据库中
-        fileService.save(File.builder()
+        fileService.save(FileDTO.builder()
                 // 文件所属分类
                 .fileTypeId(fileTypeId)
                 // 文件名称
@@ -108,6 +108,7 @@ public abstract class AbstractFileUpload {
                 .creator(securityUtil.getLoginUsername())
                 // 文件大小
                 .size(getFileSize(file)).build());
+
         // 返回文件的访问路径
         return accessPath;
     }

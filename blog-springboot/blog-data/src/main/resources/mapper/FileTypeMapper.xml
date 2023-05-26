@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zrkizzy.data.mapper.FileTypeMapper">
+    <sql id="BaseColumn">
+        id, `name`, mark, sort, description, create_time, update_time
+    </sql>
+
     <!-- 通用返回数据 -->
     <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.FileType">
         <id column="id" property="id" />
@@ -45,8 +49,7 @@
             f.update_time AS file_update_time
         FROM
             tb_file_type ft
-                LEFT JOIN tb_file f
-                    ON ft.id = f.file_type_id
+            LEFT JOIN tb_file f ON ft.id = f.file_type_id
         ORDER BY ft.sort ASC
     </select>
 </mapper>

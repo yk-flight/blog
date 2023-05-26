@@ -1,6 +1,7 @@
 package com.zrkizzy.server.service.common;
 
 import com.zrkizzy.data.domain.File;
+import com.zrkizzy.data.dto.FileDTO;
 import com.zrkizzy.server.vo.FileTypeVO;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface IFileService {
      *
      * @return 文件列表数据
      */
-    List<FileTypeVO> listFiles();
+    List<FileTypeVO> listFileTypes();
 
     /**
      * 通过MD5查询文件分类对应文件
@@ -32,8 +33,8 @@ public interface IFileService {
     /**
      * 保存文件数据
      *
-     * @param file 文件对象
+     * @param fileDTO 文件数据传输对象
      * @return 受影响行数
      */
-    Integer save(File file);
+    Integer save(FileDTO fileDTO);
 }

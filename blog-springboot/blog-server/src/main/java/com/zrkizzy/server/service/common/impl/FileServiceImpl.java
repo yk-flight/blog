@@ -2,8 +2,10 @@ package com.zrkizzy.server.service.common.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zrkizzy.common.utils.BeanCopyUtil;
+import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.data.domain.File;
 import com.zrkizzy.data.domain.FileType;
+import com.zrkizzy.data.dto.FileDTO;
 import com.zrkizzy.data.mapper.FileMapper;
 import com.zrkizzy.data.mapper.FileTypeMapper;
 import com.zrkizzy.server.service.common.IFileService;
@@ -13,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -25,8 +28,9 @@ import java.util.List;
 @Service
 public class FileServiceImpl implements IFileService {
     @Autowired
+    private SnowFlakeUtil snowFlakeUtil;
+    @Autowired
     private FileMapper fileMapper;
-
     @Autowired
     private FileTypeMapper fileTypeMapper;
 
@@ -36,7 +40,7 @@ public class FileServiceImpl implements IFileService {
      * @return 文件列表数据
      */
     @Override
-    public List<FileTypeVO> listFiles() {
+    public List<FileTypeVO> listFileTypes() {
         // 查询到文件数据
         List<FileType> fileTypes = fileTypeMapper.listFiles();
         // 复制查询到的文件数据
@@ -69,11 +73,54 @@ public class FileServiceImpl implements IFileService {
     /**
      * 保存文件数据
      *
-     * @param file 文件对象
+     * @param fileDTO 文件数据传输对象
      * @return 受影响行数
      */
     @Override
-    public Integer save(File file) {
+    public Integer save(FileDTO fileDTO) {
+        // 定义返回结果
+        Integer result = null;
+        // 复制文件对象
+        File file = BeanCopyUtil.copy(fileDTO, File.class);
+        // 根据ID判断更新或新增
+        if (null == file.getId()) {
+            // 新增
+            result = insert(file);
+        } else {
+            // 更新
+            result = update(file);
+        }
+        // 受影响的行数
+        return result;
+    }
+
+    /**
+     * 更新文件信息
+     *
+     * @param file 文件对象
+     * @return 受影响的行数
+     */
+    private Integer update(File file) {
+        // 更新时间
+        file.setUpdateTime(LocalDateTime.now());
+        return fileMapper.updateById(file);
+    }
+
+    /**
+     * 新增文件信息
+     *
+     * @param file 文件对象
+     * @return 受影响的行数
+     */
+    private Integer insert(File file) {
+        // ID
+        file.setId(snowFlakeUtil.nextId());
+        // 创建时间
+        file.setCreateTime(LocalDateTime.now());
+        // 更新时间
+        file.setUpdateTime(LocalDateTime.now());
         return fileMapper.insert(file);
     }
+
+
 }

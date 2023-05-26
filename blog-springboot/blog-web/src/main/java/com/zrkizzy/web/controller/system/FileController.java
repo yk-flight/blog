@@ -38,7 +38,7 @@ public class FileController {
     @ApiOperation("获取文件数据")
     @GetMapping("/list")
     public Result<List<FileTypeVO>> listFiles() {
-        return Result.success(fileService.listFiles());
+        return Result.success(fileService.listFileTypes());
     }
 
     @ApiOperation("获取文件上传模式")
