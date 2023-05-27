@@ -52,4 +52,11 @@
             LEFT JOIN tb_file f ON ft.id = f.file_type_id
         ORDER BY ft.sort ASC
     </select>
+
+    <!-- 根据文件类型ID获取对应的分类路径 -->
+    <select id="getPathByFileTypeId" resultType="java.lang.String">
+        SELECT mark
+        FROM tb_file_type
+        WHERE id = #{fileTypeId}
+    </select>
 </mapper>

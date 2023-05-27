@@ -9,6 +9,11 @@ package com.zrkizzy.common.constant;
 public class FileUploadConst {
 
     /**
+     * 文件路径分隔符
+     */
+    public static final String FILE_SEPARATOR = "/";
+
+    /**
      * 阿里云OSS
      */
     public static final String ALI_YUN_OSS = "aliyun";

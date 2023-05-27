@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.zrkizzy.common.constant.FileUploadConst.FILE_SEPARATOR;
+
 /**
  * 文件业务逻辑接口实现类
  *
@@ -92,6 +94,17 @@ public class FileServiceImpl implements IFileService {
         }
         // 受影响的行数
         return result;
+    }
+
+    /**
+     * 根据文件类型ID获取对应的分类路径
+     *
+     * @param fileTypeId 文件分类ID
+     * @return 文件夹路径
+     */
+    @Override
+    public String getPathByFileTypeId(Long fileTypeId) {
+        return fileTypeMapper.getPathByFileTypeId(fileTypeId) + FILE_SEPARATOR;
     }
 
     /**

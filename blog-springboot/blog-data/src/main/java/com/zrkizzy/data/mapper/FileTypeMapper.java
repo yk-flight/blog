@@ -18,4 +18,12 @@ public interface FileTypeMapper extends BaseMapper<FileType> {
      * @return 文件数据
      */
     List<FileType> listFiles();
+
+    /**
+     * 根据文件类型ID获取对应的分类路径
+     *
+     * @param fileTypeId 文件分类ID
+     * @return 文件夹路径
+     */
+    String getPathByFileTypeId(Long fileTypeId);
 }
