@@ -111,7 +111,9 @@
     <file-space
       :visible="avatarVisible"
       :limit="1"
-      :text="'只能上传jpg/png文件，且不超过500kb'"
+      :text="'只能上传 .jpeg .jpg .png .gif 格式的文件，且不超过2MB'"
+      :accept="['.jpeg', '.jpg', '.png', '.gif']"
+      :size="2"
       @close="closeFileSpace">
     </file-space>
   </div>

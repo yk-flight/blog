@@ -110,7 +110,7 @@
       <div class="upload-container" v-loading="uploadLoading" element-loading-text="正在加载文件上传资源...">
         <div class="select-item">
           <span>上传模式：</span>
-          <el-select v-model="mode" placeholder="请选择上传方式" size="small" style="width: 290px;">
+          <el-select v-model="upload.mode" placeholder="请选择上传方式" size="small" style="width: 290px;">
             <el-option
               v-for="item in uploadMode"
               :key="item.mark"
@@ -126,7 +126,7 @@
 
         <div class="select-item">
           <span>文件分类：</span>
-          <el-select v-model="value" placeholder="请选择文件分类" size="small" style="width: 290px;">
+          <el-select v-model="upload.type" placeholder="请选择文件分类" size="small" style="width: 290px;">
             <el-option
               v-for="item in fileMenuList"
               :key="item.mark"
@@ -142,10 +142,13 @@
 
         <div class="upload-item">
           <el-upload
+            style="width: 360px;"
+            list-type="picture"
+            ref="upload"
             drag
             action="#"
             multiple
-            :show-file-list="false"
+            :auto-upload="false"
             >
             <i class="el-icon-upload"></i>
             <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -156,7 +159,7 @@
 
       <div slot="footer">
         <el-button size="small" type="danger" @click="uploadVisible = false">取 消</el-button>
-        <el-button size="small" type="success" @click="uploadVisible = false">确 定</el-button>
+        <el-button size="small" type="primary" icon="el-icon-upload" @click="submitUpload">确定上传</el-button>
       </div>
 
     </el-dialog>
@@ -175,6 +178,11 @@ export default {
     limit: {
       type: Number,
       default: 9
+    },
+    // 接受上传文件大小
+    size: {
+      type: Number,
+      default: undefined
     },
     // 接受文件上传类型
     accept: {
@@ -219,10 +227,17 @@ export default {
       uploadVisible: false,
       // 文件上传模式数据
       uploadMode: [],
-      // 文件上传模式
-      mode: '',
-      // 文件所属分类
-      value: ''
+      // 文件上传对象
+      upload: {
+        // 文件上传模式
+        mode: '',
+        // 文件所属分类
+        type: '',
+        // 文件内容
+        file: {}
+      },
+      // 上传进度百分比
+      progressPercent: 0
     }
   },
 
@@ -320,6 +335,66 @@ export default {
     // 关闭文件上传对话框
     handleClose () {
       this.uploadVisible = false
+    },
+    // 文件上传前校验
+    beforeUpload (file) {
+      console.log('进入校验')
+      // 参数校验
+      if (this.upload.mode === '') {
+        this.$message.error('文件上传模式不能为空')
+        return false
+      }
+      if (this.upload.type === '') {
+        this.$message.error('文件分类不能为空')
+        return false
+      }
+      // 校验图片格式和大小
+      if (this.accept.length > 0) {
+        // 获取文件后缀
+        const fileType = file.name.slice(file.name.lastIndexOf('.')).toLowerCase()
+        // 校验文件格式
+        if (!this.accept.includes(fileType)) {
+          // 拼接允许上传文件格式提示信息
+          var acceptType = ''
+          for (var i = 0; i < this.accept.length; i++) {
+            acceptType = acceptType + this.accept[i] + ' '
+          }
+          this.$message.error('请上传 ' + acceptType + '格式的文件')
+          return false
+        }
+        // 校验文件大小
+        if (this.size) {
+          console.log(file.size / 1024 / 1024 < this.size)
+          // 判断文件大小是否符合
+          if (file.size / 1024 / 1024 > this.size) {
+            this.$message.error('文件大小不得超过 ' + this.size + ' MB')
+            return false
+          }
+        }
+      } else {
+        // 如果没有图片格式限制则直接上传
+        const isJPG = file.type === 'image/jpeg'
+        console.log('isAccept: ', isJPG)
+      }
+      return true
+    },
+    // 文件上传事件
+    submitUpload () {
+      // 获取 DOM 元素中的文件
+      const fileArray = this.$refs.upload.uploadFiles
+      // 如果没有选中文件
+      if (fileArray.length === 0) {
+        this.$message.error('请选择文件')
+        return false
+      }
+      // 如果文件存在则获取对应文件
+      const file = fileArray[0].raw
+      // 校验文件通过则进行上传
+      if (this.beforeUpload(file)) {
+        // 定义formData方式上传
+        // const formData = new FormData()
+        console.log('开始上传')
+      }
     }
   }
 }

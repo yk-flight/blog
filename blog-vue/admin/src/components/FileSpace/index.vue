@@ -12,6 +12,8 @@
       class="space-component"
       :limit="limit"
       :text="text"
+      :accept="accept"
+      :size="size"
       @updateSelect="updateSelect"
       ></space>
 
@@ -40,6 +42,16 @@ export default {
     visible: {
       type: Boolean,
       default: false
+    },
+    // 接受文件上传类型
+    accept: {
+      type: Array,
+      default: () => []
+    },
+    // 接受上传文件的大小
+    size: {
+      type: Number,
+      default: undefined
     },
     // 可以选择文件的数量
     limit: {

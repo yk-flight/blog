@@ -44,3 +44,11 @@
   font-size: 14px;
   word-break: break-all;
 }
+
+.el-upload-list {
+  width: 100%;
+
+  &>.el-upload-list__item {
+    text-align: left;
+  }
+}
