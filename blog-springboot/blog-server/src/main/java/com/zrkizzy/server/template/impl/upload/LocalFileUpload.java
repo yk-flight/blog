@@ -16,11 +16,12 @@ public class LocalFileUpload extends AbstractFileUpload {
     /**
      * 获取文件的Http访问路径
      *
+     * @param typePath 文件分类路径
      * @param filePath 文件存储路径
      * @return 文件的访问路径
      */
     @Override
-    public String getFileAccessPath(String filePath) {
+    public String getFileAccessPath(String typePath, String filePath) {
         return null;
     }
 

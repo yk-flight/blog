@@ -33,10 +33,11 @@ public abstract class AbstractFileUpload {
     /**
      * 获取文件的Http访问路径
      *
+     * @param typePath 文件分类路径
      * @param filePath 文件存储路径
      * @return 文件的访问路径
      */
-    public abstract String getFileAccessPath(String filePath);
+    public abstract String getFileAccessPath(String typePath, String filePath);
 
     /**
      * 上传文件并返回文件访问路径

@@ -31,8 +31,8 @@ public class OssFileUpload extends AbstractFileUpload {
      * @return 文件的访问路径
      */
     @Override
-    public String getFileAccessPath(String filePath) {
-        return ossProperties.getDomain() + filePath;
+    public String getFileAccessPath(String typePath, String filePath) {
+        return ossProperties.getDomain() + typePath + filePath;
     }
 
     /**
@@ -56,11 +56,11 @@ public class OssFileUpload extends AbstractFileUpload {
         // TODO 根据文件分类ID获取到文件分类标识来定义不同的文件夹路径
         String typePath = fileService.getPathByFileTypeId(fileTypeId);
         // 参数：仓库名称，文件名称，文件输入流
-        ossClient.putObject(ossProperties.getBucketName(), fileName, file.getInputStream());
+        ossClient.putObject(ossProperties.getBucketName(), typePath + fileName, file.getInputStream());
         // 关闭阿里云OSS客户端
         ossClient.shutdown();
         // 返回文件的访问路径
-        return getFileAccessPath(fileName);
+        return getFileAccessPath(typePath, fileName);
     }
 
 
