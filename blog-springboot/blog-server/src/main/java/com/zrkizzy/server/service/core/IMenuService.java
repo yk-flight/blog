@@ -1,6 +1,6 @@
 package com.zrkizzy.server.service.core;
 
-import com.zrkizzy.server.vo.route.RouterVO;
+import com.zrkizzy.data.vo.route.RouterVO;
 
 import java.util.List;
 

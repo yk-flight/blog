@@ -4,7 +4,7 @@ import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.utils.BeanCopyUtil;
 import com.zrkizzy.data.dto.RoleDTO;
 import com.zrkizzy.server.service.core.IRoleService;
-import com.zrkizzy.server.vo.RoleVO;
+import com.zrkizzy.data.vo.RoleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

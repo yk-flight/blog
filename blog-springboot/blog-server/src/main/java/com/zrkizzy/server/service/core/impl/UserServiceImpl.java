@@ -17,7 +17,7 @@ import com.zrkizzy.security.util.SecurityUtil;
 import com.zrkizzy.security.util.UserDetailUtil;
 import com.zrkizzy.server.service.core.IUserInfoService;
 import com.zrkizzy.server.service.core.IUserService;
-import com.zrkizzy.server.vo.UserInfoVO;
+import com.zrkizzy.data.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

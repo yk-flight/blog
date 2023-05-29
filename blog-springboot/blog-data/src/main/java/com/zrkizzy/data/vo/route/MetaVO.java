@@ -1,4 +1,4 @@
-package com.zrkizzy.server.vo.route;
+package com.zrkizzy.data.vo.route;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

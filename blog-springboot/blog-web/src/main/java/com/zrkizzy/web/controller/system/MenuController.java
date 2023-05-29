@@ -2,7 +2,7 @@ package com.zrkizzy.web.controller.system;
 
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.server.service.core.IMenuService;
-import com.zrkizzy.server.vo.route.RouterVO;
+import com.zrkizzy.data.vo.route.RouterVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,7 +5,7 @@ import com.zrkizzy.data.domain.User;
 import com.zrkizzy.data.dto.LoginDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
 import com.zrkizzy.data.dto.UserInfoDTO;
-import com.zrkizzy.server.vo.UserInfoVO;
+import com.zrkizzy.data.vo.UserInfoVO;
 
 import java.util.List;
 

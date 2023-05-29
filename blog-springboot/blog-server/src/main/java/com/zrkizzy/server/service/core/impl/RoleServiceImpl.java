@@ -8,7 +8,7 @@ import com.zrkizzy.data.domain.Role;
 import com.zrkizzy.data.mapper.RoleMapper;
 import com.zrkizzy.data.dto.RoleDTO;
 import com.zrkizzy.server.service.core.IRoleService;
-import com.zrkizzy.server.vo.RoleVO;
+import com.zrkizzy.data.vo.RoleVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
