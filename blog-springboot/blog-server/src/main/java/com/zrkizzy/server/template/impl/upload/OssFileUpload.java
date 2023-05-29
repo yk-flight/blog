@@ -3,6 +3,7 @@ package com.zrkizzy.server.template.impl.upload;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.zrkizzy.common.config.OssProperties;
+import com.zrkizzy.server.service.common.IFileService;
 import com.zrkizzy.server.template.AbstractFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,8 @@ import java.io.IOException;
 public class OssFileUpload extends AbstractFileUpload {
     @Autowired
     private OssProperties ossProperties;
+    @Autowired
+    private IFileService fileService;
 
     /**
      * 获取文件的Http访问路径
@@ -50,7 +53,8 @@ public class OssFileUpload extends AbstractFileUpload {
                 ossProperties.getAccessKeyId(),
                 // 密钥
                 ossProperties.getAccessKeySecret());
-        // TODO 根据文件分类ID获取到文件分类标识来定义不同的文件分类
+        // TODO 根据文件分类ID获取到文件分类标识来定义不同的文件夹路径
+        String typePath = fileService.getPathByFileTypeId(fileTypeId);
         // 参数：仓库名称，文件名称，文件输入流
         ossClient.putObject(ossProperties.getBucketName(), fileName, file.getInputStream());
         // 关闭阿里云OSS客户端

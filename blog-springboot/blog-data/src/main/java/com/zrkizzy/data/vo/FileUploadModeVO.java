@@ -1,4 +1,4 @@
-package com.zrkizzy.server.vo;
+package com.zrkizzy.data.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

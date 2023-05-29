@@ -88,7 +88,7 @@ public abstract class AbstractFileUpload {
             throw new BusinessException(FILE_EXIST_ERROR);
         }
         // 根据当前时间和文件扩展名生成新的文件名称
-        String fileName = TimeUtil.generateNowTime() + "." + FileUtil.getFileExtName(file.getName());
+        String fileName = TimeUtil.generateNowTime() + "." + FileUtil.getFileExtName(file.getOriginalFilename());
         // 上传文件并返回文件的访问路径
         String accessPath = upload(file, fileTypeId, fileName);
 
@@ -103,7 +103,7 @@ public abstract class AbstractFileUpload {
                 // 文件MD5哈希值，用于文件唯一标识
                 .md5(FileUtil.getFileMd5(file.getInputStream()))
                 // 文件类型
-                .type(FileUtil.getFileExtName(file.getName()))
+                .type(FileUtil.getFileExtName(file.getOriginalFilename()))
                 // 上传用户（当前登录用户）
                 .creator(securityUtil.getLoginUsername())
                 // 文件大小

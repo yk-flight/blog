@@ -2,19 +2,17 @@ package com.zrkizzy.web.controller.system;
 
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.FileUploadModeEnum;
+import com.zrkizzy.data.dto.UploadDTO;
+import com.zrkizzy.data.vo.FileTypeVO;
+import com.zrkizzy.data.vo.FileUploadModeVO;
 import com.zrkizzy.server.factory.FileUploadFactory;
 import com.zrkizzy.server.service.common.IFileService;
 import com.zrkizzy.server.template.AbstractFileUpload;
-import com.zrkizzy.server.vo.FileTypeVO;
-import com.zrkizzy.server.vo.FileUploadModeVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -61,11 +59,11 @@ public class FileController {
 
     @ApiOperation("上传文件")
     @PostMapping("/upload")
-    public Result<String> upload(MultipartFile file, String mode, Long fileTypeId) throws IOException {
+    public Result<String> upload(@Validated @ModelAttribute UploadDTO uploadDTO) throws IOException {
         // 根据上传模式获取对应的上传内容
-        AbstractFileUpload fileUpload = fileUploadFactory.getInstance(mode);
+        AbstractFileUpload fileUpload = fileUploadFactory.getInstance(uploadDTO.getMode());
         // 上传文件并返回文件的访问域名
-        String accessPath = fileUpload.uploadFile(file, fileTypeId);
+        String accessPath = fileUpload.uploadFile(uploadDTO.getFile(), uploadDTO.getFileTypeId());
         // 返回结果
         return Result.success(accessPath);
     }

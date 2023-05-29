@@ -56,6 +56,7 @@ public class FileUtil {
      */
     public static String getFileExtName(String fileName) {
         // 截取文件格式并返回
+        System.out.println(fileName);
         return fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
     }
 

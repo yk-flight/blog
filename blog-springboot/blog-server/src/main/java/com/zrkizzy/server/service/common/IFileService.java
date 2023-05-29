@@ -2,7 +2,7 @@ package com.zrkizzy.server.service.common;
 
 import com.zrkizzy.data.domain.File;
 import com.zrkizzy.data.dto.FileDTO;
-import com.zrkizzy.server.vo.FileTypeVO;
+import com.zrkizzy.data.vo.FileTypeVO;
 
 import java.util.List;
 
@@ -37,4 +37,12 @@ public interface IFileService {
      * @return 受影响行数
      */
     Integer save(FileDTO fileDTO);
+
+    /**
+     * 根据文件类型ID获取对应的分类路径
+     *
+     * @param fileTypeId 文件分类ID
+     * @return 文件夹路径
+     */
+    String getPathByFileTypeId(Long fileTypeId);
 }
