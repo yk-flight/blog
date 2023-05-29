@@ -19,3 +19,15 @@ export const listModes = () => {
     method: 'GET'
   })
 }
+
+/**
+ * 上传文件
+ */
+export const upload = (data) => {
+  return request({
+    url: '/admin/file/upload',
+    method: 'POST',
+    data: data,
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
+}

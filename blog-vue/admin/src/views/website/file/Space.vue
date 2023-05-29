@@ -126,12 +126,12 @@
 
         <div class="select-item">
           <span>文件分类：</span>
-          <el-select v-model="upload.type" placeholder="请选择文件分类" size="small" style="width: 290px;">
+          <el-select v-model="upload.fileTypeId" placeholder="请选择文件分类" size="small" style="width: 290px;">
             <el-option
               v-for="item in fileMenuList"
               :key="item.mark"
               :label="item.name"
-              :value="item.mark">
+              :value="item.id">
               <span style="float: left">{{ item.name }}</span>
               <span style="float: right; color: #8492a6; font-size: 13px">
                 {{ item.mark }}
@@ -168,7 +168,7 @@
 
 <script>
 import FileItem from './components/FileItem.vue'
-import { listFiles, listModes } from '../../../api/file'
+import { listFiles, listModes, upload } from '../../../api/file'
 
 export default {
   name: 'Space',
@@ -232,7 +232,7 @@ export default {
         // 文件上传模式
         mode: '',
         // 文件所属分类
-        type: '',
+        fileTypeId: '',
         // 文件内容
         file: {}
       },
@@ -380,6 +380,8 @@ export default {
     },
     // 文件上传事件
     submitUpload () {
+      console.log(typeof (this.upload.fileTypeId))
+      console.log(this.upload.fileTypeId)
       // 获取 DOM 元素中的文件
       const fileArray = this.$refs.upload.uploadFiles
       // 如果没有选中文件
@@ -392,7 +394,15 @@ export default {
       // 校验文件通过则进行上传
       if (this.beforeUpload(file)) {
         // 定义formData方式上传
-        // const formData = new FormData()
+        const formData = new FormData()
+        formData.append('mode', this.upload.mode)
+        formData.append('fileTypeId', this.upload.fileTypeId)
+        formData.append('file', file)
+
+        // 开始上传
+        upload(formData).then((res) => {
+          console.log(res)
+        })
         console.log('开始上传')
       }
     }
