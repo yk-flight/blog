@@ -31,7 +31,13 @@ public class SecurityUtil {
      * @return 登录用户对象
      */
     public User getLoginUser() {
-        return redisService.get(USER_PREFIX + getLoginUsername(), User.class);
+        // 从载荷中获取用户对象
+        User user = getUserDetails().getUser();
+        if (null == user) {
+            // 如果载荷中为空则去Redis中获取
+            return redisService.get(USER_PREFIX + getLoginUsername(), User.class);
+        }
+        return user;
     }
 
     /**
@@ -59,6 +65,15 @@ public class SecurityUtil {
      */
     public String getLoginUserRoleName() {
         return getUserDetails().getRoleName();
+    }
+
+    /**
+     * 获取当前登录的用户昵称
+     *
+     * @return 用户昵称
+     */
+    public String getLoginUserNickname() {
+        return getLoginUser().getNickname();
     }
 
     /**

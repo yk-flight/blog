@@ -48,6 +48,11 @@ public class FileDTO extends BaseDTO {
     private Long fileTypeId;
 
     /**
+     * 上传用户名
+     */
+    private String username;
+
+    /**
      * 上传人
      */
     private String creator;

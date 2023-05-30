@@ -55,6 +55,12 @@ public class File extends BaseEntity {
     private Long fileTypeId;
 
     /**
+     * 上传用户名
+     */
+    @ApiModelProperty("上传用户名")
+    private String username;
+
+    /**
      * 上传人
      */
     @ApiModelProperty("上传人")

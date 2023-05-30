@@ -44,6 +44,15 @@ public class MyUserDetails implements UserDetails {
     }
 
     /**
+     * 获取登录的用户对象
+     *
+     * @return 用户对象
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
      * 获取用户ID
      *
      * @return 用户ID

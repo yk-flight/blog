@@ -46,4 +46,10 @@ public class FileVO extends BaseVO {
      */
     private String creator;
 
+    /**
+     * 上传用户名
+     */
+    private String username;
+
+
 }
