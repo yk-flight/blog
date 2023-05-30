@@ -1,5 +1,9 @@
 <template>
-  <div class="item" v-loading="loading">
+  <div class="item"
+    v-loading="loading"
+    element-loading-text="正在删除文件..."
+    element-loading-spinner="el-icon-loading"
+    element-loading-background="rgba(0, 0, 0, 0.8)">
     <div class="image-file_wrap">
       <div class="item-file" @click="select(file)">
         <!-- 文件 -->
@@ -129,7 +133,6 @@ export default {
       this.$emit('confirm', file)
     },
     refresh () {
-      console.log('开始通知父组件')
       // 通知父组件清空选中的文件
       this.$emit('clear')
       // 通知父组件执行刷新文件列表方法
@@ -175,9 +178,10 @@ export default {
         type: 'warning'
       })
         .then(() => {
+          // 打开加载框
           this.loading = true
           deleteBatch(deleteArray).then((res) => {
-            console.log('开始刷新')
+            // 关闭加载框
             this.loading = false
             // 刷新当前文件
             that.refresh()

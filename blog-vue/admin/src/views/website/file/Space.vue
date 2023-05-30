@@ -7,16 +7,22 @@
         <span class="header-title">分类</span>
         <!-- 菜单按钮组 -->
         <div class="menu-grounp">
-          <!-- 刷新 -->
-          <div class="menu-item">
-            <el-tooltip effect="dark" content="刷新" placement="bottom">
-              <svg-icon icon="refresh"></svg-icon>
-            </el-tooltip>
-          </div>
           <!-- 新增菜单类型 -->
           <div class="menu-item">
             <el-tooltip effect="dark" content="新增" placement="bottom">
-              <svg-icon icon="add"></svg-icon>
+              <svg-icon icon="add" style="font-size: 12px;"></svg-icon>
+            </el-tooltip>
+          </div>
+          <!-- 编辑 -->
+          <div class="menu-item">
+            <el-tooltip effect="dark" content="编辑" placement="bottom">
+              <svg-icon icon="dict"></svg-icon>
+            </el-tooltip>
+          </div>
+          <!-- 删除 -->
+          <div class="menu-item">
+            <el-tooltip effect="dark" content="删除" placement="bottom">
+              <svg-icon icon="delete"></svg-icon>
             </el-tooltip>
           </div>
         </div>
