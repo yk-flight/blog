@@ -1,5 +1,6 @@
 package com.zrkizzy.server.template;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.utils.FileUtil;
@@ -13,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.zrkizzy.common.enums.HttpStatusEnum.FILE_EXIST_ERROR;
 
@@ -37,7 +40,17 @@ public abstract class AbstractFileUpload {
      * @param filePath 文件存储路径
      * @return 文件的访问路径
      */
-    public abstract String getFileAccessPath(String typePath, String filePath);
+    protected abstract String getFileAccessPath(String typePath, String filePath);
+
+
+    /**
+     * 获取文件的存储路径
+     *
+     * @param typePath 文件分类路径
+     * @param filePath 文件存储路径
+     * @return 文件的访问路径
+     */
+    protected abstract String getFileSavePath(String typePath, String filePath);
 
     /**
      * 上传文件并返回文件访问路径
@@ -46,9 +59,17 @@ public abstract class AbstractFileUpload {
      * @param fileTypeId 文件分类ID
      * @param fileName 文件名称
      * @throws IOException IO异常
-     * @return 文件访问路径
+     * @return 文件路径集合：0: 文件存储路径 1: 文件访问路径
      */
-    public abstract String upload(MultipartFile file, Long fileTypeId, String fileName) throws IOException;
+    protected abstract List<String> upload(MultipartFile file, Long fileTypeId, String fileName) throws IOException;
+
+    /**
+     * 删除文件
+     *
+     * @param filePath 文件路径集合
+     * @return 是否删除成功
+     */
+    protected abstract Boolean delete(List<String> filePath);
 
     /**
      * 获取文件大小（动态确定）
@@ -82,7 +103,7 @@ public abstract class AbstractFileUpload {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public String uploadFile(MultipartFile file, Long fileTypeId) throws IOException {
+    public String uploadFile(MultipartFile file, Long fileTypeId, String mode) throws IOException {
         // 判断当前文件是否已经存在
         if (isExist(file, fileTypeId)) {
             // 抛出重复上传异常
@@ -91,7 +112,7 @@ public abstract class AbstractFileUpload {
         // 根据当前时间和文件扩展名生成新的文件名称
         String fileName = TimeUtil.generateNowTime() + FileUtil.getFileExtName(file.getOriginalFilename());
         // 上传文件并返回文件的访问路径
-        String accessPath = upload(file, fileTypeId, fileName);
+        List<String> paths = upload(file, fileTypeId, fileName);
 
         // 保存当前文件数据到数据库中
         fileService.save(FileDTO.builder()
@@ -99,21 +120,47 @@ public abstract class AbstractFileUpload {
                 .fileTypeId(fileTypeId)
                 // 文件名称
                 .name(fileName)
+                // 文件存储路径
+                .path(paths.get(0))
                 // 文件访问路径
-                .path(accessPath)
+                .src(paths.get(1))
                 // 文件MD5哈希值，用于文件唯一标识
                 .md5(FileUtil.getFileMd5(file.getInputStream()))
                 // 文件类型
                 .type(FileUtil.getFileExtName(file.getOriginalFilename()))
-                // 上传用户名
-                .username(securityUtil.getLoginUsername())
-                // 上传用户昵称（当前登录用户）
-                .creator(securityUtil.getLoginUserNickname())
+                // 上传用户ID
+                .userId(securityUtil.getLoginUser().getId())
+                // 上传模式
+                .mode(mode)
                 // 文件大小
                 .size(getFileSize(file)).build());
 
         // 返回文件的访问路径
-        return accessPath;
+        return paths.get(1);
+    }
+
+    /**
+     * 批量删除文件
+     *
+     * @param fileList 文件数据传输对象
+     * @return 是否删除成功
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean deleteFile(List<FileDTO> fileList) {
+        // 如果传来的文件列表为空则直接返回true
+        if (CollectionUtil.isEmpty(fileList)) {
+            return Boolean.TRUE;
+        }
+        // 图片ID和图片路径集合
+        List<Long> ids = new ArrayList<>();
+        List<String> paths = new ArrayList<>();
+        // 获取到传输的图片ID和图片存储路径集合
+        for (FileDTO fileDTO : fileList) {
+            ids.add(fileDTO.getId());
+            paths.add(fileDTO.getPath());
+        }
+        // 删除数据库文件数据以及删除文件
+        return fileService.deleteBatch(ids) && delete(paths);
     }
 
 }

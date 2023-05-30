@@ -108,6 +108,18 @@ public class FileServiceImpl implements IFileService {
     }
 
     /**
+     * 批量删除文件信息
+     *
+     * @param ids 文件ID集合
+     * @return 是否删除成功
+     */
+    @Override
+    public Boolean deleteBatch(List<Long> ids) {
+        // 返回受影响行数与文件ID集合数量是否相同
+        return fileMapper.deleteBatchIds(ids) == ids.size();
+    }
+
+    /**
      * 更新文件信息
      *
      * @param file 文件对象

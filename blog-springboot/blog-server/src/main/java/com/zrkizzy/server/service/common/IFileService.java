@@ -45,4 +45,12 @@ public interface IFileService {
      * @return 文件夹路径
      */
     String getPathByFileTypeId(Long fileTypeId);
+
+    /**
+     * 批量删除文件信息
+     *
+     * @param ids 文件ID集合
+     * @return 是否删除成功
+     */
+    Boolean deleteBatch(List<Long> ids);
 }
