@@ -1,10 +1,12 @@
 package com.zrkizzy.data.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zrkizzy.common.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 文件实体类
@@ -25,10 +27,16 @@ public class File extends BaseEntity {
     private String name;
 
     /**
-     * 文件路径
+     * 文件存储路径
      */
-    @ApiModelProperty("文件路径")
+    @ApiModelProperty("文件存储路径")
     private String path;
+
+    /**
+     * 文件访问路径
+     */
+    @ApiModelProperty("文件访问路径")
+    private String src;
 
     /**
      * 文件大小
@@ -55,15 +63,22 @@ public class File extends BaseEntity {
     private Long fileTypeId;
 
     /**
-     * 上传用户名
+     * 上传用户ID
      */
-    @ApiModelProperty("上传用户名")
-    private String username;
+    @ApiModelProperty("上传用户ID")
+    private Long userId;
 
     /**
-     * 上传人
+     * 上传模式
      */
-    @ApiModelProperty("上传人")
-    private String creator;
+    @ApiModelProperty("上传模式")
+    private String mode;
+
+    /**
+     * 上传用户昵称
+     */
+    @ApiModelProperty("上传用户昵称")
+    @TableField(exist = false)
+    private String nickname;
 
 }

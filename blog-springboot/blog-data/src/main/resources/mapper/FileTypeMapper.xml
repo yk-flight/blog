@@ -18,12 +18,14 @@
         <collection property="fileList" ofType="com.zrkizzy.data.domain.File">
             <id column="file_id" property="id" />
             <result column="file_name" property="name" />
+            <result column="src" property="src" />
             <result column="path" property="path" />
             <result column="size" property="size" />
             <result column="type" property="type" />
             <result column="md5" property="md5" />
-            <result column="username" property="username" />
-            <result column="creator" property="creator" />
+            <result column="nickname" property="nickname" />
+            <result column="user_id" property="userId" />
+            <result column="mode" property="mode" />
             <result column="file_create_time" property="createTime" />
             <result column="file_update_time" property="updateTime" />
         </collection>
@@ -41,17 +43,20 @@
             ft.update_time AS update_time,
             f.id AS file_id,
             f.name AS file_name,
+            f.src AS src,
             f.path AS path,
             f.size AS `size`,
             f.type AS type,
             f.md5 AS md5,
-            f.username AS username,
-            f.creator AS creator,
+            f.user_id AS user_id,
+            u.nickname AS nickname,
+            f.mode AS mode,
             f.create_time AS file_create_time,
             f.update_time AS file_update_time
         FROM
             tb_file_type ft
             LEFT JOIN tb_file f ON ft.id = f.file_type_id
+            LEFT JOIN tb_user u ON f.user_id = u.id
         ORDER BY ft.sort ASC
     </select>
 

@@ -23,7 +23,12 @@ public class FileDTO extends BaseDTO {
     private String name;
 
     /**
-     * 文件路径
+     * 文件访问路径
+     */
+    private String src;
+
+    /**
+     * 文件访问路径
      */
     private String path;
 
@@ -48,13 +53,13 @@ public class FileDTO extends BaseDTO {
     private Long fileTypeId;
 
     /**
-     * 上传用户名
+     * 上传用户ID
      */
-    private String username;
+    private Long userId;
 
     /**
-     * 上传人
+     * 上传模式
      */
-    private String creator;
+    private String mode;
 
 }

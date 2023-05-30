@@ -22,7 +22,12 @@ public class FileVO extends BaseVO {
     private String name;
 
     /**
-     * 文件路径
+     * 文件访问路径
+     */
+    private String src;
+
+    /**
+     * 文件存储路径
      */
     private String path;
 
@@ -47,9 +52,19 @@ public class FileVO extends BaseVO {
     private String creator;
 
     /**
-     * 上传用户名
+     * 上传用户ID
      */
-    private String username;
+    private Long userId;
+
+    /**
+     * 上传模式
+     */
+    private String mode;
+
+    /**
+     * 上传用户昵称
+     */
+    private String nickname;
 
 
 }
