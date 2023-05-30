@@ -16,7 +16,7 @@
           class="item-file__type"
           style="background-color: rgb(103, 194, 58)"
         >
-          {{ file.type }}
+          {{ file.type | fileTypeFilter }}
         </span>
         <!-- 文件选项 -->
         <div class="item-file__actions">
@@ -46,12 +46,39 @@
     </div>
 
     <el-dialog
-      title="图片信息"
+      title="文件信息"
+      width="700px"
       :before-close="closeInfo"
       :visible="showInfo"
       :append-to-body="true"
     >
-      图片信息
+      <el-descriptions direction="vertical" :column="4" border class="file-item">
+        <el-descriptions-item label="文件名称">
+          {{ file.name }}
+        </el-descriptions-item>
+        <el-descriptions-item label="上传用户">
+          {{ file.creator }} ({{ file.username }})
+        </el-descriptions-item>
+        <el-descriptions-item label="文件大小" :span="2">
+          {{ file.size | fileSizeFilter }}
+        </el-descriptions-item>
+        <el-descriptions-item label="上传时间">
+          {{ file.createTime | dateFilter }}
+        </el-descriptions-item>
+        <el-descriptions-item label="文件标识" :span="2">
+          {{ file.md5 }}
+        </el-descriptions-item>
+        <el-descriptions-item label="文件类型">
+          <el-tag>{{ file.type | fileTypeFilter }}</el-tag>
+        </el-descriptions-item>
+        <el-descriptions-item label="文件路径" :span="4">
+          <el-tooltip effect="dark" content="点击下载" placement="bottom">
+            <el-link icon="el-icon-download" :underline="false" :href="file.path">
+              {{ file.path }}
+            </el-link>
+          </el-tooltip>
+        </el-descriptions-item>
+      </el-descriptions>
     </el-dialog>
   </div>
 </template>
@@ -112,6 +139,7 @@ export default {
     // 打开图片信息对话框
     openInfo () {
       this.showInfo = true
+      console.log(this.file)
     },
     // 关闭图片信息对话框
     closeInfo () {

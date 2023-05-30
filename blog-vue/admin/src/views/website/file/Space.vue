@@ -1,8 +1,5 @@
 <template>
-  <div class="space-container"
-    v-loading="loading"
-    element-loading-text="拼命加载文件资源中"
-    >
+  <div class="space-container" v-loading="loading" element-loading-text="拼命加载文件资源中">
     <!-- 左侧文件菜单类型容器 -->
     <div :class="isCollapse ? 'hideLeft' : 'space-left'">
       <!-- 文件菜单内容 -->
@@ -159,7 +156,14 @@
 
       <div slot="footer">
         <el-button size="small" type="danger" @click="uploadVisible = false">取 消</el-button>
-        <el-button size="small" type="primary" icon="el-icon-upload" @click="submitUpload">确定上传</el-button>
+        <el-button
+          size="small"
+          type="primary"
+          icon="el-icon-upload"
+          :loading="buttonLoading"
+          @click="submitUpload">
+          确定上传
+        </el-button>
       </div>
 
     </el-dialog>
@@ -232,12 +236,10 @@ export default {
         // 文件上传模式
         mode: '',
         // 文件所属分类
-        fileTypeId: '',
-        // 文件内容
-        file: {}
+        fileTypeId: ''
       },
-      // 上传进度百分比
-      progressPercent: 0
+      // 上传文件按钮等待框
+      buttonLoading: false
     }
   },
 
@@ -338,7 +340,6 @@ export default {
     },
     // 文件上传前校验
     beforeUpload (file) {
-      console.log('进入校验')
       // 参数校验
       if (this.upload.mode === '') {
         this.$message.error('文件上传模式不能为空')
@@ -364,24 +365,17 @@ export default {
         }
         // 校验文件大小
         if (this.size) {
-          console.log(file.size / 1024 / 1024 < this.size)
           // 判断文件大小是否符合
           if (file.size / 1024 / 1024 > this.size) {
             this.$message.error('文件大小不得超过 ' + this.size + ' MB')
             return false
           }
         }
-      } else {
-        // 如果没有图片格式限制则直接上传
-        const isJPG = file.type === 'image/jpeg'
-        console.log('isAccept: ', isJPG)
       }
       return true
     },
     // 文件上传事件
     submitUpload () {
-      console.log(typeof (this.upload.fileTypeId))
-      console.log(this.upload.fileTypeId)
       // 获取 DOM 元素中的文件
       const fileArray = this.$refs.upload.uploadFiles
       // 如果没有选中文件
@@ -393,17 +387,35 @@ export default {
       const file = fileArray[0].raw
       // 校验文件通过则进行上传
       if (this.beforeUpload(file)) {
-        // 定义formData方式上传
-        const formData = new FormData()
+        // 定义formData方式上传，因为后续涉及到清空当前对象，因此使用let定义
+        let formData = new FormData()
         formData.append('mode', this.upload.mode)
         formData.append('fileTypeId', this.upload.fileTypeId)
         formData.append('file', file)
-
+        // 加载等待框
+        this.buttonLoading = true
+        this.uploadLoading = true
         // 开始上传
         upload(formData).then((res) => {
-          console.log(res)
+          this.$message.success('上传成功')
+          // 清空表单数据
+          this.upload.mode = ''
+          this.upload.fileTypeId = ''
+          formData = undefined
+          // 清除上传的文件
+          this.$refs.upload.uploadFiles = []
+          // 刷新文件列表
+          this.listFiles()
+          // 关闭等待框
+          this.uploadLoading = false
+          this.buttonLoading = false
+          // 关闭对话框
+          this.handleClose()
+        }).catch(() => {
+          // 发生异常关闭等待框
+          this.uploadLoading = false
+          this.buttonLoading = false
         })
-        console.log('开始上传')
       }
     }
   }

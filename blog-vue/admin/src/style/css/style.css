@@ -22,3 +22,7 @@ a {
   margin: 20px 0px;
   width: 100%;
 }
+
+.file-item {
+  padding: 20px 40px 50px 40px;
+}
