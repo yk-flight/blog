@@ -96,5 +96,8 @@
             u.id = #{userId}
     </select>
 
-
+    <!-- 更新用户头像 -->
+    <update id="updateUserAvatar">
+        UPDATE tb_user SET avatar = #{src} WHERE id = #{userId}
+    </update>
 </mapper>

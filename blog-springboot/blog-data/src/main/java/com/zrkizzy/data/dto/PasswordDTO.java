@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotBlank;
 
 /**
- * 用户更新密码数据传递对象
+ * 用户更新密码数据传输对象
  *
  * @author zhangrongkang
  * @since 2023/5/4

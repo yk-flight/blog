@@ -4,7 +4,7 @@ import com.zrkizzy.common.base.BaseDTO;
 import lombok.*;
 
 /**
- * 文件数据传递对象
+ * 文件数据传输对象
  *
  * @author zhangrongkang
  * @since 2023/5/25

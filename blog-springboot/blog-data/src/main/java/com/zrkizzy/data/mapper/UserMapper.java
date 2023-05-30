@@ -2,6 +2,7 @@ package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zrkizzy.data.domain.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -35,4 +36,13 @@ public interface UserMapper extends BaseMapper<User> {
      * @return 用户对象
      */
     User getUserByUserId(Long userId);
+
+    /**
+     * 更新用户头像
+     *
+     * @param userId 用户ID
+     * @param src 头像路径
+     * @return 受影响的行数
+     */
+    Integer updateUserAvatar(@Param("userId") Long userId, @Param("src") String src);
 }

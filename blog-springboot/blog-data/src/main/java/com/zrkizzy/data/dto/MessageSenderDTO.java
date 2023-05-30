@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 消息发送数据传递对象
+ * 消息发送数据传输对象
  *
  * @author zhangrongkang
  * @since 2023/5/5

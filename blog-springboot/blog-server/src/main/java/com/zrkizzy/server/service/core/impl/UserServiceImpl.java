@@ -9,6 +9,7 @@ import com.zrkizzy.common.utils.IpUtil;
 import com.zrkizzy.common.utils.JwtTokenUtil;
 import com.zrkizzy.data.domain.User;
 import com.zrkizzy.data.domain.UserInfo;
+import com.zrkizzy.data.dto.AvatarDTO;
 import com.zrkizzy.data.dto.LoginDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
 import com.zrkizzy.data.dto.UserInfoDTO;
@@ -228,6 +229,36 @@ public class UserServiceImpl implements IUserService {
             return Result.success();
         }
         return Result.failure(PASSWORD_UPDATE_ERROR);
+    }
+
+    /**
+     * 更新用户头像
+     *
+     * @param avatarDTO 用户头像数据传输对象
+     * @return 用户头像访问路径
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Result<String> updateUserAvatar(AvatarDTO avatarDTO) {
+        // 获取当前用户对象
+        User user = userMapper.getUserByUserId(avatarDTO.getUserId());
+        // 用户头像
+        user.setAvatar(avatarDTO.getSrc());
+        // 更新时间
+        user.setUpdateTime(LocalDateTime.now());
+        // 更新数据库中用户信息
+        userMapper.updateUserAvatar(avatarDTO.getUserId(), avatarDTO.getSrc());
+
+        // 获取当前用户缓存的失效时间
+        Long expire = redisService.getExpire(USER_PREFIX + securityUtil.getLoginUsername());
+        // 删除Redis中缓存的用户个人信息
+        redisService.del(USER_PREFIX + user.getUsername());
+        // Redis中不展示密码
+        user.setPassword(null);
+        // 更新缓存中的用户个人信息，缓存失效时间不改变
+        redisService.set(USER_PREFIX + user.getUsername(), user, expire);
+        // 将头像返回
+        return Result.success(avatarDTO.getSrc());
     }
 
 }

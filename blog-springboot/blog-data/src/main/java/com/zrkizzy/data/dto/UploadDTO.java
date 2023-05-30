@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- * 文件上传数据传递对象
+ * 文件上传数据传输对象
  *
  * @author zhangrongkang
  * @since 2023/5/29
