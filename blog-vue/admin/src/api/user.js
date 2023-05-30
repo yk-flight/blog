@@ -32,6 +32,17 @@ export const updateUserInfo = (data) => {
 }
 
 /**
+ * 更新用户头像信息
+ */
+export const updateUserAvatar = (data) => {
+  return request({
+    url: '/admin/user/updateUserAvatar',
+    method: 'POST',
+    data: data
+  })
+}
+
+/**
  * 发送邮箱验证码
  */
 export const sendEmailCode = () => {

@@ -2,6 +2,7 @@ package com.zrkizzy.server.service.core;
 
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.data.domain.User;
+import com.zrkizzy.data.dto.AvatarDTO;
 import com.zrkizzy.data.dto.LoginDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
 import com.zrkizzy.data.dto.UserInfoDTO;
@@ -53,4 +54,12 @@ public interface IUserService {
      * @return 公共返回对象
      */
     Result<?> updatePassword(PasswordDTO passwordDTO);
+
+    /**
+     * 更新用户头像
+     *
+     * @param avatarDTO 用户头像数据传输对象
+     * @return 用户头像访问路径
+     */
+    Result<String> updateUserAvatar(AvatarDTO avatarDTO);
 }

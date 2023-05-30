@@ -1,5 +1,5 @@
 import { login } from '../../api/system'
-import { getLoginUser } from '../../api/user'
+import { getLoginUser, updateUserAvatar } from '../../api/user'
 import { TOKEN } from '../../constant/index'
 import { setItem, getItem, removeItem } from '../../utils/cookie'
 
@@ -72,6 +72,31 @@ const user = {
         })
       })
     },
+    /**
+     * 更新用户头像
+     *
+     * @param {*} param0
+     * @param {*} avatarForm 用户头像表单
+     */
+    updateAvatar ({ commit }, avatarForm) {
+      return new Promise((resolve, reject) => {
+        // 更新用户头像信息
+        const { userId, src } = avatarForm
+        updateUserAvatar({ userId, src }).then((res) => {
+          // 更新用户头像（返回内容为用户新头像的访问路径）
+          commit('SET_AVATAR', res)
+          resolve(res)
+        }).catch((error) => {
+        // 如果出现更新异常的情况将其捕获并抛出
+          reject(error)
+        })
+      })
+    },
+    /**
+     * 退出登录
+     *
+     * @param {*} param0
+     */
     logout ({ commit }) {
       // 清除Token
       removeItem(TOKEN)

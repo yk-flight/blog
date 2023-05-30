@@ -110,6 +110,7 @@
 
     <file-space
       :visible="avatarVisible"
+      @confirm="changeAvatar"
       :limit="1"
       :text="'只能上传 .jpeg .jpg .png .gif 格式的文件，且不超过2MB'"
       :accept="['.jpeg', '.jpg', '.png', '.gif']"
@@ -166,6 +167,13 @@ export default {
         phone: undefined,
         // 创建时间
         createTime: undefined
+      },
+      // 更新用户头像表单
+      avatarForm: {
+        // 头像路径
+        src: undefined,
+        // 用户ID
+        userId: undefined
       }
     }
   },
@@ -219,15 +227,25 @@ export default {
         this.saveLoading = false
       })
     },
-    /**
-     * 更新用户头像
-     */
+    // 打开文件空间对话框
     editAvatar () {
       this.avatarVisible = true
     },
     // 关闭文件选择框
     closeFileSpace () {
       this.avatarVisible = false
+    },
+    // 更新用户头像
+    changeAvatar (value) {
+      // 赋值当前用户ID与头像路径
+      this.avatarForm.userId = this.userInfo.id
+      this.avatarForm.src = value[0].src
+      // 用户头像值用传来的值进行覆盖
+      this.$store.dispatch('user/updateAvatar', this.avatarForm).then((res) => {
+        this.$message.success('用户头像更新成功')
+      }).catch(() => {
+        this.$message.error('用户头像更新失败')
+      })
     }
   }
 }

@@ -9,6 +9,7 @@
   >
     <!-- 文件空间 -->
     <space
+      ref="space"
       class="space-component"
       :limit="limit"
       :text="text"
@@ -20,7 +21,12 @@
     <span slot="footer">
       <div style="margin-top: 10px">
         <el-button @click="closeFileSpace">取消</el-button>
-        <el-button type="success" :loading="loading">选择 {{ selection.length }}/{{ limit }}</el-button>
+        <el-button
+          type="success"
+          :loading="loading"
+          @click="confirm()">
+          选择 {{ selection.length }}/{{ limit }}
+        </el-button>
       </div>
     </span>
   </el-dialog>
@@ -33,11 +39,6 @@ export default {
   name: 'FileSpace',
 
   props: {
-    // // 用户ID
-    // id: {
-    //   type: Number,
-    //   require: true
-    // },
     // 定义是否展示
     visible: {
       type: Boolean,
@@ -83,12 +84,26 @@ export default {
     // 关闭文件空间
     closeFileSpace () {
       // 调用外部组件绑定的close方法
-      this.$emit('close', false)
+      this.$emit('close')
     },
     // 更新选择文件内容
     updateSelect (data) {
       // 使用子组件中传来的值覆盖掉当前组件中选中文件的值
       this.selection = data
+    },
+    // 选中当前文件
+    confirm () {
+      // 选中文件才进行传值操作
+      if (this.selection.length > 0) {
+        // 将选中的文件发送给父组件
+        this.$emit('confirm', this.selection)
+        // 清空选择数据
+        this.selection = []
+        // 清空子组件的选择数据
+        this.$refs.space.clearSelect()
+      }
+      // 关闭对话框
+      this.closeFileSpace()
     }
   }
 }

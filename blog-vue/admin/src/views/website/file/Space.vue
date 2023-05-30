@@ -188,6 +188,11 @@ export default {
   name: 'Space',
 
   props: {
+    // // 选中的文件
+    // selection: {
+    //   type: Array,
+    //   default: () => []
+    // },
     // 可以选择文件的数量
     limit: {
       type: Number,
