@@ -1,5 +1,5 @@
 <template>
-  <div class="item">
+  <div class="item" v-loading="loading">
     <div class="image-file_wrap">
       <div class="item-file" @click="select(file)">
         <!-- 文件 -->
@@ -60,7 +60,9 @@
           {{ file.nickname }} ({{ file.userId }})
         </el-descriptions-item>
         <el-descriptions-item label="文件大小" :span="2">
-          {{ file.size | fileSizeFilter }}
+          <span style="font-size: 12px;">
+            {{ file.size | fileSizeFilter }}
+          </span>
         </el-descriptions-item>
         <el-descriptions-item label="上传时间">
           {{ file.createTime | dateFilter }}
@@ -114,7 +116,9 @@ export default {
       // 文件预览路径
       showViewerUrl: '',
       // 显示图片信息
-      showInfo: false
+      showInfo: false,
+      // 加载框
+      loading: false
     }
   },
 
@@ -125,8 +129,11 @@ export default {
       this.$emit('confirm', file)
     },
     refresh () {
+      console.log('开始通知父组件')
+      // 通知父组件清空选中的文件
+      this.$emit('clear')
       // 通知父组件执行刷新文件列表方法
-      this.$emit('listFiles')
+      this.$emit('refresh')
     },
     // 判断当前文件分类是否被选中
     isActive (path) {
@@ -150,7 +157,6 @@ export default {
     // 打开图片信息对话框
     openInfo () {
       this.showInfo = true
-      console.log(this.file)
     },
     // 关闭图片信息对话框
     closeInfo () {
@@ -158,6 +164,7 @@ export default {
     },
     // 删除文件
     deleteFile () {
+      const that = this
       // 定义删除文件的数组
       const deleteArray = []
       // 将当前文件传入到数组中
@@ -168,16 +175,21 @@ export default {
         type: 'warning'
       })
         .then(() => {
+          this.loading = true
           deleteBatch(deleteArray).then((res) => {
+            console.log('开始刷新')
+            this.loading = false
             // 刷新当前文件
-            this.refresh()
+            that.refresh()
             this.$message({
               type: 'success',
               message: '删除成功!'
             })
           })
         })
-        .catch(() => {})
+        .catch(() => {
+          this.loading = false
+        })
     }
   }
 }

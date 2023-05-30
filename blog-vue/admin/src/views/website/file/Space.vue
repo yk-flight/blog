@@ -52,6 +52,7 @@
         <!-- 刷新文件 -->
         <el-button
           icon="el-icon-refresh"
+          @click="listFiles()"
           size="small">
           刷新
         </el-button>
@@ -78,6 +79,7 @@
           icon="el-icon-delete"
           type="danger"
           :disabled="selection.length === 0"
+          @click="deleteSelect()"
           size="small">
           删除选中文件
         </el-button>
@@ -92,6 +94,7 @@
           :key="file.id"
           @confirm="confirm"
           @refresh="listFiles"
+          @clear="clearSelect"
           @selection="selection"
           >
         </file-item>
@@ -173,7 +176,7 @@
 
 <script>
 import FileItem from './components/FileItem.vue'
-import { listFiles, listModes, upload } from '../../../api/file'
+import { listFiles, listModes, upload, deleteBatch } from '../../../api/file'
 
 export default {
   name: 'Space',
@@ -258,6 +261,8 @@ export default {
   methods: {
     // 获取文件列表
     listFiles () {
+      // 清空当前选择文件
+      this.selection = []
       // 开启加载框
       this.loading = true
       listFiles().then((res) => {
@@ -418,6 +423,29 @@ export default {
           this.buttonLoading = false
         })
       }
+    },
+    // 删除选中文件
+    deleteSelect () {
+      const that = this
+      this.$confirm('此操作将永久删除选中文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // 加载等待框
+        this.loading = true
+        // 批量删除选中文件
+        deleteBatch(this.selection).then((res) => {
+        // 刷新当前文件
+          that.listFiles()
+          // 清空当前选中文件
+          that.selection = []
+          that.$message.success('文件删除成功')
+        }).catch(() => {
+        // 关闭等待框
+          this.loading = false
+        })
+      }).catch(() => {})
     }
   }
 }
