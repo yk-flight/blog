@@ -232,14 +232,14 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * 更新用户头像
+     * 更新登录用户头像
      *
      * @param avatarDTO 用户头像数据传输对象
      * @return 用户头像访问路径
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Result<String> updateUserAvatar(AvatarDTO avatarDTO) {
+    public Result<String> updateLoginUserAvatar(AvatarDTO avatarDTO) {
         // 获取当前用户对象
         User user = userMapper.getUserByUserId(avatarDTO.getUserId());
         // 用户头像

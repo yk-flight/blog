@@ -34,9 +34,9 @@ export const updateUserInfo = (data) => {
 /**
  * 更新用户头像信息
  */
-export const updateUserAvatar = (data) => {
+export const updateLoginUserAvatar = (data) => {
   return request({
-    url: '/admin/user/updateUserAvatar',
+    url: '/admin/user/updateLoginUserAvatar',
     method: 'POST',
     data: data
   })

@@ -56,10 +56,10 @@ public interface IUserService {
     Result<?> updatePassword(PasswordDTO passwordDTO);
 
     /**
-     * 更新用户头像
+     * 更新登录用户头像
      *
      * @param avatarDTO 用户头像数据传输对象
      * @return 用户头像访问路径
      */
-    Result<String> updateUserAvatar(AvatarDTO avatarDTO);
+    Result<String> updateLoginUserAvatar(AvatarDTO avatarDTO);
 }

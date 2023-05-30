@@ -1,5 +1,5 @@
 import { login } from '../../api/system'
-import { getLoginUser, updateUserAvatar } from '../../api/user'
+import { getLoginUser, updateLoginUserAvatar } from '../../api/user'
 import { TOKEN } from '../../constant/index'
 import { setItem, getItem, removeItem } from '../../utils/cookie'
 
@@ -82,7 +82,7 @@ const user = {
       return new Promise((resolve, reject) => {
         // 更新用户头像信息
         const { userId, src } = avatarForm
-        updateUserAvatar({ userId, src }).then((res) => {
+        updateLoginUserAvatar({ userId, src }).then((res) => {
           // 更新用户头像（返回内容为用户新头像的访问路径）
           commit('SET_AVATAR', res)
           resolve(res)
