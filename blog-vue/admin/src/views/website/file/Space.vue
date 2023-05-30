@@ -91,6 +91,7 @@
           :file="file"
           :key="file.id"
           @confirm="confirm"
+          @refresh="listFiles"
           @selection="selection"
           >
         </file-item>

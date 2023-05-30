@@ -3,7 +3,7 @@
     <div class="image-file_wrap">
       <div class="item-file" @click="select(file)">
         <!-- 文件 -->
-        <el-image :src="file.path" fit="contain"></el-image>
+        <el-image :src="file.src" fit="contain"></el-image>
         <!-- 图片预览 -->
         <pre-view
           :showViewer="showViewer"
@@ -57,7 +57,7 @@
           {{ file.name }}
         </el-descriptions-item>
         <el-descriptions-item label="上传用户">
-          {{ file.creator }} ({{ file.username }})
+          {{ file.nickname }} ({{ file.userId }})
         </el-descriptions-item>
         <el-descriptions-item label="文件大小" :span="2">
           {{ file.size | fileSizeFilter }}
@@ -71,10 +71,16 @@
         <el-descriptions-item label="文件类型">
           <el-tag>{{ file.type | fileTypeFilter }}</el-tag>
         </el-descriptions-item>
-        <el-descriptions-item label="文件路径" :span="4">
+        <el-descriptions-item label="上传模式" :span="1">
+            {{ file.mode }}
+        </el-descriptions-item>
+        <el-descriptions-item label="文件存储路径" :span="3">
+            {{ file.path }}
+        </el-descriptions-item>
+        <el-descriptions-item label="文件访问路径" :span="4">
           <el-tooltip effect="dark" content="点击下载" placement="bottom">
-            <el-link icon="el-icon-download" :underline="false" :href="file.path">
-              {{ file.path }}
+            <el-link icon="el-icon-download" :underline="false" :href="file.src">
+              {{ file.src }}
             </el-link>
           </el-tooltip>
         </el-descriptions-item>
@@ -84,6 +90,7 @@
 </template>
 
 <script>
+import { deleteBatch } from '../../../../api/file'
 import PreView from './PreView.vue'
 
 export default {
@@ -117,6 +124,10 @@ export default {
       // 通知父组件选中了当前文件
       this.$emit('confirm', file)
     },
+    refresh () {
+      // 通知父组件执行刷新文件列表方法
+      this.$emit('listFiles')
+    },
     // 判断当前文件分类是否被选中
     isActive (path) {
       return this.path === path
@@ -128,7 +139,7 @@ export default {
     // 查看当前图片
     openPreview (file) {
       // 赋值当前文件预览到组件文件预览路径中
-      this.showViewerUrl = file.path
+      this.showViewerUrl = file.src
       // 查看当前图片
       this.showViewer = true
     },
@@ -147,15 +158,23 @@ export default {
     },
     // 删除文件
     deleteFile () {
+      // 定义删除文件的数组
+      const deleteArray = []
+      // 将当前文件传入到数组中
+      deleteArray.push(this.file)
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       })
         .then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
+          deleteBatch(deleteArray).then((res) => {
+            // 刷新当前文件
+            this.refresh()
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
           })
         })
         .catch(() => {})

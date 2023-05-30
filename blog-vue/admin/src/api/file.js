@@ -31,3 +31,14 @@ export const upload = (data) => {
     headers: { 'Content-Type': 'multipart/form-data' }
   })
 }
+
+/**
+ * 批量删除文件
+ */
+export const deleteBatch = (data) => {
+  return request({
+    url: '/admin/file/delete',
+    method: 'DELETE',
+    data: data
+  })
+}
