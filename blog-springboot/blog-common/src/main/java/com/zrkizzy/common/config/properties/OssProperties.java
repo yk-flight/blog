@@ -1,4 +1,4 @@
-package com.zrkizzy.common.config;
+package com.zrkizzy.common.config.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

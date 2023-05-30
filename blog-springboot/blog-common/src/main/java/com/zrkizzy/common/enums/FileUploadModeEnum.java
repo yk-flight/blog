@@ -19,7 +19,7 @@ public enum FileUploadModeEnum {
     /**
      * 阿里云OSS
      */
-    ALIYUN_OSS("阿里云OSS", "aliyun"),
+    ALIYUN_OSS("OSS对象存储", "oss"),
     /**
      * 本地模式
      */

@@ -14,9 +14,9 @@ public class FileUploadConst {
     public static final String FILE_SEPARATOR = "/";
 
     /**
-     * 阿里云OSS
+     * OSS对象存储
      */
-    public static final String ALI_YUN_OSS = "aliyun";
+    public static final String OSS_UPLOAD = "oss";
 
     /**
      * 本地上传

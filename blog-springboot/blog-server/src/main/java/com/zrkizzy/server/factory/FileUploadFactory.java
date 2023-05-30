@@ -6,8 +6,7 @@ import com.zrkizzy.server.template.impl.upload.OssFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static com.zrkizzy.common.constant.FileUploadConst.ALI_YUN_OSS;
-import static com.zrkizzy.common.constant.FileUploadConst.LOCAL_UPLOAD;
+import static com.zrkizzy.common.constant.FileUploadConst.*;
 
 /**
  * 文件上传工厂
@@ -33,8 +32,8 @@ public class FileUploadFactory {
         AbstractFileUpload fileUpload = null;
         // 根据类型判断注入哪种实例
         fileUpload = switch (mode) {
-            // 阿里云OSS
-            case ALI_YUN_OSS -> ossFileUpload;
+            // OSS对象存储
+            case OSS_UPLOAD -> ossFileUpload;
             // 本地上传
             case LOCAL_UPLOAD -> localFileUpload;
             // 默认
