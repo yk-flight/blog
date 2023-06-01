@@ -18,7 +18,6 @@ import static com.zrkizzy.common.constant.FileUploadConst.*;
 public class FileUploadFactory {
     @Autowired
     private OssFileUpload ossFileUpload;
-
     @Autowired
     private LocalFileUpload localFileUpload;
 

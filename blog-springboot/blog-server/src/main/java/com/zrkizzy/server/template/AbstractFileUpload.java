@@ -37,20 +37,20 @@ public abstract class AbstractFileUpload {
      * 获取文件的Http访问路径
      *
      * @param typePath 文件分类路径
-     * @param filePath 文件存储路径
+     * @param fileName 文件名称
      * @return 文件的访问路径
      */
-    protected abstract String getFileAccessPath(String typePath, String filePath);
+    protected abstract String getFileAccessPath(String typePath, String fileName);
 
 
     /**
      * 获取文件的存储路径
      *
      * @param typePath 文件分类路径
-     * @param filePath 文件存储路径
+     * @param fileName 文件名称
      * @return 文件的访问路径
      */
-    protected abstract String getFileSavePath(String typePath, String filePath);
+    protected abstract String getFileSavePath(String typePath, String fileName);
 
     /**
      * 上传文件并返回文件访问路径
@@ -109,8 +109,11 @@ public abstract class AbstractFileUpload {
             // 抛出重复上传异常
             throw new BusinessException(FILE_EXIST_ERROR);
         }
+        // 文件MD5值和文件扩展名
+        String fileMd5 = FileUtil.getFileMd5(file.getInputStream());
+        String fileExtName = FileUtil.getFileExtName(file.getOriginalFilename());
         // 根据当前时间和文件扩展名生成新的文件名称
-        String fileName = TimeUtil.generateNowTime() + FileUtil.getFileExtName(file.getOriginalFilename());
+        String fileName = TimeUtil.generateNowTime() + fileExtName;
         // 上传文件并返回文件的访问路径
         List<String> paths = upload(file, fileTypeId, fileName);
 
@@ -125,9 +128,9 @@ public abstract class AbstractFileUpload {
                 // 文件访问路径
                 .src(paths.get(1))
                 // 文件MD5哈希值，用于文件唯一标识
-                .md5(FileUtil.getFileMd5(file.getInputStream()))
+                .md5(fileMd5)
                 // 文件类型
-                .type(FileUtil.getFileExtName(file.getOriginalFilename()))
+                .type(fileExtName)
                 // 上传用户ID
                 .userId(securityUtil.getLoginUser().getId())
                 // 上传模式

@@ -31,24 +31,25 @@ public class OssFileUpload extends AbstractFileUpload {
     /**
      * 获取文件的Http访问路径
      *
-     * @param filePath 文件存储路径
+     * @param typePath 文件分类路径
+     * @param fileName 文件名称
      * @return 文件的访问路径
      */
     @Override
-    public String getFileAccessPath(String typePath, String filePath) {
-        return ossProperties.getDomain() + typePath + filePath;
+    public String getFileAccessPath(String typePath, String fileName) {
+        return ossProperties.getDomain() + typePath + fileName;
     }
 
     /**
      * 获取文件的存储路径
      *
      * @param typePath 文件分类路径
-     * @param filePath 文件存储路径
+     * @param fileName 文件名称
      * @return 文件的访问路径
      */
     @Override
-    protected String getFileSavePath(String typePath, String filePath) {
-        return typePath + filePath;
+    protected String getFileSavePath(String typePath, String fileName) {
+        return typePath + fileName;
     }
 
     /**
