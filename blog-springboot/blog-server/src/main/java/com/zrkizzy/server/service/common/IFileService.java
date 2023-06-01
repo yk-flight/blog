@@ -2,7 +2,6 @@ package com.zrkizzy.server.service.common;
 
 import com.zrkizzy.data.domain.File;
 import com.zrkizzy.data.dto.FileDTO;
-import com.zrkizzy.data.vo.FileTypeVO;
 
 import java.util.List;
 
@@ -13,13 +12,6 @@ import java.util.List;
  * @since 2023/5/12
  */
 public interface IFileService {
-
-    /**
-     * 获取文件列表数据
-     *
-     * @return 文件列表数据
-     */
-    List<FileTypeVO> listFileTypes();
 
     /**
      * 通过MD5查询文件分类对应文件
@@ -37,14 +29,6 @@ public interface IFileService {
      * @return 受影响行数
      */
     Integer save(FileDTO fileDTO);
-
-    /**
-     * 根据文件类型ID获取对应的分类路径
-     *
-     * @param fileTypeId 文件分类ID
-     * @return 文件夹路径
-     */
-    String getPathByFileTypeId(Long fileTypeId);
 
     /**
      * 批量删除文件信息

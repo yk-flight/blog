@@ -5,7 +5,7 @@ import request from '../utils/request'
  */
 export const listFiles = () => {
   return request({
-    url: '/admin/file/list',
+    url: '/admin/file-type/list',
     method: 'GET'
   })
 }

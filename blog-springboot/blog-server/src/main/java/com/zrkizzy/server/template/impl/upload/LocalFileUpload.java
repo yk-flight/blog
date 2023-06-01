@@ -1,7 +1,7 @@
 package com.zrkizzy.server.template.impl.upload;
 
 import com.zrkizzy.common.config.properties.LocalProperties;
-import com.zrkizzy.server.service.common.IFileService;
+import com.zrkizzy.server.service.common.IFileTypeService;
 import com.zrkizzy.server.template.AbstractFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ import java.util.List;
 @Service("localFileUpload")
 public class LocalFileUpload extends AbstractFileUpload {
     @Autowired
-    private IFileService fileService;
+    private IFileTypeService fileTypeService;
     @Autowired
     private LocalProperties localProperties;
 
@@ -64,7 +64,7 @@ public class LocalFileUpload extends AbstractFileUpload {
     @Override
     protected List<String> upload(MultipartFile file, Long fileTypeId, String fileName) throws IOException {
         // 文件分类路径
-        String typePath = fileService.getPathByFileTypeId(fileTypeId);
+        String typePath = fileTypeService.getPathByFileTypeId(fileTypeId);
         // 文件存储全路径
         String fileSavePath = getFileSavePath(typePath, fileName);
         // 文件的访问路径

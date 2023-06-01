@@ -6,10 +6,8 @@ import com.zrkizzy.common.enums.FileUploadModeEnum;
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.data.dto.FileDTO;
 import com.zrkizzy.data.dto.UploadDTO;
-import com.zrkizzy.data.vo.FileTypeVO;
 import com.zrkizzy.data.vo.FileUploadModeVO;
 import com.zrkizzy.server.factory.FileUploadFactory;
-import com.zrkizzy.server.service.common.IFileService;
 import com.zrkizzy.server.template.AbstractFileUpload;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,15 +33,7 @@ import static com.zrkizzy.common.constant.FileUploadConst.OSS_UPLOAD;
 @RequestMapping("/admin/file")
 public class FileController {
     @Autowired
-    private IFileService fileService;
-    @Autowired
     private FileUploadFactory fileUploadFactory;
-
-    @ApiOperation("获取文件数据")
-    @GetMapping("/list")
-    public Result<List<FileTypeVO>> listFiles() {
-        return Result.success(fileService.listFileTypes());
-    }
 
     @ApiOperation("获取文件上传模式")
     @GetMapping("/listModes")
