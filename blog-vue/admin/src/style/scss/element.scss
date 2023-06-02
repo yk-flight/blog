@@ -52,3 +52,10 @@
     text-align: left;
   }
 }
+
+.el-form--label-top .el-form-item__label {
+  float: none;
+  display: inline-block;
+  text-align: left;
+  padding: 0;
+}

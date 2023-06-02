@@ -8,14 +8,14 @@
         <!-- 菜单按钮组 -->
         <div class="menu-grounp">
           <!-- 新增菜单类型 -->
-          <div class="menu-item">
+          <div class="menu-item" @click="handleTypeAdd()">
             <el-tooltip effect="dark" content="新增" placement="bottom">
-              <svg-icon icon="add" style="font-size: 12px;"></svg-icon>
+              <svg-icon icon="add"></svg-icon>
             </el-tooltip>
           </div>
           <!-- 编辑 -->
-          <div class="menu-item">
-            <el-tooltip effect="dark" content="编辑" placement="bottom">
+          <div class="menu-item" @click="handleTypeInfo()">
+            <el-tooltip effect="dark" content="信息" placement="bottom">
               <svg-icon icon="dict"></svg-icon>
             </el-tooltip>
           </div>
@@ -107,6 +107,7 @@
       </div>
     </div>
 
+    <!-- 文件上传对话框 -->
     <el-dialog
       :visible="uploadVisible"
       :before-close="handleClose"
@@ -165,7 +166,13 @@
       </div>
 
       <div slot="footer">
-        <el-button size="small" type="danger" @click="uploadVisible = false">取 消</el-button>
+        <el-button
+          size="small"
+          type="danger"
+          icon="el-icon-error"
+          @click="uploadVisible = false">
+          取 消
+        </el-button>
         <el-button
           size="small"
           type="primary"
@@ -175,24 +182,67 @@
           确定上传
         </el-button>
       </div>
+    </el-dialog>
 
+    <!-- 新增分类对话框 -->
+    <el-dialog
+      :visible="typeVisible"
+      :before-close="handleTypeClose"
+      :modal-append-to-body="true"
+      :append-to-body="true"
+      :close-on-click-modal="false"
+      :destroy-on-close="true"
+      width="500px"
+      :title="typeTitle">
+      <div class="type-container" v-loading="typeLoading" element-loading-text="正在加载文件分类资源...">
+        <el-form label-position="top" :rules="rules" :model="typeForm">
+          <!-- 分类名称 -->
+          <el-form-item label="分类名称" style="margin-bottom: 10px;" prop="name">
+            <el-input v-model="typeForm.name" placeholder="请填写分类名称"></el-input>
+          </el-form-item>
+          <!-- 分类标识 -->
+          <el-form-item label="分类标识" style="margin-bottom: 10px;" prop="mark">
+            <el-input v-model="typeForm.mark" placeholder="请填写分类标识" :disabled="typeForm.fileList.length > 0"></el-input>
+          </el-form-item>
+          <!-- 分类排序 -->
+          <el-form-item label="分类排序" style="margin-bottom: 10px;" prop="sort">
+            <el-input-number v-model="typeForm.sort" :max="fileMenuList.length + 1" :min="1"></el-input-number>
+          </el-form-item>
+          <!-- 分类描述 -->
+          <el-form-item label="分类描述" style="margin-bottom: 10px;">
+            <el-input type="textarea" v-model="typeForm.description" placeholder="请填写分类描述" rows="4"></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div slot="footer">
+        <el-button
+          size="small"
+          type="danger"
+          icon="el-icon-error"
+          @click="handleTypeClose()">
+          取 消
+        </el-button>
+        <el-button
+          size="small"
+          type="success"
+          icon="el-icon-success"
+          @click="handleTypeSave()"
+          :loading="buttonLoading">
+          保存
+        </el-button>
+      </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
 import FileItem from './components/FileItem.vue'
-import { listFiles, listModes, upload, deleteBatch } from '../../../api/file'
+import { listFiles, listModes, upload, deleteBatch, getFileTypeById } from '../../../api/file'
 
 export default {
   name: 'Space',
 
   props: {
-    // // 选中的文件
-    // selection: {
-    //   type: Array,
-    //   default: () => []
-    // },
     // 可以选择文件的数量
     limit: {
       type: Number,
@@ -231,6 +281,7 @@ export default {
       fileMenuList: [],
       // 当前选中的文件分类对象
       activeMenu: {
+        id: undefined,
         name: undefined,
         mark: undefined
       },
@@ -254,7 +305,41 @@ export default {
         fileTypeId: ''
       },
       // 上传文件按钮等待框
-      buttonLoading: false
+      buttonLoading: false,
+      // 新增分类对话框
+      typeVisible: false,
+      // 分类加载框
+      typeLoading: false,
+      // 文件分类对话框标题
+      typeTitle: '',
+      // 文件分类内容
+      typeForm: {
+        // 分类ID
+        id: undefined,
+        // 分类名称
+        name: undefined,
+        // 分类标识
+        mark: undefined,
+        // 分类排序
+        sort: undefined,
+        // 分类包含文件
+        fileList: [],
+        // 分类描述
+        description: undefined,
+        // 分类创建时间
+        createTime: undefined,
+        // 更新时间
+        updateTime: undefined
+      },
+      // 新增文件分类校验规则
+      rules: {
+        // 分类名称
+        name: [{ required: true, message: '文件分类名称不能为空', trigger: 'blur' }],
+        // 分类标识
+        mark: [{ required: true, message: '文件分类标识不能为空', trigger: 'blur' }],
+        // 分类排序
+        sort: [{ required: true, message: '请选择分类排序值', trigger: 'blur' }]
+      }
     }
   },
 
@@ -290,6 +375,8 @@ export default {
     changeData (data) {
       // 更改当前选中文件分类的内容
       this.fileList = data.fileList
+      // ID
+      this.activeMenu.id = data.id
       // 更改当前选中文件的名称
       this.activeMenu.name = data.name
       // 更改当前文件类型的路径
@@ -457,6 +544,58 @@ export default {
           this.loading = false
         })
       }).catch(() => {})
+    },
+    // 点击文件分类新增按钮
+    handleTypeAdd () {
+      // 对话框标题
+      this.typeTitle = '新增分类'
+      // 新增文件分类排序
+      this.typeForm.sort = this.fileMenuList.length + 1
+      // 打开对话框
+      this.typeVisible = true
+    },
+    // 点击文件信息按钮
+    handleTypeInfo () {
+      // 对话框标题
+      this.typeTitle = '编辑分类'
+      // 文件分类加载框
+      this.typeLoading = true
+      // 根据当前选中分类查询
+      getFileTypeById(this.activeMenu.id).then((res) => {
+        this.typeForm = res
+        this.typeForm.fileList = this.fileList
+        // 关闭加载框
+        this.typeLoading = false
+      }).catch(() => {
+        // 清空数据并关闭加载框和对话框
+        this.typeLoading = false
+        this.typeVisible = false
+        this.resetTypeForm()
+      })
+      // 打开对话框
+      this.typeVisible = true
+    },
+    // 重置文件分类对象
+    resetTypeForm () {
+      this.typeForm.id = undefined
+      this.typeForm.name = undefined
+      this.typeForm.mark = undefined
+      this.typeForm.sort = undefined
+      this.typeForm.description = undefined
+      this.typeForm.fileList = []
+      this.typeForm.createTime = undefined
+      this.typeForm.updateTime = undefined
+    },
+    // 关闭文件分类对话框
+    handleTypeClose () {
+      this.typeVisible = false
+      // 重置文件分类对象
+      this.resetTypeForm()
+    },
+    // 保存文件分类
+    handleTypeSave () {
+      // 重置文件分类对象
+      this.resetTypeForm()
     }
   }
 }

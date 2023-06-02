@@ -243,9 +243,7 @@ export default {
       // 用户头像值用传来的值进行覆盖
       this.$store.dispatch('user/updateAvatar', this.avatarForm).then((res) => {
         this.$message.success('用户头像更新成功')
-      }).catch(() => {
-        this.$message.error('用户头像更新失败')
-      })
+      }).catch(() => {})
     }
   }
 }

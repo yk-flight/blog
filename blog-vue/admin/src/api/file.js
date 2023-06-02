@@ -42,3 +42,13 @@ export const deleteBatch = (data) => {
     data: data
   })
 }
+
+/**
+ * 根据ID获取文件分类对象
+ */
+export const getFileTypeById = (id) => {
+  return request({
+    url: `/admin/file-type/getFileTypeById/${id}`,
+    method: 'GET'
+  })
+}
