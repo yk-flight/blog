@@ -18,7 +18,7 @@ public class BaseVO implements Serializable {
     /**
      * 主键（雪花算法）
      */
-    @JsonFormat(shape =JsonFormat.Shape.STRING )
+    @JsonFormat(shape =JsonFormat.Shape.STRING)
     private Long id;
 
     /**

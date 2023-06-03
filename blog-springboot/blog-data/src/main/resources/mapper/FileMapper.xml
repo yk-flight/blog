@@ -2,5 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zrkizzy.data.mapper.FileMapper">
-
+    <!-- 获取指定文件分类中文件数量 -->
+    <select id="countByFileTypeId" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_file WHERE file_type_id = #{fileTypeId}
+    </select>
 </mapper>

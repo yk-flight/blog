@@ -26,4 +26,28 @@ public interface FileTypeMapper extends BaseMapper<FileType> {
      * @return 文件夹路径
      */
     String getPathByFileTypeId(Long fileTypeId);
+
+    /**
+     * 获取大于指定排序值条数
+     *
+     * @param sort 排序值
+     * @return 数据条数
+     */
+    Integer countByGreaterSort(Integer sort);
+
+    /**
+     * 将大于指定排序值的元素的排序值进行向后移动操作
+     *
+     * @param sort 排序值
+     * @return 受影响的行数
+     */
+    Integer updateBySort(Integer sort);
+
+    /**
+     * 获取修改前文件分类的文件标识
+     *
+     * @param id 文件分类ID
+     * @return 文件标识
+     */
+    String selectMarkById(Long id);
 }

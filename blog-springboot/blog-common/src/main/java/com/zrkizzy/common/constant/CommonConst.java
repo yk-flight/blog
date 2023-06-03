@@ -9,6 +9,16 @@ package com.zrkizzy.common.constant;
 public class CommonConst {
 
     /**
+     * 正确常量
+     */
+    public static final Integer TRUE = 1;
+
+    /**
+     * 错误常量
+     */
+    public static final Integer FALSE = 0;
+
+    /**
      * 中文编码格式
      */
     public static final String UTF_8 = "UTF-8";

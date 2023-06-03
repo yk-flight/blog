@@ -66,4 +66,20 @@
         FROM tb_file_type
         WHERE id = #{fileTypeId}
     </select>
+
+    <!-- 获取大于指定排序值条数 -->
+    <select id="countByGreaterSort" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_file_type WHERE sort >= #{sort}
+    </select>
+
+    <!-- 将大于指定排序值的元素的排序值进行向后移动操作 -->
+    <update id="updateBySort">
+        UPDATE tb_file_type SET sort = sort + 1 WHERE sort >= #{sort}
+    </update>
+
+    <!-- 获取原本文件分类对象的文件标识 -->
+    <select id="selectMarkById" resultType="java.lang.String">
+        SELECT mark FROM tb_file_type WHERE id = #{id}
+    </select>
+
 </mapper>
