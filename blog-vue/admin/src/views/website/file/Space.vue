@@ -20,7 +20,7 @@
             </el-tooltip>
           </div>
           <!-- 删除 -->
-          <div class="menu-item">
+          <div class="menu-item" @click="handleTypeDelete()">
             <el-tooltip effect="dark" content="删除" placement="bottom">
               <svg-icon icon="delete"></svg-icon>
             </el-tooltip>
@@ -238,8 +238,7 @@
 
 <script>
 import FileItem from './components/FileItem.vue'
-// \deleteFileTypeById
-import { listFiles, listModes, upload, deleteBatch, getFileTypeById, save } from '../../../api/file'
+import { listFiles, listModes, upload, deleteBatch, getFileTypeById, save, deleteFileTypeById } from '../../../api/file'
 
 export default {
   name: 'Space',
@@ -614,6 +613,28 @@ export default {
         // 关闭加载框
         this.buttonLoading = false
       })
+    },
+    // 删除文件分类
+    handleTypeDelete () {
+      const that = this
+      this.$confirm('此操作将永久删除选中文件分类, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // 加载等待框
+        this.loading = true
+        // 批量删除选中文件
+        deleteFileTypeById(this.activeMenu.id).then((res) => {
+        // 刷新当前文件
+          that.listFiles()
+          // 清空当前选中文件
+          that.$message.success('文件分类删除成功')
+        }).catch(() => {
+        // 关闭等待框
+          this.loading = false
+        })
+      }).catch(() => {})
     }
   }
 }
