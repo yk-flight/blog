@@ -219,6 +219,7 @@
           size="small"
           type="danger"
           icon="el-icon-error"
+          :loading="buttonLoading"
           @click="handleTypeClose()">
           取 消
         </el-button>
@@ -237,7 +238,8 @@
 
 <script>
 import FileItem from './components/FileItem.vue'
-import { listFiles, listModes, upload, deleteBatch, getFileTypeById } from '../../../api/file'
+// \deleteFileTypeById
+import { listFiles, listModes, upload, deleteBatch, getFileTypeById, save } from '../../../api/file'
 
 export default {
   name: 'Space',
@@ -594,8 +596,24 @@ export default {
     },
     // 保存文件分类
     handleTypeSave () {
-      // 重置文件分类对象
-      this.resetTypeForm()
+      // 开启按钮加载框
+      this.buttonLoading = true
+      // 更新文件分类或返回对象
+      save(this.typeForm).then((res) => {
+        // 输出提示信息
+        this.$message.success('文件分类操作成功')
+        // 重新获取文件数据
+        this.listFiles()
+        // 关闭对话框
+        this.typeVisible = false
+        // 重置文件分类对象
+        this.resetTypeForm()
+        // 关闭按钮加载框
+        this.buttonLoading = false
+      }).catch(() => {
+        // 关闭加载框
+        this.buttonLoading = false
+      })
     }
   }
 }

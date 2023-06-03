@@ -52,3 +52,24 @@ export const getFileTypeById = (id) => {
     method: 'GET'
   })
 }
+
+/**
+ * 根据ID删除文件分类对象
+ */
+export const deleteFileTypeById = (id) => {
+  return request({
+    url: `/admin/file-type/delete/${id}`,
+    method: 'DELETE'
+  })
+}
+
+/**
+ * 添加或更新文件分类
+ */
+export const save = (data) => {
+  return request({
+    url: '/admin/file-type/save',
+    method: 'POST',
+    data: data
+  })
+}
