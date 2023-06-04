@@ -42,7 +42,7 @@ public class UserController {
         // 转换为用户数据返回对象
         UserVO userVO = BeanCopyUtil.copy(user, UserVO.class);
         // 单独定义用户角色（用户只有一个角色）
-        userVO.setRoles(user.getRoles().get(0).getName());
+        userVO.setRoles(user.getRoles().get(0).getMark());
         // 返回数据
         return Result.success(userVO);
     }

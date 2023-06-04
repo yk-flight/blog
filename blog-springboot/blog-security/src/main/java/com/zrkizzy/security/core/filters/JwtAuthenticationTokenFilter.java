@@ -65,6 +65,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                     // 如果当前Token不合法
                     log.info("当前进行鉴权的用户为：{}", username);
                     MyUserDetails userDetails = (MyUserDetails) userDetailsService.loadUserByUsername(username);
+                    log.info("当前用户的角色标识为：{}", userDetails.getRoleMark());
                     // 用户详细信息（userDetails）、空密码、用户权限（userDetails.getAuthorities()）来获取认证令牌
                     UsernamePasswordAuthenticationToken authenticationToken =
                             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

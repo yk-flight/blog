@@ -28,6 +28,12 @@ public class Role extends BaseEntity {
     private String name;
 
     /**
+     * 角色标识
+     */
+    @ApiModelProperty("角色标识")
+    private String mark;
+
+    /**
      * 角色描述
      */
     @ApiModelProperty("角色描述")

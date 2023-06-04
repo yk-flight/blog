@@ -20,7 +20,7 @@
         <result property="url" column="url" />
         <result property="method" column="method" />
         <collection property="roles" ofType="java.lang.String">
-            <result column="roleName" />
+            <result column="roleMark" />
         </collection>
     </resultMap>
 
@@ -29,7 +29,7 @@
         SELECT
             res.method AS method,
             res.url AS url,
-            r.`name` AS roleName
+            r.mark AS roleMark
         FROM
             tb_resource res
             LEFT JOIN tb_module_role mr ON res.module_id = mr.module_id

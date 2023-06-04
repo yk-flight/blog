@@ -22,6 +22,11 @@ public class RoleDTO extends BaseDTO {
     private String name;
 
     /**
+     * 角色标识
+     */
+    private String mark;
+
+    /**
      * 角色描述
      */
     private String description;

@@ -54,7 +54,7 @@ public class RoleServiceImpl implements IRoleService {
         log.info("roleDTO: {}", roleDTO);
 
         // 获取数据库中重名或更新后重名的角色
-        Role role = roleMapper.getRoleByName(roleDTO.getName());
+        Role role = roleMapper.getRoleByName(roleDTO.getMark());
         // 根据是否包含ID来判断添加-更新操作
         if (roleDTO.getId() != null) {
             // 更新角色，如果同名角色不为空并且ID不相同则说明角色重复

@@ -55,7 +55,16 @@ public class SecurityUtil {
      * @return 用户角色
      */
     public String getLoginUserRole() {
-        return getUserDetails().getRole();
+        return getUserDetails().getRoleMark();
+    }
+
+    /**
+     * 获取当前登录用户的角色标识
+     *
+     * @return 角色标识
+     */
+    public String getLoginUserRoleMark() {
+        return getUserDetails().getRoleMark();
     }
 
     /**

@@ -39,7 +39,7 @@ public class MyUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .map(role -> new SimpleGrantedAuthority(role.getMark()))
                 .collect(Collectors.toList());
     }
 
@@ -62,21 +62,21 @@ public class MyUserDetails implements UserDetails {
     }
 
     /**
-     * 获取用户角色
-     *
-     * @return 用户角色
-     */
-    public String getRole() {
-        return user.getRoles().get(0).getName();
-    }
-
-    /**
      * 获取角色名称
      *
      * @return 角色名称
      */
     public String getRoleName() {
-        return user.getRoles().get(0).getDescription();
+        return user.getRoles().get(0).getName();
+    }
+
+    /**
+     * 获取角色标识
+     *
+     * @return 角色标识
+     */
+    public String getRoleMark() {
+        return user.getRoles().get(0).getMark();
     }
 
     /**
@@ -138,4 +138,5 @@ public class MyUserDetails implements UserDetails {
     public boolean isEnabled() {
         return user.getStatus();
     }
+
 }
