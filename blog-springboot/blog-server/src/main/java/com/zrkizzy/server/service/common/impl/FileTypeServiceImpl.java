@@ -160,9 +160,12 @@ public class FileTypeServiceImpl implements IFileTypeService {
             // 根据新的排序值查询原本对应的文件对象
             FileType sortFileType = fileTypeMapper.selectOne(new QueryWrapper<FileType>()
                     .eq("sort", fileTypeDTO.getSort()));
-            // 为文件分类对象赋值排序
-            sortFileType.setSort(fileType.getSort());
-            fileTypeMapper.updateById(sortFileType);
+            // 前提已经存在对应位置排序位置的文件分类，否则直接更新文件分类排序的位置
+            if (null != sortFileType) {
+                // 为文件分类对象赋值排序
+                sortFileType.setSort(fileType.getSort());
+                fileTypeMapper.updateById(sortFileType);
+            }
         }
         // 更新文件分类对象
         return fileTypeMapper.updateById(BeanCopyUtil.copy(fileTypeDTO, FileType.class));
