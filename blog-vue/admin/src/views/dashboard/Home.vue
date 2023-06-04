@@ -225,6 +225,7 @@ export default {
 
   .github-corner {
     position: absolute;
+    top: 85px;
     border: 0;
     right: 0;
   }
