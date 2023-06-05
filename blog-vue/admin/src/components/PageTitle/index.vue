@@ -1,9 +1,12 @@
 <template>
   <div class="title-container">
-    <svg-icon icon="tags" class="title-icon"></svg-icon>
-    <span class="title-span">
-      {{ title }}
-    </span>
+      <div class="rectangle">
+        <svg-icon icon="tags" style="margin: 0 8px 0 15px;"></svg-icon>
+        <span class="title-span">
+          {{ title }}
+        </span>
+      </div>
+      <div class="triangle"></div>
   </div>
 </template>
 
@@ -22,20 +25,41 @@ export default {
 
 <style lang="scss" scoped>
 .title-container {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 20px;
+  position: absolute;
+  left: -18px;
 
-  .title-icon {
-    font-size: 23px;
-    color: #1283f3;
+  .triangle {
+    left: -20px;
+    width: 0;
+    height: 0;
+    border-top: 18px solid #C0C4CC;
+    border-right: 18px solid transparent;
+    transform: scale(-1, 1);
+  }
+
+  .rectangle {
+    display: flex;
+    align-items: center;
+    position: relative;
+    line-height: 40px;
+    width: 130px;
+    height: 40px;
+    background: #fff;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, .12), 0 0 12px rgba(0, 0, 0, .04);
+  }
+
+  .rectangle::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5px;
+    height: 100%;
+    background-color: #2c94fc;
   }
 
   .title-span {
-    margin-left: 10px;
     font-weight: 500;
-    font-size: 17px;
     cursor: default;
   }
 }

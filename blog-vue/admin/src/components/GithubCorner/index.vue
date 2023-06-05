@@ -1,5 +1,6 @@
 <template>
   <a href="https://gitee.com/dream-flight/blog" target="_blank" class="github-corner" aria-label="View source on Github">
+    <!-- style="fill:#40c9c6; color:#fff;" -->
     <svg
       width="80"
       height="80"

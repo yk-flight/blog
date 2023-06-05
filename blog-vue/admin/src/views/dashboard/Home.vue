@@ -186,6 +186,10 @@ export default {
     GithubCorner
   },
 
+  mounted () {
+
+  },
+
   data () {
     return {
 
@@ -207,9 +211,6 @@ export default {
     }
   },
 
-  mounted () {
-  },
-
   methods: {
     // 关闭对话框
     handleClose () {
@@ -221,11 +222,12 @@ export default {
 
 <style lang="scss" scoped>
 .home-container {
+  position: relative;
   padding: 0px 20px;
 
   .github-corner {
     position: absolute;
-    top: 85px;
+    top: -24px;
     border: 0;
     right: 0;
   }
