@@ -24,7 +24,7 @@ public class MessageProduce {
     private MessageSenderFactory messageSenderFactory;
 
     @RabbitHandler
-    public void process(byte[] data) {
+    public void process(byte[] data) throws Exception {
         // 获取邮件数据传输对象
         MessageSenderDTO messageSenderDTO = JSON.parseObject(new String(data), MessageSenderDTO.class);
         // 获取具体消息发送实例

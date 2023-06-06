@@ -50,6 +50,8 @@ public class EmailController {
                 .sender(sender)
                 // 收件人
                 .senderTo(securityUtil.getLoginUsername())
+                // 收件人昵称
+                .nickname(securityUtil.getLoginUserNickname())
                 // 邮件类型标识
                 .type(CHANGE_PASSWORD)
                 // 邮件主题

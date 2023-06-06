@@ -38,4 +38,19 @@ public class MessageConst {
      */
     public static final String REPLY_COMMENT = "reply_comment";
 
+    /**
+     * 验证码字段
+     */
+    public static final String VERIFY_CODE = "verifyCode";
+
+    /**
+     * 收件人昵称字段
+     */
+    public static final String NICK_NAME = "nickname";
+
+    /**
+     * 网站域名字段
+     */
+    public static final String WEBSITE = "website";
+
 }

@@ -28,6 +28,11 @@ public class MessageSenderDTO {
     private String senderTo;
 
     /**
+     * 接收人昵称
+     */
+    private String nickname;
+
+    /**
      * 消息主题
      */
     private String subject;

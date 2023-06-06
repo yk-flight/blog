@@ -30,7 +30,7 @@ public abstract class AbstractMessageSender {
      *
      * @param messageDTO 邮件发送数据传递对象
      */
-    public abstract void sendMessage(MessageSenderDTO messageDTO);
+    public abstract void sendMessage(MessageSenderDTO messageDTO) throws Exception;
 
     /**
      * 生成当前登录用户验证码并存储到Redis中

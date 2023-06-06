@@ -29,6 +29,12 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
+        <!-- Freemarker依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+
         <!-- Spring注解配置依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
