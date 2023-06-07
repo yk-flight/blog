@@ -3,6 +3,7 @@ package com.zrkizzy.common.base.response;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @since 2023/4/14
  */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(description = "分页返回对象")

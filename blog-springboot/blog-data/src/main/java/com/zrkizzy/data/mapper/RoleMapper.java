@@ -29,6 +29,14 @@ public interface RoleMapper extends BaseMapper<Role> {
     Role getRoleByName(String name);
 
     /**
+     * 通过角色标识获取角色
+     *
+     * @param mark 角色标识
+     * @return 角色对象
+     */
+    Role getRoleByMark(String mark);
+
+    /**
      * 添加新角色
      *
      * @param role 角色对象
@@ -43,4 +51,5 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @return 受影响对行数
      */
     Integer updateRoleById(Role role);
+
 }

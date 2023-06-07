@@ -1,10 +1,10 @@
 package com.zrkizzy.server.service.core;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.data.domain.Role;
 import com.zrkizzy.data.dto.RoleDTO;
-
-import java.util.List;
+import com.zrkizzy.data.query.RoleQuery;
 
 /**
  * 角色业务逻辑接口
@@ -16,9 +16,10 @@ public interface IRoleService {
     /**
      * 获取所有角色
      *
-     * @return 所有角色集合
+     * @param roleQuery 角色信息查询对象
+     * @return 角色分页数据
      */
-    List<Role> listRoles();
+    Page<Role> listRoles(RoleQuery roleQuery);
 
     /**
      * 添加或更新角色

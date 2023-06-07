@@ -11,7 +11,7 @@
         <el-button size="mini" circle icon="el-icon-menu" @click="showColumn()" />
       </el-tooltip>
     </el-row>
-    <el-dialog :title="title" :visible.sync="open" append-to-body width="680px">
+    <el-dialog :title="title" :visible.sync="open" append-to-body width="622px">
       <el-transfer
         :titles="['显示列', '隐藏列']"
         v-model="value"
@@ -97,13 +97,13 @@ export default {
 .el-transfer {
   padding: 20px !important;
 }
-.el-transfer__button {
+.el-transfer__buttons {
   border-radius: 50%;
   padding: 12px;
   display: block;
   margin-left: 0px;
 }
-.el-transfer__button:first-child {
-  margin-bottom: 10px;
+.el-transfer__buttons:first-child {
+  margin-bottom: 10px !important;
 }
 </style>

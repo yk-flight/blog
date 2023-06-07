@@ -32,8 +32,32 @@ a {
 }
 
 .card {
-  padding: 20px; 
+  position: relative;
+  padding: 20px 30px; 
   background-color: #fff; 
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+  /* min-height: calc(100vh - 165px); */
+}
+
+.divide-line {
+  height: calc(20px);
+}
+
+.page-container {
+  padding: 20px 20px 20px 40px;
+  height: calc(100vh - 125px);
+}
+
+.button-container {
+  margin-bottom: 15px;
+}
+
+.search-container {
+  margin-top: 60px;
+}
+
+.top-right-btn {
+	position: relative;
+	float: right;
 }

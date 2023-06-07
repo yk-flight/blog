@@ -43,4 +43,14 @@
             name = #{name}
     </select>
 
+    <!-- 根据角色标识获取角色 -->
+    <select id="getRoleByMark" resultType="com.zrkizzy.data.domain.Role">
+        SELECT
+            <include refid="base_column"></include>
+        FROM
+            tb_role
+        WHERE
+            mark = #{mark}
+    </select>
+
 </mapper>
