@@ -1,4 +1,4 @@
-package com.zrkizzy.server.produce;
+package com.zrkizzy.server.consumer;
 
 import com.alibaba.fastjson.JSON;
 import com.zrkizzy.data.dto.MessageSenderDTO;
@@ -19,7 +19,7 @@ import static com.zrkizzy.common.constant.RabbitMqConst.EMAIL_QUEUE;
  */
 @Component
 @RabbitListener(queues = EMAIL_QUEUE)
-public class MessageProduce {
+public class MessageConsumer {
     @Autowired
     private MessageSenderFactory messageSenderFactory;
 
