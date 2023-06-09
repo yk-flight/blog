@@ -15,10 +15,10 @@ import com.zrkizzy.server.service.core.IRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -36,7 +36,6 @@ public class RoleServiceImpl implements IRoleService {
 
     @Autowired
     private RoleMapper roleMapper;
-
 
     /**
      * 获取所有角色
@@ -76,24 +75,32 @@ public class RoleServiceImpl implements IRoleService {
      * @return 前端响应对象
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Result<?> saveRole(RoleDTO roleDTO) {
         log.info("--------------------- 开始进行新增-更新操作 ---------------------");
         log.info("roleDTO: {}", roleDTO);
-        // 定义查询条件
-        QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
-        // 角色名称和角色标识
-        queryWrapper.eq("name", roleDTO.getName()).or().eq("mark", roleDTO.getMark());
-        // 获取数据库中更新后重名或标识重复的角色
-        Role role = roleMapper.selectOne(queryWrapper);
-        // 如果同名角色不为空并且ID不相同则说明角色重复
-        if (null != role && !role.getId().equals(roleDTO.getId())) {
-            // 返回角色已存在提示信息
-            return Result.failure(HttpStatusEnum.ROLE_INFO_EXIST);
-        }
         // 根据是否包含ID来判断添加-更新操作
-        if (roleDTO.getId() != null) {
+        if (null != roleDTO.getId()) {
+            // 更新角色时需要验证ID
+            if (roleMapper.countByNameAndId(roleDTO.getName(), roleDTO.getId()) > 0) {
+                // 返回角色名称已存在提示信息
+                return Result.failure(HttpStatusEnum.ROLE_NAME_EXIST);
+            }
+            if (roleMapper.countByMarkAndId(roleDTO.getMark(), roleDTO.getId()) > 0) {
+                // 返回角色标识已存在提示信息
+                return Result.failure(HttpStatusEnum.ROLE_MARK_EXIST);
+            }
             // 更新角色
             return updateRole(roleDTO);
+        }
+        // 新增角色时无需验证ID
+        if (roleMapper.countByName(roleDTO.getName()) > 0) {
+            // 返回角色名称已存在提示信息
+            return Result.failure(HttpStatusEnum.ROLE_NAME_EXIST);
+        }
+        if (roleMapper.countByMark(roleDTO.getMark()) > 0) {
+            // 返回角色标识已存在提示信息
+            return Result.failure(HttpStatusEnum.ROLE_MARK_EXIST);
         }
         // 添加角色
         return insertRole(roleDTO);
@@ -107,10 +114,8 @@ public class RoleServiceImpl implements IRoleService {
      */
     private Result<?> updateRole(RoleDTO roleDTO) {
         log.info("--------------------- 执行更新操作 ---------------------");
-        // 修改当前角色的更新时间
-        roleDTO.setUpdateTime(LocalDateTime.now());
         // 对角色进行更新操作并返回响应结果
-        return roleMapper.updateRoleById(BeanCopyUtil.copy(roleDTO, Role.class)) == 1 ?
+        return roleMapper.updateById(BeanCopyUtil.copy(roleDTO, Role.class)) == 1 ?
                 Result.success(HttpStatusEnum.SUCCESS, "角色更新成功") : Result.failure();
     }
 
@@ -126,12 +131,9 @@ public class RoleServiceImpl implements IRoleService {
         Long id = snowFlakeUtil.nextId();
         // 设置ID
         roleDTO.setId(id);
-        // 设置创建时间以及更新时间
-        roleDTO.setCreateTime(LocalDateTime.now());
-        roleDTO.setUpdateTime(LocalDateTime.now());
-
+        // TODO 分配角色的初始权限（页面权限和资源权限）
         // 添加角色数据并返回添加结果
-        return roleMapper.insertRole(BeanCopyUtil.copy(roleDTO, Role.class)) == 1 ?
+        return roleMapper.insert(BeanCopyUtil.copy(roleDTO, Role.class)) == 1 ?
                  Result.success(HttpStatusEnum.SUCCESS, "角色添加成功") :
                 Result.failure();
     }

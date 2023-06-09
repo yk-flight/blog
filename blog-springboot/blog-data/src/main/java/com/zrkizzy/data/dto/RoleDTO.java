@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * 角色数据传输对象
  *
@@ -19,11 +21,13 @@ public class RoleDTO extends BaseDTO {
     /**
      * 角色名称
      */
+    @NotBlank(message = "角色名称不能为空")
     private String name;
 
     /**
      * 角色标识
      */
+    @NotBlank(message = "角色标识不能为空")
     private String mark;
 
     /**

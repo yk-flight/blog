@@ -4,7 +4,7 @@
 <mapper namespace="com.zrkizzy.data.mapper.RoleMapper">
     <!-- 角色表基本列 -->
     <sql id="base_column">
-        id, `name`, description, create_time, update_time
+        id, `name`, mark, description, create_time, update_time
     </sql>
 
     <!-- 添加新的角色 -->
@@ -12,7 +12,7 @@
         INSERT INTO
             tb_role(<include refid="base_column"></include>)
         VALUES
-            (#{id}, #{name}, #{description}, #{createTime}, #{updateTime})
+            (#{id}, #{name}, #{mark}, #{description}, #{createTime}, #{updateTime})
     </insert>
 
     <!-- 更新角色 -->
@@ -51,6 +51,26 @@
             tb_role
         WHERE
             mark = #{mark}
+    </select>
+
+    <!-- 获取角色名称相同但角色ID不同但角色数量 -->
+    <select id="countByNameAndId" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_role WHERE name = #{name} AND id != #{id}
+    </select>
+
+    <!-- 获取角色标识相同但角色ID不同但角色数量 -->
+    <select id="countByMarkAndId" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_role WHERE mark = #{mark} AND id != #{id}
+    </select>
+
+    <!-- 获取角色名称相同的角色数量 -->
+    <select id="countByName" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_role WHERE name = #{name}
+    </select>
+
+    <!-- 获取角色名称相同的角色数量 -->
+    <select id="countByMark" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_role WHERE mark = #{mark}
     </select>
 
 </mapper>

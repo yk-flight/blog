@@ -2,8 +2,7 @@ package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zrkizzy.data.domain.Role;
-
-import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 角色数据持久化接口
@@ -12,13 +11,6 @@ import java.util.List;
  * @since 2023/3/8
  */
 public interface RoleMapper extends BaseMapper<Role> {
-
-    /**
-     * 获取所有角色
-     *
-     * @return 所有角色集合
-     */
-    List<Role> listRoles();
 
     /**
      * 通过角色名称获取角色
@@ -37,19 +29,36 @@ public interface RoleMapper extends BaseMapper<Role> {
     Role getRoleByMark(String mark);
 
     /**
-     * 添加新角色
+     * 获取角色名称相同但角色ID不同但角色数量
      *
-     * @param role 角色对象
-     * @return 受影响的行数
+     * @param name 角色名称
+     * @param id 角色ID
+     * @return 对应角色数量
      */
-    Integer insertRole(Role role);
+    Integer countByNameAndId(@Param("name") String name, @Param("id") Long id);
 
     /**
-     * 更新角色
+     * 获取角色标识相同但角色ID不同但角色数量
      *
-     * @param role 角色对象
-     * @return 受影响对行数
+     * @param mark 角色标识
+     * @param id 角色ID
+     * @return 对应角色数量
      */
-    Integer updateRoleById(Role role);
+    Integer countByMarkAndId(@Param("mark") String mark, @Param("id") Long id);
 
+    /**
+     * 获取角色名称相同的角色数量
+     *
+     * @param name 角色名称
+     * @return 角色数量
+     */
+    Integer countByName(String name);
+
+    /**
+     * 获取角色名称相同的角色数量
+     *
+     * @param mark 角色标识
+     * @return 角色数量
+     */
+    Integer countByMark(String mark);
 }
