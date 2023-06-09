@@ -12,6 +12,7 @@
         <module>blog-start</module>
         <module>blog-server</module>
         <module>blog-security</module>
+        <module>blog-generator</module>
     </modules>
     <packaging>pom</packaging>
 
