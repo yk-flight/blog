@@ -24,7 +24,7 @@
 <script>
 import Logo from './Logo.vue'
 import variable from '../../style/scss/variable.scss'
-import SidebarItem from './SidebarItem'
+import SidebarItem from './SidebarItem.vue'
 import { mapGetters, mapState } from 'vuex'
 
 export default {
