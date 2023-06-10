@@ -83,9 +83,9 @@ spring:
     # 编码格式
     default-encoding: UTF-8
     # 用户名
-    username: 1072876976@qq.com
+    username: 你的QQ邮箱
     # 授权码
-    password: hhxxnazqeyynbeif
+    password: 你的QQ邮箱授权码
     # 其它参数
     properties:
       mail:
