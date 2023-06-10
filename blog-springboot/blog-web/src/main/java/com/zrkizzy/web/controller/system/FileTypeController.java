@@ -6,6 +6,7 @@ import com.zrkizzy.common.utils.BeanCopyUtil;
 import com.zrkizzy.data.dto.FileTypeDTO;
 import com.zrkizzy.data.vo.FileTypeVO;
 import com.zrkizzy.server.service.common.IFileTypeService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -19,6 +20,8 @@ import java.util.List;
  * @author zhangrongkang
  * @since 2023/6/1
  */
+
+@Api(tags = "文件分类控制器")
 @RestController
 @RequestMapping("/admin/file-type")
 public class FileTypeController {

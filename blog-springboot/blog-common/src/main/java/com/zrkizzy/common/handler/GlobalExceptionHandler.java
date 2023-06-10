@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     public Result<?> exceptionHandler(BusinessException e) {
         // 返回对应的错误信息到前端
-        return Result.failure(e.getHttpStatusEnum(), e.getMessage());
+        return Result.failure(e.getHttpStatusEnum());
     }
 
     /**
@@ -61,8 +61,8 @@ public class GlobalExceptionHandler {
      * @param e 大异常
      * @return 前端响应对象
      */
-    @ExceptionHandler(Exception.class)
-    public Result<?> exceptionHandler(Exception e) {
-        return Result.failure();
-    }
+//    @ExceptionHandler(Exception.class)
+//    public Result<?> exceptionHandler(Exception e) {
+//        return Result.failure();
+//    }
 }

@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 30/05/2023 17:48:13
+ Date: 10/06/2023 17:43:37
 */
 
 SET NAMES utf8mb4;
@@ -45,11 +45,10 @@ INSERT INTO `tb_file` (`id`, `name`, `path`, `src`, `size`, `type`, `mode`, `use
 INSERT INTO `tb_file` (`id`, `name`, `path`, `src`, `size`, `type`, `mode`, `user_id`, `file_type_id`, `md5`, `create_time`, `update_time`) VALUES (1663144536764841984, '20230529192531.jpg', 'avatar/20230529192531.jpg', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg', 152031, '.jpg', 'oss', 1653794265890816000, 1656676089927303170, 'fd43ed5490db1894cb5c46cb300e1cf2', '2023-05-29 19:25:32', '2023-05-30 09:36:07');
 INSERT INTO `tb_file` (`id`, `name`, `path`, `src`, `size`, `type`, `mode`, `user_id`, `file_type_id`, `md5`, `create_time`, `update_time`) VALUES (1663144640041189376, '20230529192556.jpg', 'avatar/20230529192556.jpg', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192556.jpg', 149077, '.jpg', 'oss', 1653794265890816000, 1656676089927303170, '8a8aa84284c227bad891e840561cc2a4', '2023-05-29 19:25:57', '2023-05-30 09:36:07');
 INSERT INTO `tb_file` (`id`, `name`, `path`, `src`, `size`, `type`, `mode`, `user_id`, `file_type_id`, `md5`, `create_time`, `update_time`) VALUES (1663144694911074304, '20230529192609.jpeg', 'avatar/20230529192609.jpeg', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192609.jpeg', 444745, '.jpeg', 'oss', 1653794265890816000, 1656676089927303170, '1a3376b08f3ed911caa689e479fb552d', '2023-05-29 19:26:10', '2023-05-30 09:36:07');
-INSERT INTO `tb_file` (`id`, `name`, `path`, `src`, `size`, `type`, `mode`, `user_id`, `file_type_id`, `md5`, `create_time`, `update_time`) VALUES (1663144741849530368, '20230529192620.jpeg', 'cover/20230529192620.jpeg', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/cover/20230529192620.jpeg', 604332, '.jpeg', 'oss', 1653794265890816000, 1656676089927303168, '67bd2983a12ea08bffa358d68e1169f7', '2023-05-29 19:26:21', '2023-05-30 09:36:07');
 INSERT INTO `tb_file` (`id`, `name`, `path`, `src`, `size`, `type`, `mode`, `user_id`, `file_type_id`, `md5`, `create_time`, `update_time`) VALUES (1663196287383633920, '20230529225103.jpg', 'avatar/20230529225103.jpg', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529225103.jpg', 97766, '.jpg', 'oss', 1653794265890816000, 1656676089927303170, 'e960ac942f4cd2c10af9bcbacba5f4e6', '2023-05-29 22:51:10', '2023-05-30 09:36:07');
-INSERT INTO `tb_file` (`id`, `name`, `path`, `src`, `size`, `type`, `mode`, `user_id`, `file_type_id`, `md5`, `create_time`, `update_time`) VALUES (1663198878356209664, '20230529230116.png', 'cover/20230529230116.png', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/cover/20230529230116.png', 181272, '.png', 'oss', 1653794265890816000, 1656676089927303168, 'fa74451429d178e2682a3cf6e833c019', '2023-05-29 23:01:28', '2023-05-30 09:36:07');
-INSERT INTO `tb_file` (`id`, `name`, `path`, `src`, `size`, `type`, `mode`, `user_id`, `file_type_id`, `md5`, `create_time`, `update_time`) VALUES (1663214220763725824, '20230530000221.png', 'cover/20230530000221.png', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/cover/20230530000221.png', 123628, '.png', 'oss', 1653794265890816000, 1656676089927303168, 'cdbda8fc2f3cb8612377ae6c2b559f3a', '2023-05-30 00:02:26', '2023-05-30 09:36:07');
-INSERT INTO `tb_file` (`id`, `name`, `path`, `src`, `size`, `type`, `mode`, `user_id`, `file_type_id`, `md5`, `create_time`, `update_time`) VALUES (1663482354720571392, '20230530174753.jpeg', 'cover/20230530174753.jpeg', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/cover/20230530174753.jpeg', 189752, '.jpeg', 'oss', 1653794265890816000, 1656676089927303168, '2bf9f906dc7ddea81659c586006a880d', '2023-05-30 17:47:54', '2023-05-30 17:47:54');
+INSERT INTO `tb_file` (`id`, `name`, `path`, `src`, `size`, `type`, `mode`, `user_id`, `file_type_id`, `md5`, `create_time`, `update_time`) VALUES (1663554855068762112, '20230530223559.png', 'cover/20230530223559.png', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/cover/20230530223559.png', 181272, '.png', 'oss', 1653794265890816000, 1656676089927303168, 'fa74451429d178e2682a3cf6e833c019', '2023-05-30 22:35:59', '2023-05-30 22:35:59');
+INSERT INTO `tb_file` (`id`, `name`, `path`, `src`, `size`, `type`, `mode`, `user_id`, `file_type_id`, `md5`, `create_time`, `update_time`) VALUES (1663556688776527872, '20230530224316.jpg', 'cover/20230530224316.jpg', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/cover/20230530224316.jpg', 50746, '.jpg', 'oss', 1653794265890816000, 1656676089927303168, '8c2eb375053690cb1ae6e9cdc2253a23', '2023-05-30 22:43:17', '2023-05-30 22:43:17');
+INSERT INTO `tb_file` (`id`, `name`, `path`, `src`, `size`, `type`, `mode`, `user_id`, `file_type_id`, `md5`, `create_time`, `update_time`) VALUES (1665355748768481280, '20230604215201.jpeg', 'cover/20230604215201.jpeg', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/cover/20230604215201.jpeg', 604332, '.jpeg', 'oss', 1653794265890816000, 1656676089927303168, '67bd2983a12ea08bffa358d68e1169f7', '2023-06-04 21:52:06', '2023-06-04 21:52:06');
 COMMIT;
 
 -- ----------------------------
@@ -240,10 +239,15 @@ INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1653929645323583488, '更新用户个人信息', '更新用户个人信息', 'POST', '/admin/user/updateUserInfo', 1636182933754609665, '2023-05-01 00:46:55', '2023-05-03 15:57:05');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1654391949517389824, '修改密码发送邮件验证码', '修改密码发送邮件验证码', 'GET', '/admin/email/password', 1636182933754609665, '2023-05-05 15:46:37', '2023-05-05 07:50:01');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1654642840078123008, '用户更新密码', '用户个人信息更新密码', 'POST', '/admin/user/updatePassword', 1636182933754609665, '2023-05-06 08:22:27', '2023-05-06 00:22:58');
-INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1656679330433990656, '获取文件列表', '用户获取文件列表', 'GET', '/admin/file/list', 1636182933754609665, '2023-05-11 23:15:37', '2023-05-11 15:15:45');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1656679330433990656, '获取文件列表', '用户获取文件列表', 'GET', '/admin/file-type/list', 1636182933754609665, '2023-05-11 23:15:37', '2023-06-01 13:44:33');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1661030954518446080, '获取文件上传模式', '用户获取文件上传模式', 'GET', '/admin/file/listModes', 1636182933754609665, '2023-05-23 23:26:23', '2023-05-23 15:29:01');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1662978940790112256, '上传文件', '用户进行文件上传', 'POST', '/admin/file/upload', 1636182933754609665, '2023-05-29 08:28:17', '2023-05-29 00:28:26');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1663469788107636736, '批量删除文件', '用户进行批量删除文件操作', 'DELETE', '/admin/file/delete', 1636182933754609665, '2023-05-30 16:58:49', '2023-05-30 08:59:01');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1663579937522581504, '更新用户头像', '更新用户头像', 'POST', '/admin/user/updateLoginUserAvatar', 1636182933754609665, '2023-05-31 00:16:36', '2023-05-30 16:48:54');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1664296403540639744, '获取指定文件分类对象', '根据文件分类ID获取指定文件分类', 'GET', '/admin/file-type/getFileTypeById/**', 1636182933754609665, '2023-06-01 23:46:32', '2023-06-01 15:47:52');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1664914212519936000, '新增或编辑文件分类', '用户新增或编辑文件分类', 'POST', '/admin/file-type/save', 1636182933754609665, '2023-06-03 16:38:24', '2023-06-03 08:41:48');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1664914212519936001, '删除指定文件分类', '用户删除指定文件分类', 'DELETE', '/admin/file-type/delete/**', 1636182933754609665, '2023-06-03 16:41:39', '2023-06-03 08:41:50');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1667050222783561728, '新增或编辑更新角色信息', '新增或编辑角色信息', 'POST', '/admin/role/save', 1636182933754609665, '2023-06-09 14:05:59', '2023-06-09 06:06:11');
 COMMIT;
 
 -- ----------------------------
@@ -253,19 +257,23 @@ DROP TABLE IF EXISTS `tb_role`;
 CREATE TABLE `tb_role` (
   `id` bigint(20) NOT NULL COMMENT '角色ID',
   `name` varchar(50) NOT NULL COMMENT '角色名称',
+  `mark` varchar(50) DEFAULT NULL COMMENT '角色标识',
   `description` varchar(255) DEFAULT NULL COMMENT '角色描述',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`)
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `index_01` (`name`,`mark`,`create_time`) USING BTREE,
+  KEY `idx_mark_id` (`mark`,`id`) USING BTREE COMMENT '角色标识、ID联合索引',
+  KEY `idx_name_id` (`name`,`id`) USING BTREE COMMENT '角色名称、ID联合索引'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色表';
 
 -- ----------------------------
 -- Records of tb_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_role` (`id`, `name`, `description`, `create_time`, `update_time`) VALUES (1633646396710060032, 'ROLE_ADMIN', '超级管理员', '2023-03-09 09:50:27', '2023-03-09 09:50:27');
-INSERT INTO `tb_role` (`id`, `name`, `description`, `create_time`, `update_time`) VALUES (1633657944153260032, 'ROLE_LOGIN', '默认用户', '2023-03-09 10:36:20', '2023-03-15 09:17:02');
-INSERT INTO `tb_role` (`id`, `name`, `description`, `create_time`, `update_time`) VALUES (1636631667483344896, 'ROLE_TEST', '测试用户', '2023-03-17 15:32:51', '2023-03-17 15:38:23');
+INSERT INTO `tb_role` (`id`, `name`, `mark`, `description`, `create_time`, `update_time`) VALUES (1633646396710060032, '超级管理员', 'ROLE_ADMIN', '超级管理员', '2023-03-09 09:50:27', '2023-06-04 13:10:51');
+INSERT INTO `tb_role` (`id`, `name`, `mark`, `description`, `create_time`, `update_time`) VALUES (1633657944153260032, '默认用户', 'ROLE_LOGIN', '默认用户', '2023-03-09 10:36:20', '2023-06-04 13:10:55');
+INSERT INTO `tb_role` (`id`, `name`, `mark`, `description`, `create_time`, `update_time`) VALUES (1636631667483344896, '测试用户', 'ROLE_TEST', '测试用户', '2023-03-17 15:32:51', '2023-06-09 14:23:52');
 COMMIT;
 
 -- ----------------------------
@@ -291,7 +299,7 @@ CREATE TABLE `tb_user` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `tb_user` (`id`, `username`, `password`, `nickname`, `avatar`, `status`, `remark`, `create_time`, `update_time`) VALUES (1633027432405532672, '1072876976@qq.com', '$2a$10$Kbb.k6umlihAQBRtSxNGiuHaqT5YP4IVP9Cmytfn8xsecp7Z4e50G', '世纪末的架构师', 'https://s1.ax1x.com/2023/04/26/p9K181A.jpg', 1, NULL, '2023-03-07 16:52:16', '2023-04-28 07:04:14');
-INSERT INTO `tb_user` (`id`, `username`, `password`, `nickname`, `avatar`, `status`, `remark`, `create_time`, `update_time`) VALUES (1653794265890816000, '2675525537@qq.com', '$2a$10$d4plA8fBNLdMFCQjo86vP.zrt714ei8llHZ.bvJk/OM1T.g77m5I2', '哈哈哈', 'https://s1.ax1x.com/2023/05/09/p90rISA.jpg', 1, '自古英雄出炼狱，破马长枪定乾坤！', '2023-05-03 16:15:23', '2023-05-09 00:08:11');
+INSERT INTO `tb_user` (`id`, `username`, `password`, `nickname`, `avatar`, `status`, `remark`, `create_time`, `update_time`) VALUES (1653794265890816000, '2675525537@qq.com', '$2a$10$d4plA8fBNLdMFCQjo86vP.zrt714ei8llHZ.bvJk/OM1T.g77m5I2', '测试账号', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg', 1, '自古英雄出炼狱，破马长枪定乾坤！', '2023-05-03 16:15:23', '2023-06-06 11:09:55');
 COMMIT;
 
 -- ----------------------------

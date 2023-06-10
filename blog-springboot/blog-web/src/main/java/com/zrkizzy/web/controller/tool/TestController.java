@@ -1,7 +1,7 @@
 package com.zrkizzy.web.controller.tool;
 
 import com.zrkizzy.common.base.response.Result;
-import com.zrkizzy.common.config.OssProperties;
+import com.zrkizzy.common.config.properties.OssProperties;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
