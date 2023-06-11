@@ -6,6 +6,8 @@ import com.zrkizzy.data.domain.Role;
 import com.zrkizzy.data.dto.RoleDTO;
 import com.zrkizzy.data.query.RoleQuery;
 
+import java.util.List;
+
 /**
  * 角色业务逻辑接口
  *
@@ -28,4 +30,20 @@ public interface IRoleService {
      * @return 前端响应对象
      */
     Result<?> saveRole(RoleDTO roleDTO);
+
+    /**
+     * 获取指定角色信息
+     *
+     * @param roleId 角色ID
+     * @return 角色对象
+     */
+    Role getRoleById(Long roleId);
+
+    /**
+     * 批量删除角色数据
+     *
+     * @param ids 角色ID
+     * @return true：删除成功，false：删除失败
+     */
+    Boolean deleteBatch(List<Long> ids);
 }

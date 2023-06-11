@@ -64,7 +64,8 @@ public enum HttpStatusEnum {
      * 其他状态码
      */
     ROLE_NAME_EXIST(1001, "角色名称已存在"),
-    ROLE_MARK_EXIST(1001, "角色标识已存在"),
+    ROLE_MARK_EXIST(1002, "角色标识已存在"),
+    ROLE_NOT_ACTION(1003, "不允许操作最高权限角色数据"),
     USER_NOT_FOUND(2000, "用户未登录或登录已过期，请重新登录"),
     USER_EXIST(2001, "用户已存在"),
     USER_NOT_EXIST(2002, "用户不存在"),

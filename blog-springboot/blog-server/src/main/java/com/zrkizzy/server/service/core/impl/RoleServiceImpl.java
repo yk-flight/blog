@@ -3,6 +3,7 @@ package com.zrkizzy.server.service.core.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.Result;
+import com.zrkizzy.common.constant.SecurityConst;
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.utils.BeanCopyUtil;
 import com.zrkizzy.common.utils.SnowFlakeUtil;
@@ -98,12 +99,36 @@ public class RoleServiceImpl implements IRoleService {
             // 返回角色名称已存在提示信息
             return Result.failure(HttpStatusEnum.ROLE_NAME_EXIST);
         }
+        // 新增角色时前端传来的角色标识少了前缀
+        roleDTO.setMark(SecurityConst.ROLE_PREFIX + roleDTO.getMark());
         if (roleMapper.countByMark(roleDTO.getMark()) > 0) {
             // 返回角色标识已存在提示信息
             return Result.failure(HttpStatusEnum.ROLE_MARK_EXIST);
         }
         // 添加角色
         return insertRole(roleDTO);
+    }
+
+    /**
+     * 获取指定角色信息
+     *
+     * @param roleId 角色ID
+     * @return 角色数据返回对象
+     */
+    @Override
+    public Role getRoleById(Long roleId) {
+        return roleMapper.selectById(roleId);
+    }
+
+    /**
+     * 批量删除角色数据
+     *
+     * @param ids 角色ID
+     * @return true：删除成功，false：删除失败
+     */
+    @Override
+    public Boolean deleteBatch(List<Long> ids) {
+        return roleMapper.deleteBatchIds(ids) == ids.size();
     }
 
     /**

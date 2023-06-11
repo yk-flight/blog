@@ -180,12 +180,6 @@
                 <version>${commons-codec.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.glassfish.jaxb</groupId>
-                <artifactId>jaxb-runtime</artifactId>
-                <version>${jaxb-runtime.version}</version>
-            </dependency>
-
             <!-- 业务模块 -->
             <dependency>
                 <groupId>com.zrkizzy</groupId>
