@@ -7,6 +7,12 @@ package com.zrkizzy.generator.constant;
  * @since 2023/6/8
  */
 public class DbConst {
+
+    /**
+     * 作者
+     */
+    public static final String AUTHOR = "author";
+
     /**
      * 表格名称
      */
@@ -26,6 +32,11 @@ public class DbConst {
      * 表格注释
      */
     public static final String TABLE_COMMENT = "tableComment";
+
+    /**
+     * 文件列数据Key
+     */
+    public static final String FIELD_LIST = "fieldList";
 
     /**
      * 字段为空
@@ -71,5 +82,50 @@ public class DbConst {
      * 更新时间
      */
     public static final String UPDATE_TIME = "update_time";
+
+    /**
+     * 是否开启链式编程
+     */
+    public static final String CHAIN_MODEL = "chainModel";
+
+    /**
+     * varchar类型
+     */
+    public static final String VARCHAR = "varchar";
+
+    /**
+     * char类型
+     */
+    public static final String CHAR = "char";
+
+    /**
+     * text类型
+     */
+    public static final String TEXT = "text";
+
+    /**
+     * datetime类型
+     */
+    public static final String DATE_TIME = "datetime";
+
+    /**
+     * int类型
+     */
+    public static final String INT = "int";
+
+    /**
+     * bigint类型
+     */
+    public static final String BIG_INT = "bigint";
+
+    /**
+     * tinyint类型
+     */
+    public static final String TINY_INT = "tinyint";
+
+    /**
+     * double类型
+     */
+    public static final String DOUBLE = "double";
 
 }

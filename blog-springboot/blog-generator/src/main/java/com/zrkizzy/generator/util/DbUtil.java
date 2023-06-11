@@ -54,8 +54,10 @@ public class DbUtil {
                 // 是否可以为空
                 Boolean isNull = resultSet.getString(NULL).equals(YES) ?
                         Boolean.TRUE : Boolean.FALSE;
+                // Java类型
+                String javaType = castSqlTypeToJavaType(type);
                 // 全参构造
-                Field entity = new Field(field, type, comment, isNull, null, lineToHump(field));
+                Field entity = new Field(field, type, comment, isNull, javaType, lineToHump(field));
                 // 添加当前对象
                 list.add(entity);
             }
@@ -86,6 +88,32 @@ public class DbUtil {
         // 关闭对应参数
         close(connection, statement, null, resultSet);
         return tableComment;
+    }
+
+    /**
+     * 将表格字段类型转为Java类型
+     *
+     * @param columnType 字段类型
+     * @return Java类型
+     */
+    private static String castSqlTypeToJavaType(String columnType) {
+        // 将所有字符都转为小写
+        String typeCast = columnType.substring(0, columnType.indexOf("(")).toLowerCase();
+        // 判断并返回字符类型
+        return switch (typeCast) {
+            // 字符类型
+            case VARCHAR, TEXT, CHAR -> "String";
+            // 整数类型
+            case INT -> "Integer";
+            case BIG_INT -> "Long";
+            case TINY_INT -> "Boolean";
+            // 浮点类型
+            case DOUBLE -> "Double";
+            // 时间类型
+            case DATE_TIME -> "LocalDateTime";
+            // 默认返回String类型
+            default -> "String";
+        };
     }
 
     /**

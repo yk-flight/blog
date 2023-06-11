@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 <#if chainModel>
 import lombok.experimental.Accessors;
 </#if>
+import java.io.Serial;
 
 /**
  * ${objectName}实体类
@@ -26,15 +27,17 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 public class ${entityName} extends BaseEntity {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 <#-- ----------  BEGIN 字段循环遍历  ---------->
-<#list table.fields as field>
+<#list fieldList as field>
 
     /**
      * ${field.comment}
      */
     @ApiModelProperty(value = "${field.comment}")
-    private ${javaType} ${javaColumnName};
+    private ${field.javaType} ${field.javaName};
 </#list>
 <#------------  END 字段循环遍历  ---------->
+
 }
