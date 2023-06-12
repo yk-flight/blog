@@ -17,9 +17,9 @@
 <script>
 import Setting from './components/Setting.vue'
 import RightPanel from '../components/RightPanel'
-import SideBar from './sidebar/index'
+import SideBar from './SideBar/index'
 import NavBar from './NavBar'
-import TagsView from './components/tagsview/index'
+import TagsView from './components/TagsView/index'
 import AppMain from './AppMain.vue'
 
 export default {
