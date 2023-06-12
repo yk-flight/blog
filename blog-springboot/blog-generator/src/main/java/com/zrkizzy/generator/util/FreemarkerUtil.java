@@ -47,13 +47,13 @@ public class FreemarkerUtil {
     /**
      * 生成模板方法
      *
-     * @param fileName 包含路径的文件名
+     * @param fullName 包含路径的文件名
      * @throws IOException       IO异常
      * @throws TemplateException Template异常
      */
-    public static void generator(String fileName, Map<String, Object> map) throws IOException, TemplateException {
+    public static void generator(String fullName, Map<String, Object> map) throws IOException, TemplateException {
         // 根据模板生成文件
-        FileWriter fileWriter = new FileWriter(fileName);
+        FileWriter fileWriter = new FileWriter(fullName);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         template.process(map, bufferedWriter);
         // 关闭流

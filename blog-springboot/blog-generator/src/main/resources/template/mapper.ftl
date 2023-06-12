@@ -1,20 +1,16 @@
-package ${package.Mapper};
+package com.zrkizzy.data.mapper;
 
-import ${package.Entity}.${entity};
-import ${superMapperClassPackage};
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zrkizzy.data.domain.${entityName};
 
 /**
  * <p>
- * ${table.comment!} Mapper 接口
+ * ${objectName}数据持久化接口
  * </p>
  *
  * @author ${author}
  * @since ${date}
  */
-<#if kotlin>
-interface ${table.mapperName} : ${superMapperClass}<${entity}>
-<#else>
-public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
+public interface ${entityName}Mapper extends BaseMapper<${entityName}> {
 
 }
-</#if>

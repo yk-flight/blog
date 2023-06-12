@@ -131,6 +131,20 @@ public class DbUtil {
     }
 
     /**
+     * 转换表名称为访问路径
+     *
+     * @param tableName 表格名称
+     * @param prefix 表格前缀
+     * @return 访问路径名称
+     */
+    public static String castTableNameToMapping(String tableName, String prefix) {
+        // 去掉表格前缀
+        tableName = tableName.replace(prefix, "");
+        // 返回路径名称
+        return tableName.toLowerCase().replace("_", "-");
+    }
+
+    /**
      * 下划线转大驼峰
      *
      * @param str 带有下划线的字符

@@ -37,14 +37,39 @@ public class CodeGenerator {
     private static final String TABLE_PREFIX = "tb_";
 
     /**
+     * 是否开启二级缓存
+     */
+    private static final Boolean ENABLE_CACHE = false;
+
+    /**
      * 是否开启链式编程
      */
     private static final Boolean IS_CHAIN = false;
 
     /**
-     * 实体类生产路径
+     * 是否生成Controller类
+     */
+    private static final Boolean IS_CONTROLLER = false;
+
+    /**
+     * 是否生成Service类
+     */
+    private static final Boolean IS_SERVICE = false;
+
+    /**
+     * 实体类生成路径
      */
     private static final String ENTITY_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-data\\src\\main\\java\\com\\zrkizzy\\data\\domain\\";
+
+    /**
+     * Mapper生成路径
+     */
+    private static final String MAPPER_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-data\\src\\main\\java\\com\\zrkizzy\\data\\mapper\\";
+
+    /**
+     * Mapper映射文件生成路径
+     */
+    private static final String MAPPER_XML_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-data\\src\\main\\resources\\mapper\\";
 
     public static void main(String[] args) throws Exception {
         // 交互式生成
@@ -71,6 +96,8 @@ public class CodeGenerator {
         map.put(DATE, TimeUtil.getNowDate());
         // 是否开启链式编程
         map.put(DbConst.CHAIN_MODEL, IS_CHAIN);
+        // 是否开启二级缓存
+        map.put(DbConst.ENABLE_CACHE, ENABLE_CACHE);
         // 表格名称
         map.put(DbConst.TABLE_NAME, table);
         // 实体类名称（中文）
@@ -79,15 +106,33 @@ public class CodeGenerator {
         map.put(DbConst.ENTITY_NAME, entityName);
         // 所有列信息
         map.put(DbConst.FIELD_LIST, fieldList);
+
+        System.out.println("---------------------------------- 开始生成代码 ----------------------------------");
+
         generateEntity(entityName, map);
+        generateMapper(entityName, map);
+
+        System.out.println("---------------------------------- 结束生成代码 ----------------------------------");
     }
 
     /**
      * 生成表格实体类
      */
     private static void generateEntity(String objectName, Map<String, Object> map) throws IOException, TemplateException {
-        System.out.println("开始根据表格名称生成实体类数据");
+        System.out.println("开始生成实体类...");
         FreemarkerUtil.initConfig("entity.ftl");
         FreemarkerUtil.generator(ENTITY_PATH + objectName + ".java", map);
+    }
+
+    /**
+     * 生成Mapper接口和映射文件
+     */
+    private static void generateMapper(String objectName, Map<String, Object> map) throws IOException, TemplateException {
+        System.out.println("开始生成Mapper接口...");
+        FreemarkerUtil.initConfig("mapper.ftl");
+        FreemarkerUtil.generator(MAPPER_PATH + objectName + "Mapper.java", map);
+        System.out.println("开始生成Mapper映射文件...");
+        FreemarkerUtil.initConfig("mapper.xml.ftl");
+        FreemarkerUtil.generator(MAPPER_XML_PATH + objectName + "Mapper.xml", map);
     }
 }

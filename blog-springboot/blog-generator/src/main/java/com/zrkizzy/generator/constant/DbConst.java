@@ -84,6 +84,11 @@ public class DbConst {
     public static final String UPDATE_TIME = "update_time";
 
     /**
+     * 是否开启二级缓存
+     */
+    public static final String ENABLE_CACHE = "enableCache";
+
+    /**
      * 是否开启链式编程
      */
     public static final String CHAIN_MODEL = "chainModel";
