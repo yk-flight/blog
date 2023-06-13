@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static com.zrkizzy.common.constant.MessageConst.CHANGE_PASSWORD;
 import static com.zrkizzy.common.constant.MessageConst.EMAIL;
 import static com.zrkizzy.common.constant.RabbitMqConst.EMAIL_EXCHANGE;
+import static com.zrkizzy.common.constant.RabbitMqConst.EMAIL_ROUTING;
 
 /**
  * 邮件控制器
@@ -57,7 +58,7 @@ public class EmailController {
                 // 邮件主题
                 .subject("验证身份").build();
         // 将邮件数据传输对象发送到RabbitMQ中
-        rabbitTemplate.convertAndSend(EMAIL_EXCHANGE, "*", new Message(JSON.toJSONBytes(messageSenderDTO), new MessageProperties()));
+        rabbitTemplate.convertAndSend(EMAIL_EXCHANGE, EMAIL_ROUTING, new Message(JSON.toJSONBytes(messageSenderDTO), new MessageProperties()));
         // 返回成功结果，如果失败则会被全局异常处理捕获
         return Result.success();
     }

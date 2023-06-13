@@ -18,4 +18,9 @@ public class RabbitMqConst {
      */
     public static final String EMAIL_EXCHANGE = "email_exchange";
 
+    /**
+     * 邮件发送路由
+     */
+    public static final String EMAIL_ROUTING = "email_routing";
+
 }
