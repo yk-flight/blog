@@ -4,6 +4,7 @@ import com.zrkizzy.common.annotation.IsEmail;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 /**
  * 用户登录数据传输对象
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotBlank;
  * @since 2023/4/12
  */
 @Data
-public class LoginDTO {
+public class LoginDTO implements Serializable {
 
     /**
      * 用户名

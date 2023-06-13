@@ -29,6 +29,11 @@ public class DbConst {
     public static final String ENTITY_NAME = "entityName";
 
     /**
+     * Java小驼峰
+     */
+    public static final String ENTITY_LOWER_NAME = "entityLowerName";
+
+    /**
      * 表格注释
      */
     public static final String TABLE_COMMENT = "tableComment";
@@ -61,7 +66,7 @@ public class DbConst {
     /**
      * 表格字段是否为空
      */
-    public static final String NULL = "NULL";
+    public static final String NULL = "Null";
 
     /**
      * 表格字段注释
@@ -132,5 +137,25 @@ public class DbConst {
      * double类型
      */
     public static final String DOUBLE = "double";
+
+    /**
+     * 映射路径
+     */
+    public static final String MAPPING = "mapping";
+
+    /**
+     * 是否生成Controller类
+     */
+    public static final String IS_CONTROLLER = "isController";
+
+    /**
+     * 是否生成Service类
+     */
+    public static final String IS_SERVICE = "isService";
+
+    /**
+     * 是否生成Query类
+     */
+    public static final String IS_QUERY = "isQuery";
 
 }

@@ -2,6 +2,7 @@ package com.zrkizzy.data.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  * @since 2023/3/16
  */
 @Data
-public class ResourceRoleDTO {
+public class ResourceRoleDTO implements Serializable {
 
     /**
      * 资源路径

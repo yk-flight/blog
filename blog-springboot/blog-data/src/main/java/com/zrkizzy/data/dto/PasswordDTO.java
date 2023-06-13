@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 /**
  * 用户更新密码数据传输对象
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotBlank;
  * @since 2023/5/4
  */
 @Data
-public class PasswordDTO {
+public class PasswordDTO implements Serializable {
 
     /**
      * 用户ID

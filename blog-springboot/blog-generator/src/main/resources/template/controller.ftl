@@ -1,39 +1,34 @@
-package ${package.Controller};
+package com.zrkizzy.web.controller.system;
 
-
-import org.springframework.web.bind.annotation.RequestMapping;
-
-<#if restControllerStyle>
-import org.springframework.web.bind.annotation.RestController;
-<#else>
-import org.springframework.stereotype.Controller;
+<#if isService>
+import com.zrkizzy.data.domain.${entityName};
+import com.zrkizzy.data.dto.${entityName}DTO;
+import com.zrkizzy.data.query.${entityName}Query;
+import com.zrkizzy.data.vo.${entityName}VO;
+import com.zrkizzy.server.service.system.I${entityName}Service;
 </#if>
-<#if superControllerClassPackage??>
-import ${superControllerClassPackage};
+import io.swagger.annotations.Api;
+<#if isService>
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 </#if>
+import org.springframework.web.bind.annotation.*;
 
 /**
- * <p>
- * ${table.comment!} 前端控制器
- * </p>
+ * ${objectName}数据返回对象
  *
  * @author ${author}
  * @since ${date}
  */
-<#if restControllerStyle>
+@Api(tags = "${objectName}控制器")
 @RestController
-<#else>
-@Controller
-</#if>
-@RequestMapping("<#if package.ModuleName?? && package.ModuleName != "">/${package.ModuleName}</#if>/<#if controllerMappingHyphenStyle??>${controllerMappingHyphen}<#else>${table.entityPath}</#if>")
-<#if kotlin>
-class ${table.controllerName}<#if superControllerClass??> : ${superControllerClass}()</#if>
-<#else>
-<#if superControllerClass??>
-public class ${table.controllerName} extends ${superControllerClass} {
-<#else>
-public class ${table.controllerName} {
+@RequestMapping("/admin/${mapping}")
+public class ${entityName}Controller {
+
+<#if isService>
+     @Autowired
+     private I${entityName}Service ${entityLowerName}Service;
 </#if>
 
+
 }
-</#if>
