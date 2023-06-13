@@ -21,3 +21,24 @@ export const saveRole = (data) => {
     data: data
   })
 }
+
+/**
+ * 获取指定角色信息
+ */
+export const getRoleById = (id) => {
+  return request({
+    url: `/admin/role/getRoleById/${id}`,
+    method: 'GET'
+  })
+}
+
+/**
+ * 批量删除角色信息
+ */
+export const deleteRole = (data) => {
+  return request({
+    url: '/admin/role/delete',
+    method: 'DELETE',
+    data: data
+  })
+}
