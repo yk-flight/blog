@@ -60,7 +60,7 @@ public class RoleController {
     }
 
     @ApiOperation("批量删除角色数据")
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public Result<?> delete(@RequestBody List<Long> ids) {
         // 检查角色ID中是否含有
         for (Long roleId : ids) {
