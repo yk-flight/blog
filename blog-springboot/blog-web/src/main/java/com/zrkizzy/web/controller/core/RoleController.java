@@ -1,4 +1,4 @@
-package com.zrkizzy.web.controller.system.core;
+package com.zrkizzy.web.controller.core;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.PageResult;
