@@ -8,19 +8,13 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * ${table.comment!} 服务实现类
+ * ${table.comment!}业务逻辑接口实现类
  * </p>
  *
  * @author ${author}
  * @since ${date}
  */
 @Service
-<#if kotlin>
-open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
+public class ${table.serviceImplName} implements ${table.serviceName} {
 
 }
-<#else>
-public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
-
-}
-</#if>

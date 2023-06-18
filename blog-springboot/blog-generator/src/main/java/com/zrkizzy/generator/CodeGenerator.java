@@ -21,20 +21,32 @@ import java.util.Scanner;
  */
 public class CodeGenerator {
 
+    // =================================================================== 以下为必填项 ===================================================================
+
     /**
      * 作者名称
      */
     private static final String AUTHOR_NAME = "zhangrongkang";
 
     /**
-     * 创建时间
-     */
-    private static final String DATE = "date";
-
-    /**
      * 表格前缀
      */
     private static final String TABLE_PREFIX = "tb_";
+
+    /**
+     * Controller生成路径
+     */
+    private static final String CONTROLLER_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-web\\src\\main\\java\\com\\zrkizzy\\web\\controller\\system\\";
+
+    /**
+     * Service生成路径
+     */
+    private static final String SERVICE_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-server\\src\\main\\java\\com\\zrkizzy\\server\\service\\system\\";
+
+    /**
+     * Service实现类生成路径
+     */
+    private static final String SERVICE_IMPL_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-server\\src\\main\\java\\com\\zrkizzy\\server\\service\\system\\impl\\";
 
     /**
      * 是否开启二级缓存
@@ -45,6 +57,13 @@ public class CodeGenerator {
      * 是否开启链式编程
      */
     private static final Boolean IS_CHAIN = false;
+
+    // =================================================================== 必填项结束 ===================================================================
+
+    /**
+     * 创建时间
+     */
+    private static final String DATE = "date";
 
     /**
      * 实体类生成路径
@@ -70,21 +89,6 @@ public class CodeGenerator {
      * Mapper生成路径
      */
     private static final String MAPPER_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-data\\src\\main\\java\\com\\zrkizzy\\data\\mapper\\";
-
-    /**
-     * Controller生成路径
-     */
-    private static final String CONTROLLER_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-web\\src\\main\\java\\com\\zrkizzy\\web\\controller\\system\\";
-
-    /**
-     * Service生成路径
-     */
-    private static final String SERVICE_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-server\\src\\main\\java\\com\\zrkizzy\\server\\service\\system\\";
-
-    /**
-     * Service实现类生成路径
-     */
-    private static final String SERVICE_IMPL_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-server\\src\\main\\java\\com\\zrkizzy\\server\\service\\system\\impl\\";
 
     /**
      * Mapper映射文件生成路径
