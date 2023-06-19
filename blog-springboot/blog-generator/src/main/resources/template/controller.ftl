@@ -75,5 +75,4 @@ public class ${entityName}Controller {
     }
 </#if>
 
-
 }
