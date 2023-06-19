@@ -12,7 +12,7 @@ import java.util.List;
  * 友情链接业务逻辑接口
  *
  * @author zhangrongkang
- * @since 2023/6/13
+ * @since 2023/6/19
  */
 public interface ILinkService {
 

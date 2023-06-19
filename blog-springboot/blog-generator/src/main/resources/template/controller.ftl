@@ -1,4 +1,4 @@
-package com.zrkizzy.web.controller.system;
+package ${controllerPackage};
 
 <#if isService>
 import com.zrkizzy.data.domain.${entityName};

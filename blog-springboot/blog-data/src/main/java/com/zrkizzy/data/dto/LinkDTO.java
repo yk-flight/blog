@@ -9,7 +9,7 @@ import lombok.ToString;
  * 友情链接数据传输对象
  *
  * @author zhangrongkang
- * @since 2023/6/13
+ * @since 2023/6/19
  */
 @Data
 @ToString(callSuper = true)

@@ -154,8 +154,18 @@ public class DbConst {
     public static final String IS_SERVICE = "isService";
 
     /**
-     * 是否生成Query类
+     * Controller包路径
      */
-    public static final String IS_QUERY = "isQuery";
+    public static final String CONTROLLER_PACKAGE = "controllerPackage";
+
+    /**
+     * Service包路径
+     */
+    public static final String SERVICE_PACKAGE = "servicePackage";
+
+    /**
+     * ServiceImpl包路径
+     */
+    public static final String SERVICE_IMPL_PACKAGE = "serviceImplPackage";
 
 }

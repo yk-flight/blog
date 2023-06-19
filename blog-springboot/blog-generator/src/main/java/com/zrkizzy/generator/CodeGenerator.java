@@ -24,29 +24,44 @@ public class CodeGenerator {
     // =================================================================== 以下为必填项 ===================================================================
 
     /**
+     * Controller生成路径
+     */
+    private static final String CONTROLLER_PATH = "你的Controller类绝对路径，最后的'\\'或'/'不要省略";
+
+    /**
+     * Controller类包路径
+     */
+    private static final String CONTROLLER_PACKAGE_PATH = "你的Controller类包路径，如：com.zrkizzy.web.controller.system";
+
+    /**
+     * Service生成路径
+     */
+    private static final String SERVICE_PATH = "你的Service类绝对路径，最后的'\\'或'/'不要省略";
+
+    /**
+     * Service业务逻辑接口包路径
+     */
+    private static final String SERVICE_PACKAGE_PATH = "你的Service类包路径，如：com.zrkizzy.server.service.system";
+
+    /**
+     * Service实现类生成路径
+     */
+    private static final String SERVICE_IMPL_PATH = "你的ServiceImpl类绝对路径，最后的'\\'或'/'不要省略";
+
+    /**
+     * Service业务逻辑接口实现类包路径
+     */
+    private static final String SERVICE_IMPL_PACKAGE_PATH = "你的ServiceImpl类包路径，com.zrkizzy.server.service.system.impl";
+
+    /**
      * 作者名称
      */
-    private static final String AUTHOR_NAME = "zhangrongkang";
+    private static final String AUTHOR_NAME = "作者名称";
 
     /**
      * 表格前缀
      */
     private static final String TABLE_PREFIX = "tb_";
-
-    /**
-     * Controller生成路径
-     */
-    private static final String CONTROLLER_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-web\\src\\main\\java\\com\\zrkizzy\\web\\controller\\system\\";
-
-    /**
-     * Service生成路径
-     */
-    private static final String SERVICE_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-server\\src\\main\\java\\com\\zrkizzy\\server\\service\\system\\";
-
-    /**
-     * Service实现类生成路径
-     */
-    private static final String SERVICE_IMPL_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-server\\src\\main\\java\\com\\zrkizzy\\server\\service\\system\\impl\\";
 
     /**
      * 是否开启二级缓存
@@ -68,32 +83,32 @@ public class CodeGenerator {
     /**
      * 实体类生成路径
      */
-    private static final String ENTITY_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-data\\src\\main\\java\\com\\zrkizzy\\data\\domain\\";
+    private static final String ENTITY_PATH = "你的实体类绝对路径，最后的'\\'或'/'不要省略";
 
     /**
      * DTO类生成路径
      */
-    private static final String DTO_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-data\\src\\main\\java\\com\\zrkizzy\\data\\dto\\";
+    private static final String DTO_PATH = "你的DTO类绝对路径，最后的'\\'或'/'不要省略";
 
     /**
      * VO类生成路径
      */
-    private static final String VO_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-data\\src\\main\\java\\com\\zrkizzy\\data\\vo\\";
+    private static final String VO_PATH = "你的VO类绝对路径，最后的'\\'或'/'不要省略";
 
     /**
      * 实体类生成路径
      */
-    private static final String QUERY_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-data\\src\\main\\java\\com\\zrkizzy\\data\\query\\";
+    private static final String QUERY_PATH = "你的Query类绝对路径，最后的'\\'或'/'不要省略";
 
     /**
      * Mapper生成路径
      */
-    private static final String MAPPER_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-data\\src\\main\\java\\com\\zrkizzy\\data\\mapper\\";
+    private static final String MAPPER_PATH = "你的Mapper接口绝对路径，最后的'\\'或'/'不要省略";
 
     /**
      * Mapper映射文件生成路径
      */
-    private static final String MAPPER_XML_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-data\\src\\main\\resources\\mapper\\";
+    private static final String MAPPER_XML_PATH = "你的Mapper.xml映射文件绝对路径，最后的'\\'或'/'不要省略";
 
     public static void main(String[] args) throws Exception {
         // 交互式生成
@@ -102,10 +117,7 @@ public class CodeGenerator {
         // 用户输入的表格名称
         String table = scanner.next();
 
-        // 与用户交互，是否生成Controller、Service、Query、DTO、VO类
-        System.out.print("请输入是否生成Query类（1-生成/0-不生成）：");
-        // 是否生成Query类（默认生成）
-        Boolean isQuery = isGenerator(scanner.nextInt());
+        // 与用户交互，是否生成Controller、Service类
         System.out.print("请输入是否生成Controller层（1-生成/0-不生成）：");
         // 是否生成Controller类（默认生成）
         Boolean isController = isGenerator(scanner.nextInt());
@@ -152,15 +164,16 @@ public class CodeGenerator {
         map.put(DbConst.IS_CONTROLLER, isController);
         // 是否生成Service类
         map.put(DbConst.IS_SERVICE, isService);
-        // 是否生成Query类
-        map.put(DbConst.IS_QUERY, isQuery);
+        // Controller包路径
+        map.put(DbConst.CONTROLLER_PACKAGE, CONTROLLER_PACKAGE_PATH);
+        // Service包路径
+        map.put(DbConst.SERVICE_PACKAGE, SERVICE_PACKAGE_PATH);
+        // ServiceImpl包路径
+        map.put(DbConst.SERVICE_IMPL_PACKAGE, SERVICE_IMPL_PACKAGE_PATH);
 
         System.out.println("---------------------------------- 开始生成代码 ----------------------------------");
         // 1. 生成实体类、Query、DTO和VO
         generateEntity(entityName, map);
-        if (isQuery) {
-            generateQuery(entityName, map);
-        }
         // 2. 生成Mapper接口和映射文件
         generateMapper(entityName, map);
         // 3. 生成Service
@@ -190,12 +203,7 @@ public class CodeGenerator {
         System.out.println("开始生成VO类...");
         FreemarkerUtil.initConfig("vo.ftl");
         FreemarkerUtil.generator(VO_PATH + objectName + "VO.java", map);
-    }
 
-    /**
-     * 生成实体类查询对象
-     */
-    private static void generateQuery(String objectName, Map<String, Object> map) throws IOException, TemplateException {
         System.out.println("开始生成实体类Query对象...");
         FreemarkerUtil.initConfig("query.ftl");
         FreemarkerUtil.generator(QUERY_PATH + objectName + "Query.java", map);
@@ -230,8 +238,8 @@ public class CodeGenerator {
         FreemarkerUtil.initConfig("service.ftl");
         FreemarkerUtil.generator( SERVICE_PATH + "I" + objectName + "Service.java", map);
         System.out.println("开始生成ServiceImpl实现类...");
-//        FreemarkerUtil.initConfig("serviceImpl.ftl");
-//        FreemarkerUtil.generator(SERVICE_IMPL_PATH + objectName + "ServiceImpl.xml", map);
+        FreemarkerUtil.initConfig("serviceImpl.ftl");
+        FreemarkerUtil.generator(SERVICE_IMPL_PATH + objectName + "ServiceImpl.java", map);
     }
 
     /**

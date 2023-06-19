@@ -9,7 +9,7 @@ import com.zrkizzy.data.domain.Link;
  * </p>
  *
  * @author zhangrongkang
- * @since 2023/6/13
+ * @since 2023/6/19
  */
 public interface LinkMapper extends BaseMapper<Link> {
 

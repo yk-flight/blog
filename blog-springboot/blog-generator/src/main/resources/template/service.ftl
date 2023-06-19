@@ -1,4 +1,4 @@
-package com.zrkizzy.server.service.system;
+package ${servicePackage};
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.Result;

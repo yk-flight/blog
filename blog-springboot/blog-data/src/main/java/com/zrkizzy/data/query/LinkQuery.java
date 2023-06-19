@@ -11,7 +11,7 @@ import java.util.List;
  * 友情链接信息查询对象
  *
  * @author zhangrongkang
- * @since 2023/6/13
+ * @since 2023/6/19
  */
 @Data
 @ToString(callSuper = true)

@@ -13,7 +13,7 @@ import java.io.Serial;
  * 友情链接实体类
  *
  * @author zhangrongkang
- * @since 2023/6/13
+ * @since 2023/6/19
  */
 @Data
 @TableName("tb_link")

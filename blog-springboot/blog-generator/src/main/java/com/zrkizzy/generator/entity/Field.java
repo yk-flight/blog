@@ -47,4 +47,9 @@ public class Field {
      */
     private String javaName;
 
+    /**
+     * Java驼峰后的名称
+     */
+    private String javaUpName;
+
 }

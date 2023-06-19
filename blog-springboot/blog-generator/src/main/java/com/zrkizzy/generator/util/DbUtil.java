@@ -56,8 +56,10 @@ public class DbUtil {
                         Boolean.TRUE : Boolean.FALSE;
                 // Java类型
                 String javaType = castSqlTypeToJavaType(type);
+                // Java名称
+                String javaName = lineToHump(field);
                 // 全参构造
-                Field entity = new Field(field, type, comment, isNull, javaType, lineToHump(field));
+                Field entity = new Field(field, type, comment, isNull, javaType, javaName, lineToUpHump(javaName));
                 // 添加当前对象
                 list.add(entity);
             }
