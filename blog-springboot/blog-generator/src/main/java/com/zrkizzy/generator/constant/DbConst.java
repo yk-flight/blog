@@ -114,6 +114,11 @@ public class DbConst {
     public static final String TEXT = "text";
 
     /**
+     * longtext类型
+     */
+    public static final String LONG_TEXT = "longtext";
+
+    /**
      * datetime类型
      */
     public static final String DATE_TIME = "datetime";

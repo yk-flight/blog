@@ -104,7 +104,7 @@ public class DbUtil {
         // 判断并返回字符类型
         return switch (typeCast) {
             // 字符类型
-            case VARCHAR, TEXT, CHAR -> "String";
+            case VARCHAR, TEXT, CHAR, LONG_TEXT -> "String";
             // 整数类型
             case INT -> "Integer";
             case BIG_INT -> "Long";
