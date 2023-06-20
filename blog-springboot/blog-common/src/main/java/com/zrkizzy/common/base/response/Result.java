@@ -2,6 +2,7 @@ package com.zrkizzy.common.base.response;
 
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * @since 2023/3/7
  */
 @Data
+@NoArgsConstructor
 public class Result<T> implements Serializable {
     /**
      * 状态码
@@ -92,18 +94,6 @@ public class Result<T> implements Serializable {
      */
     public static <T> Result<T> success(T data) {
         return new Result<>(HttpStatusEnum.SUCCESS, data);
-    }
-
-    /**
-     * 响应成功
-     *
-     * @param httpStatusEnum 前端返回对象状态枚举
-     * @param message 响应信息
-     * @return 对应的前端返回对象
-     * @param <T> 返回参数类型
-     */
-    public static <T> Result<T> success(HttpStatusEnum httpStatusEnum, String message) {
-        return new Result<>(httpStatusEnum, message);
     }
 
     /**

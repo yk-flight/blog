@@ -3,12 +3,11 @@ package com.zrkizzy.server.service.system.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.Result;
-import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.utils.BeanCopyUtil;
 import com.zrkizzy.common.utils.SnowFlakeUtil;
-import com.zrkizzy.data.mapper.LinkMapper;
 import com.zrkizzy.data.domain.Link;
 import com.zrkizzy.data.dto.LinkDTO;
+import com.zrkizzy.data.mapper.LinkMapper;
 import com.zrkizzy.data.query.LinkQuery;
 import com.zrkizzy.data.vo.LinkVO;
 import com.zrkizzy.server.service.system.ILinkService;
@@ -118,7 +117,7 @@ public class LinkServiceImpl implements ILinkService {
         log.info("--------------------- 执行更新操作 ---------------------");
         // 对友情链接进行更新操作并返回响应结果
         return linkMapper.updateById(BeanCopyUtil.copy(linkDTO, Link.class)) == 1 ?
-        Result.success(HttpStatusEnum.SUCCESS, "友情链接更新成功") : Result.failure();
+                Result.success() : Result.failure();
     }
     
     /**
@@ -135,8 +134,7 @@ public class LinkServiceImpl implements ILinkService {
         linkDTO.setId(id);
         // 添加友情链接数据并返回添加结果
         return linkMapper.insert(BeanCopyUtil.copy(linkDTO, Link.class)) == 1 ?
-            Result.success(HttpStatusEnum.SUCCESS, "友情链接添加成功") :
-            Result.failure();
+            Result.success() : Result.failure();
     }
 
 }

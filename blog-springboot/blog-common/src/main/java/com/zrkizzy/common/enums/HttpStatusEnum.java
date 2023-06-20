@@ -57,8 +57,8 @@ public enum HttpStatusEnum {
     SERVICE_UNAVAILABLE(503, "服务不可用"),
     TOKEN_EXPIRED(506, "当前Token已过期，请重新登录"),
     TOKEN_ERROR(507, "Token不合法"),
-    CODE_EXPIRED(508, "验证码已过期，请重新获取验证码"),
-    CODE_ERROR(509, "验证码错误，请重新输入"),
+    CODE_EXPIRED(508, "验证码已过期"),
+    CODE_ERROR(509, "验证码错误"),
 
     /**
      * 其他状态码
@@ -66,10 +66,11 @@ public enum HttpStatusEnum {
     ROLE_NAME_EXIST(1001, "角色名称已存在"),
     ROLE_MARK_EXIST(1002, "角色标识已存在"),
     ROLE_NOT_ACTION(1003, "不允许操作最高权限角色数据"),
-    USER_NOT_FOUND(2000, "用户未登录或登录已过期，请重新登录"),
+    LOGIN_SUCCESS(1004, "登录成功"),
+    USER_NOT_FOUND(2000, "用户未登录或登录已过期"),
     USER_EXIST(2001, "用户已存在"),
     USER_NOT_EXIST(2002, "用户不存在"),
-    USER_ENABLE(2003, "当前用户已禁用，请联系管理员"),
+    USER_ENABLE(2003, "当前用户已禁用"),
     PASSWORD_ERROR(2004, "密码错误"),
     USERNAME_REPEAT(2005, "用户名重复，当前用户名已存在"),
     PASSWORD_SAME(2006, "新密码不能与旧密码相同"),

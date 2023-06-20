@@ -126,7 +126,7 @@ public class ${entityName}ServiceImpl implements I${entityName}Service {
         log.info("--------------------- 执行更新操作 ---------------------");
         // 对${objectName}进行更新操作并返回响应结果
         return ${entityLowerName}Mapper.updateById(BeanCopyUtil.copy(${entityLowerName}DTO, ${entityName}.class)) == 1 ?
-        Result.success(HttpStatusEnum.SUCCESS, "${objectName}更新成功") : Result.failure();
+        Result.success() : Result.failure();
     }
     
     /**
@@ -144,8 +144,7 @@ public class ${entityName}ServiceImpl implements I${entityName}Service {
         ${entityLowerName}DTO.setId(id);
         // 添加${objectName}数据并返回添加结果
         return ${entityLowerName}Mapper.insert(BeanCopyUtil.copy(${entityLowerName}DTO, ${entityName}.class)) == 1 ?
-            Result.success(HttpStatusEnum.SUCCESS, "${objectName}添加成功") :
-            Result.failure();
+            Result.success() : Result.failure();
     }
 
 }

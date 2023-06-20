@@ -141,7 +141,7 @@ public class RoleServiceImpl implements IRoleService {
         log.info("--------------------- 执行更新操作 ---------------------");
         // 对角色进行更新操作并返回响应结果
         return roleMapper.updateById(BeanCopyUtil.copy(roleDTO, Role.class)) == 1 ?
-                Result.success(HttpStatusEnum.SUCCESS, "角色更新成功") : Result.failure();
+                Result.success() : Result.failure();
     }
 
     /**
@@ -159,7 +159,6 @@ public class RoleServiceImpl implements IRoleService {
         // TODO 分配角色的初始权限（页面权限和资源权限）
         // 添加角色数据并返回添加结果
         return roleMapper.insert(BeanCopyUtil.copy(roleDTO, Role.class)) == 1 ?
-                 Result.success(HttpStatusEnum.SUCCESS, "角色添加成功") :
-                Result.failure();
+                 Result.success() : Result.failure();
     }
 }

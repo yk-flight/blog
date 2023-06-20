@@ -110,7 +110,7 @@ public class UserServiceImpl implements IUserService {
         // 存在则将获取到的用户信息存储到Redis中，过期时间为两小时
         redisService.set(USER_PREFIX + username, user, TWO_HOUR);
         // 根据用户详细信息生成Token
-        return Result.success(jwtTokenUtil.generateToken(userDetailUtil.convertUserDetails(user)));
+        return Result.success(HttpStatusEnum.LOGIN_SUCCESS, jwtTokenUtil.generateToken(userDetailUtil.convertUserDetails(user)));
     }
 
     /**
