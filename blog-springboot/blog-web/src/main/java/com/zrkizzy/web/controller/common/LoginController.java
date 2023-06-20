@@ -1,5 +1,6 @@
 package com.zrkizzy.web.controller.common;
 
+import com.zrkizzy.common.annotation.LoginAnnotation;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.data.dto.LoginDTO;
 import com.zrkizzy.server.service.core.IUserService;
@@ -31,6 +32,7 @@ public class LoginController {
      * @param loginDTO 用户登录数据传输对象
      * @return 公共返回对象（Token）
      */
+    @LoginAnnotation
     @ApiOperation("后台用户登录")
     @PostMapping("/admin")
     public Result<String> login(@RequestBody @Validated LoginDTO loginDTO) {

@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 20/06/2023 17:01:20
+ Date: 20/06/2023 17:58:49
 */
 
 SET NAMES utf8mb4;
@@ -100,10 +100,10 @@ BEGIN;
 COMMIT;
 
 -- ----------------------------
--- Table structure for tb_login_log
+-- Table structure for tb_login_info
 -- ----------------------------
-DROP TABLE IF EXISTS `tb_login_log`;
-CREATE TABLE `tb_login_log` (
+DROP TABLE IF EXISTS `tb_login_info`;
+CREATE TABLE `tb_login_info` (
   `id` bigint(20) NOT NULL COMMENT '主键',
   `user_id` bigint(20) DEFAULT NULL COMMENT '登录用户ID',
   `login_ip` varchar(255) DEFAULT NULL COMMENT '登录IP',
@@ -114,10 +114,10 @@ CREATE TABLE `tb_login_log` (
   `message` varchar(255) DEFAULT NULL COMMENT '登录消息提示',
   `login_time` datetime DEFAULT NULL COMMENT '登录时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户登录日志表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户登录信息表';
 
 -- ----------------------------
--- Records of tb_login_log
+-- Records of tb_login_info
 -- ----------------------------
 BEGIN;
 COMMIT;

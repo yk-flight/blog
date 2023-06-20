@@ -5,20 +5,22 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 登录日志实体类
+ * 登录信息实体类
  *
  * @author zhangrongkang
  * @since 2023/6/20
  */
 @Data
-@TableName("tb_login_log")
-@ApiModel(value="登录日志对象")
-public class LoginLog implements Serializable {
+@Accessors(chain = true)
+@TableName("tb_login_info")
+@ApiModel(value="登录信息对象")
+public class LoginInfo implements Serializable {
 
     @TableId
     @ApiModelProperty("主键")
