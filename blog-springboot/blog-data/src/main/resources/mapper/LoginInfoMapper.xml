@@ -1,6 +1,24 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zrkizzy.data.mapper.LoginInfoMapper">
 
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.LoginInfo">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="login_ip" property="loginIp" />
+        <result column="login_location" property="loginLocation" />
+        <result column="browser" property="browser" />
+        <result column="os" property="os" />
+        <result column="status" property="status" />
+        <result column="message" property="message" />
+        <result column="login_time" property="loginTime" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, username, login_ip, login_location, browser, os, status, message, login_time, create_time, update_time
+    </sql>
 </mapper>

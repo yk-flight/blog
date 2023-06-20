@@ -3,10 +3,12 @@ package com.zrkizzy.server.aspect;
 import cn.hutool.json.JSONUtil;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.HttpStatusEnum;
+import com.zrkizzy.common.service.IRedisService;
 import com.zrkizzy.common.utils.JsonUtil;
-import com.zrkizzy.common.utils.JwtTokenUtil;
 import com.zrkizzy.common.utils.ServletUtils;
+import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.data.domain.LoginInfo;
+import com.zrkizzy.data.dto.LoginDTO;
 import com.zrkizzy.data.mapper.LoginInfoMapper;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -30,15 +32,23 @@ import java.time.LocalDateTime;
 public class LoginAspect {
 
     @Autowired
+    private SnowFlakeUtil snowFlakeUtil;
+
+    @Autowired
     private LoginInfoMapper loginLogMapper;
 
     @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private IRedisService redisService;
 
     /**
      * 用于记录登录时间
      */
     private static final ThreadLocal<LocalDateTime> TIME_THREAD_LOCAL = new NamedThreadLocal<>("LoginTime");
+
+    /**
+     * 用于记录登录用户名称
+     */
+    private static final ThreadLocal<String> USERNAME_THREAD_LOCAL = new NamedThreadLocal<>("username");
 
     /**
      * 申明切入点位置
@@ -48,9 +58,19 @@ public class LoginAspect {
 
     /**
      * 处理登录请求前执行
+     *
+     * @param joinPoint 切入点
      */
     @Before("controllerLog()")
-    public void beforeLogin() {
+    public void beforeLogin(JoinPoint joinPoint) {
+        System.out.println("获取参数: ----------------------------------");
+        for (Object arg : joinPoint.getArgs()) {
+            System.out.println(arg);
+        }
+        // 获取用户登录时的输入对象
+        LoginDTO loginDTO = JsonUtil.jsonToObject(JSONUtil.parse(joinPoint).toString(), LoginDTO.class);
+        // 设置当前用户登录名称
+        USERNAME_THREAD_LOCAL.set(loginDTO.getUsername());
         // 设置当前登录时间
         TIME_THREAD_LOCAL.set(LocalDateTime.now());
     }
@@ -64,7 +84,7 @@ public class LoginAspect {
     @AfterReturning(value = "controllerLog()", returning = "jsonResult")
     public void doAfterReturning(JoinPoint joinPoint, Object jsonResult) {
         // 记录登录日志信息
-        handleLoginLog(joinPoint, null, jsonResult);
+        handleLoginInfo(joinPoint, null, jsonResult);
     }
 
     /**
@@ -74,7 +94,7 @@ public class LoginAspect {
      * @param e 抛出异常
      * @param jsonResult 方法返回结果
      */
-    protected void handleLoginLog(final JoinPoint joinPoint, final Exception e, Object jsonResult) {
+    protected void handleLoginInfo(final JoinPoint joinPoint, final Exception e, Object jsonResult) {
         // 定义登录日志对象
         LoginInfo loginLog = new LoginInfo();
         try {
@@ -84,11 +104,21 @@ public class LoginAspect {
             // 如果没有登录成功
             if (null != result && !result.getCode().equals(HttpStatusEnum.SUCCESS.getCode())) {
                 System.out.println(ServletUtils.getRequest());
-                // 记录错误信息
+                // 登录消息提示
                 loginLog.setMessage(String.valueOf(result.getMessage()));
+                // 登录状态
+                loginLog.setStatus(Boolean.FALSE);
             }
+            // 登录成功后用户ID已经存储到了Redis中
+//            loginLog.setUserId()
 
-
+            // 登录IP
+            // IP属地
+            // 浏览器版本
+            // 操作系统
+            // 登录时间
+            loginLog.setLoginTime(TIME_THREAD_LOCAL.get());
+            System.out.println(loginLog);
         } catch (Exception exp) {
 
         } finally {

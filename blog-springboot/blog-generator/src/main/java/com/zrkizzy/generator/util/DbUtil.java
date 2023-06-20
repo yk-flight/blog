@@ -100,7 +100,13 @@ public class DbUtil {
      */
     private static String castSqlTypeToJavaType(String columnType) {
         // 将所有字符都转为小写
-        String typeCast = columnType.substring(0, columnType.indexOf("(")).toLowerCase();
+        String typeCast = null;
+        // 判断当前变量是否有长度限制
+        if (columnType.contains("(")) {
+            typeCast = columnType.substring(0, columnType.indexOf("(")).toLowerCase();
+        } else {
+            typeCast = columnType.toLowerCase();
+        }
         // 判断并返回字符类型
         return switch (typeCast) {
             // 字符类型
