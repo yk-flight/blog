@@ -20,8 +20,8 @@ public class ${entityName}VO extends BaseVO {
 <#list fieldList as field>
 
     /**
-    * ${field.comment}
-    */
+     * ${field.comment}
+     */
     private ${field.javaType} ${field.javaName};
 </#list>
 <#------------  END 字段循环遍历  ---------->

@@ -54,10 +54,12 @@ public class ${entityName}ServiceImpl implements I${entityName}Service {
         <#list fieldList as field>
             <#if !field.isNull>
         // ${field.comment}
-            <#if field.javaType == "String">
+                <#if field.javaType == "String">
         if (StringUtils.hasLength(${entityLowerName}Query.get${field.javaUpName}())) {
             queryWrapper.eq("${field.columnName}", ${entityLowerName}Query.get${field.javaUpName}());
         }
+                <#elseif field.javaType == "Boolean" || field.javaType == "Integer">
+        queryWrapper.eq("${field.columnName}", ${entityLowerName}Query.get${field.javaUpName}());
                 </#if>
             </#if>
         </#list>
