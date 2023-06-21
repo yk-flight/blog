@@ -140,7 +140,6 @@ public class LoginAspect {
 
             // 存储当前登录日志到数据库中
             loginInfoMapper.insert(loginInfo);
-            System.out.println(loginInfo);
         } catch (Exception exp) {
             exp.printStackTrace();
             // 抛出业务逻辑异常
