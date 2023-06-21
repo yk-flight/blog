@@ -5,8 +5,8 @@
       <el-row class="search-container" type="flex">
         <el-col :span="24" :xs="24">
           <el-form size="small" :inline="true" v-show="showSearch" label-width="68px" :model="queryParams" ref="queryForm">
-
-            <el-form-item label="链接名称">
+            
+            <el-form-item label="友情链接名称">
               <el-input v-model="queryParams.name" class="search-item" placeholder="请输入网站名称" size="small" clearable></el-input>
             </el-form-item>
             <!-- 创建时间 -->
@@ -180,12 +180,12 @@ export default {
         // 网站Logo
         logo: undefined,
         // 网站介绍
-        introduce: undefined
+        introduce: undefined,
       },
       // 友情链接表单校验规则
       rules: {
         // 网站名称
-        name: [{ required: true, message: '请输入网站名称', trigger: 'blur' }]
+        name: [{ required: true, message: '请输入网站名称', trigger: 'blur' }],
       },
       // 友情链接对话框等待框
       linkLoading: false,

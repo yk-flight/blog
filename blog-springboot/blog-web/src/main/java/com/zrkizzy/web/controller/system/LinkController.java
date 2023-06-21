@@ -64,5 +64,4 @@ public class LinkController {
         return Result.failure(HttpStatusEnum.INTERNAL_SERVER_ERROR, "友情链接数据删除失败");
     }
 
-
 }
