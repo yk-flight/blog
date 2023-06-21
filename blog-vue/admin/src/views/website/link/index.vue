@@ -5,7 +5,6 @@
       <el-row class="search-container" type="flex">
         <el-col :span="24" :xs="24">
           <el-form size="small" :inline="true" v-show="showSearch" label-width="68px" :model="queryParams" ref="queryForm">
-
             <el-form-item label="链接名称">
               <el-input v-model="queryParams.name" class="search-item" placeholder="请输入网站名称" size="small" clearable></el-input>
             </el-form-item>
@@ -54,7 +53,15 @@
         <!-- 网站域名 -->
         <el-table-column prop="website" label="网站域名" align="center" v-if="columns[1].visible"></el-table-column>
         <!-- 网站Logo -->
-        <el-table-column prop="logo" label="网站Logo" align="center" v-if="columns[2].visible"></el-table-column>
+        <el-table-column prop="logo" label="网站图标" align="center" v-if="columns[2].visible" width="100">
+          <template slot-scope="scope">
+            <el-image :src="scope.row.logo">
+              <div slot="error" class="image-slot-table">
+                <i class="el-icon-picture-outline"></i>
+              </div>
+            </el-image>
+          </template>
+        </el-table-column>
         <!-- 网站介绍 -->
         <el-table-column prop="introduce" label="网站介绍" align="center" v-if="columns[3].visible"></el-table-column>
         <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[4].visible">
@@ -88,7 +95,7 @@
     <!-- 友情链接信息对话框 -->
     <el-dialog
       :title="linkTitle"
-      width="500px"
+      width="600px"
       :modal-append-to-body="true"
       :append-to-body="true"
       :close-on-click-modal="false"
@@ -105,13 +112,20 @@
             <el-form-item label="网站域名" prop="website">
               <el-input v-model="formData.website" placeholder="请输入网站域名" clearable></el-input>
             </el-form-item>
-            <!-- 网站Logo -->
-            <el-form-item label="网站Logo" prop="logo">
-              <el-input v-model="formData.logo" placeholder="请输入网站Logo" clearable></el-input>
-            </el-form-item>
             <!-- 网站介绍 -->
             <el-form-item label="网站介绍" prop="introduce">
               <el-input v-model="formData.introduce" placeholder="请输入网站介绍" clearable></el-input>
+            </el-form-item>
+            <!-- 网站图标 -->
+            <el-form-item label="网站图标" prop="logo">
+              <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" v-model="formData.logo" placeholder="请输入网站图标" clearable></el-input>
+            </el-form-item>
+            <el-form-item label="图片预览">
+              <el-image :src="formData.logo" style="width: 120px; height: 120px;" fit="contain">
+                <div slot="error" class="image-slot">
+                  <i class="el-icon-picture-outline"></i>
+                </div>
+              </el-image>
             </el-form-item>
           </el-row>
         </el-form>
@@ -185,7 +199,9 @@ export default {
       // 友情链接表单校验规则
       rules: {
         // 网站名称
-        name: [{ required: true, message: '请输入网站名称', trigger: 'blur' }]
+        name: [{ required: true, message: '请输入网站名称', trigger: 'blur' }],
+        // 网站域名
+        website: [{ required: true, message: '请输入网站域名', trigger: 'blur' }]
       },
       // 友情链接对话框等待框
       linkLoading: false,
@@ -198,7 +214,7 @@ export default {
         // 网站域名
         { key: 1, label: '网站域名', visible: true },
         // 网站Logo
-        { key: 2, label: '网站Logo', visible: true },
+        { key: 2, label: '网站图标', visible: true },
         // 网站介绍
         { key: 3, label: '网站介绍', visible: true },
         { key: 4, label: '创建时间', visible: true },
@@ -295,7 +311,6 @@ export default {
       } else {
         linkIds = this.ids
       }
-      console.log(linkIds)
       this.$confirm('是否确认删除选中的友情链接数据？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
