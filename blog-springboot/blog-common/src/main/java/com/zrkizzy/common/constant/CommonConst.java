@@ -94,6 +94,11 @@ public class CommonConst {
     public static final String LOCAL_NAME = "本地登录";
 
     /**
+     * 未知用户
+     */
+    public static final String UNKNOWN_USER = "未知用户";
+
+    /**
      * 用户解析信息
      */
     public static final String USER_AGENT = "User-Agent";
