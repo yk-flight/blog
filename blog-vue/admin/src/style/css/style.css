@@ -61,3 +61,25 @@ a {
 	position: relative;
 	float: right;
 }
+
+.image-slot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+  background: #f5f7fa;
+  color: #909399;
+  font-size: 20px;
+}
+
+.image-slot-table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 79px;
+  height: 79px;
+  background: #f5f7fa;
+  color: #909399;
+  font-size: 20px;
+}

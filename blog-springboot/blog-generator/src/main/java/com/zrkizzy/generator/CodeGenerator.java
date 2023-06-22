@@ -54,6 +54,16 @@ public class CodeGenerator {
     private static final String SERVICE_IMPL_PACKAGE_PATH = "你的ServiceImpl类包路径，com.zrkizzy.server.service.system.impl";
 
     /**
+     * Vue文件生成路径
+     */
+    private static final String VUE_PATH = "你的Vue文件绝对路径，最后的'\\'或'/'不要省略";
+
+    /**
+     * 前端Api请求路径
+     */
+    private static final String API_PATH = "你的前端Api.js文件绝对路径，最后的'\\'或'/'不要省略";
+
+    /**
      * 作者名称
      */
     private static final String AUTHOR_NAME = "作者名称";
@@ -184,6 +194,7 @@ public class CodeGenerator {
         if (isController) {
             generateController(entityName, map);
         }
+        generateVue(entityName, map);
 
         System.out.println("---------------------------------- 结束生成代码 ----------------------------------");
     }
@@ -240,6 +251,18 @@ public class CodeGenerator {
         System.out.println("开始生成ServiceImpl实现类...");
         FreemarkerUtil.initConfig("serviceImpl.ftl");
         FreemarkerUtil.generator(SERVICE_IMPL_PATH + objectName + "ServiceImpl.java", map);
+    }
+
+    /**
+     * 生成Mapper接口和映射文件
+     */
+    private static void generateVue(String objectName, Map<String, Object> map) throws IOException, TemplateException {
+        System.out.println("开始生成Api接口文件...");
+        FreemarkerUtil.initConfig("api.js.ftl");
+        FreemarkerUtil.generator( API_PATH + map.get(DbConst.ENTITY_LOWER_NAME) + ".js", map);
+        System.out.println("开始生成Vue文件...");
+        FreemarkerUtil.initConfig("vue.ftl");
+        FreemarkerUtil.generator( VUE_PATH + "index.vue", map);
     }
 
     /**
