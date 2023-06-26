@@ -5,6 +5,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+<#list fieldList as field>
+    <#if field.javaType == "LocalDateTime">
+import java.time.LocalDateTime;
+    </#if>
+</#list>
+
 /**
  * ${objectName}数据返回对象
  *

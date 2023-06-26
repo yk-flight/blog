@@ -1,6 +1,5 @@
 package com.zrkizzy.data.domain;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zrkizzy.common.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
@@ -10,6 +9,12 @@ import lombok.EqualsAndHashCode;
 <#if chainModel>
 import lombok.experimental.Accessors;
 </#if>
+
+<#list fieldList as field>
+    <#if field.javaType == "LocalDateTime">
+import java.time.LocalDateTime;
+    </#if>
+</#list>
 import java.io.Serial;
 
 /**
