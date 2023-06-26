@@ -122,7 +122,6 @@ public class UserServiceImpl implements IUserService {
     public Result<UserInfoVO> getUserInfo() {
         // 从SecurityUtil中获取到当前登录用户对象
         User user = securityUtil.getLoginUser();
-        System.out.println("UserServiceImpl 125: 查询到的User对象为：" + user);
         // 根据查询到的User对象复制UserInfoVO对象
         UserInfoVO userInfoVO = BeanCopyUtil.copy(user, UserInfoVO.class);
         // 查询当前用户对应UserInfo对象

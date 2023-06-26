@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 24/06/2023 21:50:35
+ Date: 26/06/2023 13:26:49
 */
 
 SET NAMES utf8mb4;
@@ -265,6 +265,34 @@ CREATE TABLE `tb_module_role` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `tb_module_role` (`id`, `module_id`, `role_id`, `create_time`, `update_time`) VALUES (1636182933754609666, 1636182933754609665, 1000000000000000000, '2023-03-16 10:06:39', '2023-06-11 02:33:30');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for tb_operate
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_operate`;
+CREATE TABLE `tb_operate` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `module_name` varchar(100) DEFAULT NULL COMMENT '模块名称',
+  `type` tinyint(4) DEFAULT NULL COMMENT '操作类型 0 其他操作，1 新增，2 修改， 3 删除',
+  `method_name` varchar(100) DEFAULT NULL COMMENT '操作方法名称',
+  `request_method` varchar(50) DEFAULT NULL COMMENT '请求方式',
+  `user_id` varchar(255) DEFAULT NULL COMMENT '操作用户ID',
+  `operate_ip` varchar(255) DEFAULT NULL COMMENT '操作IP',
+  `operate_location` varchar(255) DEFAULT NULL COMMENT '操作地址',
+  `operate_param` longtext COMMENT '操作参数',
+  `operate_result` longtext COMMENT '操作结果描述',
+  `status` tinyint(4) DEFAULT NULL COMMENT '操作状态 0 失败 1 成功',
+  `cost_time` datetime DEFAULT NULL COMMENT '操作消耗时间',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='操作日志表';
+
+-- ----------------------------
+-- Records of tb_operate
+-- ----------------------------
+BEGIN;
 COMMIT;
 
 -- ----------------------------
