@@ -17,11 +17,10 @@ import java.util.List;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 public class ${entityName}Query extends BasePage {
-
 <#-- ----------  BEGIN 字段循环遍历  ---------->
 <#list fieldList as field>
-
     <#if !field.isNull>
+
     /**
      * ${field.comment}
      */

@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 public class ${entityName}VO extends BaseVO {
-
 <#-- ----------  BEGIN 字段循环遍历  ---------->
 <#list fieldList as field>
 

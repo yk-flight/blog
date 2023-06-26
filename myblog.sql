@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 26/06/2023 13:26:49
+ Date: 26/06/2023 13:37:48
 */
 
 SET NAMES utf8mb4;
@@ -273,20 +273,25 @@ COMMIT;
 DROP TABLE IF EXISTS `tb_operate`;
 CREATE TABLE `tb_operate` (
   `id` bigint(20) NOT NULL COMMENT '主键',
-  `module_name` varchar(100) DEFAULT NULL COMMENT '模块名称',
-  `type` tinyint(4) DEFAULT NULL COMMENT '操作类型 0 其他操作，1 新增，2 修改， 3 删除',
+  `module_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '模块名称',
+  `type` tinyint(4) NOT NULL COMMENT '操作类型 0 其他操作，1 新增，2 修改， 3 删除',
   `method_name` varchar(100) DEFAULT NULL COMMENT '操作方法名称',
-  `request_method` varchar(50) DEFAULT NULL COMMENT '请求方式',
-  `user_id` varchar(255) DEFAULT NULL COMMENT '操作用户ID',
+  `request_method` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '请求方式',
+  `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '操作用户ID',
   `operate_ip` varchar(255) DEFAULT NULL COMMENT '操作IP',
   `operate_location` varchar(255) DEFAULT NULL COMMENT '操作地址',
   `operate_param` longtext COMMENT '操作参数',
   `operate_result` longtext COMMENT '操作结果描述',
-  `status` tinyint(4) DEFAULT NULL COMMENT '操作状态 0 失败 1 成功',
-  `cost_time` datetime DEFAULT NULL COMMENT '操作消耗时间',
+  `status` tinyint(4) NOT NULL COMMENT '操作状态 0 失败 1 成功',
+  `cost_time` bigint(20) DEFAULT NULL COMMENT '操作消耗时间',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `idx_module` (`module_name`) USING BTREE COMMENT '模块名称索引',
+  KEY `idx_type` (`type`) USING BTREE COMMENT '操作类型索引',
+  KEY `idx_request` (`request_method`) USING BTREE COMMENT '操作方法类型索引',
+  KEY `idx_user_id` (`user_id`) COMMENT '用户主键索引',
+  KEY `idx_status` (`status`) COMMENT '操作状态索引'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='操作日志表';
 
 -- ----------------------------
