@@ -86,6 +86,13 @@ public class OperateAspect {
     protected void handleOperateInfo(final JoinPoint joinPoint, final Exception e, Object jsonResult) {
         // 定义操作日志对象
         Operate operate = new Operate();
+        // 先设置请求状态为成功
+        operate.setStatus(Boolean.TRUE);
+        if (null != e) {
+            // 设置请求状态为失败
+            operate.setStatus(Boolean.FALSE);
+        }
+
         System.out.println("AOP切面结束处理方法");
     }
 
