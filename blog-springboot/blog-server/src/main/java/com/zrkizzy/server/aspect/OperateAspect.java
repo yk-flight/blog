@@ -1,16 +1,23 @@
 package com.zrkizzy.server.aspect;
 
+import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson.JSON;
+import com.zrkizzy.common.annotation.OperateAnnotation;
+import com.zrkizzy.common.base.response.Result;
+import com.zrkizzy.common.exception.BusinessException;
+import com.zrkizzy.common.utils.JsonUtil;
 import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.data.domain.Operate;
 import com.zrkizzy.data.mapper.OperateMapper;
 import com.zrkizzy.security.util.SecurityUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
+import java.lang.reflect.Method;
 
 /**
  * 操作日志AOP切面
@@ -34,12 +41,7 @@ public class OperateAspect {
     /**
      * 记录用户操作时间
      */
-    private static final ThreadLocal<LocalDateTime> TIME_THREAD_LOCAL = new NamedThreadLocal<>("OperateTime");
-
-    /**
-     * 记录操作用户
-     */
-    private static final ThreadLocal<Long> USER_THREAD_LOCAL = new NamedThreadLocal<>("OperateUser");
+    private static final ThreadLocal<Long> TIME_THREAD_LOCAL = new NamedThreadLocal<>("OperateTime");
 
     /**
      * 声明切入点位置
@@ -54,14 +56,11 @@ public class OperateAspect {
      *
      * @param joinPoint 切入点
      */
-    @Before("operateCut()")
+    @Before(value = "operateCut()")
     public void handleBefore(JoinPoint joinPoint) {
         System.out.println("进入操作日志AOP切面");
         // 记录操作时间
-        TIME_THREAD_LOCAL.set(LocalDateTime.now());
-        // 记录操作用户ID
-        USER_THREAD_LOCAL.set(securityUtil.getLoginUser().getId());
-        // 操作参数
+        TIME_THREAD_LOCAL.set(System.currentTimeMillis());
     }
 
     @AfterReturning(value = "operateCut()", returning = "jsonResult")
@@ -86,14 +85,47 @@ public class OperateAspect {
     protected void handleOperateInfo(final JoinPoint joinPoint, final Exception e, Object jsonResult) {
         // 定义操作日志对象
         Operate operate = new Operate();
-        // 先设置请求状态为成功
-        operate.setStatus(Boolean.TRUE);
-        if (null != e) {
-            // 设置请求状态为失败
-            operate.setStatus(Boolean.FALSE);
+        try {
+            MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+            // 获取操作的方法
+            Method method = signature.getMethod();
+            // 通过执行的方法得到自定义注解
+            OperateAnnotation operateAnnotation = method.getAnnotation(OperateAnnotation.class);
+            // 操作模块
+            operate.setModuleName(operateAnnotation.module());
+            // 操作类型
+            operate.setType(Byte.valueOf(operateAnnotation.type()));
+
+            // 转换结果对象
+            Result<?> result = JsonUtil.jsonToObject(JSONUtil.parse(jsonResult).toString(), Result.class);
+
+            if (null != result) {
+                // 操作结果
+                operate.setStatus(Boolean.TRUE);
+                // 设置操作结果
+                operate.setOperateResult(result.getMessage());
+            }
+
+            if (null != e) {
+                // 设置请求状态为失败
+                operate.setStatus(Boolean.FALSE);
+                // 设置返回消息
+                operate.setOperateResult(e.getMessage());
+            }
+
+            // 获取操作参数
+            operate.setOperateParam(JSON.toJSONString(joinPoint.getArgs()));
+
+            System.out.println(operate);
+
+        } catch (Exception exp) {
+            exp.printStackTrace();
+            // 抛出业务逻辑异常
+            throw new BusinessException();
+        } finally {
+            TIME_THREAD_LOCAL.remove();
         }
 
-        System.out.println("AOP切面结束处理方法");
     }
 
 }
