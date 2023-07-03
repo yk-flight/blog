@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 03/07/2023 16:49:27
+ Date: 03/07/2023 20:33:26
 */
 
 SET NAMES utf8mb4;
@@ -134,6 +134,8 @@ INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `br
 INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1674787788773392384, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-06-30 22:31:39');
 INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1675738698500538368, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-03 13:30:14');
 INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1675772142186135552, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-03 15:43:07');
+INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1675799199733514240, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 0, '验证码错误', '2023-07-03 17:30:39');
+INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1675799231459229696, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-03 17:30:46');
 COMMIT;
 
 -- ----------------------------
@@ -303,6 +305,8 @@ CREATE TABLE `tb_operate_log` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `tb_operate_log` (`id`, `module_id`, `type`, `method_name`, `request_method`, `user_id`, `operate_ip`, `operate_location`, `operate_param`, `operate_result`, `status`, `cost_time`, `create_time`, `update_time`) VALUES (1675788338285510656, 1636182933754609665, 4, 'com.zrkizzy.web.controller.system.LinkController.listLinks', 'POST', 1653794265890816000, '0:0:0:0:0:0:0:1', '本地登录', '[{\"currentPage\":1,\"dataRange\":[],\"name\":\"\",\"pageSize\":10}]', '请求成功', 1, 217, '2023-07-03 16:47:29', NULL);
+INSERT INTO `tb_operate_log` (`id`, `module_id`, `type`, `method_name`, `request_method`, `user_id`, `operate_ip`, `operate_location`, `operate_param`, `operate_result`, `status`, `cost_time`, `create_time`, `update_time`) VALUES (1675807664149364736, 1636182933754609665, 4, 'com.zrkizzy.web.controller.system.LinkController.listLinks', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"currentPage\":1,\"dataRange\":[],\"pageSize\":10}]', '请求成功', 1, 62, '2023-07-03 18:04:17', NULL);
+INSERT INTO `tb_operate_log` (`id`, `module_id`, `type`, `method_name`, `request_method`, `user_id`, `operate_ip`, `operate_location`, `operate_param`, `operate_result`, `status`, `cost_time`, `create_time`, `update_time`) VALUES (1675807733124694016, 1636182933754609665, 4, 'com.zrkizzy.web.controller.system.LinkController.listLinks', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"currentPage\":1,\"dataRange\":[],\"pageSize\":10}]', '请求成功', 1, 55, '2023-07-03 18:04:33', NULL);
 COMMIT;
 
 -- ----------------------------
@@ -348,6 +352,8 @@ INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1671394657394753537, '添加-更新友情链接', '编辑友链信息', 'POST', '/admin/link/save', 1636182933754609665, '2023-06-21 13:50:35', '2023-06-21 05:52:36');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1671394657394753538, '获取指定友情链接信息', '根据友情链接ID获取到指定友请链接', 'GET', '/admin/link/getLinkById/**', 1636182933754609665, '2023-06-21 13:51:41', '2023-06-21 05:52:37');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1671394657394753539, '批量删除友情链接数据', '根据友情链接集合批量删除友情链接数据', 'DELETE', '/admin/link/delete', 1636182933754609665, '2023-06-21 13:52:23', '2023-06-21 05:52:39');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1675800348175892480, '获取操作日志信息', '分页查询操作日志信息', 'POST', '/admin/operate-log/list', 1636182933754609665, '2023-07-03 17:36:35', '2023-07-03 09:38:51');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1675800348175892481, '批量删除操作日志信息', '批量删除操作日志信息', 'DELETE', '/admin/operate-log/delete', 1636182933754609665, '2023-06-21 13:50:35', '2023-06-21 05:52:36');
 COMMIT;
 
 -- ----------------------------

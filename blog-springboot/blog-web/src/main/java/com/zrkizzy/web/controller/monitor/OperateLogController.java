@@ -6,7 +6,6 @@ import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.utils.BeanCopyUtil;
 import com.zrkizzy.data.domain.OperateLog;
-import com.zrkizzy.data.dto.OperateLogDTO;
 import com.zrkizzy.data.query.OperateLogQuery;
 import com.zrkizzy.data.vo.OperateLogVO;
 import com.zrkizzy.server.service.monitor.IOperateLogService;
@@ -40,13 +39,6 @@ public class OperateLogController {
         return Result.success(PageResult.<OperateLogVO>builder().total(operateLogPage.getTotal())
             // 操作日志集合
             .list(BeanCopyUtil.copyList(operateLogPage.getRecords(), OperateLogVO.class)).build());
-    }
-            
-    @ApiOperation("添加-更新操作日志") 
-    @PostMapping("/save") 
-    public Result<?> saveOperateLog(@RequestBody OperateLogDTO operateLogDTO) {
-        // 保存操作日志数据
-        return operateLogService.saveOperateLog(operateLogDTO); 
     }
 
     @ApiOperation("获取指定操作日志信息")
