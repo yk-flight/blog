@@ -2,7 +2,7 @@ package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zrkizzy.data.domain.User;
-import com.zrkizzy.data.vo.monitor.OptionsVO;
+import com.zrkizzy.common.base.response.OptionsVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

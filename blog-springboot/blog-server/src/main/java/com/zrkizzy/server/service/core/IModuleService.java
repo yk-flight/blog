@@ -1,6 +1,6 @@
 package com.zrkizzy.server.service.core;
 
-import com.zrkizzy.data.vo.monitor.OptionsVO;
+import com.zrkizzy.common.base.response.OptionsVO;
 
 import java.util.List;
 

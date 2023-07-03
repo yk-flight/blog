@@ -100,7 +100,7 @@
     </select>
 
     <!-- 用户选项 -->
-    <resultMap id="userOptions" type="com.zrkizzy.data.vo.monitor.OptionsVO">
+    <resultMap id="userOptions" type="com.zrkizzy.common.base.response.OptionsVO">
         <id column="id" property="value" />
         <result column="nickname" property="label" />
     </resultMap>

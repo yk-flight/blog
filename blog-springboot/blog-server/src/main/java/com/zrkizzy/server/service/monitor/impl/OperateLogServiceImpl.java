@@ -45,6 +45,10 @@ public class OperateLogServiceImpl implements IOperateLogService {
         if (null != operateLogQuery.getModuleId()) {
             queryWrapper.eq("module_id", operateLogQuery.getModuleId());
         }
+        // 用户ID
+        if (null != operateLogQuery.getUserId()) {
+            queryWrapper.eq("user_id", operateLogQuery.getUserId());
+        }
         // 操作类型
         if (null != operateLogQuery.getType()) {
             // 操作类型 0 其他操作，1 新增，2 修改， 3 删除， 4 查询

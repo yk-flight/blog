@@ -1,7 +1,7 @@
 package com.zrkizzy.web.controller.core;
 
 import com.zrkizzy.common.base.response.Result;
-import com.zrkizzy.data.vo.monitor.OptionsVO;
+import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.server.service.core.IModuleService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;

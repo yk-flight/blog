@@ -4,7 +4,7 @@
 <mapper namespace="com.zrkizzy.data.mapper.ModuleMapper">
 
     <!-- 模块选项 -->
-    <resultMap id="moduleOptions" type="com.zrkizzy.data.vo.monitor.OptionsVO">
+    <resultMap id="moduleOptions" type="com.zrkizzy.common.base.response.OptionsVO">
         <id column="id" property="value" />
         <result column="name" property="label" />
     </resultMap>

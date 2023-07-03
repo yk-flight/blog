@@ -1,7 +1,7 @@
 package com.zrkizzy.server.service.core.impl;
 
 import com.zrkizzy.data.mapper.ModuleMapper;
-import com.zrkizzy.data.vo.monitor.OptionsVO;
+import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.server.service.core.IModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
