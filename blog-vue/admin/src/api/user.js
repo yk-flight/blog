@@ -62,3 +62,13 @@ export const updatePassword = (data) => {
     data: data
   })
 }
+
+/**
+ * 获取用户选项数据
+ */
+export const listUserOptions = () => {
+  return request({
+    url: '/admin/user/listUserOptions',
+    method: 'GET'
+  })
+}

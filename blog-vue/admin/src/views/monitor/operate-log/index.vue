@@ -6,27 +6,62 @@
         <el-col :span="24" :xs="24">
           <el-form size="small" :inline="true" v-show="showSearch" label-width="68px" :model="queryParams" ref="queryForm">
 
-            <el-form-item label="模块ID">
-              <el-input v-model="queryParams.moduleId" class="search-item" placeholder="请输入模块ID" size="small" clearable></el-input>
+            <el-form-item label="操作模块">
+              <el-select v-model="queryParams.moduleId" placeholder="请选择操作模块" size="small" class="search-item" clearable>
+                <el-option
+                  v-for="item in moduleOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
 
             <el-form-item label="操作类型">
-              <el-input v-model="queryParams.type" class="search-item" placeholder="请输入操作类型" size="small" clearable></el-input>
+              <el-select v-model="queryParams.type" placeholder="请选择操作类型" size="small" class="search-item" clearable>
+                <el-option
+                  v-for="item in typeOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
 
             <el-form-item label="请求方式">
-              <el-input v-model="queryParams.requestMethod" class="search-item" placeholder="请输入请求方式" size="small" clearable></el-input>
+              <el-select v-model="queryParams.requestMethod" placeholder="请选择请求方式" size="small" class="search-item" clearable>
+                <el-option
+                  v-for="item in requestOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
 
-            <el-form-item label="用户ID">
-              <el-input v-model="queryParams.userId" class="search-item" placeholder="请输入用户ID" size="small" clearable></el-input>
+            <el-form-item label="操作用户">
+              <el-select v-model="queryParams.userId" placeholder="请选择操作用户" size="small" class="search-item" clearable>
+                <el-option
+                  v-for="item in userOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
 
             <el-form-item label="操作状态">
-              <el-input v-model="queryParams.status" class="search-item" placeholder="请输入操作状态" size="small" clearable></el-input>
+              <el-select v-model="queryParams.status" placeholder="请选择操作状态" size="small" class="search-item" clearable>
+                <el-option
+                  v-for="item in statusOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
-            <!-- 创建时间 -->
-            <el-form-item label="创建时间" size="small">
+            <!-- 操作时间 -->
+            <el-form-item label="操作时间" size="small">
               <el-date-picker
                 v-model="queryParams.dataRange"
                 class="search-item"
@@ -60,7 +95,15 @@
         <!-- 操作模块 -->
         <el-table-column prop="moduleId" label="操作模块" align="center" v-if="columns[0].visible"></el-table-column>
         <!-- 操作类型 -->
-        <el-table-column prop="type" label="操作类型" align="center" v-if="columns[1].visible"></el-table-column>
+        <el-table-column prop="type" label="操作类型" align="center" v-if="columns[1].visible">
+          <template slot-scope="scope">
+            <el-tag type="success" v-if="scope.row.type === 1">新增</el-tag>
+            <el-tag type="primary" v-else-if="scope.row.type == 2">修改</el-tag>
+            <el-tag type="danger" v-else-if="scope.row.type === 3">删除</el-tag>
+            <el-tag type="warning" v-else-if="scope.row.type === 4">查询</el-tag>
+            <el-tag type="info" v-else>其他操作</el-tag>
+          </template>
+        </el-table-column>
         <!-- 请求方式 -->
         <el-table-column prop="requestMethod" label="请求方式" align="center" v-if="columns[2].visible">
           <template slot-scope="scope">
@@ -92,7 +135,7 @@
         </el-table-column>
         <el-table-column label="操作"  align="center">
           <template slot-scope="scope">
-            <el-button type="text" size="small" icon="el-icon-edit" @click="handleUpdate(scope.row)">编辑</el-button>
+            <el-button type="text" size="small" icon="el-icon-view" @click="handleUpdate(scope.row)">查看</el-button>
             <el-button type="text" size="small" icon="el-icon-delete" @click="handleDelete(scope.row)">删除</el-button>
           </template>
         </el-table-column>
@@ -114,6 +157,8 @@ import PageTitle from '../../../components/PageTitle/index.vue'
 import Pagination from '../../../components/Pagination/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
 import { listOperateLogs, deleteOperateLog } from '../../../api/operateLog'
+import { listModuleOptions } from '../../../api/module'
+import { listUserOptions } from '../../../api/user'
 
 export default {
   name: 'OperateLog',
@@ -184,7 +229,64 @@ export default {
       // 单数据禁用
       multiple: true,
       // 对话框标题
-      operateLogTitle: ''
+      operateLogTitle: '',
+      // 操作状态选项
+      statusOptions: [
+        {
+          value: 1,
+          label: '成功'
+        },
+        {
+          value: 0,
+          label: '失败'
+        }
+      ],
+      // 请求方式选项
+      requestOptions: [
+        {
+          value: 'POST',
+          label: 'POST'
+        },
+        {
+          value: 'GET',
+          label: 'GET'
+        },
+        {
+          value: 'PUT',
+          label: 'PUT'
+        },
+        {
+          value: 'DELETE',
+          label: 'DELETE'
+        }
+      ],
+      // 操作方式选项
+      typeOptions: [
+        {
+          value: 0,
+          label: '其他操作'
+        },
+        {
+          value: 1,
+          label: '新增'
+        },
+        {
+          value: 2,
+          label: '修改'
+        },
+        {
+          value: 3,
+          label: '删除'
+        },
+        {
+          value: 4,
+          label: '查询'
+        }
+      ],
+      // 模块选项数据
+      moduleOptions: [],
+      // 用户选项数据
+      userOptions: []
     }
   },
 
@@ -197,6 +299,9 @@ export default {
   mounted () {
     // 赋值当前页面内容
     this.title = this.$route.meta.title
+    // 查询模块选项
+    this.listModuleOptions()
+    this.listUserOptions()
     // 查询表格数据
     this.getTableData()
   },
@@ -212,6 +317,19 @@ export default {
         this.total = res.total
         // 关闭等待框
         this.loading = false
+      })
+    },
+    // 查询模块选项数据
+    listModuleOptions () {
+      // 调用后端接口
+      listModuleOptions().then((res) => {
+        this.moduleOptions = res
+      })
+    },
+    // 查询用户选项数据
+    listUserOptions () {
+      listUserOptions().then((res) => {
+        this.userOptions = res
       })
     },
     // 点击查询按钮
@@ -230,6 +348,7 @@ export default {
       this.queryParams.userId = ''
       // 操作状态
       this.queryParams.status = ''
+      // 时间范围
       this.queryParams.dataRange = []
     },
     // 打开操作日志信息对话框
