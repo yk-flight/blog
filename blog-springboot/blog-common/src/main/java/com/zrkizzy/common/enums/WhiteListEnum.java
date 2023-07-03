@@ -32,7 +32,7 @@ public enum WhiteListEnum {
     /**
      * 用户登录操作
      */
-    LOGIN("/login"),
+    LOGIN("/login/**"),
     /**
      * 退出登录
      */
@@ -53,13 +53,28 @@ public enum WhiteListEnum {
      * @param url 当前请求的url
      * @return true：可放行路径，false：不可放行路径
      */
-    public static Boolean isWhileList(String url) {
+    public static Boolean isAccessUrl(String url) {
         for (WhiteListEnum value : WhiteListEnum.values()) {
             if (value.getUrl().equals(url) || url.startsWith(value.getUrl())) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * 获取系统白名单放行路径
+     *
+     * @return 白名单路径
+     */
+    public static String getAccessUrl() {
+        StringBuilder access = new StringBuilder();
+        for (WhiteListEnum value : WhiteListEnum.values()) {
+            access.append(value.getUrl()).append(",");
+        }
+        // 去除最后的，
+        access.deleteCharAt(access.length() - 1);
+        return access.toString();
     }
 
 }

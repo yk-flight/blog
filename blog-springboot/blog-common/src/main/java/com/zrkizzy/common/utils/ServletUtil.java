@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * @since 2023/6/20
  */
 @Component
-public class ServletUtils {
+public class ServletUtil {
 
     /**
      * 获取当前线程请求
