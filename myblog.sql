@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 29/06/2023 23:29:59
+ Date: 03/07/2023 16:49:27
 */
 
 SET NAMES utf8mb4;
@@ -131,6 +131,9 @@ INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `br
 INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1671396019532726272, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-06-21 13:53:59');
 INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1671426849940439040, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-06-21 15:56:29');
 INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1673540138623303680, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-06-27 11:53:56');
+INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1674787788773392384, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-06-30 22:31:39');
+INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1675738698500538368, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-03 13:30:14');
+INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1675772142186135552, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-03 15:43:07');
 COMMIT;
 
 -- ----------------------------
@@ -269,26 +272,26 @@ INSERT INTO `tb_module_role` (`id`, `module_id`, `role_id`, `create_time`, `upda
 COMMIT;
 
 -- ----------------------------
--- Table structure for tb_operate
+-- Table structure for tb_operate_log
 -- ----------------------------
-DROP TABLE IF EXISTS `tb_operate`;
-CREATE TABLE `tb_operate` (
+DROP TABLE IF EXISTS `tb_operate_log`;
+CREATE TABLE `tb_operate_log` (
   `id` bigint(20) NOT NULL COMMENT '主键',
-  `module_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '模块名称',
-  `type` tinyint(4) NOT NULL COMMENT '操作类型 0 其他操作，1 新增，2 修改， 3 删除',
+  `module_id` bigint(20) NOT NULL COMMENT '模块ID',
+  `type` tinyint(4) NOT NULL COMMENT '操作类型 0 其他操作，1 新增，2 修改， 3 删除， 4 查询',
   `method_name` varchar(100) DEFAULT NULL COMMENT '操作方法名称',
   `request_method` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '请求方式',
-  `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '操作用户ID',
+  `user_id` bigint(20) NOT NULL COMMENT '操作用户ID',
   `operate_ip` varchar(255) DEFAULT NULL COMMENT '操作IP',
   `operate_location` varchar(255) DEFAULT NULL COMMENT '操作地址',
   `operate_param` longtext COMMENT '操作参数',
   `operate_result` longtext COMMENT '操作结果描述',
-  `status` tinyint(4) NOT NULL COMMENT '操作状态 0 失败 1 成功',
+  `status` tinyint(4) NOT NULL COMMENT '操作状态 0 失败 1 成功 ',
   `cost_time` bigint(20) DEFAULT NULL COMMENT '操作消耗时间',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  KEY `idx_module` (`module_name`) USING BTREE COMMENT '模块名称索引',
+  KEY `idx_module` (`module_id`) USING BTREE COMMENT '模块名称索引',
   KEY `idx_type` (`type`) USING BTREE COMMENT '操作类型索引',
   KEY `idx_request` (`request_method`) USING BTREE COMMENT '操作方法类型索引',
   KEY `idx_user_id` (`user_id`) COMMENT '用户主键索引',
@@ -296,9 +299,10 @@ CREATE TABLE `tb_operate` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='操作日志表';
 
 -- ----------------------------
--- Records of tb_operate
+-- Records of tb_operate_log
 -- ----------------------------
 BEGIN;
+INSERT INTO `tb_operate_log` (`id`, `module_id`, `type`, `method_name`, `request_method`, `user_id`, `operate_ip`, `operate_location`, `operate_param`, `operate_result`, `status`, `cost_time`, `create_time`, `update_time`) VALUES (1675788338285510656, 1636182933754609665, 4, 'com.zrkizzy.web.controller.system.LinkController.listLinks', 'POST', 1653794265890816000, '0:0:0:0:0:0:0:1', '本地登录', '[{\"currentPage\":1,\"dataRange\":[],\"name\":\"\",\"pageSize\":10}]', '请求成功', 1, 217, '2023-07-03 16:47:29', NULL);
 COMMIT;
 
 -- ----------------------------
