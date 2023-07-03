@@ -14,6 +14,7 @@ import com.zrkizzy.data.dto.LoginDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
 import com.zrkizzy.data.dto.UserInfoDTO;
 import com.zrkizzy.data.mapper.UserMapper;
+import com.zrkizzy.data.vo.monitor.OptionsVO;
 import com.zrkizzy.security.util.SecurityUtil;
 import com.zrkizzy.security.util.UserDetailUtil;
 import com.zrkizzy.server.service.core.IUserInfoService;
@@ -259,6 +260,16 @@ public class UserServiceImpl implements IUserService {
         redisService.set(USER_PREFIX + user.getUsername(), user, expire);
         // 将头像返回
         return Result.success(avatarDTO.getSrc());
+    }
+
+    /**
+     * 获取用户选项集合
+     *
+     * @return 获取用户选项集合
+     */
+    @Override
+    public List<OptionsVO> listUserOptions() {
+        return userMapper.listUserOptions();
     }
 
 }

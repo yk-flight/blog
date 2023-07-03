@@ -6,10 +6,11 @@ import com.zrkizzy.data.domain.User;
 import com.zrkizzy.data.dto.AvatarDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
 import com.zrkizzy.data.dto.UserInfoDTO;
-import com.zrkizzy.security.util.SecurityUtil;
-import com.zrkizzy.server.service.core.IUserService;
 import com.zrkizzy.data.vo.UserInfoVO;
 import com.zrkizzy.data.vo.UserVO;
+import com.zrkizzy.data.vo.monitor.OptionsVO;
+import com.zrkizzy.security.util.SecurityUtil;
+import com.zrkizzy.server.service.core.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +77,11 @@ public class UserController {
     @PostMapping("/list")
     public List<UserVO> listUsers() {
         return BeanCopyUtil.copyList(userService.listUsers(), UserVO.class);
+    }
+
+    @ApiOperation("获取用户选项")
+    @GetMapping("/listUserOptions")
+    public Result<List<OptionsVO>> listUserOptions() {
+        return Result.success(userService.listUserOptions());
     }
 }

@@ -7,6 +7,7 @@ import com.zrkizzy.data.dto.LoginDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
 import com.zrkizzy.data.dto.UserInfoDTO;
 import com.zrkizzy.data.vo.UserInfoVO;
+import com.zrkizzy.data.vo.monitor.OptionsVO;
 
 import java.util.List;
 
@@ -62,4 +63,11 @@ public interface IUserService {
      * @return 用户头像访问路径
      */
     Result<String> updateLoginUserAvatar(AvatarDTO avatarDTO);
+
+    /**
+     * 获取用户选项集合
+     *
+     * @return 获取用户选项集合
+     */
+    List<OptionsVO> listUserOptions();
 }

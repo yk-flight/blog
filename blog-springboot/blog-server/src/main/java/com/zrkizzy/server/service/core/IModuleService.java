@@ -1,18 +1,16 @@
-package com.zrkizzy.data.mapper;
+package com.zrkizzy.server.service.core;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zrkizzy.data.domain.Module;
 import com.zrkizzy.data.vo.monitor.OptionsVO;
 
 import java.util.List;
 
 /**
- * 模块数据持久化接口
+ * 请求模块业务逻辑接口
  *
  * @author zhangrongkang
- * @since 2023/3/16
+ * @since 2023/7/3
  */
-public interface ModuleMapper extends BaseMapper<Module> {
+public interface IModuleService {
 
     /**
      * 获取模块选项集合

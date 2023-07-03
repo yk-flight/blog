@@ -3,4 +3,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zrkizzy.data.mapper.ModuleMapper">
 
+    <!-- 模块选项 -->
+    <resultMap id="moduleOptions" type="com.zrkizzy.data.vo.monitor.OptionsVO">
+        <id column="id" property="value" />
+        <result column="name" property="label" />
+    </resultMap>
+
+    <!-- 获取模块选项集合 -->
+    <select id="listModuleOptions" resultMap="moduleOptions">
+        SELECT id, name FROM tb_module;
+    </select>
+
 </mapper>

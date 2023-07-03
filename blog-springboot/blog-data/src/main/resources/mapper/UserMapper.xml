@@ -99,6 +99,17 @@
             u.id = #{userId}
     </select>
 
+    <!-- 用户选项 -->
+    <resultMap id="userOptions" type="com.zrkizzy.data.vo.monitor.OptionsVO">
+        <id column="id" property="value" />
+        <result column="nickname" property="label" />
+    </resultMap>
+
+    <!-- 获取用户选项集合 -->
+    <select id="listUserOptions" resultMap="userOptions">
+        SELECT id, nickname FROM tb_user;
+    </select>
+
     <!-- 更新用户头像 -->
     <update id="updateUserAvatar">
         UPDATE tb_user SET avatar = #{src} WHERE id = #{userId}
