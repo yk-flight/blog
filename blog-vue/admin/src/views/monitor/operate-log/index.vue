@@ -300,8 +300,7 @@ export default {
     // 赋值当前页面内容
     this.title = this.$route.meta.title
     // 查询模块选项
-    this.listModuleOptions()
-    this.listUserOptions()
+    this.listOptions()
     // 查询表格数据
     this.getTableData()
   },
@@ -320,14 +319,11 @@ export default {
       })
     },
     // 查询模块选项数据
-    listModuleOptions () {
+    listOptions () {
       // 调用后端接口
       listModuleOptions().then((res) => {
         this.moduleOptions = res
       })
-    },
-    // 查询用户选项数据
-    listUserOptions () {
       listUserOptions().then((res) => {
         this.userOptions = res
       })

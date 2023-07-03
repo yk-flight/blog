@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 03/07/2023 23:06:44
+ Date: 03/07/2023 23:25:10
 */
 
 SET NAMES utf8mb4;
@@ -171,7 +171,7 @@ INSERT INTO `tb_menu` VALUES (1651217423560343557, '用户管理', 1652313423859
 INSERT INTO `tb_menu` VALUES (1651217423560343558, '公告管理', 1647951751875133441, 'notice', 'website/notice/index', 0, 0, 0, 'email', 7, '2023-04-26 21:33:29', '2023-04-26 13:53:49');
 INSERT INTO `tb_menu` VALUES (1651217423560343559, '字典管理', 1652313423859417088, 'dictionary', 'system/dictionary/index', 0, 0, 0, 'dict', 8, '2023-04-26 21:33:29', '2023-04-29 14:11:32');
 INSERT INTO `tb_menu` VALUES (1651217423560343560, '菜单管理', 1652313423859417088, 'menu', 'system/menu/index', 0, 0, 0, 'menu', 9, '2023-04-26 21:33:29', '2023-04-29 14:11:25');
-INSERT INTO `tb_menu` VALUES (1651217423560343561, '关于我', 1647951751875133441, 'about', 'website/about/index', 0, 0, 0, 'edit', 10, '2023-04-26 21:33:29', '2023-04-26 13:52:41');
+INSERT INTO `tb_menu` VALUES (1651217423560343561, '网站配置', 1647951751875133441, 'config', 'website/config/index', 0, 0, 0, 'edit', 10, '2023-04-26 21:33:29', '2023-07-03 23:23:03');
 INSERT INTO `tb_menu` VALUES (1651227500568641536, '系统监控', 0, 'monitor', NULL, 0, 0, 0, 'monitor', 4, '2023-04-26 22:15:11', '2023-04-29 14:07:25');
 INSERT INTO `tb_menu` VALUES (1651227500568641537, '在线用户', 1651227500568641536, 'online', 'monitor/online/index', 0, 0, 0, 'online', 1, '2023-04-26 22:15:55', '2023-04-26 14:21:40');
 INSERT INTO `tb_menu` VALUES (1651227500568641538, '服务监控', 1651227500568641536, 'server', 'monitor/server/index', 0, 0, 0, 'server', 2, '2023-04-26 22:16:24', '2023-04-26 14:21:47');
@@ -291,6 +291,7 @@ CREATE TABLE `tb_operate_log`  (
 INSERT INTO `tb_operate_log` VALUES (1675788338285510656, 1636182933754609665, 4, 'com.zrkizzy.web.controller.system.LinkController.listLinks', 'POST', 1653794265890816000, '0:0:0:0:0:0:0:1', '本地登录', '[{\"currentPage\":1,\"dataRange\":[],\"name\":\"\",\"pageSize\":10}]', '请求成功', 1, 217, '2023-07-03 16:47:29', NULL);
 INSERT INTO `tb_operate_log` VALUES (1675807664149364736, 1636182933754609665, 4, 'com.zrkizzy.web.controller.system.LinkController.listLinks', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"currentPage\":1,\"dataRange\":[],\"pageSize\":10}]', '请求成功', 1, 62, '2023-07-03 18:04:17', NULL);
 INSERT INTO `tb_operate_log` VALUES (1675807733124694016, 1636182933754609665, 4, 'com.zrkizzy.web.controller.system.LinkController.listLinks', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"currentPage\":1,\"dataRange\":[],\"pageSize\":10}]', '请求成功', 1, 55, '2023-07-03 18:04:33', NULL);
+INSERT INTO `tb_operate_log` VALUES (1675884823312334848, 1636182933754609665, 4, 'com.zrkizzy.web.controller.system.LinkController.listLinks', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"currentPage\":1,\"dataRange\":[],\"pageSize\":10}]', '请求成功', 1, 26, '2023-07-03 23:10:53', NULL);
 
 -- ----------------------------
 -- Table structure for tb_resource
