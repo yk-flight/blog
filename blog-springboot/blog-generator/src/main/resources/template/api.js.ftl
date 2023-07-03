@@ -37,7 +37,7 @@ export const get${entityName}ById = (id) => {
  */
 export const delete${entityName} = (data) => {
   return request({
-    url: '/admin/${entityLowerName}/delete',
+    url: '/admin/${mapping}/delete',
     method: 'DELETE',
     data: data
   })

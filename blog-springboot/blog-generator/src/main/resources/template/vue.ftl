@@ -8,7 +8,7 @@
             <#list fieldList as field>
               <#if !field.isNull>
 
-            <el-form-item label="${objectName}名称">
+            <el-form-item label="${field.comment}">
               <el-input v-model="queryParams.${field.javaName}" class="search-item" placeholder="请输入${field.comment}" size="small" clearable></el-input>
             </el-form-item>
               </#if>
@@ -343,7 +343,7 @@ export default {
         <#list fieldList as field>
           <#if !field.isNull>
         // ${field.comment}
-        ${field.javaName}: undefined
+        ${field.javaName}: undefined,
           </#if>
         </#list>
       }
