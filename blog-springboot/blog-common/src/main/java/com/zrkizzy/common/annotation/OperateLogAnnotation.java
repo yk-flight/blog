@@ -11,16 +11,11 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface OperateAnnotation {
+public @interface OperateLogAnnotation {
 
     /**
-     * 操作模块
+     * 操作类型 0 其他操作，1 新增，2 修改， 3 删除， 4 查询
      */
-    String module() default "";
-
-    /**
-     * 操作类型 0 其他操作，1 新增，2 修改， 3 删除
-     */
-    String type() default "0";
+    String type() default "4";
 
 }

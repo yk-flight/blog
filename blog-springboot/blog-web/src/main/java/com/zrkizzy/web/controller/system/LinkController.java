@@ -1,6 +1,7 @@
 package com.zrkizzy.web.controller.system;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zrkizzy.common.annotation.OperateLogAnnotation;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.HttpStatusEnum;
@@ -31,6 +32,7 @@ public class LinkController {
      @Autowired
      private ILinkService linkService;
 
+    @OperateLogAnnotation
     @ApiOperation("获取所有友情链接")
     @PostMapping("/list")
     public Result<PageResult<LinkVO>> listLinks(@RequestBody LinkQuery linkQuery) {
@@ -43,7 +45,7 @@ public class LinkController {
     }
             
     @ApiOperation("添加-更新友情链接") 
-    @PostMapping("/save") 
+    @PostMapping("/save")
     public Result<?> saveLink(@RequestBody LinkDTO linkDTO) {
         // 保存友情链接数据
         return linkService.saveLink(linkDTO); 

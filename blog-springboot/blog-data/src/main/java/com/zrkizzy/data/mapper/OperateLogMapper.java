@@ -1,7 +1,7 @@
 package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zrkizzy.data.domain.Operate;
+import com.zrkizzy.data.domain.OperateLog;
 
 /**
  * <p>
@@ -9,8 +9,8 @@ import com.zrkizzy.data.domain.Operate;
  * </p>
  *
  * @author zhangrongkang
- * @since 2023/6/26
+ * @since 2023/7/3
  */
-public interface OperateMapper extends BaseMapper<Operate> {
+public interface OperateLogMapper extends BaseMapper<OperateLog> {
 
 }

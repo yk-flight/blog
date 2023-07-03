@@ -1,28 +1,30 @@
-package com.zrkizzy.data.vo;
+package com.zrkizzy.data.dto;
 
-import com.zrkizzy.common.base.response.BaseVO;
+import com.zrkizzy.common.base.BaseDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+
 /**
- * 操作日志数据返回对象
+ * 操作日志数据传输对象
  *
  * @author zhangrongkang
- * @since 2023/6/26
+ * @since 2023/7/3
  */
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
-public class OperateVO extends BaseVO {
+public class OperateLogDTO extends BaseDTO {
+
 
     /**
-     * 模块名称
+     * 模块ID
      */
-    private String moduleName;
+    private Long moduleId;
 
     /**
-     * 操作类型 0 其他操作，1 新增，2 修改， 3 删除
+     * 操作类型 0 其他操作，1 新增，2 修改， 3 删除， 4 查询
      */
     private Byte type;
 
@@ -39,7 +41,7 @@ public class OperateVO extends BaseVO {
     /**
      * 操作用户ID
      */
-    private String userId;
+    private Long userId;
 
     /**
      * 操作IP
@@ -62,7 +64,7 @@ public class OperateVO extends BaseVO {
     private String operateResult;
 
     /**
-     * 操作状态 0 失败 1 成功
+     * 操作状态 0 失败 1 成功 
      */
     private Boolean status;
 

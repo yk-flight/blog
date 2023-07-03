@@ -13,27 +13,27 @@ import java.io.Serial;
  * 操作日志实体类
  *
  * @author zhangrongkang
- * @since 2023/6/26
+ * @since 2023/7/3
  */
 @Data
-@TableName("tb_operate")
+@TableName("tb_operate_log")
 @ApiModel(value="操作日志对象")
 @EqualsAndHashCode(callSuper = false)
-public class Operate extends BaseEntity {
+public class OperateLog extends BaseEntity {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     /**
-     * 模块名称
+     * 模块ID
      */
-    @ApiModelProperty(value = "模块名称")
-    private String moduleName;
+    @ApiModelProperty(value = "模块ID")
+    private Long moduleId;
 
     /**
-     * 操作类型 0 其他操作，1 新增，2 修改， 3 删除
+     * 操作类型 0 其他操作，1 新增，2 修改， 3 删除， 4 查询
      */
-    @ApiModelProperty(value = "操作类型 0 其他操作，1 新增，2 修改， 3 删除")
+    @ApiModelProperty(value = "操作类型 0 其他操作， 1 新增， 2 修改， 3 删除， 4 查询")
     private Byte type;
 
     /**
@@ -52,7 +52,7 @@ public class Operate extends BaseEntity {
      * 操作用户ID
      */
     @ApiModelProperty(value = "操作用户ID")
-    private String userId;
+    private Long userId;
 
     /**
      * 操作IP
@@ -79,9 +79,9 @@ public class Operate extends BaseEntity {
     private String operateResult;
 
     /**
-     * 操作状态 0 失败 1 成功
+     * 操作状态 0 失败 1 成功 
      */
-    @ApiModelProperty(value = "操作状态 0 失败 1 成功")
+    @ApiModelProperty(value = "操作状态 0 失败 1 成功 ")
     private Boolean status;
 
     /**
