@@ -59,7 +59,7 @@ public class DbUtil {
                 // Java名称
                 String javaName = lineToHump(field);
                 // 全参构造
-                Field entity = new Field(field, type, comment, isNull, javaType, javaName, lineToUpHump(javaName));
+                Field entity = new Field(field, type, comment, isNull, javaType, javaName, lineToUpHump(field));
                 // 添加当前对象
                 list.add(entity);
             }
@@ -231,6 +231,10 @@ public class DbUtil {
         if (null != resultSet) {
             resultSet.close();
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(lineToUpHump("request_method"));
     }
 
 }
