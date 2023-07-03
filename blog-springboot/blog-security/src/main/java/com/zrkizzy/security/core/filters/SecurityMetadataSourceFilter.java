@@ -1,5 +1,6 @@
 package com.zrkizzy.security.core.filters;
 
+import com.zrkizzy.common.context.SystemContext;
 import com.zrkizzy.data.dto.ResourceRoleDTO;
 import com.zrkizzy.security.service.DynamicSecurityService;
 import lombok.extern.slf4j.Slf4j;
@@ -69,6 +70,8 @@ public class SecurityMetadataSourceFilter implements FilterInvocationSecurityMet
             log.info("校验的请求方式为：{}，校验请求的路径为：{}", resourceRoleDTO.getMethod(), resourceRoleDTO.getUrl());
             // 如果请求路径与请求方法一致则进行权限添加操作
             if (antPathMatcher.match(resourceRoleDTO.getUrl(), requestUrl) && resourceRoleDTO.getMethod().equals(method)) {
+                // 将当前请求的模块ID添加到全局线程变量中
+                SystemContext.setModuleId(resourceRoleDTO.getModuleId());
                 log.info("开始对当前请求：{} 进行授权", resourceRoleDTO.getUrl());
                 log.info("授予的角色集合为： {}", Arrays.toString(resourceRoleDTO.getRoles().toArray()));
                 return SecurityConfig.createList(resourceRoleDTO.getRoles().toArray(new String[]{}));

@@ -25,6 +25,11 @@ public class ResourceRoleDTO implements Serializable {
     private String method;
 
     /**
+     * 所属模块ID
+     */
+    private Long moduleId;
+
+    /**
      * 当前资源请求对应角色
      */
     private List<String> roles;

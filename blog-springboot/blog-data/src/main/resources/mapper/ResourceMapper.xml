@@ -19,6 +19,7 @@
     <resultMap id="ResourceRoles" type="com.zrkizzy.data.dto.ResourceRoleDTO">
         <result property="url" column="url" />
         <result property="method" column="method" />
+        <result property="moduleId" column="moduleId" />
         <collection property="roles" ofType="java.lang.String">
             <result column="roleMark" />
         </collection>
@@ -29,6 +30,7 @@
         SELECT
             res.method AS method,
             res.url AS url,
+            res.module_id AS moduleId,
             r.mark AS roleMark
         FROM
             tb_resource res

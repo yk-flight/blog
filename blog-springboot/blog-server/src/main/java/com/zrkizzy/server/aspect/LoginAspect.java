@@ -4,10 +4,9 @@ import cn.hutool.json.JSONUtil;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.constant.CommonConst;
 import com.zrkizzy.common.enums.HttpStatusEnum;
-import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.utils.IpUtil;
 import com.zrkizzy.common.utils.JsonUtil;
-import com.zrkizzy.common.utils.ServletUtils;
+import com.zrkizzy.common.utils.ServletUtil;
 import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.data.domain.LoginInfo;
 import com.zrkizzy.data.dto.LoginDTO;
@@ -119,7 +118,7 @@ public class LoginAspect {
                 loginInfo.setStatus(Boolean.FALSE);
             }
             // 获取请求和响应
-            HttpServletRequest request = ServletUtils.getRequest();
+            HttpServletRequest request = ServletUtil.getRequest();
             // 登录IP
             String ip = IpUtil.getIpAddress(request);
             loginInfo.setLoginIp(ip);
@@ -142,8 +141,6 @@ public class LoginAspect {
             loginInfoMapper.insert(loginInfo);
         } catch (Exception exp) {
             exp.printStackTrace();
-            // 抛出业务逻辑异常
-            throw new BusinessException();
         } finally {
             // 移除当前线程中的变量
             TIME_THREAD_LOCAL.remove();
