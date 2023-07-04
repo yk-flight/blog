@@ -12,11 +12,11 @@ export const listOperateLogs = (data) => {
 }
 
 /**
- * 获取指定操作日志信息
+ * 清空所有操作日志信息
  */
-export const getOperateLogById = (id) => {
+export const clearOperateLogs = () => {
   return request({
-    url: `/admin/operate-log/getOperateLogById/${id}`,
+    url: '/admin/operate-log/clear',
     method: 'GET'
   })
 }
