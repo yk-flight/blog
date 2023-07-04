@@ -66,22 +66,22 @@
             o.user_id = u.id
 
             <if test="null != operateLogQuery.moduleId">
-                AND m.module_id = #{operateLogQuery.moduleId}
+                AND o.module_id = #{operateLogQuery.moduleId}
             </if>
             <if test="null != operateLogQuery.userId">
-                AND m.user_id = #{operateLogQuery.userId}
+                AND o.user_id = #{operateLogQuery.userId}
             </if>
             <if test="null != operateLogQuery.type">
-                AND m.type = #{operateLogQuery.type}
+                AND o.type = #{operateLogQuery.type}
             </if>
             <if test="null != operateLogQuery.type and '' != operateLogQuery.requestMethod">
-                AND m.request_method = #{operateLogQuery.requestMethod}
+                AND o.request_method = #{operateLogQuery.requestMethod}
             </if>
             <if test="null != operateLogQuery.status">
-                AND m.status = #{operateLogQuery.status}
+                AND o.status = #{operateLogQuery.status}
             </if>
             <if test="null != operateLogQuery.dataRange and 2 == operateLogQuery.dataRange.size">
-                AND m.create_time BETWEEN #{operateLogQuery.dataRange[0]} AND #{operateLogQuery.dataRange[1]}
+                AND o.create_time BETWEEN #{operateLogQuery.dataRange[0]} AND #{operateLogQuery.dataRange[1]}
             </if>
     </select>
 </mapper>
