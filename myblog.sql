@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 04/07/2023 22:37:21
+ Date: 04/07/2023 23:05:46
 */
 
 SET NAMES utf8mb4;
@@ -290,6 +290,7 @@ CREATE TABLE `tb_operate_log`  (
 -- ----------------------------
 -- Records of tb_operate_log
 -- ----------------------------
+INSERT INTO `tb_operate_log` VALUES (1676238846687182848, 1636182933754609665, 4, 'com.zrkizzy.web.controller.system.LinkController.listLinks()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"currentPage\":1,\"dataRange\":[],\"pageSize\":10}]', 'Result(code=200, message=请求成功, data={list=[{website=https://banq.ink/, introduce=Semisunny, updateTime=1687331851000, createTime=1687330423000, name=半晴Miko, logo=https://www.static.banq.ink/sunnyBlog/avatar/fcc72d35fc928185c3e70773a29a310f.jpg, id=1671411053646315520}], total=1})', 1, 46, '2023-07-04 22:37:39', NULL);
 
 -- ----------------------------
 -- Table structure for tb_resource

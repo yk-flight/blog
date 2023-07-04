@@ -6,24 +6,16 @@
         <el-col :span="24" :xs="24">
           <el-form size="small" :inline="true" v-show="showSearch" label-width="68px" :model="queryParams" ref="queryForm">
             
-            <el-form-item label="模块ID">
-              <el-input v-model="queryParams.moduleId" class="search-item" placeholder="请输入模块ID" size="small" clearable></el-input>
+            <el-form-item label="登录用户名称">
+              <el-input v-model="queryParams.username" class="search-item" placeholder="请输入登录用户名称" size="small" clearable></el-input>
             </el-form-item>
 
-            <el-form-item label="操作类型">
-              <el-input v-model="queryParams.type" class="search-item" placeholder="请输入操作类型" size="small" clearable></el-input>
+            <el-form-item label="登录状态：0 失败; 1 成功">
+              <el-input v-model="queryParams.status" class="search-item" placeholder="请输入登录状态：0 失败; 1 成功" size="small" clearable></el-input>
             </el-form-item>
 
-            <el-form-item label="请求方式">
-              <el-input v-model="queryParams.requestMethod" class="search-item" placeholder="请输入请求方式" size="small" clearable></el-input>
-            </el-form-item>
-
-            <el-form-item label="操作用户ID">
-              <el-input v-model="queryParams.userId" class="search-item" placeholder="请输入操作用户ID" size="small" clearable></el-input>
-            </el-form-item>
-
-            <el-form-item label="操作状态">
-              <el-input v-model="queryParams.status" class="search-item" placeholder="请输入操作状态" size="small" clearable></el-input>
+            <el-form-item label="登录时间">
+              <el-input v-model="queryParams.loginTime" class="search-item" placeholder="请输入登录时间" size="small" clearable></el-input>
             </el-form-item>
             <!-- 创建时间 -->
             <el-form-item label="创建时间" size="small">
@@ -65,34 +57,28 @@
           <el-empty :image-size="200"></el-empty>
         </template>
         <el-table-column type="selection" width="50" align="center" />
-        <!-- 模块ID -->
-        <el-table-column prop="moduleId" label="模块ID" align="center" v-if="columns[0].visible"></el-table-column>
-        <!-- 操作类型 -->
-        <el-table-column prop="type" label="操作类型" align="center" v-if="columns[1].visible"></el-table-column>
-        <!-- 操作方法名称 -->
-        <el-table-column prop="methodName" label="操作方法名称" align="center" v-if="columns[2].visible"></el-table-column>
-        <!-- 请求方式 -->
-        <el-table-column prop="requestMethod" label="请求方式" align="center" v-if="columns[3].visible"></el-table-column>
-        <!-- 操作用户ID -->
-        <el-table-column prop="userId" label="操作用户ID" align="center" v-if="columns[4].visible"></el-table-column>
-        <!-- 操作IP -->
-        <el-table-column prop="operateIp" label="操作IP" align="center" v-if="columns[5].visible"></el-table-column>
-        <!-- 操作地址 -->
-        <el-table-column prop="operateLocation" label="操作地址" align="center" v-if="columns[6].visible"></el-table-column>
-        <!-- 操作参数 -->
-        <el-table-column prop="operateParam" label="操作参数" align="center" v-if="columns[7].visible"></el-table-column>
-        <!-- 操作结果描述 -->
-        <el-table-column prop="operateResult" label="操作结果描述" align="center" v-if="columns[8].visible"></el-table-column>
-        <!-- 操作状态 -->
-        <el-table-column prop="status" label="操作状态" align="center" v-if="columns[9].visible"></el-table-column>
-        <!-- 操作消耗时间 -->
-        <el-table-column prop="costTime" label="操作消耗时间" align="center" v-if="columns[10].visible"></el-table-column>
-        <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[11].visible">
+        <!-- 登录用户名称 -->
+        <el-table-column prop="username" label="登录用户名称" align="center" v-if="columns[0].visible"></el-table-column>
+        <!-- 登录IP -->
+        <el-table-column prop="loginIp" label="登录IP" align="center" v-if="columns[1].visible"></el-table-column>
+        <!-- 登录位置 -->
+        <el-table-column prop="loginLocation" label="登录位置" align="center" v-if="columns[2].visible"></el-table-column>
+        <!-- 浏览器版本 -->
+        <el-table-column prop="browser" label="浏览器版本" align="center" v-if="columns[3].visible"></el-table-column>
+        <!-- 操作系统 -->
+        <el-table-column prop="os" label="操作系统" align="center" v-if="columns[4].visible"></el-table-column>
+        <!-- 登录状态：0 失败; 1 成功 -->
+        <el-table-column prop="status" label="登录状态：0 失败; 1 成功" align="center" v-if="columns[5].visible"></el-table-column>
+        <!-- 登录消息提示 -->
+        <el-table-column prop="message" label="登录消息提示" align="center" v-if="columns[6].visible"></el-table-column>
+        <!-- 登录时间 -->
+        <el-table-column prop="loginTime" label="登录时间" align="center" v-if="columns[7].visible"></el-table-column>
+        <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[8].visible">
           <template slot-scope="scope">
             <span>{{ scope.row.createTime | dateFilter }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="updateTime" label="更新时间" align="center" v-if="columns[12].visible">
+        <el-table-column prop="updateTime" label="更新时间" align="center" v-if="columns[9].visible">
           <template slot-scope="scope">
             <span>{{ scope.row.updateTime | dateFilter }}</span>
           </template>
@@ -115,61 +101,49 @@
       />
     </div>
 
-    <!-- 操作日志信息对话框 -->
+    <!-- 用户登录信息信息对话框 -->
     <el-dialog
-      :title="operateLogTitle"
+      :title="loginInfoTitle"
       width="500px"
       :modal-append-to-body="true"
       :append-to-body="true"
       :close-on-click-modal="false"
-      :visible="operateLogVisible"
+      :visible="loginInfoVisible"
       :before-close="handleClose">
-      <div class="operateLog-wrapper" v-loading="operateLogLoading" element-loading-text="正在加载操作日志信息">
-        <el-form ref="operateLogForm" :model="formData" :rules="rules" label-width="80px" label-position="right">
+      <div class="loginInfo-wrapper" v-loading="loginInfoLoading" element-loading-text="正在加载用户登录信息信息">
+        <el-form ref="loginInfoForm" :model="formData" :rules="rules" label-width="80px" label-position="right">
           <el-row :gutter="15">
-            <!-- 模块ID -->
-            <el-form-item label="模块ID" prop="moduleId">
-              <el-input v-model="formData.moduleId" placeholder="请输入模块ID" clearable></el-input>
+            <!-- 登录用户名称 -->
+            <el-form-item label="登录用户名称" prop="username">
+              <el-input v-model="formData.username" placeholder="请输入登录用户名称" clearable></el-input>
             </el-form-item>
-            <!-- 操作类型 -->
-            <el-form-item label="操作类型" prop="type">
-              <el-input v-model="formData.type" placeholder="请输入操作类型" clearable></el-input>
+            <!-- 登录IP -->
+            <el-form-item label="登录IP" prop="loginIp">
+              <el-input v-model="formData.loginIp" placeholder="请输入登录IP" clearable></el-input>
             </el-form-item>
-            <!-- 操作方法名称 -->
-            <el-form-item label="操作方法名称" prop="methodName">
-              <el-input v-model="formData.methodName" placeholder="请输入操作方法名称" clearable></el-input>
+            <!-- 登录位置 -->
+            <el-form-item label="登录位置" prop="loginLocation">
+              <el-input v-model="formData.loginLocation" placeholder="请输入登录位置" clearable></el-input>
             </el-form-item>
-            <!-- 请求方式 -->
-            <el-form-item label="请求方式" prop="requestMethod">
-              <el-input v-model="formData.requestMethod" placeholder="请输入请求方式" clearable></el-input>
+            <!-- 浏览器版本 -->
+            <el-form-item label="浏览器版本" prop="browser">
+              <el-input v-model="formData.browser" placeholder="请输入浏览器版本" clearable></el-input>
             </el-form-item>
-            <!-- 操作用户ID -->
-            <el-form-item label="操作用户ID" prop="userId">
-              <el-input v-model="formData.userId" placeholder="请输入操作用户ID" clearable></el-input>
+            <!-- 操作系统 -->
+            <el-form-item label="操作系统" prop="os">
+              <el-input v-model="formData.os" placeholder="请输入操作系统" clearable></el-input>
             </el-form-item>
-            <!-- 操作IP -->
-            <el-form-item label="操作IP" prop="operateIp">
-              <el-input v-model="formData.operateIp" placeholder="请输入操作IP" clearable></el-input>
+            <!-- 登录状态：0 失败; 1 成功 -->
+            <el-form-item label="登录状态：0 失败; 1 成功" prop="status">
+              <el-input v-model="formData.status" placeholder="请输入登录状态：0 失败; 1 成功" clearable></el-input>
             </el-form-item>
-            <!-- 操作地址 -->
-            <el-form-item label="操作地址" prop="operateLocation">
-              <el-input v-model="formData.operateLocation" placeholder="请输入操作地址" clearable></el-input>
+            <!-- 登录消息提示 -->
+            <el-form-item label="登录消息提示" prop="message">
+              <el-input v-model="formData.message" placeholder="请输入登录消息提示" clearable></el-input>
             </el-form-item>
-            <!-- 操作参数 -->
-            <el-form-item label="操作参数" prop="operateParam">
-              <el-input v-model="formData.operateParam" placeholder="请输入操作参数" clearable></el-input>
-            </el-form-item>
-            <!-- 操作结果描述 -->
-            <el-form-item label="操作结果描述" prop="operateResult">
-              <el-input v-model="formData.operateResult" placeholder="请输入操作结果描述" clearable></el-input>
-            </el-form-item>
-            <!-- 操作状态 -->
-            <el-form-item label="操作状态" prop="status">
-              <el-input v-model="formData.status" placeholder="请输入操作状态" clearable></el-input>
-            </el-form-item>
-            <!-- 操作消耗时间 -->
-            <el-form-item label="操作消耗时间" prop="costTime">
-              <el-input v-model="formData.costTime" placeholder="请输入操作消耗时间" clearable></el-input>
+            <!-- 登录时间 -->
+            <el-form-item label="登录时间" prop="loginTime">
+              <el-input v-model="formData.loginTime" placeholder="请输入登录时间" clearable></el-input>
             </el-form-item>
           </el-row>
         </el-form>
@@ -199,10 +173,10 @@
 import PageTitle from '../../../components/PageTitle/index.vue'
 import Pagination from '../../../components/Pagination/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
-import { listOperateLogs, saveOperateLog, getOperateLogById, deleteOperateLog } from '../../../api/operateLog'
+import { listLoginInfos, saveLoginInfo, getLoginInfoById, deleteLoginInfo } from '../../../api/loginInfo'
 
 export default {
-  name: 'OperateLog',
+  name: 'LoginInfo',
 
   components: { PageTitle, Pagination, RightToolbar },
 
@@ -214,8 +188,8 @@ export default {
       showSearch: true,
       // 数据总条数
       total: 0,
-      // 操作日志对话框是否显示
-      operateLogVisible: false,
+      // 用户登录信息对话框是否显示
+      loginInfoVisible: false,
       // 数据表格等待框
       loading: false,
       // 查询参数
@@ -224,87 +198,67 @@ export default {
         currentPage: 1,
         // 页面大小
         pageSize: 10,
-        // 模块ID
-        moduleId: undefined,
-        // 操作类型
-        type: undefined,
-        // 请求方式
-        requestMethod: undefined,
-        // 操作用户ID
-        userId: undefined,
-        // 操作状态
+        // 登录用户名称
+        username: undefined,
+        // 登录状态：0 失败; 1 成功
         status: undefined,
+        // 登录时间
+        loginTime: undefined,
         // 时间范围
         dataRange: []
       },
-      // 操作日志表单对象
+      // 用户登录信息表单对象
       formData: {
-        // 模块ID
-        moduleId: undefined,
-        // 操作类型
-        type: undefined,
-        // 操作方法名称
-        methodName: undefined,
-        // 请求方式
-        requestMethod: undefined,
-        // 操作用户ID
-        userId: undefined,
-        // 操作IP
-        operateIp: undefined,
-        // 操作地址
-        operateLocation: undefined,
-        // 操作参数
-        operateParam: undefined,
-        // 操作结果描述
-        operateResult: undefined,
-        // 操作状态
+        // 登录用户名称
+        username: undefined,
+        // 登录IP
+        loginIp: undefined,
+        // 登录位置
+        loginLocation: undefined,
+        // 浏览器版本
+        browser: undefined,
+        // 操作系统
+        os: undefined,
+        // 登录状态：0 失败; 1 成功
         status: undefined,
-        // 操作消耗时间
-        costTime: undefined,
+        // 登录消息提示
+        message: undefined,
+        // 登录时间
+        loginTime: undefined,
       },
-      // 操作日志表单校验规则
+      // 用户登录信息表单校验规则
       rules: {
-        // 模块ID
-        moduleId: [{ required: true, message: '请输入模块ID', trigger: 'blur' }],
-        // 操作类型
-        type: [{ required: true, message: '请输入操作类型', trigger: 'blur' }],
-        // 请求方式
-        requestMethod: [{ required: true, message: '请输入请求方式', trigger: 'blur' }],
-        // 操作用户ID
-        userId: [{ required: true, message: '请输入操作用户ID', trigger: 'blur' }],
-        // 操作状态
-        status: [{ required: true, message: '请输入操作状态', trigger: 'blur' }],
+        // 登录用户名称
+        username: [{ required: true, message: '请输入登录用户名称', trigger: 'blur' }],
+        // 登录状态：0 失败; 1 成功
+        status: [{ required: true, message: '请输入登录状态：0 失败; 1 成功', trigger: 'blur' }],
+        // 登录时间
+        loginTime: [{ required: true, message: '请输入登录时间', trigger: 'blur' }],
       },
-      // 操作日志对话框等待框
-      operateLogLoading: false,
+      // 用户登录信息对话框等待框
+      loginInfoLoading: false,
       // 对话框按钮等待框
       buttonLoading: false,
       // 列信息
       columns: [
-        // 模块ID
-        { key: 0, label: '模块ID', visible: true },
-        // 操作类型
-        { key: 1, label: '操作类型', visible: true },
-        // 操作方法名称
-        { key: 2, label: '操作方法名称', visible: true },
-        // 请求方式
-        { key: 3, label: '请求方式', visible: true },
-        // 操作用户ID
-        { key: 4, label: '操作用户ID', visible: true },
-        // 操作IP
-        { key: 5, label: '操作IP', visible: true },
-        // 操作地址
-        { key: 6, label: '操作地址', visible: true },
-        // 操作参数
-        { key: 7, label: '操作参数', visible: true },
-        // 操作结果描述
-        { key: 8, label: '操作结果描述', visible: true },
-        // 操作状态
-        { key: 9, label: '操作状态', visible: true },
-        // 操作消耗时间
-        { key: 10, label: '操作消耗时间', visible: true },
-        { key: 11, label: '创建时间', visible: true },
-        { key: 12, label: '更新时间', visible: true }
+        // 登录用户名称
+        { key: 0, label: '登录用户名称', visible: true },
+        // 登录IP
+        { key: 1, label: '登录IP', visible: true },
+        // 登录位置
+        { key: 2, label: '登录位置', visible: true },
+        // 浏览器版本
+        { key: 3, label: '浏览器版本', visible: true },
+        // 操作系统
+        { key: 4, label: '操作系统', visible: true },
+        // 登录状态：0 失败; 1 成功
+        { key: 5, label: '登录状态：0 失败; 1 成功', visible: true },
+        // 登录消息提示
+        { key: 6, label: '登录消息提示', visible: true },
+        // 登录时间
+        { key: 7, label: '登录时间', visible: true },
+        { key: 8, label: '创建时间', visible: true },
+        { key: 9, label: '更新时间', visible: true }
       ],
       // 表格数据
       tableData: [],
@@ -315,7 +269,7 @@ export default {
       // 单数据禁用
       multiple: true,
       // 对话框标题
-      operateLogTitle: ''
+      loginInfoTitle: ''
     }
   },
 
@@ -337,7 +291,7 @@ export default {
     getTableData () {
       // 开启加载框
       this.loading = true
-      listOperateLogs(this.queryParams).then((res) => {
+      listLoginInfos(this.queryParams).then((res) => {
         // 赋值数据参数
         this.tableData = res.list
         this.total = res.total
@@ -351,67 +305,63 @@ export default {
     },
     // 点击重置按钮
     handleReset () {
-      // 模块ID
-      this.queryParams.moduleId = ''
-      // 操作类型
-      this.queryParams.type = ''
-      // 请求方式
-      this.queryParams.requestMethod = ''
-      // 操作用户ID
-      this.queryParams.userId = ''
-      // 操作状态
+      // 登录用户名称
+      this.queryParams.username = ''
+      // 登录状态：0 失败; 1 成功
       this.queryParams.status = ''
+      // 登录时间
+      this.queryParams.loginTime = ''
       this.queryParams.dataRange = []
     },
-    // 打开操作日志信息对话框
+    // 打开用户登录信息信息对话框
     handleOpen () {
       // 清除表单数据
       this.resetForm()
-      this.operateLogVisible = true
+      this.loginInfoVisible = true
     },
-    // 关闭操作日志对话框表单
+    // 关闭用户登录信息对话框表单
     handleClose () {
       this.resetForm()
-      this.operateLogVisible = false
+      this.loginInfoVisible = false
     },
     // 点击新增按钮
     handleAdd () {
-      this.operateLogTitle = '新增操作日志'
+      this.loginInfoTitle = '新增用户登录信息'
       this.handleOpen()
     },
     // 点击编辑按钮
     handleUpdate (row) {
       // 修改对话框标题
-      this.operateLogTitle = '更新操作日志'
+      this.loginInfoTitle = '更新用户登录信息'
       // 获取到传来的ID
-      const operateLogId = row.id || this.ids
+      const loginInfoId = row.id || this.ids
       // 打开加载框
-      this.operateLogLoading = true
-      // 根据操作日志ID获取对应的数据
-      getOperateLogById(operateLogId).then((res) => {
-        // 赋值当前的操作日志数据
+      this.loginInfoLoading = true
+      // 根据用户登录信息ID获取对应的数据
+      getLoginInfoById(loginInfoId).then((res) => {
+        // 赋值当前的用户登录信息数据
         this.formData = res
-        // 打开编辑操作日志对话框
-        this.operateLogVisible = true
+        // 打开编辑用户登录信息对话框
+        this.loginInfoVisible = true
         // 关闭加载框
-        this.operateLogLoading = false
+        this.loginInfoLoading = false
       })
     },
     // 点击删除事件
     handleDelete (row) {
-      let operateLogIds = []
+      let loginInfoIds = []
       if (row.id) {
-        operateLogIds.push(row.id)
+        loginInfoIds.push(row.id)
       } else {
-        operateLogIds = this.ids
+        loginInfoIds = this.ids
       }
-      console.log(operateLogIds)
-      this.$confirm('是否确认删除选中的操作日志数据？', '提示', {
+      console.log(loginInfoIds)
+      this.$confirm('是否确认删除选中的用户登录信息数据？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(function () {
-        return deleteOperateLog(operateLogIds)
+        return deleteLoginInfo(loginInfoIds)
       }).then(() => {
         this.getTableData()
         this.$message.success('删除成功')
@@ -420,33 +370,33 @@ export default {
     // 提交表单
     submitForm () {
       const that = this
-      this.$refs.operateLogForm.validate(valid => {
+      this.$refs.loginInfoForm.validate(valid => {
         // 校验未通过则直接返回
         if (!valid) return
         // 开启加载框
         that.buttonLoading = true
-        that.operateLogLoading = true
+        that.loginInfoLoading = true
         // 提交表单
-        saveOperateLog(that.formData).then((res) => {
+        saveLoginInfo(that.formData).then((res) => {
           // 根据是否存在ID输出对应消息
           if (that.formData.id) {
             // 输出更新成功信息
-            that.$message.success('操作日志信息更新成功')
+            that.$message.success('用户登录信息信息更新成功')
           } else {
             // 输出添加成功消息
-            that.$message.success('操作日志添加成功')
+            that.$message.success('用户登录信息添加成功')
           }
           // 刷新表单数据并关闭对话框
           that.handleClose()
-          // 刷新操作日志数据
+          // 刷新用户登录信息数据
           that.getTableData()
           // 关闭加载框
           that.buttonLoading = false
-          that.operateLogLoading = false
+          that.loginInfoLoading = false
         }).catch(() => {
           // 关闭加载框
           that.buttonLoading = false
-          that.operateLogLoading = false
+          that.loginInfoLoading = false
         })
       })
     },
@@ -454,18 +404,14 @@ export default {
     resetForm () {
       // 清除校验条件
       this.formData = {
-        // 操作日志ID
+        // 用户登录信息ID
         id: undefined,
-        // 模块ID
-        moduleId: undefined
-        // 操作类型
-        type: undefined
-        // 请求方式
-        requestMethod: undefined
-        // 操作用户ID
-        userId: undefined
-        // 操作状态
-        status: undefined
+        // 登录用户名称
+        username: undefined,
+        // 登录状态：0 失败; 1 成功
+        status: undefined,
+        // 登录时间
+        loginTime: undefined,
       }
     },
     // 多选框
@@ -483,7 +429,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.operateLog-wrapper {
+.loginInfo-wrapper {
   padding: 10px 30px;
 }
 .search-item {

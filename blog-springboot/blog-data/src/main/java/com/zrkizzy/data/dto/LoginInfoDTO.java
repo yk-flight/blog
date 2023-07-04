@@ -1,6 +1,6 @@
-package com.zrkizzy.data.vo;
+package com.zrkizzy.data.dto;
 
-import com.zrkizzy.common.base.response.BaseVO;
+import com.zrkizzy.common.base.BaseDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -8,7 +8,7 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 /**
- * 用户登录信息数据返回对象
+ * 用户登录信息数据传输对象
  *
  * @author zhangrongkang
  * @since 2023/7/4
@@ -16,7 +16,8 @@ import java.time.LocalDateTime;
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
-public class LoginInfoVO extends BaseVO {
+public class LoginInfoDTO extends BaseDTO {
+
 
     /**
      * 登录用户名称

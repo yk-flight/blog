@@ -9,7 +9,7 @@ import com.zrkizzy.data.domain.LoginInfo;
  * </p>
  *
  * @author zhangrongkang
- * @since 2023/6/20
+ * @since 2023/7/4
  */
 public interface LoginInfoMapper extends BaseMapper<LoginInfo> {
 
