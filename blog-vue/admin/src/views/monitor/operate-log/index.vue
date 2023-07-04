@@ -366,7 +366,6 @@ export default {
       } else {
         operateLogIds = this.ids
       }
-      console.log(operateLogIds)
       this.$confirm('是否确认删除选中的操作日志数据？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
