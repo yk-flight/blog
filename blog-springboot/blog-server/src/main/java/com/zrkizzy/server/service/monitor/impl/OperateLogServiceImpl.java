@@ -40,17 +40,6 @@ public class OperateLogServiceImpl implements IOperateLogService {
         // 查询分页
         return operateLogMapper.listOperateLog(page, operateLogQuery);
     }
-
-    /**
-     * 获取指定操作日志信息
-     *
-     * @param operateLogId 操作日志ID
-     * @return 操作日志数据返回对象
-     */
-    @Override
-    public OperateLog getOperateLogById(Long operateLogId) {
-        return operateLogMapper.selectById(operateLogId);
-    }
     
     /**
      * 批量删除操作日志数据
@@ -61,6 +50,15 @@ public class OperateLogServiceImpl implements IOperateLogService {
     @Override
     public Boolean deleteBatch(List<Long> ids) {
         return operateLogMapper.deleteBatchIds(ids) == ids.size();
+    }
+
+    /**
+     * 清空操作日志
+     */
+    @Override
+    public void clearOperateLogs() {
+        // 清空当前表格数据
+        operateLogMapper.truncate();
     }
 
 }

@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.HttpStatusEnum;
-import com.zrkizzy.common.utils.BeanCopyUtil;
 import com.zrkizzy.data.query.OperateLogQuery;
 import com.zrkizzy.data.vo.OperateLogVO;
 import com.zrkizzy.server.service.monitor.IOperateLogService;
@@ -40,10 +39,12 @@ public class OperateLogController {
             .list(operateLogPage.getRecords()).build());
     }
 
-    @ApiOperation("获取指定操作日志信息")
-    @GetMapping("/getOperateLogById/{operateLogId}")
-    public Result<OperateLogVO> getOperateLogById (@PathVariable Long operateLogId) {
-        return Result.success(BeanCopyUtil.copy(operateLogService.getOperateLogById(operateLogId), OperateLogVO.class));
+    @ApiOperation("清空日志操作信息")
+    @GetMapping("/clear")
+    public Result<?> clearOperateLogs () {
+        // 清空请求日志
+        operateLogService.clearOperateLogs();
+        return Result.success();
     }
 
     @ApiOperation("批量删除操作日志数据")

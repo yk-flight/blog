@@ -27,4 +27,8 @@ public interface OperateLogMapper extends BaseMapper<OperateLog> {
     Page<OperateLogVO> listOperateLog(@Param("page") Page<OperateLog> page,
                                       @Param("operateLogQuery") OperateLogQuery operateLogQuery);
 
+    /**
+     * 清空操作日志
+     */
+    void truncate();
 }

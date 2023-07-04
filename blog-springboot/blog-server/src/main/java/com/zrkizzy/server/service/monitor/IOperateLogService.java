@@ -1,7 +1,6 @@
 package com.zrkizzy.server.service.monitor;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zrkizzy.data.domain.OperateLog;
 import com.zrkizzy.data.query.OperateLogQuery;
 import com.zrkizzy.data.vo.OperateLogVO;
 
@@ -24,14 +23,6 @@ public interface IOperateLogService {
     Page<OperateLogVO> listOperateLogs(OperateLogQuery operateLogQuery);
 
     /**
-     * 获取指定操作日志信息
-     *
-     * @param operateLogId 操作日志ID
-     * @return 操作日志对象
-     */
-    OperateLog getOperateLogById(Long operateLogId);
-
-    /**
      * 批量删除操作日志数据
      *
      * @param ids 操作日志ID
@@ -39,4 +30,8 @@ public interface IOperateLogService {
      */
     Boolean deleteBatch(List<Long> ids);
 
+    /**
+     * 清空操作日志
+     */
+    void clearOperateLogs();
 }

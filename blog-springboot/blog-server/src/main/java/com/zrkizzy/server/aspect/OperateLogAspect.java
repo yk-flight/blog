@@ -92,14 +92,14 @@ public class OperateLogAspect {
                 // 操作结果
                 operateLog.setStatus(Boolean.TRUE);
                 // 设置操作结果
-                operateLog.setOperateResult(result.getMessage());
+                operateLog.setOperateResult(String.valueOf(result));
             }
             // 判断本次请求是否成功
             if (null != e) {
                 // 设置请求状态为失败
                 operateLog.setStatus(Boolean.FALSE);
                 // 设置返回消息
-                operateLog.setOperateResult(e.getMessage());
+                operateLog.setOperateResult(String.valueOf(e));
             }
             // 操作用户
             operateLog.setUserId(securityUtil.getLoginUser().getId());
@@ -153,7 +153,7 @@ public class OperateLogAspect {
         // 请求的类名
         String className = joinPoint.getTarget().getClass().getName();
         // 操作方法名称
-        operateLog.setMethodName(className + "." + signature.getName());
+        operateLog.setMethodName(className + "." + signature.getName() + "()");
 
     }
 

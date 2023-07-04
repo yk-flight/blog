@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 03/07/2023 23:25:10
+ Date: 04/07/2023 22:37:21
 */
 
 SET NAMES utf8mb4;
@@ -130,6 +130,8 @@ INSERT INTO `tb_login_info` VALUES (1675772142186135552, '2675525537@qq.com', '0
 INSERT INTO `tb_login_info` VALUES (1675799199733514240, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 0, '验证码错误', '2023-07-03 17:30:39');
 INSERT INTO `tb_login_info` VALUES (1675799231459229696, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-03 17:30:46');
 INSERT INTO `tb_login_info` VALUES (1675877583968796672, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-03 22:42:07');
+INSERT INTO `tb_login_info` VALUES (1676191549576183808, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-04 19:29:42');
+INSERT INTO `tb_login_info` VALUES (1676221957688786944, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-04 21:30:32');
 
 -- ----------------------------
 -- Table structure for tb_menu
@@ -288,10 +290,6 @@ CREATE TABLE `tb_operate_log`  (
 -- ----------------------------
 -- Records of tb_operate_log
 -- ----------------------------
-INSERT INTO `tb_operate_log` VALUES (1675788338285510656, 1636182933754609665, 4, 'com.zrkizzy.web.controller.system.LinkController.listLinks', 'POST', 1653794265890816000, '0:0:0:0:0:0:0:1', '本地登录', '[{\"currentPage\":1,\"dataRange\":[],\"name\":\"\",\"pageSize\":10}]', '请求成功', 1, 217, '2023-07-03 16:47:29', NULL);
-INSERT INTO `tb_operate_log` VALUES (1675807664149364736, 1636182933754609665, 4, 'com.zrkizzy.web.controller.system.LinkController.listLinks', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"currentPage\":1,\"dataRange\":[],\"pageSize\":10}]', '请求成功', 1, 62, '2023-07-03 18:04:17', NULL);
-INSERT INTO `tb_operate_log` VALUES (1675807733124694016, 1636182933754609665, 4, 'com.zrkizzy.web.controller.system.LinkController.listLinks', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"currentPage\":1,\"dataRange\":[],\"pageSize\":10}]', '请求成功', 1, 55, '2023-07-03 18:04:33', NULL);
-INSERT INTO `tb_operate_log` VALUES (1675884823312334848, 1636182933754609665, 4, 'com.zrkizzy.web.controller.system.LinkController.listLinks', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"currentPage\":1,\"dataRange\":[],\"pageSize\":10}]', '请求成功', 1, 26, '2023-07-03 23:10:53', NULL);
 
 -- ----------------------------
 -- Table structure for tb_resource
@@ -339,6 +337,7 @@ INSERT INTO `tb_resource` VALUES (1675800348175892480, '获取操作日志信息
 INSERT INTO `tb_resource` VALUES (1675800348175892481, '批量删除操作日志信息', '批量删除操作日志信息', 'DELETE', '/admin/operate-log/delete', 1636182933754609665, '2023-06-21 13:50:35', '2023-06-21 05:52:36');
 INSERT INTO `tb_resource` VALUES (1675800348175892482, '获取模块选项数据', '获取模块选项数据', 'GET', '/admin/module/listModuleOptions', 1636182933754609665, '2023-07-03 22:34:42', '2023-07-03 22:34:53');
 INSERT INTO `tb_resource` VALUES (1675800348175892483, '获取用户选项数据', '获取用户选项数据集', 'GET', '/admin/user/listUserOptions', 1636182933754609665, '2023-07-03 22:55:11', '2023-07-03 22:55:27');
+INSERT INTO `tb_resource` VALUES (1676236928191561728, '清空操作日志', '清空操作日志中的所有数据', 'GET', '/admin/operate-log/clear', 1636182933754609665, '2023-07-04 22:31:05', '2023-07-04 22:31:14');
 
 -- ----------------------------
 -- Table structure for tb_role

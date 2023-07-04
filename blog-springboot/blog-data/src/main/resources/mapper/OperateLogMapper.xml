@@ -25,6 +25,11 @@
         id, module_id, `type`, method_name, request_method, user_id, operate_ip, operate_location, operate_param, operate_result, status, cost_time, create_time, update_time
     </sql>
 
+    <!-- 清空操作日志 -->
+    <update id="truncate">
+        TRUNCATE TABLE tb_operate_log;
+    </update>
+
     <resultMap id="operateLogVo" type="com.zrkizzy.data.vo.OperateLogVO">
         <id column="id" property="id" />
         <result column="module_name" property="moduleName" />
