@@ -3,6 +3,7 @@ package com.zrkizzy.server.service.monitor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.data.domain.OperateLog;
 import com.zrkizzy.data.query.OperateLogQuery;
+import com.zrkizzy.data.vo.OperateLogVO;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface IOperateLogService {
      * @param operateLogQuery 操作日志信息查询对象
      * @return 操作日志分页数据
      */
-    Page<OperateLog> listOperateLogs(OperateLogQuery operateLogQuery);
+    Page<OperateLogVO> listOperateLogs(OperateLogQuery operateLogQuery);
 
     /**
      * 获取指定操作日志信息

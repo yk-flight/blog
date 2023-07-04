@@ -1,16 +1,14 @@
 package com.zrkizzy.server.service.monitor.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.data.domain.OperateLog;
 import com.zrkizzy.data.mapper.OperateLogMapper;
 import com.zrkizzy.data.query.OperateLogQuery;
+import com.zrkizzy.data.vo.OperateLogVO;
 import com.zrkizzy.server.service.monitor.IOperateLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -36,41 +34,11 @@ public class OperateLogServiceImpl implements IOperateLogService {
      * @return 操作日志分页数据
      */
     @Override
-    public Page<OperateLog> listOperateLogs(OperateLogQuery operateLogQuery) {
+    public Page<OperateLogVO> listOperateLogs(OperateLogQuery operateLogQuery) {
         // 开启分页
         Page<OperateLog> page = new Page<>(operateLogQuery.getCurrentPage(), operateLogQuery.getPageSize());
-        // 定义查询条件
-        QueryWrapper<OperateLog> queryWrapper = new QueryWrapper<>();
-        // 模块ID
-        if (null != operateLogQuery.getModuleId()) {
-            queryWrapper.eq("module_id", operateLogQuery.getModuleId());
-        }
-        // 用户ID
-        if (null != operateLogQuery.getUserId()) {
-            queryWrapper.eq("user_id", operateLogQuery.getUserId());
-        }
-        // 操作类型
-        if (null != operateLogQuery.getType()) {
-            // 操作类型 0 其他操作，1 新增，2 修改， 3 删除， 4 查询
-            queryWrapper.eq("type", operateLogQuery.getType());
-        }
-        // 请求方式
-        if (StringUtils.hasLength(operateLogQuery.getRequestMethod())) {
-            queryWrapper.eq("request_method", operateLogQuery.getRequestMethod());
-        }
-        // 操作状态
-        if (null != operateLogQuery.getStatus()) {
-            queryWrapper.eq("status", operateLogQuery.getStatus());
-        }
-        // 获取时间范围
-        List<String> dataRange = operateLogQuery.getDataRange();
-        // 如果时间范围不为空
-        if (!CollectionUtils.isEmpty(dataRange)) {
-            // 拼接时间范围查询条件
-            queryWrapper.between("create_time", dataRange.get(0), dataRange.get(1));
-        }
         // 查询分页
-        return operateLogMapper.selectPage(page, queryWrapper);
+        return operateLogMapper.listOperateLog(page, operateLogQuery);
     }
 
     /**

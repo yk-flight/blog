@@ -18,9 +18,9 @@ import lombok.ToString;
 public class OperateLogVO extends BaseVO {
 
     /**
-     * 模块ID
+     * 模块名称
      */
-    private Long moduleId;
+    private String moduleName;
 
     /**
      * 操作类型 0 其他操作，1 新增，2 修改， 3 删除， 4 查询
@@ -36,11 +36,6 @@ public class OperateLogVO extends BaseVO {
      * 请求方式
      */
     private String requestMethod;
-
-    /**
-     * 操作用户ID
-     */
-    private Long userId;
 
     /**
      * 操作IP
@@ -71,5 +66,10 @@ public class OperateLogVO extends BaseVO {
      * 操作消耗时间
      */
     private Long costTime;
+
+    /**
+     * 用户昵称
+     */
+    private String nickname;
 
 }

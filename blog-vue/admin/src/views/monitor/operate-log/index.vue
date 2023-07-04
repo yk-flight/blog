@@ -93,7 +93,7 @@
         </template>
         <el-table-column type="selection" width="50" align="center" />
         <!-- 操作模块 -->
-        <el-table-column prop="moduleId" label="操作模块" align="center" v-if="columns[0].visible"></el-table-column>
+        <el-table-column prop="moduleName" label="操作模块" align="center" v-if="columns[0].visible"></el-table-column>
         <!-- 操作类型 -->
         <el-table-column prop="type" label="操作类型" align="center" v-if="columns[1].visible">
           <template slot-scope="scope">
@@ -114,7 +114,7 @@
           </template>
         </el-table-column>
         <!-- 操作用户 -->
-        <el-table-column prop="userId" label="操作用户" align="center" v-if="columns[3].visible"></el-table-column>
+        <el-table-column prop="nickname" label="操作用户" align="center" v-if="columns[3].visible"></el-table-column>
         <!-- 操作IP -->
         <el-table-column prop="operateIp" label="操作IP" align="center" v-if="columns[4].visible"></el-table-column>
         <!-- 操作地址 -->
@@ -135,7 +135,7 @@
         </el-table-column>
         <el-table-column label="操作"  align="center">
           <template slot-scope="scope">
-            <el-button type="text" size="small" icon="el-icon-view" @click="handleUpdate(scope.row)">查看</el-button>
+            <el-button type="text" size="small" icon="el-icon-view" @click="handleView(scope.row)">查看</el-button>
             <el-button type="text" size="small" icon="el-icon-delete" @click="handleDelete(scope.row)">删除</el-button>
           </template>
         </el-table-column>
