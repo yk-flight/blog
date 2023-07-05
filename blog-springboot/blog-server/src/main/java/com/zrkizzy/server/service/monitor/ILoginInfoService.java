@@ -30,4 +30,8 @@ public interface ILoginInfoService {
      */
     Boolean deleteBatch(List<Long> ids);
 
+    /**
+     * 清空登录日志
+     */
+    void clear();
 }

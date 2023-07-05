@@ -27,7 +27,7 @@
 
     <!-- 清空操作日志 -->
     <update id="truncate">
-        TRUNCATE TABLE tb_operate_log;
+        TRUNCATE TABLE tb_operate_log
     </update>
 
     <resultMap id="operateLogVo" type="com.zrkizzy.data.vo.OperateLogVO">

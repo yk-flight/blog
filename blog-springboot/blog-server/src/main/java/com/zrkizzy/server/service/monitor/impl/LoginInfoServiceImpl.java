@@ -9,6 +9,7 @@ import com.zrkizzy.server.service.monitor.ILoginInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -50,6 +51,15 @@ public class LoginInfoServiceImpl implements ILoginInfoService {
     @Override
     public Boolean deleteBatch(List<Long> ids) {
         return loginInfoMapper.deleteBatchIds(ids) == ids.size();
+    }
+
+    /**
+     * 清空登录日志
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void clear() {
+        loginInfoMapper.truncate();
     }
 
 }

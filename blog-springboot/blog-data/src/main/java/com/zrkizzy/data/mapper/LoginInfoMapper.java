@@ -25,4 +25,9 @@ public interface LoginInfoMapper extends BaseMapper<LoginInfo> {
      * @return 登录日志分页对象
      */
     Page<LoginInfoVO> listLoginInfo(@Param("page") Page<LoginInfo> page, @Param("loginInfoQuery") LoginInfoQuery loginInfoQuery);
+
+    /**
+     * 清空所有登录日志
+     */
+    void truncate();
 }

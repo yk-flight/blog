@@ -20,6 +20,11 @@
         id, username, login_ip, login_location, browser, os, status, message, login_time
     </sql>
 
+    <!-- 清空登录日志 -->
+    <update id="truncate">
+        TRUNCATE TABLE tb_login_info
+    </update>
+
     <resultMap id="loginInfoVo" type="com.zrkizzy.data.vo.LoginInfoVO">
         <id column="id" property="id" />
         <result column="username" property="username" />

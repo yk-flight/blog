@@ -48,4 +48,12 @@ public class LoginInfoController {
         return Result.failure(HttpStatusEnum.INTERNAL_SERVER_ERROR, "用户登录信息数据删除失败");
     }
 
+    @ApiOperation("清空所有登录日志")
+    @GetMapping("/clear")
+    public Result<?> clear() {
+        // 清空登录日志
+        loginInfoService.clear();
+        return Result.success();
+    }
+
 }

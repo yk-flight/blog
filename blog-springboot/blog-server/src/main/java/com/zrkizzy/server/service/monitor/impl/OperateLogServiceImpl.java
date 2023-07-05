@@ -9,6 +9,7 @@ import com.zrkizzy.server.service.monitor.IOperateLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -56,6 +57,7 @@ public class OperateLogServiceImpl implements IOperateLogService {
      * 清空操作日志
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void clearOperateLogs() {
         // 清空当前表格数据
         operateLogMapper.truncate();
