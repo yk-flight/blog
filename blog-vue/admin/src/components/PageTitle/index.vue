@@ -26,14 +26,14 @@ export default {
 <style lang="scss" scoped>
 .title-container {
   position: absolute;
-  left: -18px;
+  left: -10px;
 
   .triangle {
     left: -20px;
     width: 0;
     height: 0;
-    border-top: 18px solid #C0C4CC;
-    border-right: 18px solid transparent;
+    border-top: 10px solid #C0C4CC;
+    border-right: 10px solid transparent;
     transform: scale(-1, 1);
   }
 
