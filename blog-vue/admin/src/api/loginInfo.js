@@ -12,6 +12,16 @@ export const listLoginInfos = (data) => {
 }
 
 /**
+ * 清空所有登录日志信息
+ */
+export const clearLoginInfo = () => {
+  return request({
+    url: '/admin/login-info/clear',
+    method: 'GET'
+  })
+}
+
+/**
  * 批量删除用户登录信息信息
  */
 export const deleteLoginInfo = (data) => {

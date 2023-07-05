@@ -11,7 +11,14 @@
             </el-form-item>
 
             <el-form-item label="登录状态">
-              <el-input v-model="queryParams.status" class="search-item" placeholder="请输入登录状态" size="small" clearable></el-input>
+              <el-select v-model="queryParams.status" placeholder="请选择登录状态" size="small" class="search-item" clearable>
+                <el-option
+                  v-for="item in statusOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
 
             <!-- 登录时间 -->
@@ -38,6 +45,9 @@
         <el-col :span="1.5">
           <el-button type="danger" icon="el-icon-delete" size="mini" :disabled="multiple" @click="handleDelete">删除</el-button>
         </el-col>
+        <el-col :span="1.5">
+          <el-button type="warning" icon="el-icon-folder-opened" size="mini" @click="handleClear">清空</el-button>
+        </el-col>
         <right-toolbar :showSearch.sync="showSearch" :columns="columns" @getTableData="getTableData"></right-toolbar>
       </el-row>
 
@@ -47,7 +57,7 @@
         </template>
         <el-table-column type="selection" width="50" align="center" />
         <!-- 登录用户名称 -->
-        <el-table-column prop="username" label="登录用户名称" align="center" v-if="columns[0].visible"></el-table-column>
+        <el-table-column prop="username" label="用户名称" width="200" align="center" v-if="columns[0].visible"></el-table-column>
         <!-- 登录IP -->
         <el-table-column prop="loginIp" label="登录IP" align="center" v-if="columns[1].visible"></el-table-column>
         <!-- 登录位置 -->
@@ -57,15 +67,23 @@
         <!-- 操作系统 -->
         <el-table-column prop="os" label="操作系统" align="center" v-if="columns[4].visible"></el-table-column>
         <!-- 登录状态 -->
-        <el-table-column prop="status" label="登录状态" align="center" v-if="columns[5].visible"></el-table-column>
+        <el-table-column prop="status" label="登录状态" align="center" v-if="columns[5].visible">
+          <template slot-scope="scope">
+            <el-tag type="success" v-if="scope.row.status">成功</el-tag>
+            <el-tag type="danger" v-else>失败</el-tag>
+          </template>
+        </el-table-column>
         <!-- 登录消息提示 -->
-        <el-table-column prop="message" label="登录消息提示" align="center" v-if="columns[6].visible"></el-table-column>
+        <el-table-column prop="message" label="消息提示" align="center" v-if="columns[6].visible"></el-table-column>
         <!-- 登录时间 -->
-        <el-table-column prop="loginTime" label="登录时间" align="center" v-if="columns[7].visible"></el-table-column>
+        <el-table-column prop="loginTime" label="登录时间" width="200" align="center" v-if="columns[7].visible">
+          <template slot-scope="scope">
+            <span>{{ scope.row.loginTime | dateFilter }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="操作"  align="center">
           <template slot-scope="scope">
-            <el-button type="text" size="small" icon="el-icon-edit" @click="handleView(scope.row)">详细</el-button>
-            <el-button type="text" size="small" icon="el-icon-delete" @click="handleDelete(scope.row)">删除</el-button>
+            <el-button type="text" size="small" icon="el-icon-view" @click="handleView(scope.row)">详细</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -144,7 +162,7 @@
 import PageTitle from '../../../components/PageTitle/index.vue'
 import Pagination from '../../../components/Pagination/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
-import { listLoginInfos, deleteLoginInfo } from '../../../api/loginInfo'
+import { listLoginInfos, deleteLoginInfo, clearLoginInfo } from '../../../api/loginInfo'
 
 export default {
   name: 'LoginInfo',
@@ -213,7 +231,7 @@ export default {
       // 列信息
       columns: [
         // 登录用户名称
-        { key: 0, label: '登录用户名称', visible: true },
+        { key: 0, label: '用户名称', visible: true },
         // 登录IP
         { key: 1, label: '登录IP', visible: true },
         // 登录位置
@@ -236,7 +254,18 @@ export default {
       // 多数据禁用
       multiple: true,
       // 对话框标题
-      loginInfoTitle: ''
+      loginInfoTitle: '',
+      // 请求状态选项
+      statusOptions: [
+        {
+          value: 1,
+          label: '成功'
+        },
+        {
+          value: 0,
+          label: '失败'
+        }
+      ]
     }
   },
 
@@ -256,6 +285,8 @@ export default {
   methods: {
     // 获取表格数据
     getTableData () {
+      // 清除多选数据
+      this.ids = []
       // 开启加载框
       this.loading = true
       listLoginInfos(this.queryParams).then((res) => {
@@ -270,6 +301,21 @@ export default {
     handleQuery () {
       this.getTableData()
     },
+    // 点击清空按钮
+    handleClear () {
+      this.$confirm('此操作将永久删除所有登录日志数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // 执行清空操作
+        clearLoginInfo().then((res) => {
+          this.$message({ type: 'success', message: '清空成功' })
+          // 刷新表格
+          this.getTableData()
+        })
+      }).catch(() => {})
+    },
     // 点击重置按钮
     handleReset () {
       // 登录用户名称
@@ -281,26 +327,19 @@ export default {
       this.queryParams.dataRange = []
     },
     // 打开用户登录信息信息对话框
-    handleOpen () {
-      // 清除表单数据
-      this.resetForm()
+    handleView (row) {
+      this.formData = row
+      // 打开对话框
       this.loginInfoVisible = true
     },
     // 关闭用户登录信息对话框表单
     handleClose () {
-      this.resetForm()
       this.loginInfoVisible = false
     },
     // 点击删除事件
-    handleDelete (row) {
-      let loginInfoIds = []
-      if (row.id) {
-        loginInfoIds.push(row.id)
-      } else {
-        loginInfoIds = this.ids
-      }
-      console.log(loginInfoIds)
-      this.$confirm('是否确认删除选中的用户登录信息数据？', '提示', {
+    handleDelete () {
+      const loginInfoIds = this.ids
+      this.$confirm('是否确认删除选中的用户登录日志数据？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -310,20 +349,6 @@ export default {
         this.getTableData()
         this.$message.success('删除成功')
       }).catch(() => {})
-    },
-    // 重置表单
-    resetForm () {
-      // 清除校验条件
-      this.formData = {
-        // 用户登录信息ID
-        id: undefined,
-        // 登录用户名称
-        username: undefined,
-        // 登录状态
-        status: undefined,
-        // 登录时间
-        loginTime: undefined
-      }
     },
     // 多选框
     handleSelectionChange (selection) {
