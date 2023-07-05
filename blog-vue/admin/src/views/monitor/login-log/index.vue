@@ -56,34 +56,31 @@
           <el-empty :image-size="200"></el-empty>
         </template>
         <el-table-column type="selection" width="50" align="center" />
+        <!-- 登录编号 -->
+        <el-table-column prop="id" label="登录编号" align="center" v-if="columns[0].visible"></el-table-column>
         <!-- 登录用户名称 -->
-        <el-table-column prop="username" label="用户名称" width="200" align="center" v-if="columns[0].visible"></el-table-column>
+        <el-table-column prop="username" label="用户名称" align="center" v-if="columns[1].visible"></el-table-column>
         <!-- 登录IP -->
-        <el-table-column prop="loginIp" label="登录IP" align="center" v-if="columns[1].visible"></el-table-column>
+        <el-table-column prop="loginIp" label="登录IP" align="center" v-if="columns[2].visible"></el-table-column>
         <!-- 登录位置 -->
-        <el-table-column prop="loginLocation" label="登录位置" align="center" v-if="columns[2].visible"></el-table-column>
+        <el-table-column prop="loginLocation" label="登录位置" align="center" v-if="columns[3].visible"></el-table-column>
         <!-- 浏览器版本 -->
-        <el-table-column prop="browser" label="浏览器版本" align="center" v-if="columns[3].visible"></el-table-column>
+        <el-table-column prop="browser" label="浏览器版本" align="center" v-if="columns[4].visible"></el-table-column>
         <!-- 操作系统 -->
-        <el-table-column prop="os" label="操作系统" align="center" v-if="columns[4].visible"></el-table-column>
+        <el-table-column prop="os" label="操作系统" align="center" v-if="columns[5].visible"></el-table-column>
         <!-- 登录状态 -->
-        <el-table-column prop="status" label="登录状态" align="center" v-if="columns[5].visible">
+        <el-table-column prop="status" label="登录状态" align="center" v-if="columns[6].visible">
           <template slot-scope="scope">
             <el-tag type="success" v-if="scope.row.status">成功</el-tag>
             <el-tag type="danger" v-else>失败</el-tag>
           </template>
         </el-table-column>
         <!-- 登录消息提示 -->
-        <el-table-column prop="message" label="消息提示" align="center" v-if="columns[6].visible"></el-table-column>
+        <el-table-column prop="message" label="登录提示" align="center" v-if="columns[7].visible"></el-table-column>
         <!-- 登录时间 -->
-        <el-table-column prop="loginTime" label="登录时间" width="200" align="center" v-if="columns[7].visible">
+        <el-table-column prop="loginTime" label="登录时间" width="200" align="center" v-if="columns[8].visible">
           <template slot-scope="scope">
             <span>{{ scope.row.loginTime | dateFilter }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作"  align="center">
-          <template slot-scope="scope">
-            <el-button type="text" size="small" icon="el-icon-view" @click="handleView(scope.row)">详细</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -98,64 +95,6 @@
       />
     </div>
 
-    <!-- 用户登录信息信息对话框 -->
-    <el-dialog
-      :title="loginInfoTitle"
-      width="500px"
-      :modal-append-to-body="true"
-      :append-to-body="true"
-      :close-on-click-modal="false"
-      :visible="loginInfoVisible"
-      :before-close="handleClose">
-      <div class="loginInfo-wrapper" v-loading="loginInfoLoading" element-loading-text="正在加载用户登录信息信息">
-        <el-form ref="loginInfoForm" :model="formData" :rules="rules" label-width="80px" label-position="right">
-          <el-row :gutter="15">
-            <!-- 登录用户名称 -->
-            <el-form-item label="登录用户名称" prop="username">
-              <el-input v-model="formData.username" placeholder="请输入登录用户名称" clearable></el-input>
-            </el-form-item>
-            <!-- 登录IP -->
-            <el-form-item label="登录IP" prop="loginIp">
-              <el-input v-model="formData.loginIp" placeholder="请输入登录IP" clearable></el-input>
-            </el-form-item>
-            <!-- 登录位置 -->
-            <el-form-item label="登录位置" prop="loginLocation">
-              <el-input v-model="formData.loginLocation" placeholder="请输入登录位置" clearable></el-input>
-            </el-form-item>
-            <!-- 浏览器版本 -->
-            <el-form-item label="浏览器版本" prop="browser">
-              <el-input v-model="formData.browser" placeholder="请输入浏览器版本" clearable></el-input>
-            </el-form-item>
-            <!-- 操作系统 -->
-            <el-form-item label="操作系统" prop="os">
-              <el-input v-model="formData.os" placeholder="请输入操作系统" clearable></el-input>
-            </el-form-item>
-            <!-- 登录状态 -->
-            <el-form-item label="登录状态" prop="status">
-              <el-input v-model="formData.status" placeholder="请输入登录状态" clearable></el-input>
-            </el-form-item>
-            <!-- 登录消息提示 -->
-            <el-form-item label="登录消息提示" prop="message">
-              <el-input v-model="formData.message" placeholder="请输入登录消息提示" clearable></el-input>
-            </el-form-item>
-            <!-- 登录时间 -->
-            <el-form-item label="登录时间" prop="loginTime">
-              <el-input v-model="formData.loginTime" placeholder="请输入登录时间" clearable></el-input>
-            </el-form-item>
-          </el-row>
-        </el-form>
-      </div>
-      <div slot="footer">
-        <el-button
-          type="danger"
-          :loading="buttonLoading"
-          @click="handleClose()"
-          size="small"
-          icon="el-icon-error">
-          关闭
-        </el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 <script>
@@ -177,8 +116,6 @@ export default {
       showSearch: true,
       // 数据总条数
       total: 0,
-      // 用户登录信息对话框是否显示
-      loginInfoVisible: false,
       // 数据表格等待框
       loading: false,
       // 查询参数
@@ -230,22 +167,24 @@ export default {
       buttonLoading: false,
       // 列信息
       columns: [
+        // 登录编号
+        { key: 0, label: '登录编号', visible: true },
         // 登录用户名称
-        { key: 0, label: '用户名称', visible: true },
+        { key: 1, label: '用户名称', visible: true },
         // 登录IP
-        { key: 1, label: '登录IP', visible: true },
+        { key: 2, label: '登录IP', visible: true },
         // 登录位置
-        { key: 2, label: '登录位置', visible: true },
+        { key: 3, label: '登录位置', visible: true },
         // 浏览器版本
-        { key: 3, label: '浏览器版本', visible: true },
+        { key: 4, label: '浏览器版本', visible: true },
         // 操作系统
-        { key: 4, label: '操作系统', visible: true },
+        { key: 5, label: '操作系统', visible: true },
         // 登录状态
-        { key: 5, label: '登录状态', visible: true },
+        { key: 6, label: '登录状态', visible: true },
         // 登录消息提示
-        { key: 6, label: '登录消息提示', visible: true },
+        { key: 7, label: '登录提示', visible: true },
         // 登录时间
-        { key: 7, label: '登录时间', visible: true }
+        { key: 8, label: '登录时间', visible: true }
       ],
       // 表格数据
       tableData: [],
@@ -325,16 +264,6 @@ export default {
       // 登录时间
       this.queryParams.loginTime = ''
       this.queryParams.dataRange = []
-    },
-    // 打开用户登录信息信息对话框
-    handleView (row) {
-      this.formData = row
-      // 打开对话框
-      this.loginInfoVisible = true
-    },
-    // 关闭用户登录信息对话框表单
-    handleClose () {
-      this.loginInfoVisible = false
     },
     // 点击删除事件
     handleDelete () {
