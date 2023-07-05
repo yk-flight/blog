@@ -1,8 +1,8 @@
 package com.zrkizzy.server.service.monitor;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zrkizzy.data.domain.LoginInfo;
 import com.zrkizzy.data.query.LoginInfoQuery;
+import com.zrkizzy.data.vo.LoginInfoVO;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public interface ILoginInfoService {
      * @param loginInfoQuery 用户登录信息信息查询对象
      * @return 用户登录信息分页数据
      */
-    Page<LoginInfo> listLoginInfos(LoginInfoQuery loginInfoQuery);
+    Page<LoginInfoVO> listLoginInfos(LoginInfoQuery loginInfoQuery);
 
     /**
      * 批量删除用户登录信息数据

@@ -1,10 +1,11 @@
 package com.zrkizzy.data.vo;
 
-import com.zrkizzy.common.base.response.BaseVO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -16,7 +17,13 @@ import java.time.LocalDateTime;
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
-public class LoginInfoVO extends BaseVO {
+public class LoginInfoVO implements Serializable {
+
+    /**
+     * 主键
+     */
+    @JsonFormat(shape =JsonFormat.Shape.STRING)
+    private Long id;
 
     /**
      * 登录用户名称
