@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.info("------------------ 开始查询User对象 ------------------");
+//        log.info("------------------ 开始查询User对象 ------------------");
         // 查看Redis中是否存在当前用户
         User user = redisService.get(USER_PREFIX + username, User.class);
         // 2. 如果Redis中不存在当前用户信息则从数据库获取
@@ -38,7 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             // 抛出未找到用户异常
             throw new UsernameNotFoundException(HttpStatusEnum.USER_NOT_FOUND.getMessage());
         }
-        log.info("------------------- 结束查询User对象 -------------------");
+//        log.info("------------------- 结束查询User对象 -------------------");
         // 将获取到的用户对象转为UserDetails对象返回
         return userDetailUtil.convertUserDetails(user);
     }

@@ -88,5 +88,6 @@
             <if test="null != operateLogQuery.dataRange and 2 == operateLogQuery.dataRange.size">
                 AND o.create_time BETWEEN #{operateLogQuery.dataRange[0]} AND #{operateLogQuery.dataRange[1]}
             </if>
+        ORDER BY create_time DESC
     </select>
 </mapper>
