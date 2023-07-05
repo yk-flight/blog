@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
     <div class="card">
-    <page-title :title="title"></page-title>
+      <page-title :title="title"></page-title>
       <el-row class="search-container" type="flex">
         <el-col :span="24" :xs="24">
           <el-form size="small" :inline="true" v-show="showSearch" label-width="68px" :model="queryParams" ref="queryForm">
