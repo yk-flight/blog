@@ -48,7 +48,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        log.info("----------------- 进入自定义Token授权过滤器 -----------------");
+//        log.info("----------------- 进入自定义Token授权过滤器 -----------------");
         // 从请求中获取Token
         String authHeader = request.getHeader(AUTHORIZATION);
         // 判断请求中是否存在Token
@@ -59,13 +59,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 // 判断Token是否合法
                 if (!jwtTokenUtil.validateToken(token)) {
                     // 解析出当前 token 中的用户并将用户信息设置到 SecurityContextHolder 中
-                    log.info("加载用户信息...... ");
+//                    log.info("加载用户信息...... ");
                     // 解析出 token 中的用户名
                     String username = jwtTokenUtil.getUsernameFromToken(token);
                     // 如果当前Token不合法
-                    log.info("当前进行鉴权的用户为：{}", username);
+//                    log.info("当前进行鉴权的用户为：{}", username);
                     MyUserDetails userDetails = (MyUserDetails) userDetailsService.loadUserByUsername(username);
-                    log.info("当前用户的角色标识为：{}", userDetails.getRoleMark());
+//                    log.info("当前用户的角色标识为：{}", userDetails.getRoleMark());
                     // 用户详细信息（userDetails）、空密码、用户权限（userDetails.getAuthorities()）来获取认证令牌
                     UsernamePasswordAuthenticationToken authenticationToken =
                             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -92,7 +92,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             }
 
         }
-        log.info("----------------- 退出自定义Token授权过滤器 -----------------");
+//        log.info("----------------- 退出自定义Token授权过滤器 -----------------");
         // 放行
         filterChain.doFilter(request, response);
     }

@@ -36,7 +36,7 @@ public class AccessDecisionManagerFilter implements AccessDecisionManager {
      */
     @Override
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
-        log.info("----------------- 进入资源角色权限过滤器 -----------------");
+//        log.info("----------------- 进入资源角色权限过滤器 -----------------");
         // 如果当前请求的资源不需要访问的角色则直接放行
         if (configAttributes == null) {
             return;
@@ -45,20 +45,20 @@ public class AccessDecisionManagerFilter implements AccessDecisionManager {
         for (ConfigAttribute attribute : configAttributes) {
             // 获取到需要的角色
             String needRole = attribute.getAttribute();
-            log.info("当前资源需要的角色为： {}", needRole);
+//            log.info("当前资源需要的角色为： {}", needRole);
             // 遍历当前用户所具有的角色
             for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
-                log.info("当前用户的角色为：{}", grantedAuthority.getAuthority());
+//                log.info("当前用户的角色为：{}", grantedAuthority.getAuthority());
                 // 如果当前用户所具有的角色和需要的角色一致则直接放行
                 if (needRole.equals(grantedAuthority.getAuthority())) {
-                    log.info("完成资源的角色过滤 =====> 当前用户可以访问对应资源");
-                    log.info("----------------- 退出请求资源角色过滤器 -----------------");
+//                    log.info("完成资源的角色过滤 =====> 当前用户可以访问对应资源");
+//                    log.info("----------------- 退出请求资源角色过滤器 -----------------");
                     return;
                 }
             }
         }
-        log.info("完成资源的角色过滤 =====> 当前用户不具备访问资源的权限");
-        log.info("----------------- 退出请求资源角色过滤器 -----------------");
+//        log.info("完成资源的角色过滤 =====> 当前用户不具备访问资源的权限");
+//        log.info("----------------- 退出请求资源角色过滤器 -----------------");
         // 如果用户不具备访问该资源具有的角色则抛出拒绝访问异常
         throw new AccessDeniedException(HttpStatusEnum.FORBIDDEN.getMessage());
     }
