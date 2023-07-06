@@ -27,7 +27,7 @@
           </div>
         </div>
       </div>
-      <el-scrollbar style="height: calc(100% - 50px);">
+      <el-scrollbar style="min-height: calc(100% - 50px);">
         <div class="menu-list">
           <!-- 文件类型菜单 -->
           <div
@@ -54,43 +54,44 @@
         <span>文件列表 - {{ activeMenu.name }}</span>
       </div>
       <!-- 文件选项 -->
-      <div class="button-group">
-        <!-- 刷新文件 -->
-        <el-button
-          icon="el-icon-refresh"
-          @click="listFiles()"
-          size="small">
-          刷新
-        </el-button>
-        <!-- 上传文件 -->
-        <el-button
-          icon="el-icon-upload"
-          type="primary"
-          size="small"
-          @click="handleShow">
-          上传文件
-        </el-button>
-        <!-- 清空选中文件 -->
-        <el-button
-          icon="el-icon-folder-opened"
-          type="warning"
-          :disabled="selection.length === 0"
-          size="small"
-          @click="clearSelect()"
-          >
-          清空选中文件
-        </el-button>
-        <!-- 删除选中文件 -->
-        <el-button
-          icon="el-icon-delete"
-          type="danger"
-          :disabled="selection.length === 0"
-          @click="deleteSelect()"
-          size="small">
-          删除选中文件
-        </el-button>
-      </div>
-
+      <el-row class="button-group" type="flex">
+        <el-col :span="24" :xs="24">
+          <!-- 刷新文件 -->
+          <el-button
+            icon="el-icon-refresh"
+            @click="listFiles()"
+            size="mini">
+            刷新
+          </el-button>
+          <!-- 上传文件 -->
+          <el-button
+            icon="el-icon-upload"
+            type="primary"
+            size="mini"
+            @click="handleShow">
+            上传文件
+          </el-button>
+          <!-- 清空选中文件 -->
+          <el-button
+            icon="el-icon-folder-opened"
+            type="warning"
+            :disabled="selection.length === 0"
+            size="mini"
+            @click="clearSelect()"
+            >
+            清空选中文件
+          </el-button>
+          <!-- 删除选中文件 -->
+          <el-button
+            icon="el-icon-delete"
+            type="danger"
+            :disabled="selection.length === 0"
+            @click="deleteSelect()"
+            size="mini">
+            删除选中文件
+          </el-button>
+        </el-col>
+      </el-row>
       <!-- 文件内容 -->
       <div class="list">
         <!-- 单个文件 -->
@@ -644,7 +645,7 @@ export default {
 .space-container {
   display: flex;
   justify-content: space-between;
-  height: 100%;
+  min-height: 100%;
   border-radius: 5px;
   background: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
@@ -657,12 +658,17 @@ export default {
   .space-left {
     border-right: 1px solid #dcdfe6;
     width: 200px;
+    transition: 3s;
     // min-height: calc(100vh - 125px);
-    transition: .3s;
+
+    /* 定义展开和折叠的过渡果 */
+  .sidebar-enter-active,
+  .sidebar-leave-active {
+    transition: width 0.8s;
+  }
   }
 
   .hideLeft {
-    transition: .3s;
     display: none;
   }
 
@@ -723,13 +729,13 @@ export default {
   .openRight {
     width: 100%;
     min-height: calc(100vh - 125px);
-    transition: .3s;
   }
 
   .right-header {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
     height: 40px;
     position: relative;
     font-size: 15px;
@@ -760,10 +766,7 @@ export default {
   }
 
   .button-group {
-    display: flex;
-    align-items: center;
-    height: 50px;
-    padding: 5px 10px;
+    padding: 10px;
   }
 
   .select-item {
