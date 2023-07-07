@@ -135,7 +135,7 @@
             <span>{{ scope.row.costTime }}ms</span>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="请求时间" align="center" v-if="columns[8].visible">
+        <el-table-column prop="createTime" label="请求时间" align="center" width="180" v-if="columns[8].visible">
           <template slot-scope="scope">
             <span>{{ scope.row.createTime | dateFilter }}</span>
           </template>

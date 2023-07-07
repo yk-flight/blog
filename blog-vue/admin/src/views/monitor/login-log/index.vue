@@ -78,7 +78,7 @@
         <!-- 登录消息提示 -->
         <el-table-column prop="message" label="登录提示" align="center" v-if="columns[7].visible"></el-table-column>
         <!-- 登录时间 -->
-        <el-table-column prop="loginTime" label="登录时间" width="200" align="center" v-if="columns[8].visible">
+        <el-table-column prop="loginTime" label="登录时间" width="180" align="center" v-if="columns[8].visible">
           <template slot-scope="scope">
             <span>{{ scope.row.loginTime | dateFilter }}</span>
           </template>

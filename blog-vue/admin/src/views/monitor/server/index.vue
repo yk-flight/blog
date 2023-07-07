@@ -1,7 +1,10 @@
 <template>
   <div class="page-container">
+    <div class="card card-title">
+      <page-title :title="title"></page-title>
+    </div>
     <!-- CPU监控 / 内存监控 -->
-    <el-row :gutter="20">
+    <el-row :gutter="20" class="item-container">
       <el-col :md="12" :sm="24">
         <div class="card">
           <div class="header">
@@ -39,7 +42,6 @@
           </div>
         </div>
       </el-col>
-
       <el-col :md="12" :sm="24">
         <div class="card">
           <div class="header">
@@ -200,17 +202,26 @@
 </template>
 
 <script>
+import PageTitle from '../../../components/PageTitle/index.vue'
+
 export default {
   name: 'Server',
 
+  components: { PageTitle },
+
   data () {
     return {
+      // 页面标题
+      title: '',
       // 系统加载框
       loading: true
     }
   },
 
   created () {
+    // 赋值当前页面内容
+    this.title = this.$route.meta.title
+    // 打开加载框
     this.openLoading()
   },
 
@@ -242,9 +253,16 @@ export default {
 }
 
 .header {
-
   span {
     margin-left: 10px;
   }
+}
+
+.card-title {
+  height: 40px;
+}
+
+.item-container {
+  margin-top: 20px;
 }
 </style>
