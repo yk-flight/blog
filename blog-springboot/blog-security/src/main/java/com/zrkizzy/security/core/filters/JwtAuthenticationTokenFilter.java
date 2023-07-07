@@ -5,7 +5,7 @@ import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.exception.TokenErrorException;
 import com.zrkizzy.common.exception.TokenExpiredException;
-import com.zrkizzy.common.utils.JwtTokenUtil;
+import com.zrkizzy.common.utils.security.JwtTokenUtil;
 import com.zrkizzy.security.entity.MyUserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

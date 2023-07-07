@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.HttpStatusEnum;
-import com.zrkizzy.common.utils.BeanCopyUtil;
+import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.${entityName};
 import com.zrkizzy.data.dto.${entityName}DTO;
 import com.zrkizzy.data.query.${entityName}Query;

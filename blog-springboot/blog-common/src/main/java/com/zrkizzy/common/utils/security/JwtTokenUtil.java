@@ -1,4 +1,4 @@
-package com.zrkizzy.common.utils;
+package com.zrkizzy.common.utils.security;
 
 import com.zrkizzy.common.exception.TokenErrorException;
 import com.zrkizzy.common.exception.TokenExpiredException;

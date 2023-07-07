@@ -5,7 +5,7 @@ import com.zrkizzy.common.annotation.OperateLogAnnotation;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.HttpStatusEnum;
-import com.zrkizzy.common.utils.BeanCopyUtil;
+import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.Link;
 import com.zrkizzy.data.dto.LinkDTO;
 import com.zrkizzy.data.query.LinkQuery;

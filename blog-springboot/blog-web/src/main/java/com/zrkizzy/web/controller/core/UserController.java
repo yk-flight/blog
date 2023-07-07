@@ -1,7 +1,7 @@
 package com.zrkizzy.web.controller.core;
 
 import com.zrkizzy.common.base.response.Result;
-import com.zrkizzy.common.utils.BeanCopyUtil;
+import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.User;
 import com.zrkizzy.data.dto.AvatarDTO;
 import com.zrkizzy.data.dto.PasswordDTO;

@@ -1,4 +1,4 @@
-package com.zrkizzy.common.utils;
+package com.zrkizzy.common.utils.file;
 
 import org.apache.commons.codec.binary.Hex;
 

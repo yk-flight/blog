@@ -1,7 +1,7 @@
 package com.zrkizzy.server.service.common.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.zrkizzy.common.utils.BeanCopyUtil;
+import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.data.domain.File;
 import com.zrkizzy.data.dto.FileDTO;

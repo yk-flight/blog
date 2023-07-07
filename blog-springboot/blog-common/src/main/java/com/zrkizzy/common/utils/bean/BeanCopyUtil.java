@@ -1,4 +1,4 @@
-package com.zrkizzy.common.utils;
+package com.zrkizzy.common.utils.bean;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;

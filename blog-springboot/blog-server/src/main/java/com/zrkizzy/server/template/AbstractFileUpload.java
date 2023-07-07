@@ -3,7 +3,7 @@ package com.zrkizzy.server.template;
 import cn.hutool.core.collection.CollectionUtil;
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.exception.BusinessException;
-import com.zrkizzy.common.utils.FileUtil;
+import com.zrkizzy.common.utils.file.FileUtil;
 import com.zrkizzy.common.utils.TimeUtil;
 import com.zrkizzy.data.dto.FileDTO;
 import com.zrkizzy.security.util.SecurityUtil;

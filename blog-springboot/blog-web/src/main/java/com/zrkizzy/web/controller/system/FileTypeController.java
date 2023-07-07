@@ -2,7 +2,7 @@ package com.zrkizzy.web.controller.system;
 
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.HttpStatusEnum;
-import com.zrkizzy.common.utils.BeanCopyUtil;
+import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.dto.FileTypeDTO;
 import com.zrkizzy.data.vo.FileTypeVO;
 import com.zrkizzy.server.service.common.IFileTypeService;
