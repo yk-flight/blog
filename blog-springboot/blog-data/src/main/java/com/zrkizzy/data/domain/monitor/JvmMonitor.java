@@ -99,6 +99,7 @@ public class JvmMonitor implements Serializable {
     public String getJdkRunTime() {
         // 获取JDK的启动时间
         long time = ManagementFactory.getRuntimeMXBean().getStartTime();
+        // 计算时间差
         return TimeUtil.timeDistance(TimeUtil.now(), new Date(time));
     }
 
