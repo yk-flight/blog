@@ -44,6 +44,7 @@ public class CalculateUtil {
 
     /**
      * <p>除法运算</p>
+     *
      * 当发生除不尽的情况时，精确到小数点以后10位，以后的数字四舍五入
      *
      * @param dividend 被除数
@@ -56,6 +57,7 @@ public class CalculateUtil {
 
     /**
      * <p>指定精度的除法运算</p>
+     *
      * 当发生除不尽的情况时，精确到小数点以后10位，以后的数字四舍五入
      *
      * @param dividend 被除数

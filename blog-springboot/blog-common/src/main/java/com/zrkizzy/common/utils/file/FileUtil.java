@@ -60,6 +60,38 @@ public class FileUtil {
         return fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
     }
 
+    /**
+     * 字节转换
+     *
+     * @param size 字节大小
+     * @return 转换后值
+     */
+    public static String convertFileSize(long size) {
+        // 定义 1KB 的字节数
+        long kb = 1024;
+        // 定义 1MB 的字节数
+        long mb = kb * 1024;
+        // 定义 1GB 的字节数
+        long gb = mb * 1024;
+        // 如果文件大小大于等于1GB
+        if (size >= gb) {
+            // 保留一位小数并添加GB
+            return String.format("%.1f GB", (float) size / gb);
+        } else if (size >= mb) {
+            // 将文件大小转换为以 MB 为单位的浮点数
+            float f = (float) size / mb;
+            // 如果文件大小大于 100 MB，格式化输出整数 MB；否则保留一位小数，并加上单位"MB"
+            return String.format(f > 100 ? "%.0f MB" : "%.1f MB", f);
+        } else if (size >= kb) {
+            // 将文件大小转换为以 KB 为单位的浮点数
+            float f = (float) size / kb;
+            // 如果文件大小大于 100 KB，格式化输出整数 KB；否则保留一位小数，并加上单位"KB"
+            return String.format(f > 100 ? "%.0f KB" : "%.1f KB", f);
+        } else {
+            return String.format("%d B", size);
+        }
+    }
+
     public static void main(String[] args) throws FileNotFoundException {
         File file = new File("/Users/zhangrongkang/Downloads/IMG_1931.JPG");
         InputStream in = new FileInputStream(file);
