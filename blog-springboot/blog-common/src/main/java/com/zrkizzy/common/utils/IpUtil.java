@@ -6,7 +6,9 @@ import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +25,7 @@ public class IpUtil {
 
     /**
      * 获取客户端IP地址
+     *
      * @param request HttpServletRequest对象
      * @return IP地址
      */
@@ -69,6 +72,20 @@ public class IpUtil {
             return location.contains(" ") ? location.substring(0, location.indexOf(" ")) : location;
         } catch (Exception e) {
             return "";
+        }
+    }
+
+    /**
+     * 获取主机名
+     *
+     * @return 本地主机名
+     */
+    public static String getHostName() {
+        try {
+            // 获取本机名称
+            return InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException e) {
+            return UNKNOWN_HOST_NAME;
         }
     }
 }

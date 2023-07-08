@@ -1,7 +1,10 @@
 package com.zrkizzy.server.service.monitor.impl;
 
+import com.zrkizzy.common.utils.IpUtil;
+import com.zrkizzy.common.utils.ServletUtil;
 import com.zrkizzy.data.domain.monitor.CpuMonitor;
 import com.zrkizzy.data.domain.monitor.JvmMonitor;
+import com.zrkizzy.data.domain.monitor.ServerMonitor;
 import com.zrkizzy.data.vo.monitor.ServiceMonitorVO;
 import com.zrkizzy.server.service.monitor.IServiceMonitorService;
 import org.springframework.stereotype.Service;
@@ -44,8 +47,34 @@ public class ServiceMonitorServiceImpl implements IServiceMonitorService {
         serviceMonitorVO.setCpuMonitor(setCpuInfo(hardware.getProcessor()));
         // 设置JVM信息
         serviceMonitorVO.setJvmMonitor(setJvmInfo());
+        // 设置服务器信息
+        serviceMonitorVO.setServerMonitor(setServerInfo());
 
         return serviceMonitorVO;
+    }
+
+    /**
+     * 设置服务器信息
+     *
+     * @return 服务器信息
+     */
+    private ServerMonitor setServerInfo() {
+        // 服务监控实体
+        ServerMonitor serverMonitor = new ServerMonitor();
+        // 获取系统参数
+        Properties props = System.getProperties();
+        // 服务器名称
+        serverMonitor.setServerName(IpUtil.getHostName());
+        // 服务器IP
+        serverMonitor.setServerIp(IpUtil.getIpAddress(ServletUtil.getRequest()));
+        // 操作系统
+        serverMonitor.setOs(props.getProperty("os.name"));
+        // 系统架构
+        serverMonitor.setOsArch(props.getProperty("os.arch"));
+        // 项目路径
+        serverMonitor.setProjectPath(props.getProperty("user.dir"));
+
+        return serverMonitor;
     }
 
     /**

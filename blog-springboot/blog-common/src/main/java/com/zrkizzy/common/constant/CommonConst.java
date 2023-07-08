@@ -99,6 +99,11 @@ public class CommonConst {
     public static final String UNKNOWN_USER = "未知用户";
 
     /**
+     * 未知主机名
+     */
+    public static final String UNKNOWN_HOST_NAME = "未知主机名";
+
+    /**
      * 用户解析信息
      */
     public static final String USER_AGENT = "User-Agent";
