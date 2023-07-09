@@ -82,15 +82,22 @@ public class ServiceMonitorServiceImpl implements IServiceMonitorService {
             long free = fileStore.getUsableSpace();
             // 磁盘总大小
             long total = fileStore.getTotalSpace();
-            // 磁盘已使用
+            // 磁盘已使用大小
             long used = total - free;
             DiskMonitor diskMonitor = new DiskMonitor();
+            // 磁盘路径
             diskMonitor.setDiskPath(fileStore.getMount());
+            // 磁盘类型
             diskMonitor.setDiskType(fileStore.getType());
-            diskMonitor.setFileType(fileStore.getName());
+            // 磁盘名称
+            diskMonitor.setDiskName(fileStore.getName());
+            // 磁盘大小
             diskMonitor.setTotal(convertFileSize(total));
+            // 剩余空间
             diskMonitor.setFree(convertFileSize(free));
+            // 已使用大小
             diskMonitor.setUsed(convertFileSize(used));
+            // 磁盘使用率
             diskMonitor.setUsage(CalculateUtil.multiply(CalculateUtil.divide(used, total, 4), 100));
 
             diskMonitors.add(diskMonitor);

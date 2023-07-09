@@ -19,14 +19,14 @@ public class DiskMonitor implements Serializable {
     private String diskPath;
 
     /**
-     * 盘符类型
+     * 磁盘类型
      */
     private String diskType;
 
     /**
-     * 文件类型
+     * 磁盘名称
      */
-    private String fileType;
+    private String diskName;
 
     /**
      * 总大小
