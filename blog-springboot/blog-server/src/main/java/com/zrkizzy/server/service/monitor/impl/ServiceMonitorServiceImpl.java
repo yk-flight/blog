@@ -1,19 +1,26 @@
 package com.zrkizzy.server.service.monitor.impl;
 
+import com.zrkizzy.common.utils.CalculateUtil;
 import com.zrkizzy.common.utils.IpUtil;
 import com.zrkizzy.common.utils.ServletUtil;
-import com.zrkizzy.data.domain.monitor.CpuMonitor;
-import com.zrkizzy.data.domain.monitor.JvmMonitor;
-import com.zrkizzy.data.domain.monitor.ServerMonitor;
+import com.zrkizzy.data.domain.monitor.*;
 import com.zrkizzy.data.vo.monitor.ServiceMonitorVO;
 import com.zrkizzy.server.service.monitor.IServiceMonitorService;
 import org.springframework.stereotype.Service;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
+import oshi.hardware.GlobalMemory;
 import oshi.hardware.HardwareAbstractionLayer;
+import oshi.software.os.FileSystem;
+import oshi.software.os.OSFileStore;
+import oshi.software.os.OperatingSystem;
 import oshi.util.Util;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
+
+import static com.zrkizzy.common.utils.file.FileUtil.convertFileSize;
 
 /**
  * 系统监控业务逻辑接口实现类
@@ -49,8 +56,66 @@ public class ServiceMonitorServiceImpl implements IServiceMonitorService {
         serviceMonitorVO.setJvmMonitor(setJvmInfo());
         // 设置服务器信息
         serviceMonitorVO.setServerMonitor(setServerInfo());
+        // 设置内存监控信息
+        serviceMonitorVO.setMemoryMonitor(setMemoryInfo(hardware.getMemory()));
+        // 设置磁盘信息
+        serviceMonitorVO.setDiskMonitors(setDiskInfo(systemInfo.getOperatingSystem()));
 
         return serviceMonitorVO;
+    }
+
+    /**
+     * 设置磁盘信息
+     *
+     * @param os 操作系统参数
+     * @return 磁盘信息
+     */
+    private List<DiskMonitor> setDiskInfo(OperatingSystem os) {
+        List<DiskMonitor> diskMonitors = new LinkedList<>();
+        // 获取系统文件对象
+        FileSystem fileSystem = os.getFileSystem();
+        // 获取磁盘信息集合
+        List<OSFileStore> fileStores = fileSystem.getFileStores();
+        // 循环赋值磁盘信息
+        for (OSFileStore fileStore : fileStores) {
+            // 剩余空间
+            long free = fileStore.getUsableSpace();
+            // 磁盘总大小
+            long total = fileStore.getTotalSpace();
+            // 磁盘已使用
+            long used = total - free;
+            DiskMonitor diskMonitor = new DiskMonitor();
+            diskMonitor.setDiskPath(fileStore.getMount());
+            diskMonitor.setDiskType(fileStore.getType());
+            diskMonitor.setFileType(fileStore.getName());
+            diskMonitor.setTotal(convertFileSize(total));
+            diskMonitor.setFree(convertFileSize(free));
+            diskMonitor.setUsed(convertFileSize(used));
+            diskMonitor.setUsage(CalculateUtil.multiply(CalculateUtil.divide(used, total, 4), 100));
+
+            diskMonitors.add(diskMonitor);
+        }
+
+        return diskMonitors;
+    }
+
+    /**
+     * 设置内存信息
+     *
+     * @param memory 系统内存信息
+     * @return 内存信息监控对象
+     */
+    private MemoryMonitor setMemoryInfo(GlobalMemory memory) {
+        // 内存监控实体
+        MemoryMonitor memoryMonitor = new MemoryMonitor();
+        // 总内存
+        memoryMonitor.setTotal(memory.getTotal());
+        // 已使用内存
+        memoryMonitor.setUsed(memory.getTotal() - memory.getAvailable());
+        //
+        memoryMonitor.setFree(memory.getAvailable());
+
+        return memoryMonitor;
     }
 
     /**
