@@ -147,7 +147,7 @@ public class DbUtil {
      */
     public static String castTableNameToMapping(String tableName, String prefix) {
         // 去掉表格前缀
-        tableName = tableName.replace(prefix, "");
+        tableName = tableName.substring(prefix.length());
         // 返回路径名称
         return tableName.toLowerCase().replace("_", "-");
     }
