@@ -120,13 +120,11 @@ export default {
      * 获取验证码
      */
     getCaptcha () {
-      // 加入时间戳确保每一次请求都不重复
-      // this.captcha =
-      //   process.env.VUE_APP_CAPTCHA_URL +
-      //   '/captcha/getCaptcha?time=' +
-      //   new Date()
+      // 向后端发送请求获取验证码
       getCaptcha().then((res) => {
+        // Base64格式图片
         this.captcha = res.codeImage
+        // 用户全局唯一标识
         this.loginForm.track = res.track
       })
     },
