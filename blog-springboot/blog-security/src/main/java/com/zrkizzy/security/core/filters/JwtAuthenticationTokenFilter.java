@@ -6,6 +6,7 @@ import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.exception.TokenErrorException;
 import com.zrkizzy.common.exception.TokenExpiredException;
 import com.zrkizzy.common.utils.security.JwtTokenUtil;
+import com.zrkizzy.security.context.SecurityContext;
 import com.zrkizzy.security.entity.MyUserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,12 +61,14 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 if (!jwtTokenUtil.validateToken(token)) {
                     // 解析出当前 token 中的用户并将用户信息设置到 SecurityContextHolder 中
 //                    log.info("加载用户信息...... ");
-                    // 解析出 token 中的用户名
-                    String username = jwtTokenUtil.getUsernameFromToken(token);
+                    // 解析出 token 中的唯一标识
+                    String track = jwtTokenUtil.getTrackFromToken(token);
                     // 如果当前Token不合法
 //                    log.info("当前进行鉴权的用户为：{}", username);
-                    MyUserDetails userDetails = (MyUserDetails) userDetailsService.loadUserByUsername(username);
+                    MyUserDetails userDetails = (MyUserDetails) userDetailsService.loadUserByUsername(track);
 //                    log.info("当前用户的角色标识为：{}", userDetails.getRoleMark());
+                    // 设置用户全局唯一标识
+                    SecurityContext.setTrack(track);
                     // 用户详细信息（userDetails）、空密码、用户权限（userDetails.getAuthorities()）来获取认证令牌
                     UsernamePasswordAuthenticationToken authenticationToken =
                             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

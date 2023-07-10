@@ -15,6 +15,7 @@ import com.zrkizzy.data.dto.PasswordDTO;
 import com.zrkizzy.data.dto.UserInfoDTO;
 import com.zrkizzy.data.mapper.UserMapper;
 import com.zrkizzy.common.base.response.OptionsVO;
+import com.zrkizzy.security.context.SecurityContext;
 import com.zrkizzy.security.util.SecurityUtil;
 import com.zrkizzy.security.util.UserDetailUtil;
 import com.zrkizzy.server.service.core.IUserInfoService;
@@ -80,7 +81,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Result<String> login(LoginDTO loginDTO) {
         // Redis中获取验证码
-        String redisCode = redisService.get(CAPTCHA_PREFIX, String.class);
+        String redisCode = redisService.get(CAPTCHA_PREFIX + loginDTO.getTrack(), String.class);
         // 验证码是否过期
         if (!StringUtils.hasLength(redisCode)) {
             return Result.failure(CODE_EXPIRED);
@@ -109,9 +110,9 @@ public class UserServiceImpl implements IUserService {
         // Redis中不显示密码
         user.setPassword(null);
         // 存在则将获取到的用户信息存储到Redis中，过期时间为两小时
-        redisService.set(USER_PREFIX + username, user, TWO_HOUR);
+        redisService.set(USER_PREFIX + loginDTO.getTrack(), user, TWO_HOUR);
         // 根据用户详细信息生成Token
-        return Result.success("登录成功", jwtTokenUtil.generateToken(userDetailUtil.convertUserDetails(user)));
+        return Result.success(jwtTokenUtil.generateToken(loginDTO.getTrack()));
     }
 
     /**
@@ -169,10 +170,12 @@ public class UserServiceImpl implements IUserService {
         }
         // 将用户密码提前保存下来，在Redis中不缓存密码
         String password = user.getPassword();
+        // 获取用户全局唯一标识
+        String track = SecurityContext.getTrack();
         // 获取当前更新个人信息用户缓存的失效时间
-        Long expire = redisService.getExpire(USER_PREFIX + user.getUsername());
+        Long expire = redisService.getExpire(USER_PREFIX + track);
         // 删除Redis中缓存的用户个人信息
-        redisService.del(USER_PREFIX + user.getUsername());
+        redisService.del(USER_PREFIX + track);
 
         // 设置用户信息
         user.setNickname(userInfoDTO.getNickname());
@@ -182,7 +185,7 @@ public class UserServiceImpl implements IUserService {
         // Redis中不展示密码
         user.setPassword(null);
         // 更新缓存中的用户个人信息，缓存失效时间不改变
-        redisService.set(USER_PREFIX + user.getUsername(), user, expire);
+        redisService.set(USER_PREFIX + track, user, expire);
         user.setPassword(password);
 
         // 更新数据库
@@ -219,7 +222,7 @@ public class UserServiceImpl implements IUserService {
             return Result.failure(HttpStatusEnum.PASSWORD_SAME);
         }
         // 获取Redis中存储的Key
-        String userKey = USER_PREFIX + user.getUsername();
+        String userKey = USER_PREFIX + SecurityContext.getTrack();
         // 更新密码
         user.setPassword(passwordEncoder.encode(passwordDTO.getPassword()));
         // 更新用户更新时间
@@ -249,15 +252,16 @@ public class UserServiceImpl implements IUserService {
         user.setUpdateTime(LocalDateTime.now());
         // 更新数据库中用户信息
         userMapper.updateUserAvatar(avatarDTO.getUserId(), avatarDTO.getSrc());
-
+        // 获取用户唯一标识
+        String track = SecurityContext.getTrack();
         // 获取当前用户缓存的失效时间
-        Long expire = redisService.getExpire(USER_PREFIX + securityUtil.getLoginUsername());
+        Long expire = redisService.getExpire(USER_PREFIX + track);
         // 删除Redis中缓存的用户个人信息
-        redisService.del(USER_PREFIX + user.getUsername());
+        redisService.del(USER_PREFIX + track);
         // Redis中不展示密码
         user.setPassword(null);
         // 更新缓存中的用户个人信息，缓存失效时间不改变
-        redisService.set(USER_PREFIX + user.getUsername(), user, expire);
+        redisService.set(USER_PREFIX + track, user, expire);
         // 将头像返回
         return Result.success(avatarDTO.getSrc());
     }

@@ -29,10 +29,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private IRedisService redisService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String track) throws UsernameNotFoundException {
 //        log.info("------------------ 开始查询User对象 ------------------");
         // 查看Redis中是否存在当前用户
-        User user = redisService.get(USER_PREFIX + username, User.class);
+        User user = redisService.get(USER_PREFIX + track, User.class);
         // 2. 如果Redis中不存在当前用户信息则从数据库获取
         if (null == user) {
             // 抛出未找到用户异常

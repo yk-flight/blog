@@ -53,6 +53,23 @@ public class JwtTokenUtil {
     }
 
     /**
+     * 根据用户信息生成token
+     *
+     * @param track 用户信息唯一标识
+     * @return 生成的token
+     */
+    public String generateToken(String track) {
+        // 定义token中存储数据的载荷
+        Map<String, Object> claims = new HashMap<>();
+        // 1. 用户名
+        claims.put(CLAIM_KEY_USERNAME, track);
+        // 2. 签发时间
+        claims.put(CLAIM_KEY_CREATED, new Date());
+        // 签发token
+        return generateToken(claims);
+    }
+
+    /**
      * 根据载荷生成token
      *
      * @param claims 载荷
@@ -98,6 +115,26 @@ public class JwtTokenUtil {
             username = null;
         }
         return username;
+    }
+
+    /**
+     * 从token中获取唯一标识
+     *
+     * @param token token
+     * @return 当前token中存储的用户名
+     */
+    public String getTrackFromToken(String token) {
+        String track;
+        try {
+            // 从token中获取到载荷
+            Claims claims = getClaimsFromToken(token);
+            // 通过载荷获取到用户名
+            track = claims.getSubject();
+        } catch (Exception e) {
+            // 如果出现异常则将 userName 设置为空
+            track = null;
+        }
+        return track;
     }
 
     /**
