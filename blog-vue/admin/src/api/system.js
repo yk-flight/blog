@@ -1,6 +1,16 @@
 import request from '../utils/request'
 
 /**
+ * 获取验证码
+ */
+export const getCaptcha = () => {
+  return request({
+    url: '/captcha/getCaptcha',
+    method: 'GET'
+  })
+}
+
+/**
  * 用户登录
  */
 export const login = (data) => {

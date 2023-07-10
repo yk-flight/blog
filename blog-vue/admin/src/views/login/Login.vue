@@ -73,6 +73,8 @@
 </template>
 
 <script>
+import { getCaptcha } from '../../api/system'
+
 export default {
   name: 'Login',
 
@@ -89,7 +91,9 @@ export default {
         // 密码
         password: '',
         // 验证码
-        code: undefined
+        code: undefined,
+        // 验证码唯一值
+        track: undefined
       },
       // 登录校验规则
       loginRules: {
@@ -117,10 +121,14 @@ export default {
      */
     getCaptcha () {
       // 加入时间戳确保每一次请求都不重复
-      this.captcha =
-        process.env.VUE_APP_CAPTCHA_URL +
-        '/captcha/getCaptcha?time=' +
-        new Date()
+      // this.captcha =
+      //   process.env.VUE_APP_CAPTCHA_URL +
+      //   '/captcha/getCaptcha?time=' +
+      //   new Date()
+      getCaptcha().then((res) => {
+        this.captcha = res.codeImage
+        this.loginForm.track = res.track
+      })
     },
     /**
      * 用户登录
@@ -130,6 +138,7 @@ export default {
         this.loading = true
         if (valid) {
           this.$store.dispatch('user/login', this.loginForm).then(() => {
+            this.$message.success('登录成功')
             // 跳转到后台首页
             this.$router.replace('/home')
           }).catch(() => {

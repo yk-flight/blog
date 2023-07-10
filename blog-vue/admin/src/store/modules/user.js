@@ -36,10 +36,10 @@ const user = {
      */
     login ({ commit }, loginForm) {
       // 获取到用户参数
-      const { username, password, code } = loginForm
+      const { username, password, code, track } = loginForm
       // 调用登录方法，在获取到数据后向外传递
       return new Promise((resolve, reject) => {
-        login({ username, password, code }).then((data) => {
+        login({ username, password, code, track }).then((data) => {
           // 设置token值
           commit('SET_TOKEN', data)
           setItem(TOKEN, data)
