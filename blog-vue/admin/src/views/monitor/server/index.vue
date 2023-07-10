@@ -22,20 +22,36 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="el-table__cell is-leaf"><div class="cell">核心数</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">cpuNum</div></td>
+                  <th class="el-table__cell is-leaf"><div class="cell">核心数</div></th>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.cpuMonitor">
+                      {{ service.cpuMonitor.coreNum }}
+                    </div>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="el-table__cell is-leaf"><div class="cell">用户使用率</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">used%</div></td>
+                  <th class="el-table__cell is-leaf"><div class="cell">用户使用率</div></th>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.cpuMonitor" :class="{'text-danger': service.cpuMonitor.userUseRate > 80}">
+                      {{ service.cpuMonitor.userUseRate }}%
+                    </div>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="el-table__cell is-leaf"><div class="cell">系统使用率</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">sys%</div></td>
+                  <th class="el-table__cell is-leaf"><div class="cell">系统使用率</div></th>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.cpuMonitor" :class="{'text-danger': service.cpuMonitor.systemUseRate > 80}">
+                      {{ service.cpuMonitor.systemUseRate }}%
+                    </div>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="el-table__cell is-leaf"><div class="cell">当前空闲率</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">free%</div></td>
+                  <th class="el-table__cell is-leaf"><div class="cell">当前空闲率</div></th>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.cpuMonitor">
+                      {{ service.cpuMonitor.freeRate }}%
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -60,25 +76,56 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="el-table__cell is-leaf"><div class="cell">总内存</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">total G</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">total M</div></td>
+                  <th class="el-table__cell is-leaf"><div class="cell">总内存</div></th>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.memoryMonitor">
+                      {{ service.memoryMonitor.total }}G
+                    </div>
+                  </td>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.jvmMonitor">
+                      {{ service.jvmMonitor.totalMemory }}MB
+                    </div>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="el-table__cell is-leaf"><div class="cell">已用内存</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">usedG</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">usedM</div></td>
+                  <th class="el-table__cell is-leaf"><div class="cell">已用内存</div></th>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.memoryMonitor">
+                      {{ service.memoryMonitor.used }}G
+                    </div>
+                  </td>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.jvmMonitor">
+                      {{ service.jvmMonitor.used }}MB
+                    </div>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="el-table__cell is-leaf"><div class="cell">剩余内存</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">freeG</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">freeM</div></td>
+                  <th class="el-table__cell is-leaf"><div class="cell">剩余内存</div></th>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.memoryMonitor">
+                      {{ service.memoryMonitor.free }}G
+                    </div>
+                  </td>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.jvmMonitor">
+                      {{ service.jvmMonitor.freeMemory }}MB
+                    </div>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="el-table__cell is-leaf"><div class="cell">使用率</div></td>
-                  <!-- :class="{'text-danger': server.mem.usage > 80}" -->
-                  <td class="el-table__cell is-leaf"><div class="cell">usage%</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">usage%</div></td>
+                  <th class="el-table__cell is-leaf"><div class="cell">使用率</div></th>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" :class="{'text-danger': service.memoryMonitor.usage > 80}" v-if="service.memoryMonitor">
+                      {{ service.memoryMonitor.usage }}%
+                    </div>
+                  </td>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" :class="{'text-danger': service.jvmMonitor.usage > 80}" v-if="service.jvmMonitor">
+                      {{ service.jvmMonitor.usage }}%
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -99,16 +146,32 @@
             <table cellspacing="0" style="width: 100%;">
               <tbody>
                 <tr>
-                  <td class="el-table__cell is-leaf"><div class="cell">服务器名称</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">computerName</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">操作系统</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">osName</div></td>
+                  <th class="el-table__cell is-leaf"><div class="cell">服务器名称</div></th>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.serverMonitor">
+                      {{ service.serverMonitor.serverName }}
+                    </div>
+                  </td>
+                  <th class="el-table__cell is-leaf"><div class="cell">操作系统</div></th>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.serverMonitor">
+                      {{ service.serverMonitor.os }}
+                    </div>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="el-table__cell is-leaf"><div class="cell">服务器IP</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">computerIp</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">系统架构</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">osArch</div></td>
+                  <th class="el-table__cell is-leaf"><div class="cell">服务器IP</div></th>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.serverMonitor">
+                      {{ service.serverMonitor.serverIp }}
+                    </div>
+                  </td>
+                  <th class="el-table__cell is-leaf"><div class="cell">系统架构</div></th>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.serverMonitor">
+                      {{ service.serverMonitor.osArch }}
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -129,28 +192,56 @@
             <table cellspacing="0" style="width: 100%;table-layout:fixed;">
               <tbody>
                 <tr>
-                  <td class="el-table__cell is-leaf"><div class="cell">Java名称</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">name</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">Java版本</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">version</div></td>
+                  <th class="el-table__cell is-leaf"><div class="cell">Java名称</div></th>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.jvmMonitor">
+                      {{ service.jvmMonitor.name }}
+                    </div>
+                  </td>
+                  <th class="el-table__cell is-leaf"><div class="cell">Java版本</div></th>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.jvmMonitor">
+                      {{ service.jvmMonitor.version }}
+                    </div>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="el-table__cell is-leaf"><div class="cell">启动时间</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">startTime</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">运行时长</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">runTime</div></td>
+                  <th class="el-table__cell is-leaf"><div class="cell">启动时间</div></th>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.jvmMonitor">
+                      {{ service.jvmMonitor.jdkStartTime }}
+                    </div>
+                  </td>
+                  <th class="el-table__cell is-leaf"><div class="cell">运行时长</div></th>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.jvmMonitor">
+                      {{ service.jvmMonitor.jdkRunTime }}
+                    </div>
+                  </td>
                 </tr>
                 <tr>
-                  <td colspan="1" class="el-table__cell is-leaf"><div class="cell">安装路径</div></td>
-                  <td colspan="3" class="el-table__cell is-leaf"><div class="cell">home</div></td>
+                  <th colspan="1" class="el-table__cell is-leaf"><div class="cell">安装路径</div></th>
+                  <td colspan="3" class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.jvmMonitor">
+                      {{ service.jvmMonitor.home }}
+                    </div>
+                  </td>
                 </tr>
                 <tr>
-                  <td colspan="1" class="el-table__cell is-leaf"><div class="cell">项目路径</div></td>
-                  <td colspan="3" class="el-table__cell is-leaf"><div class="cell">userDir</div></td>
+                  <th colspan="1" class="el-table__cell is-leaf"><div class="cell">项目路径</div></th>
+                  <td colspan="3" class="el-table__cell is-leaf">
+                    <div class="cell" v-if="service.serverMonitor">
+                      {{ service.serverMonitor.projectPath }}
+                    </div>
+                  </td>
                 </tr>
                 <tr>
-                  <td colspan="1" class="el-table__cell is-leaf"><div class="cell">运行参数</div></td>
-                  <td colspan="3" class="el-table__cell is-leaf"><div class="cell">inputArgs</div></td>
+                  <th colspan="1" class="el-table__cell is-leaf"><div class="cell">运行参数</div></th>
+                  <td colspan="3" class="el-table__cell is-leaf">
+                    <div class="cell"  v-if="service.jvmMonitor">
+                      {{ service.jvmMonitor.inputArgs }}
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -171,9 +262,9 @@
             <table cellspacing="0" style="width: 100%;">
               <thead>
                 <tr>
-                  <th class="el-table__cell el-table__cell is-leaf"><div class="cell">盘符路径</div></th>
-                  <th class="el-table__cell is-leaf"><div class="cell">文件系统</div></th>
-                  <th class="el-table__cell is-leaf"><div class="cell">盘符类型</div></th>
+                  <th class="el-table__cell is-leaf"><div class="cell">磁盘名称</div></th>
+                  <th class="el-table__cell is-leaf"><div class="cell">磁盘路径</div></th>
+                  <th class="el-table__cell is-leaf"><div class="cell">磁盘类型</div></th>
                   <th class="el-table__cell is-leaf"><div class="cell">总大小</div></th>
                   <th class="el-table__cell is-leaf"><div class="cell">可用大小</div></th>
                   <th class="el-table__cell is-leaf"><div class="cell">已用大小</div></th>
@@ -181,16 +272,42 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- v-for="(sysFile, index) in server.sysFiles" :key="index" -->
-                <tr>
-                  <td class="el-table__cell is-leaf"><div class="cell">dirName</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">sysTypeName</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">typeName</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">total</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">free</div></td>
-                  <td class="el-table__cell is-leaf"><div class="cell">used</div></td>
-                  <!-- :class="{'text-danger': sysFile.usage > 80}" -->
-                  <td class="el-table__cell is-leaf"><div class="cell">usage%</div></td>
+                <tr v-for="(disk, index) in service.diskMonitors" :key="index">
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell">
+                      {{ disk.diskName }}
+                    </div>
+                  </td>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell">
+                      {{ disk.diskPath }}
+                    </div>
+                  </td>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell">
+                      {{ disk.diskType }}
+                    </div>
+                  </td>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell">
+                      {{ disk.total }}
+                    </div>
+                  </td>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell">
+                      {{ disk.free }}
+                    </div>
+                  </td>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell">
+                      {{ disk.used }}
+                    </div>
+                  </td>
+                  <td class="el-table__cell is-leaf">
+                    <div class="cell" :class="{'text-danger': disk.usage > 80}">
+                      {{ disk.usage }}%
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -202,10 +319,11 @@
 </template>
 
 <script>
+import { getMonitorInfo } from '../../../api/server'
 import PageTitle from '../../../components/PageTitle/index.vue'
 
 export default {
-  name: 'Server',
+  name: 'service',
 
   components: { PageTitle },
 
@@ -214,7 +332,9 @@ export default {
       // 页面标题
       title: '',
       // 系统加载框
-      loading: true
+      loading: true,
+      // 服务器信息
+      service: []
     }
   },
 
@@ -234,9 +354,13 @@ export default {
         spinner: 'el-icon-loading',
         background: 'rgba(0, 0, 0, 0.8)'
       })
+      // 获取后台数据
+      getMonitorInfo().then((res) => {
+        this.service = res
+      })
       setTimeout(() => {
         loading.close()
-      }, 3000)
+      }, 1000)
     }
   }
 }
@@ -264,5 +388,9 @@ export default {
 
 .item-container {
   margin-top: 20px;
+}
+.text-danger {
+  color: red;
+  font-weight: 600;
 }
 </style>

@@ -6,6 +6,6 @@ import request from '../utils/request'
 export const getMonitorInfo = () => {
   return request({
     url: '/admin/service-monitor/getMonitorInfo',
-    method: 'GET',
+    method: 'GET'
   })
 }

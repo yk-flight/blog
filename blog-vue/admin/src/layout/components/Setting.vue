@@ -53,10 +53,14 @@
 
     <el-divider/>
 
-    <div style="text-align: center;">
-      <el-button size="small" type="primary" plain icon="el-icon-document-add" @click="saveSetting">保存配置</el-button>
-      <el-button size="small" plain icon="el-icon-refresh" @click="resetSetting">重置配置</el-button>
-    </div>
+    <el-row style="text-align: center;">
+      <el-col :span="12">
+        <el-button size="small" type="primary" plain icon="el-icon-document-add" @click="saveSetting">保存配置</el-button>
+      </el-col>
+      <el-col :span="12">
+        <el-button size="small" plain icon="el-icon-refresh" @click="resetSetting">重置配置</el-button>
+      </el-col>
+    </el-row>
 
   </div>
 </template>
