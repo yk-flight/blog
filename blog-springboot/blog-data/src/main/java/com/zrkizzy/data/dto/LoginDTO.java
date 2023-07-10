@@ -26,12 +26,17 @@ public class LoginDTO implements Serializable {
      * 密码
      */
     @NotBlank(message = "密码不能为空")
-    public String password;
+    private String password;
 
     /**
      * 验证码
      */
     @NotBlank(message = "验证码不能为空")
-    public String code;
+    private String code;
+
+    /**
+     * 验证码追踪值
+     */
+    private String track;
 
 }

@@ -1,7 +1,10 @@
 package com.zrkizzy.web.controller.common;
 
 import com.wf.captcha.ArithmeticCaptcha;
+import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.service.IRedisService;
+import com.zrkizzy.common.utils.SnowFlakeUtil;
+import com.zrkizzy.data.vo.common.CaptChaVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 import static com.zrkizzy.common.constant.CommonConst.*;
 import static com.zrkizzy.common.constant.RedisConst.CAPTCHA_PREFIX;
@@ -27,11 +29,14 @@ import static com.zrkizzy.common.constant.TimeConst.FIVE_MINUTE;
 @RequestMapping("/captcha")
 public class CaptchaController {
     @Autowired
+    private SnowFlakeUtil snowFlakeUtil;
+    @Autowired
     private IRedisService redisService;
 
-    @ApiOperation(value = "生成验证码", produces = "image/jpeg")
+//    @ApiOperation(value = "生成验证码", produces = "image/jpeg")
+    @ApiOperation(value = "生成验证码")
     @GetMapping("/getCaptcha")
-    public void getCaptcha(HttpServletResponse response) {
+    public Result<CaptChaVO> getCaptcha(HttpServletResponse response) {
         // 设置请求头输出为图片类型
         response.setContentType(IMAGE_JPEG);
         // 设置请求头
@@ -41,14 +46,14 @@ public class CaptchaController {
         response.setDateHeader(EXPIRES, 0);
         // 生成算数类型验证码
         ArithmeticCaptcha captcha = new ArithmeticCaptcha(140, 28, 3);
+        String track = String.valueOf(snowFlakeUtil.nextId());
         // Redis存储验证码，过期时间为5分钟
-        redisService.set(CAPTCHA_PREFIX, captcha.text(), FIVE_MINUTE);
-        try {
-            // 输出验证码
-            captcha.out(response.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        redisService.set(CAPTCHA_PREFIX + track, captcha.text(), FIVE_MINUTE);
+        return Result.success(CaptChaVO.builder()
+                // 验证码图片Base64编码
+                .codeImage(captcha.toBase64())
+                // 验证码唯一值
+                .track(track).build());
     }
 
 }
