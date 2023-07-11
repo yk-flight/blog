@@ -1,8 +1,8 @@
 package com.zrkizzy.server.service.monitor;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zrkizzy.data.domain.User;
+import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.data.query.monitor.OnlineQuery;
+import com.zrkizzy.data.vo.monitor.OnlineUserVO;
 
 /**
  * 在线用户业务逻辑接口
@@ -18,5 +18,5 @@ public interface IOnlineService {
      * @param onlineQuery 在线用户信息查询对象
      * @return 在线用户分页对象
      */
-    Page<User> listOnlineUsers(OnlineQuery onlineQuery);
+    PageResult<OnlineUserVO> listOnlineUsers(OnlineQuery onlineQuery);
 }
