@@ -109,6 +109,8 @@ public class UserServiceImpl implements IUserService {
         }
         // Redis中不显示密码
         user.setPassword(null);
+        // 设置当前用户登录时间
+        user.setLoginTime(LocalDateTime.now());
         // 存在则将获取到的用户信息存储到Redis中，过期时间为两小时
         redisService.set(USER_PREFIX + loginDTO.getTrack(), user, TWO_HOUR);
         // 根据用户详细信息生成Token

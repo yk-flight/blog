@@ -2,9 +2,9 @@ package com.zrkizzy.common.config;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.stereotype.Component;
 
 /**
  * <p>Lettuce连接工厂校验配置类</p>
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * @author zhangrongkang
  * @since 2023/7/5
  */
-@Component
+@Configurable
 public class LettuceConnectionValidConfig implements InitializingBean {
 
     @Autowired

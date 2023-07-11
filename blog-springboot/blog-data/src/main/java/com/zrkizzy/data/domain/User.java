@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -67,5 +68,11 @@ public class User extends BaseEntity {
     @ApiModelProperty("备注")
     private String remark;
 
+    /**
+     * 登录时间
+     */
+    @ApiModelProperty("登录时间")
+    @TableField(exist = false)
+    private LocalDateTime loginTime;
 
 }

@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
-
-import static com.zrkizzy.common.constant.CommonConst.*;
 import static com.zrkizzy.common.constant.RedisConst.CAPTCHA_PREFIX;
 import static com.zrkizzy.common.constant.TimeConst.FIVE_MINUTE;
 
@@ -33,17 +30,9 @@ public class CaptchaController {
     @Autowired
     private IRedisService redisService;
 
-//    @ApiOperation(value = "生成验证码", produces = "image/jpeg")
     @ApiOperation(value = "生成验证码")
     @GetMapping("/getCaptcha")
-    public Result<CaptChaVO> getCaptcha(HttpServletResponse response) {
-        // 设置请求头输出为图片类型
-        response.setContentType(IMAGE_JPEG);
-        // 设置请求头
-        response.setHeader(PRAGMA, NO_CACHE);
-        response.setHeader(CACHE_CONTROL, NO_CACHE);
-        // 永不失效
-        response.setDateHeader(EXPIRES, 0);
+    public Result<CaptChaVO> getCaptcha() {
         // 生成算数类型验证码
         ArithmeticCaptcha captcha = new ArithmeticCaptcha(140, 28, 3);
         String track = String.valueOf(snowFlakeUtil.nextId());
