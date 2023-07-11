@@ -69,6 +69,13 @@ public class User extends BaseEntity {
     private String remark;
 
     /**
+     * 登录唯一标识
+     */
+    @ApiModelProperty("登录唯一标识")
+    @TableField(exist = false)
+    private String track;
+
+    /**
      * 登录IP
      */
     @ApiModelProperty("登录IP")

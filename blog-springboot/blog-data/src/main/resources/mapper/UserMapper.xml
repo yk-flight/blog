@@ -19,7 +19,7 @@
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
-    
+
     <resultMap id="UserWithRole" type="com.zrkizzy.data.domain.User" extends="BaseResultMap">
         <collection property="roles" ofType="com.zrkizzy.data.domain.Role">
             <id column="role_id" property="id" />

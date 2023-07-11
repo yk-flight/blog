@@ -1,12 +1,13 @@
 package com.zrkizzy.server.service.core.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.service.IRedisService;
+import com.zrkizzy.common.utils.IpUtil;
 import com.zrkizzy.common.utils.ServletUtil;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
-import com.zrkizzy.common.utils.IpUtil;
 import com.zrkizzy.common.utils.security.JwtTokenUtil;
 import com.zrkizzy.data.domain.User;
 import com.zrkizzy.data.domain.UserInfo;
@@ -15,13 +16,12 @@ import com.zrkizzy.data.dto.LoginDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
 import com.zrkizzy.data.dto.UserInfoDTO;
 import com.zrkizzy.data.mapper.UserMapper;
-import com.zrkizzy.common.base.response.OptionsVO;
+import com.zrkizzy.data.vo.UserInfoVO;
 import com.zrkizzy.security.context.SecurityContext;
 import com.zrkizzy.security.util.SecurityUtil;
 import com.zrkizzy.security.util.UserDetailUtil;
 import com.zrkizzy.server.service.core.IUserInfoService;
 import com.zrkizzy.server.service.core.IUserService;
-import com.zrkizzy.data.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -108,20 +108,32 @@ public class UserServiceImpl implements IUserService {
         if (!passwordEncoder.matches(password, user.getPassword())) {
             return Result.failure(HttpStatusEnum.PASSWORD_ERROR);
         }
-        // Redis中不显示密码
-        user.setPassword(null);
-        // 设置当前用户登录时间
-        user.setLoginTime(LocalDateTime.now());
-
-        String ipAddress = IpUtil.getIpAddress(ServletUtil.getRequest());
-        // 登录IP
-        user.setIpAddress(ipAddress);
-        // 登录位置
-        user.setIpLocation(IpUtil.getIpLocation(ipAddress));
+        // 设置用户值
+        setUserAttributeValue(user, loginDTO.getTrack());
         // 存在则将获取到的用户信息存储到Redis中，过期时间为两小时
         redisService.set(USER_PREFIX + loginDTO.getTrack(), user, TWO_HOUR);
         // 根据用户详细信息生成Token
         return Result.success(jwtTokenUtil.generateToken(loginDTO.getTrack()));
+    }
+
+    /**
+     * 设置用户属性值
+     *
+     * @param user 用户对象
+     * @param track 用户登录唯一标识
+     */
+    private void setUserAttributeValue(User user, String track) {
+        String ipAddress = IpUtil.getIpAddress(ServletUtil.getRequest());
+        // Redis中不显示密码
+        user.setPassword(null);
+        // 设置当前用户登录时间
+        user.setLoginTime(LocalDateTime.now());
+        // 登录IP
+        user.setIpAddress(ipAddress);
+        // 登录位置
+        user.setIpLocation(IpUtil.getIpLocation(ipAddress));
+        // 用户唯一标识
+        user.setTrack(track);
     }
 
     /**
