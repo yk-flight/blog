@@ -1,4 +1,4 @@
-package com.zrkizzy.data.query;
+package com.zrkizzy.data.query.monitor;
 
 import com.zrkizzy.common.base.request.BasePage;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.zrkizzy.server.service.monitor;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zrkizzy.data.query.LoginInfoQuery;
+import com.zrkizzy.data.query.monitor.LoginInfoQuery;
 import com.zrkizzy.data.vo.LoginInfoVO;
 
 import java.util.List;

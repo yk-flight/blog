@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.HttpStatusEnum;
-import com.zrkizzy.data.query.LoginInfoQuery;
+import com.zrkizzy.data.query.monitor.LoginInfoQuery;
 import com.zrkizzy.data.vo.LoginInfoVO;
 import com.zrkizzy.server.service.monitor.ILoginInfoService;
 import io.swagger.annotations.Api;

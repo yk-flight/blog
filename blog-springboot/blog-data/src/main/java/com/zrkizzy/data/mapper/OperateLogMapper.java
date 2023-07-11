@@ -3,7 +3,7 @@ package com.zrkizzy.data.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.data.domain.OperateLog;
-import com.zrkizzy.data.query.OperateLogQuery;
+import com.zrkizzy.data.query.monitor.OperateLogQuery;
 import com.zrkizzy.data.vo.OperateLogVO;
 import org.apache.ibatis.annotations.Param;
 

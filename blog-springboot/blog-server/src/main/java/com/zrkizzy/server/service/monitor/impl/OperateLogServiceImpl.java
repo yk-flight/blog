@@ -3,7 +3,7 @@ package com.zrkizzy.server.service.monitor.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.data.domain.OperateLog;
 import com.zrkizzy.data.mapper.OperateLogMapper;
-import com.zrkizzy.data.query.OperateLogQuery;
+import com.zrkizzy.data.query.monitor.OperateLogQuery;
 import com.zrkizzy.data.vo.OperateLogVO;
 import com.zrkizzy.server.service.monitor.IOperateLogService;
 import lombok.extern.slf4j.Slf4j;

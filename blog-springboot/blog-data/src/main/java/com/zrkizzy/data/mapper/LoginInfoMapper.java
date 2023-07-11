@@ -3,7 +3,7 @@ package com.zrkizzy.data.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.data.domain.LoginInfo;
-import com.zrkizzy.data.query.LoginInfoQuery;
+import com.zrkizzy.data.query.monitor.LoginInfoQuery;
 import com.zrkizzy.data.vo.LoginInfoVO;
 import org.apache.ibatis.annotations.Param;
 

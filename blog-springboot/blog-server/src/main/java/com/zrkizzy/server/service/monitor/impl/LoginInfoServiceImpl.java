@@ -3,7 +3,7 @@ package com.zrkizzy.server.service.monitor.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.data.domain.LoginInfo;
 import com.zrkizzy.data.mapper.LoginInfoMapper;
-import com.zrkizzy.data.query.LoginInfoQuery;
+import com.zrkizzy.data.query.monitor.LoginInfoQuery;
 import com.zrkizzy.data.vo.LoginInfoVO;
 import com.zrkizzy.server.service.monitor.ILoginInfoService;
 import lombok.extern.slf4j.Slf4j;

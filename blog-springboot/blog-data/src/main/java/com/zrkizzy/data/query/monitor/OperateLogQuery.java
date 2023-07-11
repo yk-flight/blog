@@ -1,13 +1,14 @@
-package com.zrkizzy.data.dto;
+package com.zrkizzy.data.query.monitor;
 
-import com.zrkizzy.common.base.BaseDTO;
+import com.zrkizzy.common.base.request.BasePage;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.List;
 
 /**
- * 操作日志数据传输对象
+ * 操作日志信息查询对象
  *
  * @author zhangrongkang
  * @since 2023/7/3
@@ -15,8 +16,7 @@ import lombok.ToString;
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
-public class OperateLogDTO extends BaseDTO {
-
+public class OperateLogQuery extends BasePage {
 
     /**
      * 模块ID
@@ -29,11 +29,6 @@ public class OperateLogDTO extends BaseDTO {
     private Byte type;
 
     /**
-     * 操作方法名称
-     */
-    private String methodName;
-
-    /**
      * 请求方式
      */
     private String requestMethod;
@@ -44,33 +39,13 @@ public class OperateLogDTO extends BaseDTO {
     private Long userId;
 
     /**
-     * 操作IP
-     */
-    private String operateIp;
-
-    /**
-     * 操作地址
-     */
-    private String operateLocation;
-
-    /**
-     * 操作参数
-     */
-    private String operateParam;
-
-    /**
-     * 操作结果描述
-     */
-    private String operateResult;
-
-    /**
      * 操作状态 0 失败 1 成功 
      */
     private Boolean status;
 
     /**
-     * 操作消耗时间
+     * 时间范围
      */
-    private Long costTime;
+    private List<String> dataRange;
 
 }
