@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.service.IRedisService;
+import com.zrkizzy.common.utils.ServletUtil;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.common.utils.IpUtil;
 import com.zrkizzy.common.utils.security.JwtTokenUtil;
@@ -111,6 +112,12 @@ public class UserServiceImpl implements IUserService {
         user.setPassword(null);
         // 设置当前用户登录时间
         user.setLoginTime(LocalDateTime.now());
+
+        String ipAddress = IpUtil.getIpAddress(ServletUtil.getRequest());
+        // 登录IP
+        user.setIpAddress(ipAddress);
+        // 登录位置
+        user.setIpLocation(IpUtil.getIpLocation(ipAddress));
         // 存在则将获取到的用户信息存储到Redis中，过期时间为两小时
         redisService.set(USER_PREFIX + loginDTO.getTrack(), user, TWO_HOUR);
         // 根据用户详细信息生成Token
@@ -141,9 +148,9 @@ public class UserServiceImpl implements IUserService {
                 // 角色名称
                 userInfoVO.setRoleName(securityUtil.getLoginUserRoleName())
                         // IP地址
-                        .setIpAddress(IpUtil.getIpAddress(request))
+                        .setIpAddress(user.getIpAddress())
                         // IP属地
-                        .setIpSource(IpUtil.getIpLocation(userInfoVO.getIpAddress()))
+                        .setIpSource(user.getIpLocation())
                         // 登录设备
                         .setDevice(securityUtil.getUserAgent(request))
         );

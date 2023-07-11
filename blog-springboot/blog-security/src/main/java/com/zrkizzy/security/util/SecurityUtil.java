@@ -2,6 +2,7 @@ package com.zrkizzy.security.util;
 
 import com.zrkizzy.common.service.IRedisService;
 import com.zrkizzy.data.domain.User;
+import com.zrkizzy.security.context.SecurityContext;
 import com.zrkizzy.security.entity.MyUserDetails;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class SecurityUtil {
         User user = getUserDetails().getUser();
         if (null == user) {
             // 如果载荷中为空则去Redis中获取
-            return redisService.get(USER_PREFIX + getLoginUsername(), User.class);
+            return redisService.get(USER_PREFIX + SecurityContext.getTrack(), User.class);
         }
         return user;
     }

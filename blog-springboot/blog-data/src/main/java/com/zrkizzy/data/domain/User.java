@@ -69,6 +69,20 @@ public class User extends BaseEntity {
     private String remark;
 
     /**
+     * 登录IP
+     */
+    @ApiModelProperty("登录IP")
+    @TableField(exist = false)
+    private String ipAddress;
+
+    /**
+     * IP属地
+     */
+    @ApiModelProperty("IP属地")
+    @TableField(exist = false)
+    private String ipLocation;
+
+    /**
      * 登录时间
      */
     @ApiModelProperty("登录时间")
