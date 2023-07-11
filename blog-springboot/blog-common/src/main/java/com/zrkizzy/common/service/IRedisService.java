@@ -3,6 +3,7 @@ package com.zrkizzy.common.service;
 import org.springframework.data.redis.core.script.RedisScript;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Redis操作接口
@@ -95,4 +96,22 @@ public interface IRedisService {
      * @return <T> Lua脚本返回值
      */
     <T> T execute(RedisScript<T> redisScript, List<String> keyList, Object... objects);
+
+    /**
+     * 获取指定前缀的所有Key
+     *
+     * @param pattern 指定前缀
+     * @return 所有指定前缀开头的key
+     */
+    Set<String> scanKeys(String pattern);
+
+    /**
+     * 获取指定前缀与数量的Key
+     *
+     * @param pattern 指定前缀
+     * @param size 返回key的数量
+     * @return 指定数量的Key
+     */
+    Set<String> scanKeys(String pattern, Integer size);
+
 }

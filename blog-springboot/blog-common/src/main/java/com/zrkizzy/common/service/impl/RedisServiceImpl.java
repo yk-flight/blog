@@ -3,11 +3,16 @@ package com.zrkizzy.common.service.impl;
 import com.zrkizzy.common.service.IRedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.Cursor;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -101,6 +106,50 @@ public class RedisServiceImpl implements IRedisService {
     @Override
     public <T> T execute(RedisScript<T> redisScript, List<String> keyList, Object... objects) {
         return redisTemplate.execute(redisScript, keyList, objects);
+    }
+
+    /**
+     * 获取指定前缀的所有Key
+     *
+     * @param pattern 指定前缀
+     * @return 所有指定前缀开头的key
+     */
+    @Override
+    public Set<String> scanKeys(String pattern) {
+        // 默认返回所有符合条件的Key
+        return scanKeys(pattern, null);
+    }
+
+    /**
+     * 获取指定前缀与数量的Key
+     *
+     * @param pattern 指定前缀
+     * @param count 返回key的数量
+     * @return 指定数量的Key
+     */
+    @Override
+    public Set<String> scanKeys(String pattern, Integer count) {
+        // 默认情况下仅定义前缀
+        ScanOptions options = ScanOptions.scanOptions().match(pattern).build();
+        if (null != count) {
+            ScanOptions.scanOptions()
+                    // 前缀
+                    .match(pattern)
+                    // 每次返回数量
+                    .count(count).build();
+        }
+        // 调用execute接口来返回对应数据
+        return redisTemplate.execute((RedisCallback<Set<String>>) connection -> {
+            // 定义Set集合
+            Set<String> result = new HashSet<>();
+            // 设置参数开始执行SCAN操作并返回结果
+            Cursor<byte[]> cursor = connection.scan(options);
+            // 遍历返回的结果并添加到Set集合中
+            while (cursor.hasNext()) {
+                result.add(new String(cursor.next()));
+            }
+            return result;
+        });
     }
 
     /**
