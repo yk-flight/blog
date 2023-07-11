@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 用户登录信息数据返回对象
+ * 用户登录日志控制器
  *
  * @author zhangrongkang
  * @since 2023/7/4

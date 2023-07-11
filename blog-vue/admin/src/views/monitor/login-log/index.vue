@@ -56,8 +56,8 @@
           <el-empty :image-size="200"></el-empty>
         </template>
         <el-table-column type="selection" width="50" align="center" />
-        <!-- 登录编号 -->
-        <el-table-column prop="id" label="登录编号" align="center" v-if="columns[0].visible"></el-table-column>
+        <!-- 日志编号 -->
+        <el-table-column prop="id" label="日志编号" align="center" v-if="columns[0].visible"></el-table-column>
         <!-- 登录用户名称 -->
         <el-table-column prop="username" label="用户名称" align="center" v-if="columns[1].visible"></el-table-column>
         <!-- 登录IP -->
@@ -167,8 +167,8 @@ export default {
       buttonLoading: false,
       // 列信息
       columns: [
-        // 登录编号
-        { key: 0, label: '登录编号', visible: true },
+        // 日志编号
+        { key: 0, label: '日志编号', visible: true },
         // 登录用户名称
         { key: 1, label: '用户名称', visible: true },
         // 登录IP
