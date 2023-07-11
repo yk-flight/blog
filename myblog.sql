@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 07/07/2023 17:21:22
+ Date: 11/07/2023 18:10:41
 */
 
 SET NAMES utf8mb4;
@@ -129,6 +129,13 @@ INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `br
 INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1677139151306096640, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-07 10:15:08');
 INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1677235313434427392, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Mac OS X', 0, '验证码错误', '2023-07-07 16:37:15');
 INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1677235370644733952, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-07 16:37:28');
+INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678195316542668800, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-10 08:11:57');
+INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678195767061250048, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-10 08:13:45');
+INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678561624396398592, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '请求成功', '2023-07-11 08:27:32');
+INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678661118467244032, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '请求成功', '2023-07-11 15:02:53');
+INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678662925927055360, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '请求成功', '2023-07-11 15:10:04');
+INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678701851236630528, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '请求成功', '2023-07-11 17:44:45');
+INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678705564848226304, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '请求成功', '2023-07-11 17:59:30');
 COMMIT;
 
 -- ----------------------------
@@ -353,6 +360,7 @@ INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1676421084687106051, '批量删除登录日志信息', '批量删除用户登录日志信息', 'DELETE', '/admin/login-info/delete', 1636182933754609665, '2023-07-05 10:45:47', '2023-07-05 10:45:49');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1676421084687106052, '清空登录日志信息', '清空所有用户登录日志信息', 'GET', '/admin/login-info/clear', 1636182933754609665, '2023-07-05 10:46:30', '2023-07-05 10:46:32');
 INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1677234418973933568, '获取服务监控信息', '获取系统服务监控信息', 'GET', '/admin/service-monitor/getMonitorInfo', 1636182933754609665, '2023-07-07 16:34:54', '2023-07-07 08:35:04');
+INSERT INTO `tb_resource` (`id`, `name`, `description`, `method`, `url`, `module_id`, `create_time`, `update_time`) VALUES (1678704512069533696, '获取在线用户信息', '获取当前所有在线用户', 'POST', '/admin/online/list', 1636182933754609665, '2023-07-11 17:56:01', '2023-07-11 09:56:12');
 COMMIT;
 
 -- ----------------------------
