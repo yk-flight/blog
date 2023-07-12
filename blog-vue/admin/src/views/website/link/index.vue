@@ -261,6 +261,7 @@ export default {
     },
     // 点击查询按钮
     handleQuery () {
+      this.queryParams.currentPage = 1
       this.getTableData()
     },
     // 点击重置按钮
