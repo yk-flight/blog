@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.util.List;
-
 /**
  * 在线用户信息查询对象
  *
@@ -27,10 +25,5 @@ public class OnlineQuery extends BasePage {
      * 用户昵称
      */
     private String nickname;
-
-    /**
-     * 时间范围
-     */
-    private List<String> dataRange;
 
 }
