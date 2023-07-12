@@ -19,9 +19,9 @@ import com.zrkizzy.data.mapper.UserMapper;
 import com.zrkizzy.data.vo.UserInfoVO;
 import com.zrkizzy.security.context.SecurityContext;
 import com.zrkizzy.security.util.SecurityUtil;
-import com.zrkizzy.security.util.UserDetailUtil;
 import com.zrkizzy.server.service.core.IUserInfoService;
 import com.zrkizzy.server.service.core.IUserService;
+import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,6 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.zrkizzy.common.constant.CommonConst.USER_AGENT;
 import static com.zrkizzy.common.constant.RedisConst.*;
 import static com.zrkizzy.common.constant.TimeConst.TWO_HOUR;
 import static com.zrkizzy.common.enums.HttpStatusEnum.*;
@@ -48,8 +49,6 @@ import static com.zrkizzy.common.enums.HttpStatusEnum.*;
 public class UserServiceImpl implements IUserService {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-    @Autowired
-    private UserDetailUtil userDetailUtil;
     @Autowired
     private SecurityUtil securityUtil;
     @Autowired
@@ -123,7 +122,11 @@ public class UserServiceImpl implements IUserService {
      * @param track 用户登录唯一标识
      */
     private void setUserAttributeValue(User user, String track) {
-        String ipAddress = IpUtil.getIpAddress(ServletUtil.getRequest());
+        HttpServletRequest request = ServletUtil.getRequest();
+        // 获取用户登录设备信息对象
+        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader(USER_AGENT));
+        // 获取IP地址
+        String ipAddress = IpUtil.getIpAddress(request);
         // Redis中不显示密码
         user.setPassword(null);
         // 设置当前用户登录时间
@@ -134,6 +137,10 @@ public class UserServiceImpl implements IUserService {
         user.setIpLocation(IpUtil.getIpLocation(ipAddress));
         // 用户唯一标识
         user.setTrack(track);
+        // 操作系统
+        user.setOs(userAgent.getOperatingSystem().getName());
+        // 浏览器
+        user.setBrowser(userAgent.getBrowser().getName());
     }
 
     /**
@@ -164,7 +171,7 @@ public class UserServiceImpl implements IUserService {
                         // IP属地
                         .setIpSource(user.getIpLocation())
                         // 登录设备
-                        .setDevice(securityUtil.getUserAgent(request))
+                        .setDevice(securityUtil.getUserAgent())
         );
     }
 

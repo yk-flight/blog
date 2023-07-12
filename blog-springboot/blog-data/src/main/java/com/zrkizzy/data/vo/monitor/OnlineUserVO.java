@@ -48,4 +48,14 @@ public class OnlineUserVO {
      */
     private LocalDateTime loginTime;
 
+    /**
+     * 操作系统
+     */
+    private String os;
+
+    /**
+     * 浏览器
+     */
+    private String browser;
+
 }
