@@ -3,6 +3,9 @@ package com.zrkizzy.common.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 白名单放行枚举
  *
@@ -20,15 +23,35 @@ public enum WhiteListEnum {
     /**
      * Swagger文档资源
      */
-    SWAGGER_RESOURCE("/swagger-resources"),
+    SWAGGER_RESOURCE("/swagger-resources/**"),
     /**
      * Swagger中API结构和操作文件
      */
-    SWAGGER_API("/v2/api-docs"),
+    SWAGGER_API("/v2/api-docs/**"),
     /**
      * Swagger中的静态资源
      */
-    SWAGGER_WEBJAR("/webjars"),
+    SWAGGER_WEBJAR("/webjars/**"),
+    /**
+     * 验证码
+     */
+    CAPTCHA("/captcha/**"),
+    /**
+     * CSS资源文件
+     */
+    CSS("/css/**"),
+    /**
+     * JS资源文件
+     */
+    JS("/js/**"),
+    /**
+     * 放行网站图标
+     */
+    FAVICON_ICO("/favicon.ico"),
+    /**
+     * 放行测试请求
+     */
+    TEST("/test/**"),
     /**
      * 用户登录操作
      */
@@ -36,11 +59,7 @@ public enum WhiteListEnum {
     /**
      * 退出登录
      */
-    LOGOUT("/logout"),
-    /**
-     * 服务器内部错误
-     */
-    ERROR("/error");
+    LOGOUT("/logout");
 
     /**
      * 请求路径
@@ -48,33 +67,16 @@ public enum WhiteListEnum {
     public final String url;
 
     /**
-     * 判断当前请求是否为白名单的路径
-     *
-     * @param url 当前请求的url
-     * @return true：可放行路径，false：不可放行路径
-     */
-    public static Boolean isAccessUrl(String url) {
-        for (WhiteListEnum value : WhiteListEnum.values()) {
-            if (value.getUrl().equals(url) || url.startsWith(value.getUrl())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * 获取系统白名单放行路径
      *
      * @return 白名单路径
      */
-    public static String getAccessUrl() {
-        StringBuilder access = new StringBuilder();
+    public static List<String> getAccessUrl() {
+        List<String> url = new ArrayList<>();
         for (WhiteListEnum value : WhiteListEnum.values()) {
-            access.append(value.getUrl()).append(",");
+            url.add(value.getUrl());
         }
-        // 去除最后的，
-        access.deleteCharAt(access.length() - 1);
-        return access.toString();
+        return url;
     }
 
 }
