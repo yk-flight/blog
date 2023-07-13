@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 12/07/2023 23:57:43
+ Date: 13/07/2023 23:43:55
 */
 
 SET NAMES utf8mb4;
@@ -139,6 +139,9 @@ INSERT INTO `tb_login_info` VALUES (1679130867508707328, '2675525537@qq.com', '1
 INSERT INTO `tb_login_info` VALUES (1679148804915331072, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-12 23:20:47');
 INSERT INTO `tb_login_info` VALUES (1679148878533754880, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-12 23:21:04');
 INSERT INTO `tb_login_info` VALUES (1679153180186771456, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-12 23:38:10');
+INSERT INTO `tb_login_info` VALUES (1679512912877584384, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-13 23:27:37');
+INSERT INTO `tb_login_info` VALUES (1679516231691927552, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-13 23:40:48');
+INSERT INTO `tb_login_info` VALUES (1679516618788438016, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-13 23:42:20');
 
 -- ----------------------------
 -- Table structure for tb_menu
@@ -184,7 +187,7 @@ INSERT INTO `tb_menu` VALUES (1651217423560343561, '网站配置', 1647951751875
 INSERT INTO `tb_menu` VALUES (1651227500568641536, '系统监控', 0, 'monitor', NULL, 0, 0, 0, 'monitor', 4, '2023-04-26 22:15:11', '2023-04-29 14:07:25');
 INSERT INTO `tb_menu` VALUES (1651227500568641537, '在线用户', 1651227500568641536, 'online', 'monitor/online/index', 0, 0, 0, 'online', 1, '2023-04-26 22:15:55', '2023-04-26 14:21:40');
 INSERT INTO `tb_menu` VALUES (1651227500568641538, '服务监控', 1651227500568641536, 'server', 'monitor/server/index', 0, 0, 0, 'server', 2, '2023-04-26 22:16:24', '2023-04-26 14:21:47');
-INSERT INTO `tb_menu` VALUES (1651227500568641539, '缓存监控', 1651227500568641536, 'cache', 'monitor/cache/index', 0, 0, 0, 'redis', 3, '2023-04-26 22:16:59', '2023-04-26 14:21:54');
+INSERT INTO `tb_menu` VALUES (1651227500568641539, '缓存管理', 1651227500568641536, 'cache', 'monitor/cache/index', 0, 0, 0, 'redis', 3, '2023-04-26 22:16:59', '2023-07-13 23:24:56');
 INSERT INTO `tb_menu` VALUES (1651227500568641540, '操作日志', 1651227500568641536, 'operate-log', 'monitor/operate-log/index', 0, 0, 0, 'form', 4, '2023-04-26 22:18:09', '2023-04-26 14:22:03');
 INSERT INTO `tb_menu` VALUES (1651227500568641541, '登录日志', 1651227500568641536, 'login-log', 'monitor/login-log/index', 0, 0, 0, 'logininfor', 5, '2023-04-26 22:18:32', '2023-04-26 14:24:06');
 INSERT INTO `tb_menu` VALUES (1652313423859417088, '系统管理', 0, 'system', NULL, 0, 0, 0, 'system', 3, '2023-04-29 22:08:18', '2023-04-29 14:08:20');
@@ -357,6 +360,7 @@ INSERT INTO `tb_resource` VALUES (1676421084687106052, '清空登录日志信息
 INSERT INTO `tb_resource` VALUES (1677234418973933568, '获取服务监控信息', '获取系统服务监控信息', 'GET', '/admin/service-monitor/getMonitorInfo', 1636182933754609665, '2023-07-07 16:34:54', '2023-07-07 08:35:04');
 INSERT INTO `tb_resource` VALUES (1678704512069533696, '获取所有在线用户', '获取当前所有在线用户', 'POST', '/admin/online/list', 1636182933754609665, '2023-07-11 17:56:01', '2023-07-12 23:33:21');
 INSERT INTO `tb_resource` VALUES (1679151716034936832, '下线指定用户', '将指定用户下线', 'DELETE', '/admin/online/offline/**', 1636182933754609665, '2023-07-12 23:33:03', '2023-07-12 23:33:14');
+INSERT INTO `tb_resource` VALUES (1679512161577074688, '获取所有Redis缓存键类型', '获取所有Redis缓存键类型', 'GET', '/admin/cache/listRedisKeyType', 1636182933754609665, '2023-07-13 23:26:11', '2023-07-13 23:26:22');
 
 -- ----------------------------
 -- Table structure for tb_role
