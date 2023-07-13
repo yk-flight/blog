@@ -32,7 +32,7 @@
         </template>
         <el-table-column type="index" width="50" label="序号" align="center"></el-table-column>
         <!-- 登录编号 -->
-        <el-table-column prop="track" label="登录编号" align="center" v-if="columns[0].visible"></el-table-column>
+        <el-table-column prop="track" label="登录编号" align="center" v-if="columns[0].visible" show-overflow-tooltip></el-table-column>
         <!-- 用户头像 -->
         <el-table-column prop="avatar" label="用户头像" align="center" v-if="columns[1].visible" width="100">
           <template slot-scope="scope">
@@ -61,7 +61,7 @@
             <span>{{ scope.row.loginTime | dateFilter }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作"  align="center" width="200">
+        <el-table-column label="操作"  align="center">
           <template slot-scope="scope">
             <el-button type="text" size="small" icon="el-icon-switch-button" @click="handleOffline(scope.row)">下线</el-button>
           </template>
