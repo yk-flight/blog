@@ -3,6 +3,8 @@ package com.zrkizzy.data.vo.route;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 路由信息数据返回对象
  *
@@ -11,7 +13,7 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class MetaVO {
+public class MetaVO implements Serializable {
 
     /**
      * 组件名称

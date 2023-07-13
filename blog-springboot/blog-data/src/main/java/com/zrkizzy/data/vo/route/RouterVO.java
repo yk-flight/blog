@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
 @Data
 @Builder
 @AllArgsConstructor
-public class RouterVO implements Comparable<RouterVO> {
+public class RouterVO implements Comparable<RouterVO>, Serializable {
 
     /**
      * 组件名称

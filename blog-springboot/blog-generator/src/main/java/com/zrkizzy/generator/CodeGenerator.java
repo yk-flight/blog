@@ -26,47 +26,47 @@ public class CodeGenerator {
     /**
      * Controller生成路径
      */
-    private static final String CONTROLLER_PATH = "你的Controller类绝对路径，最后的'\\'或'/'不要省略";
+    private static final String CONTROLLER_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-web\\src\\main\\java\\com\\zrkizzy\\web\\controller\\monitor\\";
 
     /**
      * Controller类包路径
      */
-    private static final String CONTROLLER_PACKAGE_PATH = "你的Controller类包路径，如：com.zrkizzy.web.controller.system";
+    private static final String CONTROLLER_PACKAGE_PATH = "com.zrkizzy.web.controller.monitor";
 
     /**
      * Service生成路径
      */
-    private static final String SERVICE_PATH = "你的Service类绝对路径，最后的'\\'或'/'不要省略";
+    private static final String SERVICE_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-server\\src\\main\\java\\com\\zrkizzy\\server\\service\\monitor\\";
 
     /**
      * Service业务逻辑接口包路径
      */
-    private static final String SERVICE_PACKAGE_PATH = "你的Service类包路径，如：com.zrkizzy.server.service.system";
+    private static final String SERVICE_PACKAGE_PATH = "com.zrkizzy.server.service.monitor";
 
     /**
      * Service实现类生成路径
      */
-    private static final String SERVICE_IMPL_PATH = "你的ServiceImpl类绝对路径，最后的'\\'或'/'不要省略";
+    private static final String SERVICE_IMPL_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-server\\src\\main\\java\\com\\zrkizzy\\server\\service\\monitor\\impl\\";
 
     /**
      * Service业务逻辑接口实现类包路径
      */
-    private static final String SERVICE_IMPL_PACKAGE_PATH = "你的ServiceImpl类包路径，com.zrkizzy.server.service.system.impl";
+    private static final String SERVICE_IMPL_PACKAGE_PATH = "com.zrkizzy.server.service.monitor.impl";
 
     /**
      * Vue文件生成路径
      */
-    private static final String VUE_PATH = "你的Vue文件绝对路径，最后的'\\'或'/'不要省略";
+    private static final String VUE_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-generator\\src\\main\\java\\com\\zrkizzy\\generator\\vue\\";
 
     /**
      * 前端Api请求路径
      */
-    private static final String API_PATH = "你的前端Api.js文件绝对路径，最后的'\\'或'/'不要省略";
+    private static final String API_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-generator\\src\\main\\java\\com\\zrkizzy\\generator\\vue\\";
 
     /**
      * 作者名称
      */
-    private static final String AUTHOR_NAME = "作者名称";
+    private static final String AUTHOR_NAME = "zhangrongkang";
 
     /**
      * 表格前缀
@@ -93,32 +93,32 @@ public class CodeGenerator {
     /**
      * 实体类生成路径
      */
-    private static final String ENTITY_PATH = "你的实体类绝对路径，最后的'\\'或'/'不要省略";
+    private static final String ENTITY_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-data\\src\\main\\java\\com\\zrkizzy\\data\\domain\\";
 
     /**
      * DTO类生成路径
      */
-    private static final String DTO_PATH = "你的DTO类绝对路径，最后的'\\'或'/'不要省略";
+    private static final String DTO_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-data\\src\\main\\java\\com\\zrkizzy\\data\\dto\\";
 
     /**
      * VO类生成路径
      */
-    private static final String VO_PATH = "你的VO类绝对路径，最后的'\\'或'/'不要省略";
+    private static final String VO_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-data\\src\\main\\java\\com\\zrkizzy\\data\\vo\\";
 
     /**
      * 实体类生成路径
      */
-    private static final String QUERY_PATH = "你的Query类绝对路径，最后的'\\'或'/'不要省略";
+    private static final String QUERY_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-data\\src\\main\\java\\com\\zrkizzy\\data\\query\\";
 
     /**
      * Mapper生成路径
      */
-    private static final String MAPPER_PATH = "你的Mapper接口绝对路径，最后的'\\'或'/'不要省略";
+    private static final String MAPPER_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-data\\src\\main\\java\\com\\zrkizzy\\data\\mapper\\";
 
     /**
      * Mapper映射文件生成路径
      */
-    private static final String MAPPER_XML_PATH = "你的Mapper.xml映射文件绝对路径，最后的'\\'或'/'不要省略";
+    private static final String MAPPER_XML_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-data\\src\\main\\resources\\mapper\\";
 
     public static void main(String[] args) throws Exception {
         // 交互式生成

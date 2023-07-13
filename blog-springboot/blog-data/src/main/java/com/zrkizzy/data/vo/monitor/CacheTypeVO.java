@@ -7,7 +7,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * Redis缓存键类型数据返回对象
+ * 缓存键类型数据返回对象
  *
  * @author zhangrongkang
  * @since 2023/7/13
@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Data
 @Builder
 @AllArgsConstructor
-public class RedisKeyTypeVO implements Serializable {
+public class CacheTypeVO implements Serializable {
 
     /**
      * 缓存分类标识

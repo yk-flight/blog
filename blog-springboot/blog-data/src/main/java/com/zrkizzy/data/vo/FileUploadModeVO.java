@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 文件上传模式返回对象
  *
@@ -13,7 +15,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class FileUploadModeVO {
+public class FileUploadModeVO implements Serializable {
 
     /**
      * 上传模式

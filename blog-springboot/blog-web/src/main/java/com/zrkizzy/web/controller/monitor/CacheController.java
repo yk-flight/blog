@@ -2,7 +2,7 @@ package com.zrkizzy.web.controller.monitor;
 
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.RedisKeyEnum;
-import com.zrkizzy.data.vo.monitor.RedisKeyTypeVO;
+import com.zrkizzy.data.vo.monitor.CacheTypeVO;
 import com.zrkizzy.server.service.monitor.ICacheService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,13 +29,13 @@ public class CacheController {
 
     @ApiOperation(value = "获取所有Redis缓存键类型")
     @GetMapping("/listRedisKeyType")
-    public Result<List<RedisKeyTypeVO>> listRedisKeyType() {
+    public Result<List<CacheTypeVO>> listRedisKeyType() {
         // 定义返回结果
-        List<RedisKeyTypeVO> result = new ArrayList<>();
+        List<CacheTypeVO> result = new ArrayList<>();
         // 遍历所有Redis类型
         for (RedisKeyEnum redisKey : RedisKeyEnum.values()) {
             // 缓存分类名称
-            RedisKeyTypeVO redisKeyTypeVO = RedisKeyTypeVO.builder().name(redisKey.getName())
+            CacheTypeVO redisKeyTypeVO = CacheTypeVO.builder().name(redisKey.getName())
                     // 缓存键
                     .key(redisKey.getKey())
                     // 备注

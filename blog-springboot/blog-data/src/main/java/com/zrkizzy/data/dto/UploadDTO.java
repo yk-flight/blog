@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * 文件上传数据传输对象
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * @since 2023/5/29
  */
 @Data
-public class UploadDTO {
+public class UploadDTO implements Serializable {
 
     /**
      * 上传模式

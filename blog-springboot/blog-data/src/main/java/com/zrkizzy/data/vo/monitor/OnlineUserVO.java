@@ -2,6 +2,7 @@ package com.zrkizzy.data.vo.monitor;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
  * @since 2023/7/11
  */
 @Data
-public class OnlineUserVO {
+public class OnlineUserVO implements Serializable {
 
     /**
      * 登录标识

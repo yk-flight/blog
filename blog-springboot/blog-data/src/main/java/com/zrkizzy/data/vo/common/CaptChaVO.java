@@ -3,6 +3,8 @@ package com.zrkizzy.data.vo.common;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 验证码返回对象
  *
@@ -11,7 +13,7 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class CaptChaVO {
+public class CaptChaVO implements Serializable {
 
     /**
      * 验证码图片（Base64编码）
