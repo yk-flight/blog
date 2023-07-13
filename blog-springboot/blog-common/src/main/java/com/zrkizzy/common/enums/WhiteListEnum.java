@@ -64,7 +64,7 @@ public enum WhiteListEnum {
     /**
      * 请求路径
      */
-    public final String url;
+    private final String url;
 
     /**
      * 获取系统白名单放行路径
