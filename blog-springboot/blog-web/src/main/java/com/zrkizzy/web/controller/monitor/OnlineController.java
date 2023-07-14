@@ -3,6 +3,7 @@ package com.zrkizzy.web.controller.monitor;
 import com.zrkizzy.common.annotation.OperateLogAnnotation;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
+import com.zrkizzy.common.constant.AnnotationConst;
 import com.zrkizzy.common.service.IRedisService;
 import com.zrkizzy.data.query.monitor.OnlineQuery;
 import com.zrkizzy.data.vo.monitor.OnlineUserVO;
@@ -37,7 +38,7 @@ public class OnlineController {
     }
 
     @ApiOperation("下线指定用户")
-    @OperateLogAnnotation(type = "3")
+    @OperateLogAnnotation(type = AnnotationConst.DELETE)
     @DeleteMapping("/offline/{track}")
     public Result<?> offlineUser(@PathVariable String track) {
         // 下线指定用户
