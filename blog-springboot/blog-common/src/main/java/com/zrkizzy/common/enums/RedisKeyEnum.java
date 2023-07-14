@@ -37,4 +37,19 @@ public enum RedisKeyEnum {
      */
     private final String remark;
 
+    /**
+     * 根据缓存键获取缓存名称
+     *
+     * @param key 缓存键
+     * @return 缓存名称
+     */
+    public static String getCacheNameByKey(String key) {
+        for (RedisKeyEnum value : RedisKeyEnum.values()) {
+            if (value.getKey().equals(key.substring(0, key.indexOf(":") + 1))) {
+                return value.getName();
+            }
+        }
+        return null;
+    }
+
 }

@@ -2,6 +2,7 @@ package com.zrkizzy.web.controller.monitor;
 
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.RedisKeyEnum;
+import com.zrkizzy.data.vo.monitor.CacheInfoVO;
 import com.zrkizzy.data.vo.monitor.CacheKeyVO;
 import com.zrkizzy.data.vo.monitor.CacheTypeVO;
 import com.zrkizzy.server.service.monitor.ICacheService;
@@ -52,6 +53,12 @@ public class CacheController {
     @GetMapping("/listCacheKeys/{type}")
     public Result<List<CacheKeyVO>> listCacheKeys(@PathVariable String type) {
         return Result.success(cacheService.listCacheKeys(type));
+    }
+
+    @ApiOperation("获取指定缓存")
+    @GetMapping("/getCacheInfoByKey/{key}")
+    public Result<CacheInfoVO> getCacheInfoByKey(@PathVariable String key) {
+        return Result.success(cacheService.getCacheInfoByKey(key));
     }
 
 }

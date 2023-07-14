@@ -1,5 +1,6 @@
 package com.zrkizzy.server.service.monitor;
 
+import com.zrkizzy.data.vo.monitor.CacheInfoVO;
 import com.zrkizzy.data.vo.monitor.CacheKeyVO;
 
 import java.util.List;
@@ -19,4 +20,12 @@ public interface ICacheService {
      * @return 缓存键列表
      */
     List<CacheKeyVO> listCacheKeys(String type);
+
+    /**
+     * 根据缓存键获取缓存信息
+     *
+     * @param key 缓存键
+     * @return 缓存信息
+     */
+    CacheInfoVO getCacheInfoByKey(String key);
 }
