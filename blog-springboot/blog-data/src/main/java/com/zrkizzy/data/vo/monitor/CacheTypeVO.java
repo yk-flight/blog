@@ -23,9 +23,9 @@ public class CacheTypeVO implements Serializable {
     private final String name;
 
     /**
-     * 缓存键
+     * 缓存类型
      */
-    private final String key;
+    private final String type;
 
     /**
      * 备注
