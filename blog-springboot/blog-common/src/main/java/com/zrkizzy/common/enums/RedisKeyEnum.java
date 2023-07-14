@@ -16,16 +16,11 @@ public enum RedisKeyEnum {
     /**
      * 用户信息前缀
      */
-    USER("user_info", "user:", "用户信息"),
+    USER("user:", "用户信息"),
     /**
      * 验证码信息前缀
      */
-    CAPTCHA("captcha_info", "captcha:", "验证码");
-
-    /**
-     * 缓存分类名称
-     */
-    private final String name;
+    CAPTCHA("captcha:", "验证码");
 
     /**
      * 缓存键

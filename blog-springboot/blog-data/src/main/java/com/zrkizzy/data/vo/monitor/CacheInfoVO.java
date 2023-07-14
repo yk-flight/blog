@@ -7,7 +7,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 缓存键数据返回对象
+ * 缓存信息数据返回对象
  *
  * @author zhangrongkang
  * @since 2023/7/14
@@ -15,16 +15,21 @@ import java.io.Serializable;
 @Data
 @Builder
 @AllArgsConstructor
-public class CacheKeyVO implements Serializable {
+public class CacheInfoVO implements Serializable {
+
+    /**
+     * 缓存名称
+     */
+    private String cacheName;
 
     /**
      * 缓存键
      */
-    private String key;
+    private String cacheKey;
 
     /**
-     * 展示的缓存键
+     * 缓存值
      */
-    private String showKey;
+    private Object cacheValue;
 
 }
