@@ -40,7 +40,7 @@ public class FileController {
     public Result<List<FileUploadModeVO>> listModes() {
         List<FileUploadModeVO> list = new ArrayList<>();
         // 遍历所有文件上传类型枚举
-        for (FileUploadModeEnum fileUploadModeEnum : FileUploadModeEnum.listFileUploadMode()) {
+        for (FileUploadModeEnum fileUploadModeEnum : FileUploadModeEnum.values()) {
             // 文件上传模式返回对象
             FileUploadModeVO fileUploadModeVO = FileUploadModeVO.builder()
                     // 上传模式

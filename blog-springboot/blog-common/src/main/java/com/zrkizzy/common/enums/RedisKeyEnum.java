@@ -3,9 +3,6 @@ package com.zrkizzy.common.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Redis缓存键枚举
  *
@@ -40,12 +37,4 @@ public enum RedisKeyEnum {
      */
     private final String remark;
 
-    /**
-     * 返回Redis缓存键枚举类集合
-     *
-     * @return 所有Redis缓存键
-     */
-    public static List<RedisKeyEnum> listRedisKey() {
-        return Arrays.asList(RedisKeyEnum.values());
-    }
 }

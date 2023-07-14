@@ -3,9 +3,6 @@ package com.zrkizzy.common.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * 文件上传模式枚举
  *
@@ -34,14 +31,5 @@ public enum FileUploadModeEnum {
      * 上传方式标识
      */
     private final String mark;
-
-    /**
-     * 返回文件上传枚举类集合
-     *
-     * @return 所有上传枚举类型集合
-     */
-    public static List<FileUploadModeEnum> listFileUploadMode() {
-        return Arrays.asList(FileUploadModeEnum.values());
-    }
 
 }
