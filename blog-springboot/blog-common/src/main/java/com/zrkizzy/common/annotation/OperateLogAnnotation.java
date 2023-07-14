@@ -1,5 +1,7 @@
 package com.zrkizzy.common.annotation;
 
+import com.zrkizzy.common.constant.AnnotationConst;
+
 import java.lang.annotation.*;
 
 /**
@@ -16,6 +18,6 @@ public @interface OperateLogAnnotation {
     /**
      * 操作类型 0 其他操作，1 新增，2 修改， 3 删除， 4 查询
      */
-    String type() default "4";
+    String type() default AnnotationConst.QUERY;
 
 }
