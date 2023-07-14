@@ -26,7 +26,7 @@
               <el-empty :image-size="200"></el-empty>
             </template>
             <el-table-column label="序号" width="50" type="index"  align="center"></el-table-column>
-            <el-table-column prop="type" label="缓存名称"  align="center" :formatter="nameFormatter"></el-table-column>
+            <el-table-column prop="name" label="缓存名称"  align="center" :formatter="nameFormatter"></el-table-column>
             <el-table-column prop="remark" label="备注"  align="center"></el-table-column>
             <el-table-column label="操作"  align="center" width="80">
               <!-- slot-scope="scope" -->
@@ -138,8 +138,8 @@ export default {
         // 缓存值
         cacheValue: undefined
       },
-      // 当前选中缓存类型
-      cacheType: undefined
+      // 当前选中缓存名称
+      cacheName: undefined
     }
   },
 
@@ -156,7 +156,6 @@ export default {
       // 打开加载框
       this.typeLoading = true
       listCacheType().then((res) => {
-        console.log(res)
         this.cacheTypes = res
         // 关闭加载框
         this.typeLoading = false
@@ -167,14 +166,14 @@ export default {
     },
     // 刷新Redis缓存键类型
     refreshCacheTypes () {
-      // 重新获取缓存类型
+      // 重新获取缓存名称
       this.listCacheType()
       // 输出提示信息
-      this.$message.success('缓存类型刷新成功')
+      this.$message.success('缓存名称刷新成功')
     },
     // 刷新Redis缓存键
     refreshCacheKeys () {
-      // 重新获取缓存类型
+      // 重新获取缓存名称
       this.getCacheKeys()
       // 输出提示信息
       this.$message.success('缓存键刷新成功')
@@ -182,13 +181,13 @@ export default {
     // 获取对应缓存键列表
     getCacheKeys (row) {
       // 获取当前选中类型
-      const cacheType = row !== undefined ? row.type : this.cacheType
+      const cacheName = row !== undefined ? row.name : this.cacheName
       // 加载框
       this.keyLoading = true
-      listCacheKeys(cacheType).then((res) => {
+      listCacheKeys(cacheName).then((res) => {
         this.cacheKeys = res
-        // 赋值当前选中缓存类型
-        this.cacheType = cacheType
+        // 赋值当前选中缓存名称
+        this.cacheName = cacheName
         // 关闭加载框
         this.keyLoading = false
       }).catch(() => {
@@ -211,7 +210,7 @@ export default {
     },
     // 去除掉缓存键名后的冒号
     nameFormatter (row) {
-      return row.type.replace(':', '')
+      return row.name.replace(':', '')
     }
   }
 }
