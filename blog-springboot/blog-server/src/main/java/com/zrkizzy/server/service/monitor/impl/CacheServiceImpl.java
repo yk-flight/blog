@@ -1,7 +1,6 @@
 package com.zrkizzy.server.service.monitor.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.zrkizzy.common.enums.RedisKeyEnum;
 import com.zrkizzy.common.service.IRedisService;
 import com.zrkizzy.data.vo.monitor.CacheInfoVO;
 import com.zrkizzy.data.vo.monitor.CacheKeyVO;
@@ -57,9 +56,9 @@ public class CacheServiceImpl implements ICacheService {
     public CacheInfoVO getCacheInfoByKey(String key) {
         return CacheInfoVO.builder()
                 // 缓存名称
-                .cacheName(RedisKeyEnum.getCacheNameByKey(key))
+                .cacheName(key.substring(0, key.indexOf(":")))
                 // 缓存键
-                .cacheKey(key)
+                .cacheKey(key.substring(key.indexOf(":") + 1))
                 // 缓存值
                 .cacheValue(JSON.toJSONString(redisService.get(key))).build();
     }

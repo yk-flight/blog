@@ -38,9 +38,9 @@ public class CacheController {
         // 遍历所有Redis类型
         for (RedisKeyEnum redisKey : RedisKeyEnum.values()) {
             // 缓存分类名称
-            CacheTypeVO redisKeyTypeVO = CacheTypeVO.builder().name(redisKey.getName())
-                    // 缓存类型
-                    .type(redisKey.getKey())
+            CacheTypeVO redisKeyTypeVO = CacheTypeVO.builder()
+                    // 缓存名称
+                    .name(redisKey.getKey())
                     // 备注
                     .remark(redisKey.getRemark()).build();
             // 添加当前Redis缓存键

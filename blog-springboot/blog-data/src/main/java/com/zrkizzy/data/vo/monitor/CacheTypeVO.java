@@ -18,14 +18,9 @@ import java.io.Serializable;
 public class CacheTypeVO implements Serializable {
 
     /**
-     * 缓存分类标识
+     * 缓存名称
      */
     private final String name;
-
-    /**
-     * 缓存类型
-     */
-    private final String type;
 
     /**
      * 备注
