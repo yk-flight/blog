@@ -60,9 +60,8 @@
             <el-table-column label="序号" type="index"  align="center" width="50"></el-table-column>
             <el-table-column label="缓存键名"  align="center" prop="showKey" show-overflow-tooltip></el-table-column>
             <el-table-column label="操作"  align="center" width="80">
-              <!-- slot-scope="scope" -->
-              <template>
-                <el-button type="text" size="small" icon="el-icon-delete"></el-button>
+              <template slot-scope="scope">
+                <el-button type="text" size="small" icon="el-icon-delete" @click="deleteCacheKey(scope.row)"></el-button>
               </template>
               </el-table-column>
           </el-table>
@@ -71,7 +70,6 @@
       <el-col :md="8" :sm="24">
         <div class="card card-height">
           <span><i class="el-icon-document"></i>缓存内容</span>
-          <el-button style="float: right; padding: 3px 0" type="text" icon="el-icon-refresh-right"></el-button>
           <el-divider></el-divider>
           <el-form :model="cacheForm" v-loading="cacheLoading" element-loading-text="正在加载缓存信息">
             <el-row :gutter="32">
@@ -207,6 +205,10 @@ export default {
         // 确保加载框关闭
         this.cacheLoading = false
       })
+    },
+    deleteCacheKey (row) {
+      // 删除指定Key
+      console.log(row)
     },
     // 去除掉缓存键名后的冒号
     nameFormatter (row) {
