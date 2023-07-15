@@ -4,6 +4,7 @@ import com.zrkizzy.common.annotation.OperateLogAnnotation;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.constant.AnnotationConst;
 import com.zrkizzy.common.enums.RedisKeyEnum;
+import com.zrkizzy.common.service.IRedisService;
 import com.zrkizzy.data.vo.monitor.CacheInfoVO;
 import com.zrkizzy.data.vo.monitor.CacheKeyVO;
 import com.zrkizzy.data.vo.monitor.CacheTypeVO;
@@ -26,6 +27,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/cache")
 public class CacheController {
+    @Autowired
+    private IRedisService redisService;
     @Autowired
     private ICacheService cacheService;
 
@@ -61,10 +64,18 @@ public class CacheController {
     }
 
     @ApiOperation("清理缓存列表")
-    @OperateLogAnnotation(type = AnnotationConst.ADD)
+    @OperateLogAnnotation(type = AnnotationConst.DELETE)
     @DeleteMapping("/clearCacheKeys/{type}")
     public Result<?> clearCacheKeys(@PathVariable String type) {
         cacheService.clearCacheKeys(type);
+        return Result.success();
+    }
+
+    @ApiOperation("删除指定缓存")
+    @OperateLogAnnotation(type = AnnotationConst.DELETE)
+    @DeleteMapping("/deleteCacheKey/{key}")
+    public Result<?> deleteCacheKey(@PathVariable String key) {
+        redisService.del(key);
         return Result.success();
     }
 
