@@ -13,6 +13,7 @@
             style="float: right; padding: 3px 0"
             type="text" icon="el-icon-refresh-right"></el-button>
           <el-divider></el-divider>
+          <!-- data="tableData" -->
           <el-table
             :data="cacheTypes"
             v-loading="typeLoading"
@@ -25,11 +26,12 @@
               <el-empty :image-size="200"></el-empty>
             </template>
             <el-table-column label="序号" width="50" type="index"  align="center"></el-table-column>
-            <el-table-column prop="name" label="缓存名称"  align="center" :formatter="nameFormatter"></el-table-column>
+            <el-table-column prop="type" label="缓存名称"  align="center" :formatter="nameFormatter"></el-table-column>
             <el-table-column prop="remark" label="备注"  align="center"></el-table-column>
             <el-table-column label="操作"  align="center" width="80">
-              <template slot-scope="scope">
-                <el-button type="text" size="small" icon="el-icon-delete" @click="clearCacheKeys(scope.row)"></el-button>
+              <!-- slot-scope="scope" -->
+              <template>
+                <el-button type="text" size="small" icon="el-icon-delete"></el-button>
               </template>
               </el-table-column>
           </el-table>
@@ -58,8 +60,9 @@
             <el-table-column label="序号" type="index"  align="center" width="50"></el-table-column>
             <el-table-column label="缓存键名"  align="center" prop="showKey" show-overflow-tooltip></el-table-column>
             <el-table-column label="操作"  align="center" width="80">
-              <template slot-scope="scope">
-                <el-button type="text" size="small" icon="el-icon-delete" @click="deleteCacheKey(scope.row)"></el-button>
+              <!-- slot-scope="scope" -->
+              <template>
+                <el-button type="text" size="small" icon="el-icon-delete"></el-button>
               </template>
               </el-table-column>
           </el-table>
@@ -68,6 +71,7 @@
       <el-col :md="8" :sm="24">
         <div class="card card-height">
           <span><i class="el-icon-document"></i>缓存内容</span>
+          <el-button style="float: right; padding: 3px 0" type="text" icon="el-icon-refresh-right"></el-button>
           <el-divider></el-divider>
           <el-form :model="cacheForm" v-loading="cacheLoading" element-loading-text="正在加载缓存信息">
             <el-row :gutter="32">
@@ -102,7 +106,7 @@
 
 <script>
 import PageTitle from '../../../components/PageTitle/index.vue'
-import { listCacheType, listCacheKeys, getCacheInfoByKey, clearCacheKeys, deleteCacheKey } from '../../../api/cache'
+import { listCacheType, listCacheKeys, getCacheInfoByKey } from '../../../api/cache'
 
 export default {
   name: 'Cache',
@@ -134,8 +138,8 @@ export default {
         // 缓存值
         cacheValue: undefined
       },
-      // 当前选中缓存名称
-      cacheName: undefined
+      // 当前选中缓存类型
+      cacheType: undefined
     }
   },
 
@@ -152,6 +156,7 @@ export default {
       // 打开加载框
       this.typeLoading = true
       listCacheType().then((res) => {
+        console.log(res)
         this.cacheTypes = res
         // 关闭加载框
         this.typeLoading = false
@@ -162,14 +167,14 @@ export default {
     },
     // 刷新Redis缓存键类型
     refreshCacheTypes () {
-      // 重新获取缓存名称
+      // 重新获取缓存类型
       this.listCacheType()
       // 输出提示信息
-      this.$message.success('缓存名称刷新成功')
+      this.$message.success('缓存类型刷新成功')
     },
     // 刷新Redis缓存键
     refreshCacheKeys () {
-      // 重新获取缓存名称
+      // 重新获取缓存类型
       this.getCacheKeys()
       // 输出提示信息
       this.$message.success('缓存键刷新成功')
@@ -177,13 +182,13 @@ export default {
     // 获取对应缓存键列表
     getCacheKeys (row) {
       // 获取当前选中类型
-      const cacheName = row !== undefined ? row.name : this.cacheName
+      const cacheType = row !== undefined ? row.type : this.cacheType
       // 加载框
       this.keyLoading = true
-      listCacheKeys(cacheName).then((res) => {
+      listCacheKeys(cacheType).then((res) => {
         this.cacheKeys = res
-        // 赋值当前选中缓存名称
-        this.cacheName = cacheName
+        // 赋值当前选中缓存类型
+        this.cacheType = cacheType
         // 关闭加载框
         this.keyLoading = false
       }).catch(() => {
@@ -204,49 +209,9 @@ export default {
         this.cacheLoading = false
       })
     },
-    // 清除缓存列表
-    clearCacheKeys (row) {
-      this.$confirm('是否清除缓存列表 ' + row.name + ' ?', '系统提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        // 加载等待框
-        this.keyLoading = true
-        clearCacheKeys(row.name).then((res) => {
-          // 刷新缓存列表
-          this.getCacheKeys()
-          // 关闭等待框
-          this.keyLoading = false
-          this.$message.success('缓存列表清除成功')
-        }).catch(() => {
-          this.keyLoading = false
-        })
-      }).catch(() => {})
-    },
-    // 删除指定缓存
-    deleteCacheKey (row) {
-      this.$confirm('是否删除缓存 ' + row.showKey + ' ?', '系统提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        // 加载等待框
-        this.cacheLoading = true
-        deleteCacheKey(row.key).then((res) => {
-          // 刷新缓存列表
-          this.getCacheKeys()
-          // 关闭等待框
-          this.cacheLoading = false
-          this.$message.success('缓存删除成功')
-        }).catch(() => {
-          this.keyLoading = false
-        })
-      }).catch(() => {})
-    },
     // 去除掉缓存键名后的冒号
     nameFormatter (row) {
-      return row.name.replace(':', '')
+      return row.type.replace(':', '')
     }
   }
 }
