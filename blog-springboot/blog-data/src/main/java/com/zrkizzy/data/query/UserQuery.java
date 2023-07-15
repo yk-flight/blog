@@ -1,13 +1,14 @@
-package com.zrkizzy.data.dto;
+package com.zrkizzy.data.query;
 
-import com.zrkizzy.common.base.BaseDTO;
+import com.zrkizzy.common.base.request.BasePage;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.List;
 
 /**
- * 用户数据传输对象
+ * 用户信息查询对象
  *
  * @author zhangrongkang
  * @since 2023/7/15
@@ -15,8 +16,7 @@ import lombok.ToString;
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
-public class UserDTO extends BaseDTO {
-
+public class UserQuery extends BasePage {
 
     /**
      * 用户名
@@ -29,23 +29,13 @@ public class UserDTO extends BaseDTO {
     private String password;
 
     /**
-     * 昵称
-     */
-    private String nickname;
-
-    /**
-     * 头像
-     */
-    private String avatar;
-
-    /**
      * 状态，0：禁用，1：启用
      */
     private Boolean status;
 
     /**
-     * 备注
+     * 时间范围
      */
-    private String remark;
+    private List<String> dataRange;
 
 }
