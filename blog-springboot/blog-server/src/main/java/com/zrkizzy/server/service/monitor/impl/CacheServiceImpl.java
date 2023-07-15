@@ -63,4 +63,19 @@ public class CacheServiceImpl implements ICacheService {
                 .cacheValue(JSON.toJSONString(redisService.get(key))).build();
     }
 
+    /**
+     * 清理缓存列表
+     *
+     * @param type 缓存键列表
+     */
+    @Override
+    public void clearCacheKeys(String type) {
+        // 获取所有缓存键
+        Set<String> keys = redisService.scanKeys(type + "*");
+        // 逐个清除缓存键
+        for (String key : keys) {
+            redisService.del(key);
+        }
+    }
+
 }

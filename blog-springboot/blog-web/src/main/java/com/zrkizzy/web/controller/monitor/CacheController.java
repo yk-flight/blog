@@ -1,6 +1,8 @@
 package com.zrkizzy.web.controller.monitor;
 
+import com.zrkizzy.common.annotation.OperateLogAnnotation;
 import com.zrkizzy.common.base.response.Result;
+import com.zrkizzy.common.constant.AnnotationConst;
 import com.zrkizzy.common.enums.RedisKeyEnum;
 import com.zrkizzy.data.vo.monitor.CacheInfoVO;
 import com.zrkizzy.data.vo.monitor.CacheKeyVO;
@@ -9,10 +11,7 @@ import com.zrkizzy.server.service.monitor.ICacheService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +58,14 @@ public class CacheController {
     @GetMapping("/getCacheInfoByKey/{key}")
     public Result<CacheInfoVO> getCacheInfoByKey(@PathVariable String key) {
         return Result.success(cacheService.getCacheInfoByKey(key));
+    }
+
+    @ApiOperation("清理缓存列表")
+    @OperateLogAnnotation(type = AnnotationConst.ADD)
+    @DeleteMapping("/clearCacheKeys/{type}")
+    public Result<?> clearCacheKeys(@PathVariable String type) {
+        cacheService.clearCacheKeys(type);
+        return Result.success();
     }
 
 }
