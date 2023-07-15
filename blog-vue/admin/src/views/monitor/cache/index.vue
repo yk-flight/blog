@@ -13,7 +13,6 @@
             style="float: right; padding: 3px 0"
             type="text" icon="el-icon-refresh-right"></el-button>
           <el-divider></el-divider>
-          <!-- data="tableData" -->
           <el-table
             :data="cacheTypes"
             v-loading="typeLoading"
@@ -29,9 +28,8 @@
             <el-table-column prop="name" label="缓存名称"  align="center" :formatter="nameFormatter"></el-table-column>
             <el-table-column prop="remark" label="备注"  align="center"></el-table-column>
             <el-table-column label="操作"  align="center" width="80">
-              <!-- slot-scope="scope" -->
-              <template>
-                <el-button type="text" size="small" icon="el-icon-delete"></el-button>
+              <template slot-scope="scope">
+                <el-button type="text" size="small" icon="el-icon-delete" @click="clearCacheKeys(scope.row)"></el-button>
               </template>
               </el-table-column>
           </el-table>
@@ -104,7 +102,7 @@
 
 <script>
 import PageTitle from '../../../components/PageTitle/index.vue'
-import { listCacheType, listCacheKeys, getCacheInfoByKey } from '../../../api/cache'
+import { listCacheType, listCacheKeys, getCacheInfoByKey, clearCacheKeys, deleteCacheKey } from '../../../api/cache'
 
 export default {
   name: 'Cache',
@@ -206,9 +204,45 @@ export default {
         this.cacheLoading = false
       })
     },
+    // 清除缓存列表
+    clearCacheKeys (row) {
+      this.$confirm('是否清除缓存列表 ' + row.name + ' ?', '系统提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // 加载等待框
+        this.keyLoading = true
+        clearCacheKeys(row.name).then((res) => {
+          // 刷新缓存列表
+          this.getCacheKeys()
+          // 关闭等待框
+          this.keyLoading = false
+          this.$message.success('缓存列表清除成功')
+        }).catch(() => {
+          this.keyLoading = false
+        })
+      }).catch(() => {})
+    },
+    // 删除指定缓存
     deleteCacheKey (row) {
-      // 删除指定Key
-      console.log(row)
+      this.$confirm('是否删除缓存 ' + row.showKey + ' ?', '系统提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // 加载等待框
+        this.cacheLoading = true
+        deleteCacheKey(row.key).then((res) => {
+          // 刷新缓存列表
+          this.getCacheKeys()
+          // 关闭等待框
+          this.cacheLoading = false
+          this.$message.success('缓存删除成功')
+        }).catch(() => {
+          this.keyLoading = false
+        })
+      }).catch(() => {})
     },
     // 去除掉缓存键名后的冒号
     nameFormatter (row) {
