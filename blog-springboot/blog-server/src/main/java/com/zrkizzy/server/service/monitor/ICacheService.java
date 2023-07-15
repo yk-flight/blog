@@ -28,4 +28,11 @@ public interface ICacheService {
      * @return 缓存信息
      */
     CacheInfoVO getCacheInfoByKey(String key);
+
+    /**
+     * 清理缓存列表
+     *
+     * @param type 缓存键列表
+     */
+    void clearCacheKeys(String type);
 }

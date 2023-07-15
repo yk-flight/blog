@@ -11,11 +11,27 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 13/07/2023 23:43:55
+ Date: 15/07/2023 23:02:34
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for tb_demo
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_demo`;
+CREATE TABLE `tb_demo`  (
+  `id` int(11) NOT NULL COMMENT '主键',
+  `business_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '测试行',
+  `test_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '测试行英文',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '测试表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_demo
+-- ----------------------------
+INSERT INTO `tb_demo` VALUES (1, '快餐', 'kc');
 
 -- ----------------------------
 -- Table structure for tb_file
@@ -142,6 +158,13 @@ INSERT INTO `tb_login_info` VALUES (1679153180186771456, '2675525537@qq.com', '1
 INSERT INTO `tb_login_info` VALUES (1679512912877584384, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-13 23:27:37');
 INSERT INTO `tb_login_info` VALUES (1679516231691927552, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-13 23:40:48');
 INSERT INTO `tb_login_info` VALUES (1679516618788438016, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-13 23:42:20');
+INSERT INTO `tb_login_info` VALUES (1679697882711588864, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '请求成功', '2023-07-14 11:42:36');
+INSERT INTO `tb_login_info` VALUES (1679733213804625920, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '请求成功', '2023-07-14 14:03:00');
+INSERT INTO `tb_login_info` VALUES (1679765397294809088, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '请求成功', '2023-07-14 16:10:52');
+INSERT INTO `tb_login_info` VALUES (1679835874688237568, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-14 20:50:57');
+INSERT INTO `tb_login_info` VALUES (1680177405819355136, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-15 19:28:04');
+INSERT INTO `tb_login_info` VALUES (1680181779299827712, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-15 19:45:27');
+INSERT INTO `tb_login_info` VALUES (1680230927705309184, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-15 23:00:45');
 
 -- ----------------------------
 -- Table structure for tb_menu
@@ -306,6 +329,9 @@ INSERT INTO `tb_operate_log` VALUES (1679134410772840448, 1636182933754609665, 4
 INSERT INTO `tb_operate_log` VALUES (1679152859997798400, 1636182933754609665, 3, 'com.zrkizzy.web.controller.monitor.OnlineController.offlineUser()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[\"1679148698765885440\"]', 'Result(code=200, message=请求成功, data=null)', 1, 3, '2023-07-12 23:36:54', NULL);
 INSERT INTO `tb_operate_log` VALUES (1679153124125704192, 1636182933754609665, 3, 'com.zrkizzy.web.controller.monitor.OnlineController.offlineUser()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[\"1679130827243388928\"]', 'Result(code=200, message=请求成功, data=null)', 1, 0, '2023-07-12 23:37:57', NULL);
 INSERT INTO `tb_operate_log` VALUES (1679157982115397632, 1636182933754609665, 3, 'com.zrkizzy.web.controller.monitor.OnlineController.offlineUser()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[\"1679148814230880256\"]', 'Result(code=200, message=请求成功, data=null)', 1, 0, '2023-07-12 23:57:15', NULL);
+INSERT INTO `tb_operate_log` VALUES (1679836654258356224, 1636182933754609665, 4, 'com.zrkizzy.web.controller.system.LinkController.listLinks()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"currentPage\":1,\"dataRange\":[],\"pageSize\":10}]', 'Result(code=200, message=请求成功, data={list=[{website=https://banq.ink/, introduce=Semisunny, updateTime=1687331851000, createTime=1687330423000, name=半晴Miko, logo=https://www.static.banq.ink/sunnyBlog/avatar/fcc72d35fc928185c3e70773a29a310f.jpg, id=1671411053646315520}], total=1})', 1, 43, '2023-07-14 20:54:03', NULL);
+INSERT INTO `tb_operate_log` VALUES (1680183441259233280, 1636182933754609665, 3, 'com.zrkizzy.web.controller.monitor.CacheController.clearCacheKeys()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[\"captcha:\"]', 'Result(code=200, message=请求成功, data=null)', 1, 0, '2023-07-15 19:52:03', NULL);
+INSERT INTO `tb_operate_log` VALUES (1680231076905091072, 1636182933754609665, 3, 'com.zrkizzy.web.controller.monitor.CacheController.deleteCacheKey()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[\"captcha:1680230908587671552\"]', 'Result(code=200, message=请求成功, data=null)', 1, 2, '2023-07-15 23:01:21', NULL);
 
 -- ----------------------------
 -- Table structure for tb_resource
@@ -360,7 +386,11 @@ INSERT INTO `tb_resource` VALUES (1676421084687106052, '清空登录日志信息
 INSERT INTO `tb_resource` VALUES (1677234418973933568, '获取服务监控信息', '获取系统服务监控信息', 'GET', '/admin/service-monitor/getMonitorInfo', 1636182933754609665, '2023-07-07 16:34:54', '2023-07-07 08:35:04');
 INSERT INTO `tb_resource` VALUES (1678704512069533696, '获取所有在线用户', '获取当前所有在线用户', 'POST', '/admin/online/list', 1636182933754609665, '2023-07-11 17:56:01', '2023-07-12 23:33:21');
 INSERT INTO `tb_resource` VALUES (1679151716034936832, '下线指定用户', '将指定用户下线', 'DELETE', '/admin/online/offline/**', 1636182933754609665, '2023-07-12 23:33:03', '2023-07-12 23:33:14');
-INSERT INTO `tb_resource` VALUES (1679512161577074688, '获取所有Redis缓存键类型', '获取所有Redis缓存键类型', 'GET', '/admin/cache/listRedisKeyType', 1636182933754609665, '2023-07-13 23:26:11', '2023-07-13 23:26:22');
+INSERT INTO `tb_resource` VALUES (1679512161577074688, '获取所有缓存键类型', '获取所有Redis缓存键类型', 'GET', '/admin/cache/listCacheType', 1636182933754609665, '2023-07-13 23:26:11', '2023-07-14 02:43:40');
+INSERT INTO `tb_resource` VALUES (1679675931226013696, '获取所有缓存键', '获取所有缓存键', 'GET', '/admin/cache/listCacheKeys/**', 1636182933754609665, '2023-07-14 10:16:09', '2023-07-14 02:16:25');
+INSERT INTO `tb_resource` VALUES (1679732738346713088, '获取指定缓存', '获取指定缓存', 'GET', '/admin/cache/getCacheInfoByKey/**', 1636182933754609665, '2023-07-14 14:01:49', '2023-07-14 06:01:59');
+INSERT INTO `tb_resource` VALUES (1680179775546589184, '清除缓存列表', '清除缓存列表', 'DELETE', '/admin/cache/clearCacheKeys/**', 1636182933754609665, '2023-07-15 19:38:03', '2023-07-15 19:44:28');
+INSERT INTO `tb_resource` VALUES (1680179775546589185, '删除指定缓存', '删除指定缓存', 'DELETE', '/admin/cache/deleteCacheKey/**', 1636182933754609665, '2023-07-15 21:39:56', '2023-07-15 21:40:07');
 
 -- ----------------------------
 -- Table structure for tb_role

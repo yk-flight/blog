@@ -29,3 +29,23 @@ export const getCacheInfoByKey = (key) => {
     method: 'GET'
   })
 }
+
+/**
+ * 清除缓存列表
+ */
+export const clearCacheKeys = (type) => {
+  return request({
+    url: `/admin/cache/clearCacheKeys/${type}`,
+    method: 'DELETE'
+  })
+}
+
+/**
+ * 删除指定缓存
+ */
+export const deleteCacheKey = (key) => {
+  return request({
+    url: `/admin/cache/deleteCacheKey/${key}`,
+    method: 'DELETE'
+  })
+}
