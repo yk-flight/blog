@@ -27,9 +27,7 @@
             </el-form-item>
             <!-- 搜索按钮 -->
             <el-form-item>
-              <!-- @click="handleQuery" -->
               <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-              <!-- @click="resetQuery" -->
               <el-button icon="el-icon-refresh" size="mini" @click="handleReset">重置</el-button>
             </el-form-item>
           </el-form>

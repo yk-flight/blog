@@ -11,7 +11,14 @@
             </el-form-item>
 
             <el-form-item label="状态">
-              <el-input v-model="queryParams.status" class="search-item" placeholder="请输入状态" size="small" clearable></el-input>
+              <el-select v-model="queryParams.status" placeholder="请选择用户状态" size="small" class="search-item" clearable>
+                <el-option
+                  v-for="item in statusOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
             <!-- 创建时间 -->
             <el-form-item label="创建时间" size="small">
@@ -67,10 +74,26 @@
             </el-image>
           </template>
         </el-table-column>
-        <!-- 状态 -->
-        <el-table-column prop="status" label="状态" align="center" v-if="columns[3].visible"></el-table-column>
         <!-- 备注 -->
-        <el-table-column prop="remark" label="备注" align="center" v-if="columns[4].visible"></el-table-column>
+        <el-table-column prop="remark" label="备注" align="center" v-if="columns[3].visible" show-overflow-tooltip></el-table-column>
+        <!-- 状态 -->
+        <el-table-column prop="status" label="状态" align="center" v-if="columns[4].visible" width="100">
+          <template slot-scope="scope">
+            <el-switch
+              v-if="scope.row.roles !== 'ROLE_ADMIN'"
+              v-model="scope.row.status"
+              active-color="#13ce66"
+              inactive-color="#ff4949">
+            </el-switch>
+            <el-switch
+              v-else
+              disabled
+              v-model="scope.row.status"
+              active-color="#13ce66"
+              inactive-color="#ff4949">
+            </el-switch>
+          </template>
+        </el-table-column>
         <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[5].visible">
           <template slot-scope="scope">
             <span>{{ scope.row.createTime | dateFilter }}</span>
@@ -231,10 +254,10 @@ export default {
         { key: 1, label: '昵称', visible: true },
         // 头像
         { key: 2, label: '头像', visible: true },
-        // 状态
-        { key: 3, label: '状态', visible: true },
         // 备注
-        { key: 4, label: '备注', visible: true },
+        { key: 3, label: '备注', visible: true },
+        // 状态
+        { key: 4, label: '状态', visible: true },
         { key: 5, label: '创建时间', visible: true },
         { key: 6, label: '更新时间', visible: true }
       ],
@@ -247,7 +270,18 @@ export default {
       // 单数据禁用
       multiple: true,
       // 对话框标题
-      userTitle: ''
+      userTitle: '',
+      // 请求状态选项
+      statusOptions: [
+        {
+          value: true,
+          label: '正常'
+        },
+        {
+          value: false,
+          label: '禁用'
+        }
+      ]
     }
   },
 
@@ -270,7 +304,6 @@ export default {
       // 开启加载框
       this.loading = true
       listUsers(this.queryParams).then((res) => {
-        console.log(res)
         // 赋值数据参数
         this.tableData = res.list
         this.total = res.total
