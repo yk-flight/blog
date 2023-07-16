@@ -1,8 +1,11 @@
 package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.data.domain.User;
 import com.zrkizzy.common.base.response.OptionsVO;
+import com.zrkizzy.data.query.UserQuery;
+import com.zrkizzy.data.vo.UserVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -18,9 +21,11 @@ public interface UserMapper extends BaseMapper<User> {
     /**
      * 获取所有用户
      *
+     * @param page 分页对象
+     * @param userQuery 用户信息查询对象
      * @return 所有用户集合
      */
-    List<User> listUsers();
+    Page<UserVO> listUsers(@Param("page") Page<User> page, @Param("userQuery") UserQuery userQuery);
 
     /**
      * 通过用户名获取用户对象

@@ -31,13 +31,17 @@
         </collection>
     </resultMap>
 
-    <!-- 获取所有用户 -->
-    <select id="listUsers" resultType="com.zrkizzy.data.domain.User">
-        SELECT
-            <include refid="base_column"></include>
-        FROM
-            tb_user
-    </select>
+    <resultMap id="UserVO" type="com.zrkizzy.data.vo.UserVO">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="avatar" property="avatar" />
+        <result column="nickname" property="nickname" />
+        <result column="status" property="status" />
+        <result column="remark" property="remark" />
+        <result column="roles" property="roles" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
 
     <!-- 获取用户对象 -->
     <select id="getUserByUsername" resultMap="UserWithRole">
@@ -89,11 +93,11 @@
             r.update_time AS role_update_time
         FROM
             tb_user u
-                LEFT JOIN
-            tb_user_role ur
+        LEFT JOIN
+                tb_user_role ur
             ON u.id = ur.user_id
-                LEFT JOIN
-            tb_role r
+        LEFT JOIN
+                tb_role r
             ON ur.role_id = r.id
         WHERE
             u.id = #{userId}
@@ -108,6 +112,36 @@
     <!-- 获取用户选项集合 -->
     <select id="listUserOptions" resultMap="userOptions">
         SELECT id, nickname FROM tb_user;
+    </select>
+
+    <!-- 获取所有用户 -->
+    <select id="listUsers" resultMap="UserVO">
+        SELECT
+            u.id AS id,
+            username,
+            nickname,
+            avatar,
+            status,
+            remark,
+            r.mark AS roles,
+            u.create_time AS create_time,
+            u.update_time AS update_time
+        FROM tb_user u
+        LEFT JOIN tb_user_role ur
+            ON u.id = ur.user_id
+        LEFT JOIN tb_role r
+            ON ur.role_id = r.id
+        <where>
+            <if test="null != userQuery.username and '' != userQuery.username">
+                AND u.username = #{userQuery.username}
+            </if>
+            <if test="null != userQuery.status">
+                AND u.status = #{userQuery.status}
+            </if>
+            <if test="null != userQuery.dataRange and 2 == userQuery.dataRange.size">
+                AND u.create_time BETWEEN #{userQuery.dataRange[0]} AND #{userQuery.dataRange[1]}
+            </if>
+        </where>
     </select>
 
     <!-- 更新用户头像 -->

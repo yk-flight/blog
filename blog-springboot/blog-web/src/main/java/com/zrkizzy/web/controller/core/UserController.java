@@ -1,14 +1,16 @@
 package com.zrkizzy.web.controller.core;
 
+import com.zrkizzy.common.base.response.OptionsVO;
+import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.User;
 import com.zrkizzy.data.dto.AvatarDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
 import com.zrkizzy.data.dto.UserInfoDTO;
+import com.zrkizzy.data.query.UserQuery;
 import com.zrkizzy.data.vo.UserInfoVO;
 import com.zrkizzy.data.vo.UserVO;
-import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.security.util.SecurityUtil;
 import com.zrkizzy.server.service.core.IUserService;
 import io.swagger.annotations.Api;
@@ -75,8 +77,8 @@ public class UserController {
 
     @ApiOperation("获取所有用户")
     @PostMapping("/list")
-    public List<UserVO> listUsers() {
-        return BeanCopyUtil.copyList(userService.listUsers(), UserVO.class);
+    public Result<PageResult<UserVO>> listUsers(@RequestBody UserQuery userQuery) {
+        return Result.success(userService.listUsers(userQuery));
     }
 
     @ApiOperation("获取用户选项")

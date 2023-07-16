@@ -1,7 +1,9 @@
 package com.zrkizzy.server.service.core.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.OptionsVO;
+import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.service.IRedisService;
@@ -16,7 +18,9 @@ import com.zrkizzy.data.dto.LoginDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
 import com.zrkizzy.data.dto.UserInfoDTO;
 import com.zrkizzy.data.mapper.UserMapper;
+import com.zrkizzy.data.query.UserQuery;
 import com.zrkizzy.data.vo.UserInfoVO;
+import com.zrkizzy.data.vo.UserVO;
 import com.zrkizzy.security.context.SecurityContext;
 import com.zrkizzy.security.util.SecurityUtil;
 import com.zrkizzy.server.service.core.IUserInfoService;
@@ -27,8 +31,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -65,11 +67,15 @@ public class UserServiceImpl implements IUserService {
     /**
      * 获取所有用户
      *
+     * @param userQuery 用户查询对象
      * @return 所有用户集合
      */
     @Override
-    public List<User> listUsers() {
-        return userMapper.listUsers();
+    public PageResult<UserVO> listUsers(UserQuery userQuery) {
+        // 开启分页
+        Page<User> page = new Page<>(userQuery.getCurrentPage(), userQuery.getPageSize());
+        Page<UserVO> result = userMapper.listUsers(page, userQuery);
+        return PageResult.<UserVO>builder().list(result.getRecords()).total(result.getTotal()).build();
     }
 
     /**
@@ -160,8 +166,6 @@ public class UserServiceImpl implements IUserService {
             // 手机号码
             userInfoVO.setPhone(userInfo.getPhone());
         }
-        // 获取 request 请求
-        HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
         // 返回数据
         return Result.success(
                 // 角色名称

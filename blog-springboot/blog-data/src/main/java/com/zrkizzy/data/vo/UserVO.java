@@ -46,5 +46,4 @@ public class UserVO extends BaseVO {
      */
     private String remark;
 
-
 }

@@ -24,11 +24,6 @@ public class UserQuery extends BasePage {
     private String username;
 
     /**
-     * 密码
-     */
-    private String password;
-
-    /**
      * 状态，0：禁用，1：启用
      */
     private Boolean status;

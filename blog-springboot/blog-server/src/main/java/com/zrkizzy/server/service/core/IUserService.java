@@ -1,13 +1,15 @@
 package com.zrkizzy.server.service.core;
 
+import com.zrkizzy.common.base.response.OptionsVO;
+import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
-import com.zrkizzy.data.domain.User;
 import com.zrkizzy.data.dto.AvatarDTO;
 import com.zrkizzy.data.dto.LoginDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
 import com.zrkizzy.data.dto.UserInfoDTO;
+import com.zrkizzy.data.query.UserQuery;
 import com.zrkizzy.data.vo.UserInfoVO;
-import com.zrkizzy.common.base.response.OptionsVO;
+import com.zrkizzy.data.vo.UserVO;
 
 import java.util.List;
 
@@ -21,9 +23,10 @@ public interface IUserService {
     /**
      * 获取所有用户
      *
-     * @return 所有用户集合
+     * @param userQuery 用户查询对象
+     * @return 所有用户分页数据
      */
-    List<User> listUsers();
+    PageResult<UserVO> listUsers(UserQuery userQuery);
 
     /**
      * 用户登录返回Token
