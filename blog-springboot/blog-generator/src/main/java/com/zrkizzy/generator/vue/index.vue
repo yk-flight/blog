@@ -5,7 +5,19 @@
       <el-row class="search-container" type="flex">
         <el-col :span="24" :xs="24">
           <el-form size="small" :inline="true" v-show="showSearch" label-width="68px" :model="queryParams" ref="queryForm">
-                        <!-- 创建时间 -->
+            
+            <el-form-item label="用户名">
+              <el-input v-model="queryParams.username" class="search-item" placeholder="请输入用户名" size="small" clearable></el-input>
+            </el-form-item>
+
+            <el-form-item label="密码">
+              <el-input v-model="queryParams.password" class="search-item" placeholder="请输入密码" size="small" clearable></el-input>
+            </el-form-item>
+
+            <el-form-item label="状态，0：禁用，1：启用">
+              <el-input v-model="queryParams.status" class="search-item" placeholder="请输入状态，0：禁用，1：启用" size="small" clearable></el-input>
+            </el-form-item>
+            <!-- 创建时间 -->
             <el-form-item label="创建时间" size="small">
               <el-date-picker
                 v-model="queryParams.dataRange"
@@ -45,16 +57,24 @@
           <el-empty :image-size="200"></el-empty>
         </template>
         <el-table-column type="selection" width="50" align="center" />
-        <!-- 测试行 -->
-        <el-table-column prop="businessType" label="测试行" align="center" v-if="columns[0].visible"></el-table-column>
-        <!-- 测试行英文 -->
-        <el-table-column prop="testName" label="测试行英文" align="center" v-if="columns[1].visible"></el-table-column>
-        <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[2].visible">
+        <!-- 用户名 -->
+        <el-table-column prop="username" label="用户名" align="center" v-if="columns[0].visible"></el-table-column>
+        <!-- 密码 -->
+        <el-table-column prop="password" label="密码" align="center" v-if="columns[1].visible"></el-table-column>
+        <!-- 昵称 -->
+        <el-table-column prop="nickname" label="昵称" align="center" v-if="columns[2].visible"></el-table-column>
+        <!-- 头像 -->
+        <el-table-column prop="avatar" label="头像" align="center" v-if="columns[3].visible"></el-table-column>
+        <!-- 状态，0：禁用，1：启用 -->
+        <el-table-column prop="status" label="状态，0：禁用，1：启用" align="center" v-if="columns[4].visible"></el-table-column>
+        <!-- 备注 -->
+        <el-table-column prop="remark" label="备注" align="center" v-if="columns[5].visible"></el-table-column>
+        <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[6].visible">
           <template slot-scope="scope">
             <span>{{ scope.row.createTime | dateFilter }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="updateTime" label="更新时间" align="center" v-if="columns[3].visible">
+        <el-table-column prop="updateTime" label="更新时间" align="center" v-if="columns[7].visible">
           <template slot-scope="scope">
             <span>{{ scope.row.updateTime | dateFilter }}</span>
           </template>
@@ -77,25 +97,41 @@
       />
     </div>
 
-    <!-- 测试信息对话框 -->
+    <!-- 用户信息对话框 -->
     <el-dialog
-      :title="demoTitle"
+      :title="userTitle"
       width="500px"
       :modal-append-to-body="true"
       :append-to-body="true"
       :close-on-click-modal="false"
-      :visible="demoVisible"
+      :visible="userVisible"
       :before-close="handleClose">
-      <div class="demo-wrapper" v-loading="demoLoading" element-loading-text="正在加载测试信息">
-        <el-form ref="demoForm" :model="formData" :rules="rules" label-width="80px" label-position="right">
+      <div class="user-wrapper" v-loading="userLoading" element-loading-text="正在加载用户信息">
+        <el-form ref="userForm" :model="formData" :rules="rules" label-width="80px" label-position="right">
           <el-row :gutter="15">
-            <!-- 测试行 -->
-            <el-form-item label="测试行" prop="businessType">
-              <el-input v-model="formData.businessType" placeholder="请输入测试行" clearable></el-input>
+            <!-- 用户名 -->
+            <el-form-item label="用户名" prop="username">
+              <el-input v-model="formData.username" placeholder="请输入用户名" clearable></el-input>
             </el-form-item>
-            <!-- 测试行英文 -->
-            <el-form-item label="测试行英文" prop="testName">
-              <el-input v-model="formData.testName" placeholder="请输入测试行英文" clearable></el-input>
+            <!-- 密码 -->
+            <el-form-item label="密码" prop="password">
+              <el-input v-model="formData.password" placeholder="请输入密码" clearable></el-input>
+            </el-form-item>
+            <!-- 昵称 -->
+            <el-form-item label="昵称" prop="nickname">
+              <el-input v-model="formData.nickname" placeholder="请输入昵称" clearable></el-input>
+            </el-form-item>
+            <!-- 头像 -->
+            <el-form-item label="头像" prop="avatar">
+              <el-input v-model="formData.avatar" placeholder="请输入头像" clearable></el-input>
+            </el-form-item>
+            <!-- 状态，0：禁用，1：启用 -->
+            <el-form-item label="状态，0：禁用，1：启用" prop="status">
+              <el-input v-model="formData.status" placeholder="请输入状态，0：禁用，1：启用" clearable></el-input>
+            </el-form-item>
+            <!-- 备注 -->
+            <el-form-item label="备注" prop="remark">
+              <el-input v-model="formData.remark" placeholder="请输入备注" clearable></el-input>
             </el-form-item>
           </el-row>
         </el-form>
@@ -125,10 +161,10 @@
 import PageTitle from '../../../components/PageTitle/index.vue'
 import Pagination from '../../../components/Pagination/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
-import { listDemos, saveDemo, getDemoById, deleteDemo } from '../../../api/demo'
+import { listUsers, saveUser, getUserById, deleteUser } from '../../../api/user'
 
 export default {
-  name: 'Demo',
+  name: 'User',
 
   components: { PageTitle, Pagination, RightToolbar },
 
@@ -140,8 +176,8 @@ export default {
       showSearch: true,
       // 数据总条数
       total: 0,
-      // 测试对话框是否显示
-      demoVisible: false,
+      // 用户对话框是否显示
+      userVisible: false,
       // 数据表格等待框
       loading: false,
       // 查询参数
@@ -150,31 +186,59 @@ export default {
         currentPage: 1,
         // 页面大小
         pageSize: 10,
+        // 用户名
+        username: undefined,
+        // 密码
+        password: undefined,
+        // 状态，0：禁用，1：启用
+        status: undefined,
         // 时间范围
         dataRange: []
       },
-      // 测试表单对象
+      // 用户表单对象
       formData: {
-        // 测试行
-        businessType: undefined,
-        // 测试行英文
-        testName: undefined,
+        // 用户名
+        username: undefined,
+        // 密码
+        password: undefined,
+        // 昵称
+        nickname: undefined,
+        // 头像
+        avatar: undefined,
+        // 状态，0：禁用，1：启用
+        status: undefined,
+        // 备注
+        remark: undefined,
       },
-      // 测试表单校验规则
+      // 用户表单校验规则
       rules: {
+        // 用户名
+        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+        // 密码
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        // 状态，0：禁用，1：启用
+        status: [{ required: true, message: '请输入状态，0：禁用，1：启用', trigger: 'blur' }],
       },
-      // 测试对话框等待框
-      demoLoading: false,
+      // 用户对话框等待框
+      userLoading: false,
       // 对话框按钮等待框
       buttonLoading: false,
       // 列信息
       columns: [
-        // 测试行
-        { key: 0, label: '测试行', visible: true },
-        // 测试行英文
-        { key: 1, label: '测试行英文', visible: true },
-        { key: 2, label: '创建时间', visible: true },
-        { key: 3, label: '更新时间', visible: true }
+        // 用户名
+        { key: 0, label: '用户名', visible: true },
+        // 密码
+        { key: 1, label: '密码', visible: true },
+        // 昵称
+        { key: 2, label: '昵称', visible: true },
+        // 头像
+        { key: 3, label: '头像', visible: true },
+        // 状态，0：禁用，1：启用
+        { key: 4, label: '状态，0：禁用，1：启用', visible: true },
+        // 备注
+        { key: 5, label: '备注', visible: true },
+        { key: 6, label: '创建时间', visible: true },
+        { key: 7, label: '更新时间', visible: true }
       ],
       // 表格数据
       tableData: [],
@@ -185,7 +249,7 @@ export default {
       // 单数据禁用
       multiple: true,
       // 对话框标题
-      demoTitle: ''
+      userTitle: ''
     }
   },
 
@@ -207,7 +271,7 @@ export default {
     getTableData () {
       // 开启加载框
       this.loading = true
-      listDemos(this.queryParams).then((res) => {
+      listUsers(this.queryParams).then((res) => {
         // 赋值数据参数
         this.tableData = res.list
         this.total = res.total
@@ -222,57 +286,63 @@ export default {
     },
     // 点击重置按钮
     handleReset () {
+      // 用户名
+      this.queryParams.username = ''
+      // 密码
+      this.queryParams.password = ''
+      // 状态，0：禁用，1：启用
+      this.queryParams.status = ''
       this.queryParams.dataRange = []
     },
-    // 打开测试信息对话框
+    // 打开用户信息对话框
     handleOpen () {
       // 清除表单数据
       this.resetForm()
-      this.demoVisible = true
+      this.userVisible = true
     },
-    // 关闭测试对话框表单
+    // 关闭用户对话框表单
     handleClose () {
       this.resetForm()
-      this.demoVisible = false
+      this.userVisible = false
     },
     // 点击新增按钮
     handleAdd () {
-      this.demoTitle = '新增测试'
+      this.userTitle = '新增用户'
       this.handleOpen()
     },
     // 点击编辑按钮
     handleUpdate (row) {
       // 修改对话框标题
-      this.demoTitle = '更新测试'
+      this.userTitle = '更新用户'
       // 获取到传来的ID
-      const demoId = row.id || this.ids
+      const userId = row.id || this.ids
       // 打开加载框
-      this.demoLoading = true
-      // 根据测试ID获取对应的数据
-      getDemoById(demoId).then((res) => {
-        // 赋值当前的测试数据
+      this.userLoading = true
+      // 根据用户ID获取对应的数据
+      getUserById(userId).then((res) => {
+        // 赋值当前的用户数据
         this.formData = res
-        // 打开编辑测试对话框
-        this.demoVisible = true
+        // 打开编辑用户对话框
+        this.userVisible = true
         // 关闭加载框
-        this.demoLoading = false
+        this.userLoading = false
       })
     },
     // 点击删除事件
     handleDelete (row) {
-      let demoIds = []
+      let userIds = []
       if (row.id) {
-        demoIds.push(row.id)
+        userIds.push(row.id)
       } else {
-        demoIds = this.ids
+        userIds = this.ids
       }
-      console.log(demoIds)
-      this.$confirm('是否确认删除选中的测试数据？', '提示', {
+      console.log(userIds)
+      this.$confirm('是否确认删除选中的用户数据？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(function () {
-        return deleteDemo(demoIds)
+        return deleteUser(userIds)
       }).then(() => {
         this.getTableData()
         this.$message.success('删除成功')
@@ -281,33 +351,33 @@ export default {
     // 提交表单
     submitForm () {
       const that = this
-      this.$refs.demoForm.validate(valid => {
+      this.$refs.userForm.validate(valid => {
         // 校验未通过则直接返回
         if (!valid) return
         // 开启加载框
         that.buttonLoading = true
-        that.demoLoading = true
+        that.userLoading = true
         // 提交表单
-        saveDemo(that.formData).then((res) => {
+        saveUser(that.formData).then((res) => {
           // 根据是否存在ID输出对应消息
           if (that.formData.id) {
             // 输出更新成功信息
-            that.$message.success('测试信息更新成功')
+            that.$message.success('用户信息更新成功')
           } else {
             // 输出添加成功消息
-            that.$message.success('测试添加成功')
+            that.$message.success('用户添加成功')
           }
           // 刷新表单数据并关闭对话框
           that.handleClose()
-          // 刷新测试数据
+          // 刷新用户数据
           that.getTableData()
           // 关闭加载框
           that.buttonLoading = false
-          that.demoLoading = false
+          that.userLoading = false
         }).catch(() => {
           // 关闭加载框
           that.buttonLoading = false
-          that.demoLoading = false
+          that.userLoading = false
         })
       })
     },
@@ -315,8 +385,14 @@ export default {
     resetForm () {
       // 清除校验条件
       this.formData = {
-        // 测试ID
+        // 用户ID
         id: undefined,
+        // 用户名
+        username: undefined,
+        // 密码
+        password: undefined,
+        // 状态，0：禁用，1：启用
+        status: undefined,
       }
     },
     // 多选框
@@ -334,7 +410,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.demo-wrapper {
+.user-wrapper {
   padding: 10px 30px;
 }
 .search-item {

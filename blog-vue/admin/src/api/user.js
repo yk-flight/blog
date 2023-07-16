@@ -72,3 +72,46 @@ export const listUserOptions = () => {
     method: 'GET'
   })
 }
+
+/**
+ * 获取用户列表
+ */
+export const listUsers = (data) => {
+  return request({
+    url: '/admin/user/list',
+    method: 'POST',
+    data: data
+  })
+}
+
+/**
+ * 新增/更新用户信息
+ */
+export const saveUser = (data) => {
+  return request({
+    url: '/admin/user/save',
+    method: 'POST',
+    data: data
+  })
+}
+
+/**
+ * 获取指定用户信息
+ */
+export const getUserById = (id) => {
+  return request({
+    url: `/admin/user/getUserById/${id}`,
+    method: 'GET'
+  })
+}
+
+/**
+ * 批量删除用户信息
+ */
+export const deleteUser = (data) => {
+  return request({
+    url: '/admin/user/delete',
+    method: 'DELETE',
+    data: data
+  })
+}
