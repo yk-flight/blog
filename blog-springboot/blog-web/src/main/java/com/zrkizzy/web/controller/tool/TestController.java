@@ -3,6 +3,7 @@ package com.zrkizzy.web.controller.tool;
 import com.zrkizzy.common.annotation.ParamMean;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.config.properties.OssProperties;
+import com.zrkizzy.data.vo.export.ApiScanVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 系统创建测试类
@@ -105,6 +103,12 @@ public class TestController {
     @ParamMean(in = "测试String参数, 测试type参数", out = "返回结果对象")
     @GetMapping("/apiScan")
     public Result<?> apiScan(String str, Integer inter) {
+        List<ApiScanVO> list = setApiScanInfo();
+        return Result.success(list);
+    }
+
+    private List<ApiScanVO> setApiScanInfo() {
+        List<ApiScanVO> list = new ArrayList<>();
         RequestMappingHandlerMapping mapping = webApplicationContext.getBean("requestMappingHandlerMapping",RequestMappingHandlerMapping.class);
         // 拿到Handler适配器中的所有方法
         Map<RequestMappingInfo, HandlerMethod> methodMap = mapping.getHandlerMethods();
@@ -119,7 +123,10 @@ public class TestController {
             Method method = handlerMethod.getMethod();
             // 获取当前类名
             Class<?> bean = handlerMethod.getBeanType();
-            System.out.println("当前处理的方法： " + method.getName() + "  ------------------------------------------");
+            // 请求方法
+            String methodName = method.getName();
+            // 请求类名
+            String className = bean.getName();
 
             // 反射注解
             Api api = bean.getAnnotation(Api.class);
@@ -130,50 +137,88 @@ public class TestController {
             Parameter[] parameters = method.getParameters();
             ParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
 
+            // 请求类描述
+            String classDesc = null;
+            // 请求方法描述
+            String methodDesc = null;
+            // 请求方法类型
+            String methodType = null;
+            // 请求URL
+            String url = null;
+            RequestMethodsRequestCondition methodsCondition = requestMappingInfo.getMethodsCondition();
+            methodType = methodsCondition.getMethods().toString();
+            Set<String> patternValues = requestMappingInfo.getPatternValues();
+            for (String patternValue : patternValues) {
+                url = patternValue;
+            }
             if (null != api) {
-                System.out.println("当前类注解：" + Arrays.toString(api.tags()));
+                classDesc = Arrays.toString(api.tags());
                 if (null != apiOperation) {
-                    System.out.println("当前方法注解：" + apiOperation.value());
+                    methodDesc = apiOperation.value();
                 }
+                // 入参描述
+                String inDesc = null;
+                // 返回参数描述
+                String outDesc = null;
                 if (null != paramMean) {
-                    System.out.println("入参注解：" + paramMean.in());
-                    System.out.println("出参注解：" + paramMean.out());
+                    inDesc = "[" + paramMean.in() + "]";
+                    outDesc = "[" + paramMean.out() + "]";
                 }
+                // 返回参数类型
+                String outType = null;
                 MethodParameter returnType = handlerMethod.getReturnType();
                 Type genericType = returnType.getGenericParameterType();
                 if (genericType instanceof ParameterizedType parameterizedType) {
                     Type[] typeArguments = parameterizedType.getActualTypeArguments();
                     if (typeArguments.length > 0) {
                         Type typeArgument = typeArguments[0];
-                        if (typeArgument instanceof Class<?> genericClass) {
-                            System.out.println("出参类型：" + genericClass.getName());
+                        if (typeArgument instanceof ParameterizedType nestedParameterizedType) {
+                            Type[] nestedTypeArguments = nestedParameterizedType.getActualTypeArguments();
+                            if (nestedTypeArguments.length > 0) {
+                                Type nestedTypeArgument = nestedTypeArguments[0];
+                                if (nestedTypeArgument instanceof Class<?> genericClass) {
+                                    // 返回参数类型
+                                    outType = genericClass.getName();
+                                }
+                            }
+
+                        } else if (typeArgument instanceof Class<?> genericClass) {
+                            // 返回参数类型
+                            outType = genericClass.getName();
                         }
                     }
                 }
-                RequestMethodsRequestCondition methodsCondition = requestMappingInfo.getMethodsCondition();
-                System.out.println("方法类型：" + methodsCondition.getMethods());
-                Set<String> patternValues = requestMappingInfo.getPatternValues();
-                for (String patternValue : patternValues) {
-                    System.out.println("请求URL：" + patternValue);
-                }
-                if (methodParameters.length == 0) {
-                    System.out.println("参数类型：[]");
-                } else {
+                // 入参名称数组
+                String inParam = "[]";
+                // 参数类型
+                StringBuilder inParamType = new StringBuilder();
+                if (methodParameters.length > 0) {
                     String[] parameterNames = parameterNameDiscoverer.getParameterNames(method);
-                    System.out.println("参数名称：" + Arrays.toString(parameterNames));
-                    StringBuilder builder = new StringBuilder();
-                    builder.append("[");
+                    inParam = Arrays.toString(parameterNames);
+                    inParamType.append("[");
                     for (Parameter parameter : parameters) {
                         Class<?> type = parameter.getType();
-                        builder.append(type.getName()).append(", ");
+                        inParamType.append(type.getName()).append(", ");
                     }
                     // 清除最后多余的","
-                    builder.delete(builder.lastIndexOf(","), builder.length()).append("]");
-                    System.out.println("参数类型：" + builder.toString());
+                    inParamType.delete(inParamType.lastIndexOf(","), inParamType.length()).append("]");
                 }
+                ApiScanVO apiScanVO = ApiScanVO.builder()
+                        .className(className)
+                        .classDesc(classDesc)
+                        .url(url)
+                        .method(methodName)
+                        .methodDesc(methodDesc)
+                        .methodType(methodType)
+                        .inParam(inParam)
+                        .inParamType(inParamType.toString())
+                        .inDesc(inDesc)
+                        .outType(outType)
+                        .outDesc(outDesc)
+                        .build();
+                list.add(apiScanVO);
             }
         }
-
-        return Result.success();
+        return list;
     }
 }
