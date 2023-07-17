@@ -1,6 +1,7 @@
 package com.zrkizzy.web.controller.monitor;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zrkizzy.common.annotation.ParamMean;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.HttpStatusEnum;
@@ -29,6 +30,7 @@ public class LoginInfoController {
      private ILoginInfoService loginInfoService;
 
     @ApiOperation("获取所有用户登录信息")
+    @ParamMean(in = "用户查询对象", out = "用户登录信息分页数据")
     @PostMapping("/list")
     public Result<PageResult<LoginInfoVO>> listLoginInfos(@RequestBody LoginInfoQuery loginInfoQuery) {
         // 查询到对应的用户登录信息集合
