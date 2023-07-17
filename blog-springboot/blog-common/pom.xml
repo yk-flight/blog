@@ -142,5 +142,11 @@
             <artifactId>activation</artifactId>
         </dependency>
 
+        <!-- EasyExcel依赖 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

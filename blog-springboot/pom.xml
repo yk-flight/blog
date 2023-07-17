@@ -36,6 +36,7 @@
         <swagger.version>3.0.0</swagger.version>
         <swagger-ui.version>3.0.2</swagger-ui.version>
         <!-- 其他工具类依赖 -->
+        <easy-excel.version>3.1.1</easy-excel.version>
         <aliyun-oss.version>3.10.2</aliyun-oss.version>
         <lombok.version>1.18.24</lombok.version>
         <commons-pool2.version>2.9.0</commons-pool2.version>
@@ -207,6 +208,13 @@
                 <groupId>eu.bitwalker</groupId>
                 <artifactId>UserAgentUtils</artifactId>
                 <version>${userAgent.version}</version>
+            </dependency>
+
+            <!-- EasyExcel依赖 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easy-excel.version}</version>
             </dependency>
 
             <!-- 获取系统信息 -->
