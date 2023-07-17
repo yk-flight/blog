@@ -1,8 +1,13 @@
 package com.zrkizzy.web.controller.tool;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.support.ExcelTypeEnum;
 import com.zrkizzy.common.annotation.ParamMean;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.config.properties.OssProperties;
+import com.zrkizzy.common.enums.file.FIleTypeEnum;
+import com.zrkizzy.common.utils.ServletUtil;
+import com.zrkizzy.common.utils.file.FileExportUtil;
 import com.zrkizzy.data.vo.export.ApiScanVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,6 +28,9 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.ParameterizedType;
@@ -99,12 +107,22 @@ public class TestController {
         return Result.success(builder);
     }
 
-    @ApiOperation("扫描所有接口")
+    @ApiOperation("扫描所有接口并导出为Excel")
     @ParamMean(in = "测试String参数, 测试type参数", out = "返回结果对象")
     @GetMapping("/apiScan")
-    public Result<?> apiScan(String str, Integer inter) {
-        List<ApiScanVO> list = setApiScanInfo();
-        return Result.success(list);
+    public void apiScan(String str, Integer inter) throws UnsupportedEncodingException {
+        try {
+            List<ApiScanVO> list = setApiScanInfo();
+            HttpServletResponse response = ServletUtil.getResponse();
+            FileExportUtil.setResponseProp(response, "test", FIleTypeEnum.XLSX);
+            EasyExcel.write(response.getOutputStream())
+                    .head(ApiScanVO.class)
+                    .excelType(ExcelTypeEnum.XLSX)
+                    .sheet("测试第一页")
+                    .doWrite(list);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private List<ApiScanVO> setApiScanInfo() {
