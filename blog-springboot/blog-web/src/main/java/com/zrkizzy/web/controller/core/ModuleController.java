@@ -4,6 +4,7 @@ import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.server.service.core.IModuleService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ public class ModuleController {
     @Autowired
     private IModuleService moduleService;
 
+    @ApiOperation("获取请求模块选项")
     @GetMapping("/listModuleOptions")
     public Result<List<OptionsVO>> listModuleOptions() {
         return Result.success(moduleService.listModuleOptions());

@@ -18,6 +18,7 @@ import org.springframework.core.MethodParameter;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -205,6 +206,9 @@ public class TestController {
                             outType = genericClass.getName();
                         }
                     }
+                }
+                if (!StringUtils.hasLength(outType)) {
+                    outType = "void";
                 }
                 // 入参名称数组
                 String inParam = "[]";
