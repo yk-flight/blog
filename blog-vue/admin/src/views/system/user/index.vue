@@ -187,7 +187,7 @@
 import PageTitle from '../../../components/PageTitle/index.vue'
 import Pagination from '../../../components/Pagination/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
-import { listUsers, saveUser, getUserById, deleteUser } from '../../../api/user'
+import { listUsers, saveUser, getUserInfoById, deleteUser } from '../../../api/user'
 
 export default {
   name: 'User',
@@ -353,7 +353,7 @@ export default {
       // 打开加载框
       this.userLoading = true
       // 根据用户ID获取对应的数据
-      getUserById(userId).then((res) => {
+      getUserInfoById(userId).then((res) => {
         // 赋值当前的用户数据
         this.formData = res
         // 打开编辑用户对话框

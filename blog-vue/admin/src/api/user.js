@@ -98,9 +98,9 @@ export const saveUser = (data) => {
 /**
  * 获取指定用户信息
  */
-export const getUserById = (id) => {
+export const getUserInfoById = (id) => {
   return request({
-    url: `/admin/user/getUserById/${id}`,
+    url: `/admin/user-info/getUserInfoById/${id}`,
     method: 'GET'
   })
 }
