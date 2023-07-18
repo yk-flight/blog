@@ -6,6 +6,7 @@ import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.enums.HttpStatusEnum;
+import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.service.IRedisService;
 import com.zrkizzy.common.utils.IpUtil;
 import com.zrkizzy.common.utils.ServletUtil;
@@ -190,29 +191,30 @@ public class UserServiceImpl implements IUserService {
      * 更新用户密码
      *
      * @param passwordDTO 用户更新密码数据传递对象
-     * @return 公共返回对象
      */
     @Override
-    public Result<?> updatePassword(PasswordDTO passwordDTO) {
+    public void updatePassword(PasswordDTO passwordDTO) {
         // TODO 短信验证码Key
         // Redis中邮件验证码Key
         String emailKey = CAPTCHA_EMAIL_PREFIX + passwordDTO.getUsername();
         // 判断Redis中的验证码是否过期
         if (!redisService.hasKey(emailKey)) {
-            return Result.failure(CODE_EXPIRED);
+            // 抛出验证码过期业务异常
+            throw new BusinessException(CODE_EXPIRED);
         }
         // 验证码存在则获取到验证码
         String code = redisService.get(emailKey, String.class);
         // 对比当前验证码与用户输入验证码是否一致
         if (!code.equals(passwordDTO.getCode())) {
-            return Result.failure(CODE_ERROR);
+            // 抛出验证码错误业务异常
+            throw new BusinessException(CODE_ERROR);
         }
         // 获取数据库中用户
         User user = userMapper.selectById(passwordDTO.getId());
         // 与原密码对比是否一致
         if (passwordEncoder.matches(passwordDTO.getPassword(), user.getPassword())) {
-            // 原密码和新密码不能相同
-            return Result.failure(HttpStatusEnum.PASSWORD_SAME);
+            // 抛出原密码和新密码不能相同业务异常被全局异常管理器捕获并返回前端
+            throw new BusinessException(PASSWORD_UPDATE_ERROR);
         }
         // 获取Redis中存储的Key
         String userKey = USER_PREFIX + SecurityContext.getTrack();
@@ -223,9 +225,10 @@ public class UserServiceImpl implements IUserService {
         if (userMapper.updateById(user) > 0) {
             // 清除Redis重新登录
             redisService.del(userKey);
-            return Result.success();
+            return;
         }
-        return Result.failure(PASSWORD_UPDATE_ERROR);
+        // 抛出业务异常被全局异常管理器捕获并返回前端
+        throw new BusinessException(PASSWORD_UPDATE_ERROR);
     }
 
     /**
@@ -236,7 +239,7 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Result<String> updateLoginUserAvatar(AvatarDTO avatarDTO) {
+    public String updateLoginUserAvatar(AvatarDTO avatarDTO) {
         // 获取当前用户对象
         User user = userMapper.getUserByUserId(avatarDTO.getUserId());
         // 用户头像
@@ -256,7 +259,7 @@ public class UserServiceImpl implements IUserService {
         // 更新缓存中的用户个人信息，缓存失效时间不改变
         redisService.set(USER_PREFIX + track, user, expire);
         // 将头像返回
-        return Result.success(avatarDTO.getSrc());
+        return avatarDTO.getSrc();
     }
 
     /**
@@ -267,6 +270,17 @@ public class UserServiceImpl implements IUserService {
     @Override
     public List<OptionsVO> listUserOptions() {
         return userMapper.listUserOptions();
+    }
+
+    /**
+     * 获取指定用户
+     *
+     * @param id 用户ID
+     * @return 用户信息返回对象
+     */
+    @Override
+    public UserVO getUserById(Long id) {
+        return null;
     }
 
 }

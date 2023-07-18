@@ -58,13 +58,15 @@ public class UserController {
     @ApiOperation("更新登录用户头像")
     @PostMapping("/updateLoginUserAvatar")
     public Result<String> updateLoginUserAvatar(@RequestBody @Validated AvatarDTO avatarDTO) {
-        return userService.updateLoginUserAvatar(avatarDTO);
+        return Result.success(userService.updateLoginUserAvatar(avatarDTO));
     }
 
     @ApiOperation("更新用户密码")
     @PostMapping("/updatePassword")
     public Result<?> updatePassword(@RequestBody @Validated PasswordDTO passwordDTO) {
-        return userService.updatePassword(passwordDTO);
+        // 更新用户密码
+        userService.updatePassword(passwordDTO);
+        return Result.success();
     }
 
     @ApiOperation("获取所有用户")

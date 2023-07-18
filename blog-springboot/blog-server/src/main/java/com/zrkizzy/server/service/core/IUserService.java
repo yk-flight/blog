@@ -47,9 +47,8 @@ public interface IUserService {
      * 更新用户密码
      *
      * @param passwordDTO 用户更新密码数据传递对象
-     * @return 公共返回对象
      */
-    Result<?> updatePassword(PasswordDTO passwordDTO);
+    void updatePassword(PasswordDTO passwordDTO);
 
     /**
      * 更新登录用户头像
@@ -57,7 +56,7 @@ public interface IUserService {
      * @param avatarDTO 用户头像数据传输对象
      * @return 用户头像访问路径
      */
-    Result<String> updateLoginUserAvatar(AvatarDTO avatarDTO);
+    String updateLoginUserAvatar(AvatarDTO avatarDTO);
 
     /**
      * 获取用户选项集合
@@ -65,4 +64,6 @@ public interface IUserService {
      * @return 获取用户选项集合
      */
     List<OptionsVO> listUserOptions();
+
+    UserVO getUserById(Long id);
 }

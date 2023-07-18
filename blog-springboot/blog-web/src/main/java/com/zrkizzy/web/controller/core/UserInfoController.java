@@ -4,6 +4,7 @@ import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.vo.UserInfoVO;
 import com.zrkizzy.server.service.core.IUserInfoService;
+import com.zrkizzy.server.service.core.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/admin/user-info")
 public class UserInfoController {
-
+    @Autowired
+    private IUserService userService;
     @Autowired
     private IUserInfoService userInfoService;
 
@@ -38,6 +40,8 @@ public class UserInfoController {
     public Result<UserInfoVO> getUserInfoById(@PathVariable Long id) {
         // 获取当前用户信息对象
         UserInfoVO userInfoVO = BeanCopyUtil.copy(userInfoService.getUserInfoById(id), UserInfoVO.class);
+        // 拿到用户的具体信息
+        userService.getUserById(id);
         return Result.success();
     }
 

@@ -96,10 +96,16 @@ public class User extends BaseEntity {
     @TableField(exist = false)
     private LocalDateTime loginTime;
 
+    /**
+     * 操作系统
+     */
     @ApiModelProperty("操作系统")
     @TableField(exist = false)
     private String os;
 
+    /**
+     * 浏览器
+     */
     @ApiModelProperty("浏览器")
     @TableField(exist = false)
     private String browser;
