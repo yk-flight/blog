@@ -10,6 +10,7 @@ import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.service.IRedisService;
 import com.zrkizzy.common.utils.IpUtil;
 import com.zrkizzy.common.utils.ServletUtil;
+import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.common.utils.security.JwtTokenUtil;
 import com.zrkizzy.data.domain.User;
 import com.zrkizzy.data.dto.AvatarDTO;
@@ -47,6 +48,7 @@ import static com.zrkizzy.common.enums.HttpStatusEnum.*;
 public class UserServiceImpl implements IUserService {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -289,7 +291,17 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public UserVO getUserById(Long id) {
-        return null;
+        // 获取当前登录用户对象，先从Redis中获取
+        User user = redisService.get(USER_PREFIX + SecurityContext.getTrack(), User.class);
+        if (null == user) {
+            user = userMapper.selectById(id);
+        }
+        // 转换为用户数据返回对象
+        UserVO userVO = BeanCopyUtil.copy(user, UserVO.class);
+        // 单独定义用户角色（用户只有一个角色）
+        userVO.setRoles(user.getRoles().get(0).getMark());
+        // 返回用户登录对象
+        return userVO;
     }
 
 }

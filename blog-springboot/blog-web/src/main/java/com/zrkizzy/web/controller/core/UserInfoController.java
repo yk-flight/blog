@@ -3,6 +3,7 @@ package com.zrkizzy.web.controller.core;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.vo.UserInfoVO;
+import com.zrkizzy.data.vo.UserVO;
 import com.zrkizzy.server.service.core.IUserInfoService;
 import com.zrkizzy.server.service.core.IUserService;
 import io.swagger.annotations.Api;
@@ -41,8 +42,9 @@ public class UserInfoController {
         // 获取当前用户信息对象
         UserInfoVO userInfoVO = BeanCopyUtil.copy(userInfoService.getUserInfoById(id), UserInfoVO.class);
         // 拿到用户的具体信息
-        userService.getUserById(id);
-        return Result.success();
+        UserVO userVO = userService.getUserById(id);
+        userInfoVO = BeanCopyUtil.copy(userVO, UserInfoVO.class);
+        return Result.success(userInfoVO);
     }
 
 }

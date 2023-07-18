@@ -3,8 +3,6 @@ package com.zrkizzy.web.controller.core;
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
-import com.zrkizzy.common.utils.bean.BeanCopyUtil;
-import com.zrkizzy.data.domain.User;
 import com.zrkizzy.data.dto.AvatarDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
 import com.zrkizzy.data.dto.UserUpdateDTO;
@@ -31,22 +29,18 @@ import java.util.List;
 @RequestMapping("/admin/user")
 public class UserController {
     @Autowired
-    private IUserService userService;
+    private SecurityUtil securityUtil;
 
     @Autowired
-    private SecurityUtil securityUtil;
+    private IUserService userService;
 
     @ApiOperation("获取当前登录用户")
     @GetMapping("/getLoginUser")
     public Result<UserVO> getLoginUser() {
-        // 获取当前登录用户对象
-        User user = securityUtil.getLoginUser();
-        // 转换为用户数据返回对象
-        UserVO userVO = BeanCopyUtil.copy(user, UserVO.class);
-        // 单独定义用户角色（用户只有一个角色）
-        userVO.setRoles(user.getRoles().get(0).getMark());
+        // 获取用户ID
+        Long userId = securityUtil.getLoginUser().getId();
         // 返回数据
-        return Result.success(userVO);
+        return Result.success(userService.getUserById(userId));
     }
 
     @ApiOperation("更新用户个人信息")
