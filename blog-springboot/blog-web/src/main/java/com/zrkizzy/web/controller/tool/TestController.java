@@ -109,7 +109,7 @@ public class TestController {
     }
 
     @ApiOperation("扫描所有接口并导出为Excel")
-    @ParamMean(in = "测试String参数, 测试type参数", out = "返回结果对象")
+    @ParamMean(in = "测试String参数,测试type参数", out = "返回结果对象")
     @GetMapping("/apiScan")
     public void apiScan(String str, Integer inter) throws UnsupportedEncodingException {
         try {
@@ -197,13 +197,13 @@ public class TestController {
                                 Type nestedTypeArgument = nestedTypeArguments[0];
                                 if (nestedTypeArgument instanceof Class<?> genericClass) {
                                     // 返回参数类型
-                                    outType = genericClass.getName();
+                                    outType = genericClass.getSimpleName();
                                 }
                             }
 
                         } else if (typeArgument instanceof Class<?> genericClass) {
                             // 返回参数类型
-                            outType = genericClass.getName();
+                            outType = genericClass.getSimpleName();
                         }
                     }
                 }
