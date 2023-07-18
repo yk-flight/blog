@@ -31,9 +31,9 @@ public interface IUserService {
      * 用户登录返回Token
      *
      * @param loginDTO 用户登录数据传输对象
-     * @return 公共返回对象
+     * @return Token
      */
-    Result<String> login(LoginDTO loginDTO);
+    String login(LoginDTO loginDTO);
 
     /**
      * 更新用户个人信息
@@ -47,8 +47,9 @@ public interface IUserService {
      * 更新用户密码
      *
      * @param passwordDTO 用户更新密码数据传递对象
+     * @return 受影响的行数
      */
-    void updatePassword(PasswordDTO passwordDTO);
+    Integer updatePassword(PasswordDTO passwordDTO);
 
     /**
      * 更新登录用户头像

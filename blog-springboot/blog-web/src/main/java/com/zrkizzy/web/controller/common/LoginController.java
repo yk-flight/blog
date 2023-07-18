@@ -36,6 +36,6 @@ public class LoginController {
     @ApiOperation("后台用户登录")
     @PostMapping("/admin")
     public Result<String> login(@RequestBody @Validated LoginDTO loginDTO) {
-        return userService.login(loginDTO);
+        return Result.success(userService.login(loginDTO));
     }
 }

@@ -74,19 +74,21 @@ public class UserServiceImpl implements IUserService {
      * 用户登录返回Token
      *
      * @param loginDTO 用户登录数据传输对象
-     * @return 公共返回对象
+     * @return Token
      */
     @Override
-    public Result<String> login(LoginDTO loginDTO) {
+    public String login(LoginDTO loginDTO) {
         // Redis中获取验证码
         String redisCode = redisService.get(CAPTCHA_PREFIX + loginDTO.getTrack(), String.class);
         // 验证码是否过期
         if (!StringUtils.hasLength(redisCode)) {
-            return Result.failure(CODE_EXPIRED);
+            // 抛出验证码过期异常
+            throw new BusinessException(CODE_EXPIRED);
         }
         // 判断验证码是否一致
         if (!redisCode.equals(loginDTO.getCode())) {
-            return Result.failure(CODE_ERROR);
+            // 抛出验证码错误异常
+            throw new BusinessException(CODE_ERROR);
         }
         // 获取用户名和密码
         String username = loginDTO.getUsername();
@@ -95,22 +97,25 @@ public class UserServiceImpl implements IUserService {
         User user = userMapper.getUserByUsername(username);
         // 判断当前用户是否存在
         if (null == user) {
-            return Result.failure(HttpStatusEnum.USER_NOT_EXIST);
+            // 用户不存在
+            throw new BusinessException(USER_NOT_EXIST);
         }
         // 判断用户是否禁用
         if (!user.getStatus()) {
-            return Result.failure(HttpStatusEnum.USER_ENABLE);
+            // 抛出用户已禁用异常
+            throw new BusinessException(USER_ENABLE);
         }
         // 校验密码
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            return Result.failure(HttpStatusEnum.PASSWORD_ERROR);
+            // 抛出密码错误异常
+            throw new BusinessException(PASSWORD_ERROR);
         }
         // 设置用户值
         setUserAttributeValue(user, loginDTO.getTrack());
         // 存在则将获取到的用户信息存储到Redis中，过期时间为两小时
         redisService.set(USER_PREFIX + loginDTO.getTrack(), user, TWO_HOUR);
-        // 根据用户详细信息生成Token
-        return Result.success(jwtTokenUtil.generateToken(loginDTO.getTrack()));
+        // 根据用户登录唯一标识生成Token
+        return jwtTokenUtil.generateToken(loginDTO.getTrack());
     }
 
     /**
@@ -191,9 +196,10 @@ public class UserServiceImpl implements IUserService {
      * 更新用户密码
      *
      * @param passwordDTO 用户更新密码数据传递对象
+     * @return 受影响行数
      */
     @Override
-    public void updatePassword(PasswordDTO passwordDTO) {
+    public Integer updatePassword(PasswordDTO passwordDTO) {
         // TODO 短信验证码Key
         // Redis中邮件验证码Key
         String emailKey = CAPTCHA_EMAIL_PREFIX + passwordDTO.getUsername();
@@ -222,10 +228,13 @@ public class UserServiceImpl implements IUserService {
         user.setPassword(passwordEncoder.encode(passwordDTO.getPassword()));
         // 更新用户更新时间
         user.setUpdateTime(LocalDateTime.now());
-        if (userMapper.updateById(user) > 0) {
+        // 更新用户并返回受影响的行数
+        int row = userMapper.updateById(user);
+        // 根据受影响的行数判断是否更新成功
+        if (row > 0) {
             // 清除Redis重新登录
             redisService.del(userKey);
-            return;
+            return row;
         }
         // 抛出业务异常被全局异常管理器捕获并返回前端
         throw new BusinessException(PASSWORD_UPDATE_ERROR);
