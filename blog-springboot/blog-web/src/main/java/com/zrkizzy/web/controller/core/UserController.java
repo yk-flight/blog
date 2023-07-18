@@ -7,7 +7,7 @@ import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.User;
 import com.zrkizzy.data.dto.AvatarDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
-import com.zrkizzy.data.dto.UserInfoDTO;
+import com.zrkizzy.data.dto.UserUpdateDTO;
 import com.zrkizzy.data.query.UserQuery;
 import com.zrkizzy.data.vo.UserVO;
 import com.zrkizzy.security.util.SecurityUtil;
@@ -51,8 +51,8 @@ public class UserController {
 
     @ApiOperation("更新用户个人信息")
     @PostMapping("/updateUser")
-    public Result<?> updateUser(@RequestBody @Validated UserInfoDTO userInfoDTO) {
-        return userService.updateUser(userInfoDTO);
+    public Result<?> updateUser(@RequestBody @Validated UserUpdateDTO userUpdateDTO) {
+        return userService.updateUser(userUpdateDTO);
     }
 
     @ApiOperation("更新登录用户头像")

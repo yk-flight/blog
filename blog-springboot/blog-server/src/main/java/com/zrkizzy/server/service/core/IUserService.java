@@ -6,7 +6,7 @@ import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.data.dto.AvatarDTO;
 import com.zrkizzy.data.dto.LoginDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
-import com.zrkizzy.data.dto.UserInfoDTO;
+import com.zrkizzy.data.dto.UserUpdateDTO;
 import com.zrkizzy.data.query.UserQuery;
 import com.zrkizzy.data.vo.UserVO;
 
@@ -38,10 +38,10 @@ public interface IUserService {
     /**
      * 更新用户个人信息
      *
-     * @param userInfoDTO 用户个人信息数据传输对象
+     * @param userUpdateDTO 用户个人信息数据传输对象
      * @return 公共返回对象
      */
-    Result<?> updateUser(UserInfoDTO userInfoDTO);
+    Result<?> updateUser(UserUpdateDTO userUpdateDTO);
 
     /**
      * 更新用户密码

@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
-public class UserInfoDTO extends BaseDTO {
+public class UserUpdateDTO extends BaseDTO {
 
     /**
      * 头像

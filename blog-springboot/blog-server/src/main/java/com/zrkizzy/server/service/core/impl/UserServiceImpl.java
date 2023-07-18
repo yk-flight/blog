@@ -14,7 +14,7 @@ import com.zrkizzy.data.domain.User;
 import com.zrkizzy.data.dto.AvatarDTO;
 import com.zrkizzy.data.dto.LoginDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
-import com.zrkizzy.data.dto.UserInfoDTO;
+import com.zrkizzy.data.dto.UserUpdateDTO;
 import com.zrkizzy.data.mapper.UserMapper;
 import com.zrkizzy.data.query.UserQuery;
 import com.zrkizzy.data.vo.UserVO;
@@ -143,18 +143,18 @@ public class UserServiceImpl implements IUserService {
     /**
      * 更新用户个人信息
      *
-     * @param userInfoDTO 用户个人信息数据传输对象
+     * @param userUpdateDTO 用户个人信息数据传输对象
      * @return 公告返回对象
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Result<?> updateUser(UserInfoDTO userInfoDTO) {
+    public Result<?> updateUser(UserUpdateDTO userUpdateDTO) {
         // 根据ID查询个人信息
-        User user = userMapper.getUserByUserId(userInfoDTO.getId());
+        User user = userMapper.getUserByUserId(userUpdateDTO.getId());
         // 如果修改用户名
-        if (!user.getUsername().equals(userInfoDTO.getUsername())) {
+        if (!user.getUsername().equals(userUpdateDTO.getUsername())) {
             // 校验修改后用户名的合法性
-            Long count = userMapper.selectCount(new QueryWrapper<User>().eq("username", userInfoDTO.getUsername()));
+            Long count = userMapper.selectCount(new QueryWrapper<User>().eq("username", userUpdateDTO.getUsername()));
             // 校验修改内容的合法性，如果没有修改用户名则能查出1条
             if (null != count && count > 0) {
                 // 确保用户名是唯一的
@@ -171,9 +171,9 @@ public class UserServiceImpl implements IUserService {
         redisService.del(USER_PREFIX + track);
 
         // 设置用户信息
-        user.setNickname(userInfoDTO.getNickname());
-        user.setUsername(userInfoDTO.getUsername());
-        user.setRemark(userInfoDTO.getRemark());
+        user.setNickname(userUpdateDTO.getNickname());
+        user.setUsername(userUpdateDTO.getUsername());
+        user.setRemark(userUpdateDTO.getRemark());
         user.setUpdateTime(LocalDateTime.now());
         // Redis中不展示密码
         user.setPassword(null);
