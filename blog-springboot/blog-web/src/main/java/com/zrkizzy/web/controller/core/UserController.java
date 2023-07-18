@@ -9,7 +9,6 @@ import com.zrkizzy.data.dto.AvatarDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
 import com.zrkizzy.data.dto.UserInfoDTO;
 import com.zrkizzy.data.query.UserQuery;
-import com.zrkizzy.data.vo.UserInfoVO;
 import com.zrkizzy.data.vo.UserVO;
 import com.zrkizzy.security.util.SecurityUtil;
 import com.zrkizzy.server.service.core.IUserService;
@@ -50,17 +49,10 @@ public class UserController {
         return Result.success(userVO);
     }
 
-    @ApiOperation("用户个人信息")
-    @GetMapping("/getUserInfo")
-    public Result<UserInfoVO> getUserInfo () {
-        // 获取用户信息
-        return userService.getUserInfo();
-    }
-
     @ApiOperation("更新用户个人信息")
-    @PostMapping("/updateUserInfo")
-    public Result<?> updateUserInfo(@RequestBody @Validated UserInfoDTO userInfoDTO) {
-        return userService.updateUserInfo(userInfoDTO);
+    @PostMapping("/updateUser")
+    public Result<?> updateUser(@RequestBody @Validated UserInfoDTO userInfoDTO) {
+        return userService.updateUser(userInfoDTO);
     }
 
     @ApiOperation("更新登录用户头像")

@@ -1,6 +1,8 @@
 package com.zrkizzy.server.service.core;
 
+import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.data.domain.UserInfo;
+import com.zrkizzy.data.vo.UserInfoVO;
 
 /**
  * 用户信息业务逻辑接口
@@ -9,6 +11,14 @@ import com.zrkizzy.data.domain.UserInfo;
  * @since 2023/5/4
  */
 public interface IUserInfoService {
+
+    /**
+     * 获取登录用户个人信息
+     *
+     * @return 个人信息数据返回对象
+     */
+    Result<UserInfoVO> getUserInfo();
+
     /**
      * 通过ID获取用户信息
      *

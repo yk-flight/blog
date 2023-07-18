@@ -9,21 +9,16 @@ import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.service.IRedisService;
 import com.zrkizzy.common.utils.IpUtil;
 import com.zrkizzy.common.utils.ServletUtil;
-import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.common.utils.security.JwtTokenUtil;
 import com.zrkizzy.data.domain.User;
-import com.zrkizzy.data.domain.UserInfo;
 import com.zrkizzy.data.dto.AvatarDTO;
 import com.zrkizzy.data.dto.LoginDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
 import com.zrkizzy.data.dto.UserInfoDTO;
 import com.zrkizzy.data.mapper.UserMapper;
 import com.zrkizzy.data.query.UserQuery;
-import com.zrkizzy.data.vo.UserInfoVO;
 import com.zrkizzy.data.vo.UserVO;
 import com.zrkizzy.security.context.SecurityContext;
-import com.zrkizzy.security.util.SecurityUtil;
-import com.zrkizzy.server.service.core.IUserInfoService;
 import com.zrkizzy.server.service.core.IUserService;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,14 +47,10 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
-    private SecurityUtil securityUtil;
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
     private IRedisService redisService;
-    @Autowired
-    private IUserInfoService userInfoService;
 
     @Autowired
     private UserMapper userMapper;
@@ -150,36 +141,6 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * 获取用户个人信息
-     *
-     * @return 个人信息数据返回对象
-     */
-    @Override
-    public Result<UserInfoVO> getUserInfo() {
-        // 从SecurityUtil中获取到当前登录用户对象
-        User user = securityUtil.getLoginUser();
-        // 根据查询到的User对象复制UserInfoVO对象
-        UserInfoVO userInfoVO = BeanCopyUtil.copy(user, UserInfoVO.class);
-        // 查询当前用户对应UserInfo对象
-        UserInfo userInfo = userInfoService.getUserInfoById(user.getId());
-        if (null != userInfo) {
-            // 手机号码
-            userInfoVO.setPhone(userInfo.getPhone());
-        }
-        // 返回数据
-        return Result.success(
-                // 角色名称
-                userInfoVO.setRoleName(securityUtil.getLoginUserRoleName())
-                        // IP地址
-                        .setIpAddress(user.getIpAddress())
-                        // IP属地
-                        .setIpSource(user.getIpLocation())
-                        // 登录设备
-                        .setDevice(securityUtil.getUserAgent())
-        );
-    }
-
-    /**
      * 更新用户个人信息
      *
      * @param userInfoDTO 用户个人信息数据传输对象
@@ -187,7 +148,7 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Result<?> updateUserInfo(UserInfoDTO userInfoDTO) {
+    public Result<?> updateUser(UserInfoDTO userInfoDTO) {
         // 根据ID查询个人信息
         User user = userMapper.getUserByUserId(userInfoDTO.getId());
         // 如果修改用户名
