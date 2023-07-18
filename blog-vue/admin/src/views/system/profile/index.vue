@@ -90,7 +90,7 @@
                   type="primary"
                   icon="el-icon-success"
                   size="small"
-                  @click="updateUserInfo"
+                  @click="updateUser"
                   :loading="saveLoading">
                   保存
                 </el-button>
@@ -121,7 +121,7 @@
 </template>
 
 <script>
-import { getUserInfo, updateUserInfo } from '../../../api/user'
+import { getUserInfo, updateUser } from '../../../api/user'
 import { mapGetters } from 'vuex'
 import Password from './component/Password.vue'
 import FileSpace from '../../../components/FileSpace/index.vue'
@@ -206,10 +206,10 @@ export default {
     /**
      * 更新用户个人信息
      */
-    updateUserInfo () {
+    updateUser () {
       // 开启等待框
       this.saveLoading = true
-      updateUserInfo({
+      updateUser({
         id: this.userInfo.id,
         avatar: this.userInfo.avatar,
         username: this.userInfo.username,

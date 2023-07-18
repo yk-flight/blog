@@ -15,7 +15,7 @@ export const getLoginUser = () => {
  */
 export const getUserInfo = () => {
   return request({
-    url: '/admin/user/getUserInfo',
+    url: '/admin/user-info/getUserInfo',
     method: 'GET'
   })
 }
@@ -23,9 +23,9 @@ export const getUserInfo = () => {
 /**
  * 更新用户个人信息
  */
-export const updateUserInfo = (data) => {
+export const updateUser = (data) => {
   return request({
-    url: '/admin/user/updateUserInfo',
+    url: '/admin/user/updateUser',
     method: 'POST',
     data: data
   })

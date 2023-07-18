@@ -105,7 +105,8 @@
           </template>
         </el-table-column>
         <el-table-column label="操作"  align="center">
-          <template slot-scope="scope" v-if="scope.row.roles !== 'ROLE_ADMIN'">
+          <!-- v-if="scope.row.roles !== 'ROLE_ADMIN'" -->
+          <template slot-scope="scope">
             <el-button type="text" size="small" icon="el-icon-edit" @click="handleUpdate(scope.row)">编辑</el-button>
             <el-button type="text" size="small" icon="el-icon-delete" @click="handleDelete(scope.row)">删除</el-button>
           </template>
