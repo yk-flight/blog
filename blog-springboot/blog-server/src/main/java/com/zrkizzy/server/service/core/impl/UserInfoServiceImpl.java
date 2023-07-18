@@ -1,6 +1,5 @@
 package com.zrkizzy.server.service.core.impl;
 
-import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.User;
 import com.zrkizzy.data.domain.UserInfo;
@@ -31,7 +30,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
      * @return 个人信息数据返回对象
      */
     @Override
-    public Result<UserInfoVO> getUserInfo() {
+    public UserInfoVO getUserInfo() {
         // 从SecurityUtil中获取到当前登录用户对象
         User user = securityUtil.getLoginUser();
         // 根据查询到的User对象复制UserInfoVO对象
@@ -43,16 +42,15 @@ public class UserInfoServiceImpl implements IUserInfoService {
             userInfoVO.setPhone(userInfo.getPhone());
         }
         // 返回数据
-        return Result.success(
+        return userInfoVO
                 // 角色名称
-                userInfoVO.setRoleName(securityUtil.getLoginUserRoleName())
-                        // IP地址
-                        .setIpAddress(user.getIpAddress())
-                        // IP属地
-                        .setIpSource(user.getIpLocation())
-                        // 登录设备
-                        .setDevice(securityUtil.getUserAgent())
-        );
+                .setRoleName(securityUtil.getLoginUserRoleName())
+                // IP地址
+                .setIpAddress(user.getIpAddress())
+                // IP属地
+                .setIpSource(user.getIpLocation())
+                // 登录设备
+                .setDevice(securityUtil.getUserAgent());
     }
 
     /**
@@ -65,4 +63,5 @@ public class UserInfoServiceImpl implements IUserInfoService {
     public UserInfo getUserInfoById(Long id) {
         return userInfoMapper.selectById(id);
     }
+
 }

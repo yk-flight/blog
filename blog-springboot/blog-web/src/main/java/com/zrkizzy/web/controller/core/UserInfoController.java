@@ -1,12 +1,14 @@
 package com.zrkizzy.web.controller.core;
 
 import com.zrkizzy.common.base.response.Result;
+import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.vo.UserInfoVO;
 import com.zrkizzy.server.service.core.IUserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +30,15 @@ public class UserInfoController {
     @GetMapping("/getUserInfo")
     public Result<UserInfoVO> getUserInfo () {
         // 获取用户信息
-        return userInfoService.getUserInfo();
+        return Result.success(userInfoService.getUserInfo());
     }
+
+    @ApiOperation("获取指定用户信息")
+    @GetMapping("/getUserInfoById/{id}")
+    public Result<UserInfoVO> getUserInfoById(@PathVariable Long id) {
+        // 获取当前用户信息对象
+        UserInfoVO userInfoVO = BeanCopyUtil.copy(userInfoService.getUserInfoById(id), UserInfoVO.class);
+        return Result.success();
+    }
+
 }
