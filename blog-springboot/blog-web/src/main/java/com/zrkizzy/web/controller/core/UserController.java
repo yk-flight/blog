@@ -46,7 +46,8 @@ public class UserController {
     @ApiOperation("更新用户个人信息")
     @PostMapping("/updateUser")
     public Result<?> updateUser(@RequestBody @Validated UserUpdateDTO userUpdateDTO) {
-        return userService.updateUser(userUpdateDTO);
+        userService.updateUser(userUpdateDTO);
+        return Result.success();
     }
 
     @ApiOperation("更新登录用户头像")

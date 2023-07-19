@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.base.response.PageResult;
-import com.zrkizzy.common.base.response.Result;
-import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.service.IRedisService;
 import com.zrkizzy.common.utils.IpUtil;
@@ -152,11 +150,11 @@ public class UserServiceImpl implements IUserService {
      * 更新用户个人信息
      *
      * @param userUpdateDTO 用户个人信息数据传输对象
-     * @return 公告返回对象
+     * @return 受影响的行数
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Result<?> updateUser(UserUpdateDTO userUpdateDTO) {
+    public Integer updateUser(UserUpdateDTO userUpdateDTO) {
         // 根据ID查询个人信息
         User user = userMapper.getUserByUserId(userUpdateDTO.getId());
         // 如果修改用户名
@@ -166,7 +164,7 @@ public class UserServiceImpl implements IUserService {
             // 校验修改内容的合法性，如果没有修改用户名则能查出1条
             if (null != count && count > 0) {
                 // 确保用户名是唯一的
-                return Result.failure(HttpStatusEnum.USERNAME_REPEAT);
+                throw new BusinessException(USERNAME_REPEAT);
             }
         }
         // 将用户密码提前保存下来，在Redis中不缓存密码
@@ -188,10 +186,13 @@ public class UserServiceImpl implements IUserService {
         // 更新缓存中的用户个人信息，缓存失效时间不改变
         redisService.set(USER_PREFIX + track, user, expire);
         user.setPassword(password);
-
-        // 更新数据库
-        return userMapper.updateById(user) > 0 ?
-                Result.success() : Result.failure(HttpStatusEnum.INTERNAL_SERVER_ERROR);
+        // 数据并返回受影响的行数
+        int row = userMapper.updateById(user);
+        if (row > 0) {
+            return row;
+        }
+        // 否则抛出修改失败异常
+        throw new BusinessException(INTERNAL_SERVER_ERROR);
     }
 
     /**
