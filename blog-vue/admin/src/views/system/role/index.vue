@@ -279,12 +279,12 @@ export default {
       const roleId = row.id || this.ids
       // 打开加载框
       this.roleLoading = true
+      // 打开编辑角色对话框
+      this.roleVisible = true
       // 根据角色ID获取对应的数据
       getRoleById(roleId).then((res) => {
         // 赋值当前的角色数据
         this.formData = res
-        // 打开编辑角色对话框
-        this.roleVisible = true
         // 关闭加载框
         this.roleLoading = false
       })

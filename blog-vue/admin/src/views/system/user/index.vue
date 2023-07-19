@@ -359,12 +359,12 @@ export default {
       const userId = row.id || this.ids
       // 打开加载框
       this.userLoading = true
+      // 打开编辑用户对话框
+      this.userVisible = true
       // 根据用户ID获取对应的数据
       getUserInfoById(userId).then((res) => {
         // 赋值当前的用户数据
         this.formData = res
-        // 打开编辑用户对话框
-        this.userVisible = true
         // 关闭加载框
         this.userLoading = false
       })
