@@ -126,7 +126,7 @@
     <!-- 用户信息对话框 -->
     <el-dialog
       :title="userTitle"
-      width="500px"
+      width="600px"
       :modal-append-to-body="true"
       :append-to-body="true"
       :close-on-click-modal="false"
@@ -134,32 +134,41 @@
       :before-close="handleClose">
       <div class="user-wrapper" v-loading="userLoading" element-loading-text="正在加载用户信息">
         <el-form ref="userForm" :model="formData" :rules="rules" label-width="80px" label-position="right">
-          <el-row :gutter="15">
-            <!-- 用户名 -->
-            <el-form-item label="用户名" prop="username">
-              <el-input v-model="formData.username" placeholder="请输入用户名" clearable></el-input>
-            </el-form-item>
-            <!-- 密码 -->
-            <el-form-item label="密码" prop="password">
-              <el-input v-model="formData.password" placeholder="请输入密码" clearable></el-input>
-            </el-form-item>
-            <!-- 昵称 -->
-            <el-form-item label="昵称" prop="nickname">
-              <el-input v-model="formData.nickname" placeholder="请输入昵称" clearable></el-input>
-            </el-form-item>
-            <!-- 头像 -->
-            <el-form-item label="头像" prop="avatar">
-              <el-input v-model="formData.avatar" placeholder="请输入头像" clearable></el-input>
-            </el-form-item>
-            <!-- 状态 -->
-            <el-form-item label="状态" prop="status">
-              <el-input v-model="formData.status" placeholder="请输入状态" clearable></el-input>
-            </el-form-item>
-            <!-- 备注 -->
-            <el-form-item label="备注" prop="remark">
-              <el-input v-model="formData.remark" placeholder="请输入备注" clearable></el-input>
-            </el-form-item>
+          <el-row :gutter="10">
+            <el-col :span="12">
+              <!-- 用户名 -->
+              <el-form-item label="用户名" prop="username">
+                <el-input v-model="formData.username" placeholder="请输入用户名" clearable></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <!-- 昵称 -->
+              <el-form-item label="用户昵称" prop="nickname">
+                <el-input v-model="formData.nickname" placeholder="请输入用户昵称" clearable></el-input>
+              </el-form-item>
+            </el-col>
           </el-row>
+          <el-row :gutter="10">
+            <el-col :span="12">
+              <!-- 电话号码 -->
+              <el-form-item label="电话号码" prop="phone">
+                <el-input v-model="formData.phone" placeholder="请绑定电话号码" clearable></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <!-- 状态 -->
+              <el-form-item label="状态" prop="status">
+                <el-radio-group v-model="formData.status">
+                  <el-radio :label="true">正常</el-radio>
+                  <el-radio :label="false">禁用</el-radio>
+              </el-radio-group>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!-- 备注 -->
+          <el-form-item label="备注" prop="remark">
+            <el-input v-model="formData.remark" type="textarea" placeholder="请输入备注" clearable></el-input>
+          </el-form-item>
         </el-form>
       </div>
       <div slot="footer">
@@ -223,12 +232,10 @@ export default {
       formData: {
         // 用户名
         username: undefined,
-        // 密码
-        password: undefined,
         // 昵称
         nickname: undefined,
-        // 头像
-        avatar: undefined,
+        // 电话号码
+        phone: undefined,
         // 状态
         status: undefined,
         // 备注
@@ -237,11 +244,11 @@ export default {
       // 用户表单校验规则
       rules: {
         // 用户名
-        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-        // 密码
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        username: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
+        // 用户昵称
+        nickname: [{ required: true, message: '用户昵称不能为空', trigger: 'blur' }],
         // 状态
-        status: [{ required: true, message: '请输入状态', trigger: 'blur' }]
+        status: [{ required: true, message: '用户状态不能为空', trigger: 'blur' }]
       },
       // 用户对话框等待框
       userLoading: false,
@@ -423,10 +430,12 @@ export default {
         id: undefined,
         // 用户名
         username: undefined,
-        // 密码
-        password: undefined,
+        // 电话号码
+        phone: undefined,
         // 状态
-        status: undefined
+        status: undefined,
+        // 备注
+        remark: undefined
       }
     },
     // 多选框
