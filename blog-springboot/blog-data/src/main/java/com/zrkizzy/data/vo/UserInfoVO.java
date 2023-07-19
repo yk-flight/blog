@@ -63,4 +63,9 @@ public class UserInfoVO extends BaseVO {
      */
     private String remark;
 
+    /**
+     * 状态，0：禁用，1：启用
+     */
+    private Boolean status;
+
 }

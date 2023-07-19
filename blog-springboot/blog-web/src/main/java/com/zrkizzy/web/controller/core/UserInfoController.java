@@ -2,6 +2,7 @@ package com.zrkizzy.web.controller.core;
 
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
+import com.zrkizzy.data.domain.UserInfo;
 import com.zrkizzy.data.vo.UserInfoVO;
 import com.zrkizzy.data.vo.UserVO;
 import com.zrkizzy.server.service.core.IUserInfoService;
@@ -39,11 +40,12 @@ public class UserInfoController {
     @ApiOperation("获取指定用户信息")
     @GetMapping("/getUserInfoById/{id}")
     public Result<UserInfoVO> getUserInfoById(@PathVariable Long id) {
-        // 获取当前用户信息对象
-        UserInfoVO userInfoVO = BeanCopyUtil.copy(userInfoService.getUserInfoById(id), UserInfoVO.class);
         // 拿到用户的具体信息
         UserVO userVO = userService.getUserById(id);
-        userInfoVO = BeanCopyUtil.copy(userVO, UserInfoVO.class);
+        UserInfoVO userInfoVO = BeanCopyUtil.copy(userVO, UserInfoVO.class);
+        // 获取当前用户信息对象
+        UserInfo userInfo = userInfoService.getUserInfoById(id);
+        BeanCopyUtil.copy(userInfo, userInfoVO);
         return Result.success(userInfoVO);
     }
 

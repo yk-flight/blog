@@ -56,6 +56,19 @@ public class BeanCopyUtil {
     }
 
     /**
+     * 复制对象值
+     *
+     * @param source 复制的原对象
+     * @param target 要进行复制的对象
+     */
+    public static void copy(Object source, Object target) {
+        if (source == null || target == null) {
+            return;
+        }
+        BeanUtils.copyProperties(source, target);
+    }
+
+    /**
      * 将传来的Object对象转为指定的List集合
      *
      * @param object 传来的Object对象

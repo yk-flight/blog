@@ -292,11 +292,8 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public UserVO getUserById(Long id) {
-        // 获取当前登录用户对象，先从Redis中获取
-        User user = redisService.get(USER_PREFIX + SecurityContext.getTrack(), User.class);
-        if (null == user) {
-            user = userMapper.selectById(id);
-        }
+        // 获取当前登录用户对象
+        User user = userMapper.getUserByUserId(id);
         // 转换为用户数据返回对象
         UserVO userVO = BeanCopyUtil.copy(user, UserVO.class);
         // 单独定义用户角色（用户只有一个角色）
