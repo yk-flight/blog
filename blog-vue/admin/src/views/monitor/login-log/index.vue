@@ -59,7 +59,7 @@
         <!-- 日志编号 -->
         <el-table-column prop="id" label="日志编号" align="center" v-if="columns[0].visible" show-overflow-tooltip></el-table-column>
         <!-- 登录用户名称 -->
-        <el-table-column prop="username" label="用户名称" align="center" v-if="columns[1].visible"></el-table-column>
+        <el-table-column prop="username" label="用户名称" align="center" v-if="columns[1].visible" show-overflow-tooltip></el-table-column>
         <!-- 登录IP -->
         <el-table-column prop="loginIp" label="登录IP" align="center" v-if="columns[2].visible"></el-table-column>
         <!-- 登录位置 -->

@@ -44,7 +44,7 @@
           </template>
         </el-table-column>
         <!-- 用户名 -->
-        <el-table-column prop="username" label="用户名" align="center" v-if="columns[2].visible"></el-table-column>
+        <el-table-column prop="username" label="用户名" align="center" v-if="columns[2].visible" show-overflow-tooltip></el-table-column>
         <!-- 用户昵称 -->
         <el-table-column prop="nickname" label="用户昵称" align="center" v-if="columns[3].visible"></el-table-column>
         <!-- 登录IP -->

@@ -352,15 +352,15 @@ export default {
         lock: true,
         text: '正在加载服务监控数据...',
         spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.8)'
+        background: 'rgba(0, 0, 0, 0.9)'
       })
       // 获取后台数据
       getMonitorInfo().then((res) => {
         this.service = res
+        setTimeout(() => {
+          loading.close()
+        }, 1000)
       })
-      setTimeout(() => {
-        loading.close()
-      }, 1000)
     }
   }
 }

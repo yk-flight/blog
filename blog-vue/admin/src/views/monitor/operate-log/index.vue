@@ -6,8 +6,8 @@
         <el-col :span="24" :xs="24">
           <el-form size="small" :inline="true" v-show="showSearch" label-width="68px" :model="queryParams" ref="queryForm">
 
-            <el-form-item label="请求模块">
-              <el-select v-model="queryParams.moduleId" placeholder="请选择请求模块" size="small" class="search-item" clearable>
+            <el-form-item label="操作模块">
+              <el-select v-model="queryParams.moduleId" placeholder="请选择操作模块" size="small" class="search-item" clearable>
                 <el-option
                   v-for="item in moduleOptions"
                   :key="item.value"
@@ -17,8 +17,8 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="请求类型">
-              <el-select v-model="queryParams.type" placeholder="请选择请求类型" size="small" class="search-item" clearable>
+            <el-form-item label="操作类型">
+              <el-select v-model="queryParams.type" placeholder="请选择操作类型" size="small" class="search-item" clearable>
                 <el-option
                   v-for="item in typeOptions"
                   :key="item.value"
@@ -28,8 +28,8 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="请求方式">
-              <el-select v-model="queryParams.requestMethod" placeholder="请选择请求方式" size="small" class="search-item" clearable>
+            <el-form-item label="请求类型">
+              <el-select v-model="queryParams.requestMethod" placeholder="请选择请求类型" size="small" class="search-item" clearable>
                 <el-option
                   v-for="item in requestOptions"
                   :key="item.value"
@@ -39,8 +39,8 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="请求用户">
-              <el-select v-model="queryParams.userId" placeholder="请选择请求用户" size="small" class="search-item" clearable>
+            <el-form-item label="操作用户">
+              <el-select v-model="queryParams.userId" placeholder="请选择操作用户" size="small" class="search-item" clearable>
                 <el-option
                   v-for="item in userOptions"
                   :key="item.value"
@@ -50,8 +50,8 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item label="请求状态">
-              <el-select v-model="queryParams.status" placeholder="请选择请求状态" size="small" class="search-item" clearable>
+            <el-form-item label="操作状态">
+              <el-select v-model="queryParams.status" placeholder="请选择操作状态" size="small" class="search-item" clearable>
                 <el-option
                   v-for="item in statusOptions"
                   :key="item.value"
@@ -60,8 +60,8 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <!-- 请求时间 -->
-            <el-form-item label="请求时间" size="small">
+            <!-- 操作时间 -->
+            <el-form-item label="操作时间" size="small">
               <el-date-picker
                 v-model="queryParams.dataRange"
                 class="search-item"
@@ -95,20 +95,20 @@
           <el-empty :image-size="200"></el-empty>
         </template>
         <el-table-column type="selection" width="50" align="center" />
-        <!-- 请求模块 -->
-        <el-table-column prop="moduleName" label="请求模块" align="center" v-if="columns[0].visible"></el-table-column>
-        <!-- 请求类型 -->
-        <el-table-column prop="type" label="请求类型" align="center" v-if="columns[1].visible">
+        <!-- 操作模块 -->
+        <el-table-column prop="moduleName" label="操作模块" align="center" v-if="columns[0].visible"></el-table-column>
+        <!-- 操作类型 -->
+        <el-table-column prop="type" label="操作类型" align="center" v-if="columns[1].visible">
           <template slot-scope="scope">
             <el-tag type="success" v-if="scope.row.type === 1">新增</el-tag>
             <el-tag type="primary" v-else-if="scope.row.type == 2">修改</el-tag>
             <el-tag type="danger" v-else-if="scope.row.type === 3">删除</el-tag>
             <el-tag type="warning" v-else-if="scope.row.type === 4">查询</el-tag>
-            <el-tag type="info" v-else>其他请求</el-tag>
+            <el-tag type="info" v-else>其他操作</el-tag>
           </template>
         </el-table-column>
-        <!-- 请求方式 -->
-        <el-table-column prop="requestMethod" label="请求方式" align="center" v-if="columns[2].visible">
+        <!-- 请求类型 -->
+        <el-table-column prop="requestMethod" label="请求类型" align="center" v-if="columns[2].visible">
           <template slot-scope="scope">
             <el-tag type="primary" v-if="scope.row.requestMethod === 'POST'">POST</el-tag>
             <el-tag type="success" v-else-if="scope.row.requestMethod === 'GET'">GET</el-tag>
@@ -116,31 +116,31 @@
             <el-tag type="danger" v-else>DELETE</el-tag>
           </template>
         </el-table-column>
-        <!-- 请求用户 -->
-        <el-table-column prop="nickname" label="请求用户" align="center" v-if="columns[3].visible"></el-table-column>
-        <!-- 请求IP -->
-        <el-table-column prop="operateIp" label="请求IP" align="center" v-if="columns[4].visible"></el-table-column>
-        <!-- 请求地址 -->
-        <el-table-column prop="operateLocation" label="请求地址" align="center" v-if="columns[5].visible"></el-table-column>
-        <!-- 请求状态 -->
-        <el-table-column prop="status" label="请求状态" align="center" v-if="columns[6].visible">
+        <!-- 操作用户 -->
+        <el-table-column prop="nickname" label="操作用户" align="center" v-if="columns[3].visible"></el-table-column>
+        <!-- 操作IP -->
+        <el-table-column prop="operateIp" label="操作IP" align="center" v-if="columns[4].visible"></el-table-column>
+        <!-- 操作地址 -->
+        <el-table-column prop="operateLocation" label="操作地址" align="center" v-if="columns[5].visible"></el-table-column>
+        <!-- 操作状态 -->
+        <el-table-column prop="status" label="操作状态" align="center" v-if="columns[6].visible">
           <template slot-scope="scope">
             <el-tag type="success" v-if="scope.row.status">成功</el-tag>
             <el-tag type="danger" v-else>失败</el-tag>
           </template>
         </el-table-column>
-        <!-- 请求消耗时间 -->
+        <!-- 操作消耗时间 -->
         <el-table-column prop="costTime" label="请求耗时" align="center" v-if="columns[7].visible" sortable>
           <template slot-scope="scope">
             <span>{{ scope.row.costTime }}ms</span>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="请求时间" align="center" width="180" v-if="columns[8].visible">
+        <el-table-column prop="createTime" label="操作时间" align="center" width="180" v-if="columns[8].visible">
           <template slot-scope="scope">
             <span>{{ scope.row.createTime | dateFilter }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="请求"  align="center">
+        <el-table-column label="操作"  align="center">
           <template slot-scope="scope">
             <el-button type="text" size="small" icon="el-icon-view" @click="handleView(scope.row)">详细</el-button>
           </template>
@@ -156,9 +156,9 @@
         @pagination="getTableData"
       />
 
-      <!-- 请求详情对话框 -->
+      <!-- 操作详情对话框 -->
       <el-dialog
-        title="请求详情"
+        title="操作详情"
         :visible="operateLogVisible"
         :before-close="handleClose"
         :close-on-click-modal="false"
@@ -171,25 +171,25 @@
                 <el-form-item label="日志编号：">{{ formData.id }}</el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="请求用户：">{{ formData.nickname }}</el-form-item>
+                <el-form-item label="操作用户：">{{ formData.nickname }}</el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="请求模块：">{{ formData.moduleName }}</el-form-item>
+                <el-form-item label="操作模块：">{{ formData.moduleName }}</el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="请求地址：">{{ formData.operateIp }} / {{ formData.operateLocation }}</el-form-item>
+                <el-form-item label="操作地址：">{{ formData.operateIp }} / {{ formData.operateLocation }}</el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="请求方法：">{{ formData.methodName }}</el-form-item>
+                <el-form-item label="操作方法：">{{ formData.methodName }}</el-form-item>
               </el-col>
               <el-col :span="24">
-                <el-form-item label="请求参数：">{{ formData.operateParam }}</el-form-item>
+                <el-form-item label="操作参数：">{{ formData.operateParam }}</el-form-item>
               </el-col>
               <el-col :span="24">
                 <el-form-item label="返回参数：">{{ formData.operateResult }}</el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="请求时间：">
+                <el-form-item label="操作时间：">
                   {{ formData.createTime | dateFilter }}
                 </el-form-item>
               </el-col>
@@ -199,13 +199,13 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="请求结果：">
+                <el-form-item label="操作结果：">
                   <el-tag type="success" v-if="formData.status">成功</el-tag>
                   <el-tag type="danger" v-else>失败</el-tag>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="请求方式：">
+                <el-form-item label="请求类型：">
                   <el-tag type="primary" v-if="formData.requestMethod === 'POST'">POST</el-tag>
                   <el-tag type="success" v-else-if="formData.requestMethod === 'GET'">GET</el-tag>
                   <el-tag type="warning" v-else-if="formData.requestMethod === 'PUT'">PUT</el-tag>
@@ -213,12 +213,12 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item label="请求类型：">
+                <el-form-item label="操作类型：">
                   <el-tag type="success" v-if="formData.type === 1">新增</el-tag>
                   <el-tag type="primary" v-else-if="formData.type == 2">修改</el-tag>
                   <el-tag type="danger" v-else-if="formData.type === 3">删除</el-tag>
                   <el-tag type="warning" v-else-if="formData.type === 4">查询</el-tag>
-                  <el-tag type="info" v-else>其他请求</el-tag>
+                  <el-tag type="info" v-else>其他操作</el-tag>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -252,7 +252,7 @@ export default {
       showSearch: true,
       // 数据总条数
       total: 0,
-      // 请求日志对话框是否显示
+      // 操作日志对话框是否显示
       operateLogVisible: false,
       // 数据表格等待框
       loading: false,
@@ -264,42 +264,42 @@ export default {
         pageSize: 10,
         // 模块ID
         moduleId: undefined,
-        // 请求类型
+        // 操作类型
         type: undefined,
-        // 请求方式
+        // 请求类型
         requestMethod: undefined,
         // 用户ID
         userId: undefined,
-        // 请求状态
+        // 操作状态
         status: undefined,
         // 时间范围
         dataRange: []
       },
       // 详细参数
       formData: {},
-      // 请求日志对话框等待框
+      // 操作日志对话框等待框
       operateLogLoading: false,
       // 对话框按钮等待框
       buttonLoading: false,
       // 列信息
       columns: [
         // 模块ID
-        { key: 0, label: '请求模块', visible: true },
+        { key: 0, label: '操作模块', visible: true },
+        // 操作类型
+        { key: 1, label: '操作类型', visible: true },
         // 请求类型
-        { key: 1, label: '请求类型', visible: true },
-        // 请求方式
-        { key: 2, label: '请求方式', visible: true },
+        { key: 2, label: '请求类型', visible: true },
         // 用户ID
-        { key: 3, label: '请求用户', visible: true },
-        // 请求IP
-        { key: 4, label: '请求IP', visible: true },
-        // 请求地址
-        { key: 5, label: '请求地址', visible: true },
-        // 请求状态
-        { key: 6, label: '请求状态', visible: true },
-        // 请求消耗时间
+        { key: 3, label: '操作用户', visible: true },
+        // 操作IP
+        { key: 4, label: '操作IP', visible: true },
+        // 操作地址
+        { key: 5, label: '操作地址', visible: true },
+        // 操作状态
+        { key: 6, label: '操作状态', visible: true },
+        // 操作消耗时间
         { key: 7, label: '请求耗时', visible: true },
-        { key: 8, label: '请求时间', visible: true }
+        { key: 8, label: '操作时间', visible: true }
       ],
       // 表格数据
       tableData: [],
@@ -307,7 +307,7 @@ export default {
       ids: [],
       // 多数据禁用
       multiple: true,
-      // 请求状态选项
+      // 操作状态选项
       statusOptions: [
         {
           value: 1,
@@ -318,7 +318,7 @@ export default {
           label: '失败'
         }
       ],
-      // 请求方式选项
+      // 请求类型选项
       requestOptions: [
         {
           value: 'POST',
@@ -337,11 +337,11 @@ export default {
           label: 'DELETE'
         }
       ],
-      // 请求方式选项
+      // 请求类型选项
       typeOptions: [
         {
           value: 0,
-          label: '其他请求'
+          label: '其他操作'
         },
         {
           value: 1,
@@ -431,30 +431,30 @@ export default {
     handleReset () {
       // 模块ID
       this.queryParams.moduleId = ''
-      // 请求类型
+      // 操作类型
       this.queryParams.type = ''
-      // 请求方式
+      // 请求类型
       this.queryParams.requestMethod = ''
       // 用户ID
       this.queryParams.userId = ''
-      // 请求状态
+      // 操作状态
       this.queryParams.status = ''
       // 时间范围
       this.queryParams.dataRange = []
     },
-    // 打开请求日志信息对话框
+    // 打开操作日志信息对话框
     handleView (row) {
       this.formData = row
       this.operateLogVisible = true
     },
-    // 关闭请求日志对话框表单
+    // 关闭操作日志对话框表单
     handleClose () {
       this.operateLogVisible = false
     },
     // 点击删除事件
     handleDelete () {
       const operateLogIds = this.ids
-      this.$confirm('是否确认删除选中的请求日志数据？', '提示', {
+      this.$confirm('是否确认删除选中的操作日志数据？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'

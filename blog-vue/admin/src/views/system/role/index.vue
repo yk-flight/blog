@@ -369,6 +369,8 @@ export default {
         // 角色描述
         description: undefined
       }
+      // 清除表单的校验
+      this.$refs.roleForm.clearValidate()
     },
     // 多选框
     handleSelectionChange (selection) {
