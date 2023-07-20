@@ -49,11 +49,6 @@ public class UserInfoVO extends BaseVO {
     private String ipSource;
 
     /**
-     * 电话号码
-     */
-    private String phone;
-
-    /**
      * 登录设备
      */
     private String device;
@@ -67,5 +62,10 @@ public class UserInfoVO extends BaseVO {
      * 状态，0：禁用，1：启用
      */
     private Boolean status;
+
+    /**
+     * 电话号码
+     */
+    private String phone;
 
 }
