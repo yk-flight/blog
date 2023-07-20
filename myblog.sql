@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 20/07/2023 15:22:57
+ Date: 20/07/2023 16:40:06
 */
 
 SET NAMES utf8mb4;
@@ -24,6 +24,7 @@ DROP TABLE IF EXISTS `tb_config`;
 CREATE TABLE `tb_config` (
   `id` bigint(20) NOT NULL COMMENT '主键',
   `config_name` varchar(100) DEFAULT NULL COMMENT '配置名称',
+  `config_desc` varchar(100) DEFAULT NULL COMMENT '配置描述',
   `config_value` varchar(255) DEFAULT NULL COMMENT '配置值',
   `config_build` tinyint(4) DEFAULT NULL COMMENT '是否为系统内置：1 是，0 否',
   `config_type` varchar(100) DEFAULT NULL COMMENT '配置类型： IMAGE 图片，TEXT 文本，RADIO 单选',
@@ -143,6 +144,7 @@ CREATE TABLE `tb_login_info` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1681897322843209728, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-20 13:22:24');
+INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1681931684896833536, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-20 15:38:56');
 COMMIT;
 
 -- ----------------------------
