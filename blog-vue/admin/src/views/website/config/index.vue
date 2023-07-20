@@ -1,6 +1,8 @@
 <template>
-  <div>
-    哈哈哈哈
+  <div class="page-container">
+    <div class="card">
+      <router-link to="/config/other">点击这里进入网站其他信息配置</router-link>
+    </div>
   </div>
 </template>
 

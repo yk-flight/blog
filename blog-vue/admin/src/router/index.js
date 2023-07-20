@@ -65,6 +65,20 @@ export const constantRoutes = [
         meta: { title: '个人中心', icon: 'user' }
       }
     ]
+  },
+  {
+    path: '/config',
+    component: () => import('../layout/index.vue'),
+    hidden: true,
+    redirect: 'noRedirect',
+    children: [
+      {
+        path: 'other',
+        component: () => import('@/views/website/config/Other.vue'),
+        name: 'Other',
+        meta: { title: '其他配置' }
+      }
+    ]
   }
 ]
 

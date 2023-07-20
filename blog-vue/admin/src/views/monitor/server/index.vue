@@ -323,7 +323,7 @@ import { getMonitorInfo } from '../../../api/server'
 import PageTitle from '../../../components/PageTitle/index.vue'
 
 export default {
-  name: 'service',
+  name: 'Server',
 
   components: { PageTitle },
 

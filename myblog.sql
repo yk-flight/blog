@@ -11,11 +11,32 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 18/07/2023 17:29:20
+ Date: 20/07/2023 15:22:57
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for tb_config
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_config`;
+CREATE TABLE `tb_config` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `config_name` varchar(100) DEFAULT NULL COMMENT '配置名称',
+  `config_value` varchar(255) DEFAULT NULL COMMENT '配置值',
+  `config_build` tinyint(4) DEFAULT NULL COMMENT '是否为系统内置：1 是，0 否',
+  `config_type` varchar(100) DEFAULT NULL COMMENT '配置类型： IMAGE 图片，TEXT 文本，RADIO 单选',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of tb_config
+-- ----------------------------
+BEGIN;
+COMMIT;
 
 -- ----------------------------
 -- Table structure for tb_file
@@ -121,44 +142,7 @@ CREATE TABLE `tb_login_info` (
 -- Records of tb_login_info
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1676502416599547904, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-05 16:04:58');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1676800378168934400, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-06 11:48:58');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1676800454895337472, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-06 11:48:39');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1676830720292552704, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-06 13:49:32');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1676861605486264320, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-06 15:52:16');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1677139151306096640, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-07 10:15:08');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1677235313434427392, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Mac OS X', 0, '验证码错误', '2023-07-07 16:37:15');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1677235370644733952, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-07 16:37:28');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678195316542668800, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-10 08:11:57');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678195767061250048, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-10 08:13:45');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678561624396398592, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '请求成功', '2023-07-11 08:27:32');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678661118467244032, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '请求成功', '2023-07-11 15:02:53');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678662925927055360, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '请求成功', '2023-07-11 15:10:04');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678701851236630528, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '请求成功', '2023-07-11 17:44:45');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678705564848226304, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '请求成功', '2023-07-11 17:59:30');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678795645818765312, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-11 23:57:27');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678801633485520896, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-12 00:21:15');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678803026065752064, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-12 00:26:46');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678806214126862336, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-12 00:39:27');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1678806359920869376, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-12 00:40:01');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1679130846914674688, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 0, '验证码错误', '2023-07-12 22:09:25');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1679130867508707328, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-12 22:09:30');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1679148804915331072, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-12 23:20:47');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1679148878533754880, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-12 23:21:04');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1679153180186771456, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-12 23:38:10');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1679512912877584384, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-13 23:27:37');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1679516231691927552, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-13 23:40:48');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1679516618788438016, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-13 23:42:20');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1679697882711588864, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '请求成功', '2023-07-14 11:42:36');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1679733213804625920, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '请求成功', '2023-07-14 14:03:00');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1679765397294809088, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '请求成功', '2023-07-14 16:10:52');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1679835874688237568, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-14 20:50:57');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1680177405819355136, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-15 19:28:04');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1680181779299827712, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-15 19:45:27');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1680230927705309184, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-15 23:00:45');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1680455812553637888, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-16 13:54:22');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1680583671389618176, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '请求成功', '2023-07-16 22:22:25');
-INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1681224314382188544, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '请求成功', '2023-07-18 16:48:06');
+INSERT INTO `tb_login_info` (`id`, `username`, `login_ip`, `login_location`, `browser`, `os`, `status`, `message`, `login_time`) VALUES (1681897322843209728, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-20 13:22:24');
 COMMIT;
 
 -- ----------------------------
