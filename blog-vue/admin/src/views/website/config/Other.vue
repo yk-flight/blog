@@ -18,7 +18,7 @@
             <el-form label-width="80">
               <!-- 用户头像 -->
               <el-form-item label="用户头像：">
-                <el-image>这里是头像</el-image>
+                <el-image :src="avatar" class="image-info">这里是头像</el-image>
               </el-form-item>
               <!-- 网站配置 -->
               <el-form-item label="网站配置1：">
@@ -62,8 +62,11 @@ export default {
     }
   },
 
-  mounted () {
-
+  computed: {
+    // 登录用户头像
+    avatar () {
+      return this.$store.getters.avatar
+    }
   },
 
   methods: {
@@ -83,4 +86,29 @@ export default {
   margin-top: 30px;
   margin-bottom: 10px;
 }
+.image-info {
+    position: relative;
+    display: inline-block;
+    height: 150px;
+    border-radius: 10px;
+  }
+
+  .image-info:hover:after {
+    content: '+';
+    position: absolute;
+    text-align: center;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    color: #eee;
+    background: rgba(0, 0, 0, 0.4);
+    font-size: 24px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: pointer;
+    line-height: 150px;
+    border-radius: 10px;
+  }
 </style>
