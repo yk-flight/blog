@@ -2,7 +2,7 @@ package com.zrkizzy.web.controller.system;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.zrkizzy.common.base.response.Result;
-import com.zrkizzy.common.enums.FileUploadModeEnum;
+import com.zrkizzy.common.enums.file.FileUploadModeEnum;
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.data.dto.FileDTO;
 import com.zrkizzy.data.dto.UploadDTO;

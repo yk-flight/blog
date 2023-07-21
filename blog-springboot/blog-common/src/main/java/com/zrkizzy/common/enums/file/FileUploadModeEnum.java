@@ -1,4 +1,4 @@
-package com.zrkizzy.common.enums;
+package com.zrkizzy.common.enums.file;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
