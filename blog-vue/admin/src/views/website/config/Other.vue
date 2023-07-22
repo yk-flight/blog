@@ -8,17 +8,16 @@
     </div>
 
     <div class="card">
-      <el-row>
-        <el-button type="primary" icon="el-icon-plus" size="small">新增配置</el-button>
-        <el-button type="danger" icon="el-icon-delete" size="small">删除配置</el-button>
-      </el-row>
       <div class="config-container">
         <el-row>
           <el-col :md="{span: 14, offset: 5}" :sm="{span: 20, offset: 2}" :xs="24">
             <el-form label-width="80">
               <!-- 用户头像 -->
               <el-form-item label="用户头像：">
-                <el-image :src="avatar" class="image-info">这里是头像</el-image>
+                <div class="image-info" @click="editAvatar">
+                  <el-image :src="configForm.avatar">这里是头像</el-image>
+                </div>
+
               </el-form-item>
               <!-- 网站配置 -->
               <el-form-item label="网站配置1：">
@@ -40,37 +39,68 @@
         </el-row>
       </div>
     </div>
+
+    <file-space
+      :visible="avatarVisible"
+      @confirm="changeAvatar"
+      :limit="1"
+      :text="'只能上传 .jpeg .jpg .png .gif 格式的文件，且不超过2MB'"
+      :accept="['.jpeg', '.jpg', '.png', '.gif']"
+      :size="2"
+      @close="closeFileSpace">
+    </file-space>
   </div>
 </template>
 
 <script>
 import PageTitle from '../../../components/PageTitle/index.vue'
+import FileSpace from '../../../components/FileSpace/index.vue'
+import { getConfig } from '../../../api/system'
 
 export default {
   name: 'Other',
 
-  components: { PageTitle },
+  components: { PageTitle, FileSpace },
 
   created () {
     // 赋值当前页面内容
     this.title = this.$route.meta.title
+    // 获取系统配置
+    this.getConfig()
   },
 
   data () {
     return {
-
-    }
-  },
-
-  computed: {
-    // 登录用户头像
-    avatar () {
-      return this.$store.getters.avatar
+      // 文件空间对话框
+      avatarVisible: false,
+      // 系统配置表单
+      configForm: {
+        // 用户默认头像
+        avatar: undefined
+      }
     }
   },
 
   methods: {
-
+    // 获取系统基本配置信息
+    getConfig () {
+      getConfig().then((res) => {
+        this.configForm = res
+      })
+    },
+    // 打开文件空间对话框
+    editAvatar () {
+      this.avatarVisible = true
+    },
+    // 关闭文件选择框
+    closeFileSpace () {
+      this.avatarVisible = false
+    },
+    // 修改默认用户头像
+    changeAvatar (value) {
+      // 修改当前头像值
+      this.configForm.avatar = value[0].src
+    }
   }
 }
 </script>
@@ -86,11 +116,15 @@ export default {
   margin-top: 30px;
   margin-bottom: 10px;
 }
+.dialog-wrapper {
+  padding: 20px;
+}
 .image-info {
     position: relative;
     display: inline-block;
     height: 150px;
     border-radius: 10px;
+    width: 150px;
   }
 
   .image-info:hover:after {

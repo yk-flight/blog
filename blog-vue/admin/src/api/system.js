@@ -51,3 +51,13 @@ export const generateRoutes = () => {
     method: 'GET'
   })
 }
+
+/**
+ * 获取系统基本配置
+ */
+export const getConfig = () => {
+  return request({
+    url: '/admin/config/getConfig',
+    method: 'GET'
+  })
+}
