@@ -27,19 +27,17 @@ public class ConfigController {
      private IConfigService configService;
 
     @ApiOperation("获取所有系统配置")
-    @PostMapping("/list")
-    public Result<ConfigVO> listConfigs() {
-        // 查询到对应的系统配置集合
-        List<ConfigVO> configPage = configService.listConfigs();
+    @GetMapping("/getConfig")
+    public Result<ConfigVO> getConfig() {
         // 处理对应数据集合并返回数据
-        return Result.success();
+        return Result.success(configService.getConfig());
     }
             
     @ApiOperation("添加-更新系统配置") 
     @PostMapping("/save") 
     public Result<?> saveConfig(@RequestBody ConfigDTO configDTO) {
         // 保存系统配置数据
-        return configService.saveConfig(configDTO); 
+        return configService.saveConfig(configDTO);
     }
 
     @ApiOperation("批量删除系统配置数据")

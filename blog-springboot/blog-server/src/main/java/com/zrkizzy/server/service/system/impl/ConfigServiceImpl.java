@@ -37,11 +37,14 @@ public class ConfigServiceImpl implements IConfigService {
     /**
      * 获取所有系统配置
      *
-     * @return 系统配置集合
+     * @return 系统配置数据返回对象
      */
     @Override
-    public List<ConfigVO> listConfigs() {
-        return BeanCopyUtil.copyList(configMapper.selectList(null), ConfigVO.class);
+    public ConfigVO getConfig() {
+        // 定义返回结果
+        // 如果Redis中的配置信息不为空
+
+        return BeanCopyUtil.copy(configMapper.selectList(null).get(0), ConfigVO.class);
     }
 
     /**

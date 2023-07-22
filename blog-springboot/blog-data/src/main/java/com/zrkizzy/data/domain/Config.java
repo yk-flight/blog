@@ -13,7 +13,7 @@ import java.io.Serial;
  * 系统配置实体类
  *
  * @author zhangrongkang
- * @since 2023/7/21
+ * @since 2023/7/22
  */
 @Data
 @TableName("tb_config")
@@ -25,33 +25,9 @@ public class Config extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 配置名称
+     * 用户默认头像
      */
-    @ApiModelProperty(value = "配置名称")
-    private String configName;
-
-    /**
-     * 配置描述
-     */
-    @ApiModelProperty(value = "配置描述")
-    private String configDesc;
-
-    /**
-     * 配置值
-     */
-    @ApiModelProperty(value = "配置值")
-    private String configValue;
-
-    /**
-     * 是否为系统内置：1 是，0 否
-     */
-    @ApiModelProperty(value = "是否为系统内置：1 是，0 否")
-    private Boolean configBuild;
-
-    /**
-     * 配置类型： IMAGE 图片，TEXT 文本，RADIO 单选
-     */
-    @ApiModelProperty(value = "配置类型： IMAGE 图片，TEXT 文本，RADIO 单选")
-    private String configType;
+    @ApiModelProperty(value = "用户默认头像")
+    private String avatar;
 
 }

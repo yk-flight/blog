@@ -17,9 +17,9 @@ public interface IConfigService {
     /**
      * 获取所有系统配置
      *
-     * @return 系统配置集合
+     * @return 系统配置数据返回对象
      */
-    List<ConfigVO> listConfigs();
+    ConfigVO getConfig();
 
     /**
      * 添加或更新系统配置

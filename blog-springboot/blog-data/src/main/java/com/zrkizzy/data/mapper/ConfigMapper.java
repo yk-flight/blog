@@ -9,7 +9,7 @@ import com.zrkizzy.data.domain.Config;
  * </p>
  *
  * @author zhangrongkang
- * @since 2023/7/21
+ * @since 2023/7/22
  */
 public interface ConfigMapper extends BaseMapper<Config> {
 

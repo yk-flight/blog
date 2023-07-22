@@ -5,18 +5,13 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.Config">
         <id column="id" property="id" />
-        <result column="config_name" property="configName" />
-        <result column="config_desc" property="configDesc" />
-        <result column="config_value" property="configValue" />
-        <result column="config_build" property="configBuild" />
-        <result column="config_type" property="configType" />
+        <result column="avatar" property="avatar" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, config_name, config_desc, config_value, config_build, config_type, create_time, update_time
+        id, avatar, create_time, update_time
     </sql>
-
 </mapper>
