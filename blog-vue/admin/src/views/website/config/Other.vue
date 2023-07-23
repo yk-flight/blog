@@ -3,7 +3,7 @@
     <div class="card">
       <page-title :title="title"></page-title>
       <div class="card-desc">
-        在这里编辑配置项
+        在这里编辑系统基本配置项，定制您的个性化设置
       </div>
     </div>
 
@@ -13,9 +13,9 @@
           <el-col :md="{span: 14, offset: 5}" :sm="{span: 20, offset: 2}" :xs="24">
             <el-form label-width="80">
               <!-- 用户头像 -->
-              <el-form-item label="用户头像：">
+              <el-form-item label="用户默认头像：">
                 <div class="image-info" @click="editAvatar">
-                  <el-image :src="configForm.avatar">这里是头像</el-image>
+                  <el-image :src="configForm.avatar"></el-image>
                 </div>
 
               </el-form-item>
@@ -36,6 +36,10 @@
               </el-form-item>
             </el-form>
           </el-col>
+        </el-row>
+        <el-row type="flex" justify="center">
+          <el-button type="primary" icon="el-icon-circle-check" size="small" plain>保存配置</el-button>
+          <el-button type="danger" icon="el-icon-close" size="small" plain>关闭</el-button>
         </el-row>
       </div>
     </div>
@@ -66,6 +70,11 @@ export default {
     // 赋值当前页面内容
     this.title = this.$route.meta.title
     // 获取系统配置
+    this.getConfig()
+  },
+
+  activated () {
+    // 组件被激活时动态获取系统配置
     this.getConfig()
   },
 
@@ -106,6 +115,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.el-image {
+  border-radius: 10px;
+}
 .card {
   margin-bottom: 20px;
 }
