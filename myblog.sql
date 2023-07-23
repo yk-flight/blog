@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 23/07/2023 20:59:34
+ Date: 23/07/2023 22:47:14
 */
 
 SET NAMES utf8mb4;
@@ -24,6 +24,7 @@ DROP TABLE IF EXISTS `tb_config`;
 CREATE TABLE `tb_config`  (
   `id` bigint(20) NOT NULL COMMENT '主键',
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户默认头像',
+  `notice` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '系统公告',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -32,7 +33,7 @@ CREATE TABLE `tb_config`  (
 -- ----------------------------
 -- Records of tb_config
 -- ----------------------------
-INSERT INTO `tb_config` VALUES (1682761996493127680, 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg', '2023-07-22 22:38:28', '2023-07-23 20:57:48');
+INSERT INTO `tb_config` VALUES (1682761996493127680, 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg', '<p><strong style=\"color: rgb(96, 98, 102);\">尊敬的用户：</strong></p><p>欢迎来到我的个人博客! 我是Dream_飞翔，非常感谢您的来访。这里是我分享自己生活、学习和工作中的一些体验与见解的地方。您可以随意浏览我的文章以及后台的所有页面，也可以在评论区分享您的想法和反馈。如果您有任何问题或建议，请与我联系，祝您生活愉快！</p><p><strong style=\"color: rgb(96, 98, 102);\">其他：</strong></p>', '2023-07-22 22:38:28', '2023-07-23 22:16:44');
 
 -- ----------------------------
 -- Table structure for tb_file
@@ -137,6 +138,7 @@ INSERT INTO `tb_login_info` VALUES (1682397470891442176, '2675525537@qq.com', '1
 INSERT INTO `tb_login_info` VALUES (1682748766060281856, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-22 21:45:44');
 INSERT INTO `tb_login_info` VALUES (1683012474535673856, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-23 15:13:37');
 INSERT INTO `tb_login_info` VALUES (1683091885125533696, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-23 20:29:10');
+INSERT INTO `tb_login_info` VALUES (1683126491543502848, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-23 22:46:41');
 
 -- ----------------------------
 -- Table structure for tb_menu
@@ -310,6 +312,8 @@ INSERT INTO `tb_operate_log` VALUES (1683012981316648960, 1636182933754609665, 3
 INSERT INTO `tb_operate_log` VALUES (1683014881030176768, 1636182933754609665, 3, 'com.zrkizzy.web.controller.monitor.CacheController.deleteCacheKey()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[\"config:basic\"]', 'Result(code=200, message=请求成功, data=null)', 1, 0, '2023-07-23 15:23:11', NULL);
 INSERT INTO `tb_operate_log` VALUES (1683099059398639616, 1636182933754609665, 2, 'com.zrkizzy.web.controller.system.ConfigController.saveConfig()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"avatar\":\"https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192353.jpg\",\"createTime\":\"2023-07-22T22:38:28\",\"id\":1682761996493127680,\"updateTime\":\"2023-07-23T20:56:25\"}]', 'Result(code=200, message=请求成功, data=1)', 1, 51, '2023-07-23 20:57:41', NULL);
 INSERT INTO `tb_operate_log` VALUES (1683099087357870080, 1636182933754609665, 2, 'com.zrkizzy.web.controller.system.ConfigController.saveConfig()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"avatar\":\"https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg\",\"createTime\":\"2023-07-22T22:38:28\",\"id\":1682761996493127680,\"updateTime\":\"2023-07-23T20:56:25\"}]', 'Result(code=200, message=请求成功, data=1)', 1, 44, '2023-07-23 20:57:48', NULL);
+INSERT INTO `tb_operate_log` VALUES (1683117411781312512, 1636182933754609665, 2, 'com.zrkizzy.web.controller.system.ConfigController.saveConfig()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"avatar\":\"https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg\",\"createTime\":\"2023-07-22T22:38:28\",\"id\":1682761996493127680,\"notice\":\"<p><strong style=\\\"color: rgb(96, 98, 102);\\\">尊敬的用户：</strong></p><p>欢迎来到我的个人博客! 我是Dream_飞翔，非常感谢您的来访。这里是我分享自己生活、学习和工作中的一些体验与见解的地方。您可以随意浏览我的文章以及后台的所有页面，也可以在评论区分享您的想法和反馈。如果您有任何问题或建议，请与我联系，祝您生活愉快！</p><p><strong style=\\\"color: rgb(96, 98, 102);\\\">其他：</strong></p>\",\"updateTime\":\"2023-07-23T20:57:48\"}]', 'Result(code=200, message=请求成功, data=1)', 1, 116, '2023-07-23 22:10:36', NULL);
+INSERT INTO `tb_operate_log` VALUES (1683118951694860288, 1636182933754609665, 2, 'com.zrkizzy.web.controller.system.ConfigController.saveConfig()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"avatar\":\"https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg\",\"createTime\":\"2023-07-22T22:38:28\",\"id\":1682761996493127680,\"notice\":\"<p><strong style=\\\"color: rgb(96, 98, 102);\\\">尊敬的用户：</strong></p><p>欢迎来到我的个人博客! 我是Dream_飞翔，非常感谢您的来访。这里是我分享自己生活、学习和工作中的一些体验与见解的地方。您可以随意浏览我的文章以及后台的所有页面，也可以在评论区分享您的想法和反馈。如果您有任何问题或建议，请与我联系，祝您生活愉快！</p><p><strong style=\\\"color: rgb(96, 98, 102);\\\">其他：</strong></p>\",\"updateTime\":\"2023-07-23T22:10:36\"}]', 'Result(code=200, message=请求成功, data=1)', 1, 17, '2023-07-23 22:16:44', NULL);
 
 -- ----------------------------
 -- Table structure for tb_resource

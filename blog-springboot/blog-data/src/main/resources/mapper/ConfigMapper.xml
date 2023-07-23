@@ -6,12 +6,13 @@
     <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.Config">
         <id column="id" property="id" />
         <result column="avatar" property="avatar" />
+        <result column="notice" property="notice" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, avatar, create_time, update_time
+        id, avatar, notice, create_time, update_time
     </sql>
 </mapper>

@@ -22,4 +22,9 @@ public class ConfigVO extends BaseVO {
      */
     private String avatar;
 
+    /**
+     * 系统通知
+     */
+    private String notice;
+
 }

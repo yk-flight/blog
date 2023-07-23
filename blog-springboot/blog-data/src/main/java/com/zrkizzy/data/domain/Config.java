@@ -30,4 +30,10 @@ public class Config extends BaseEntity {
     @ApiModelProperty(value = "用户默认头像")
     private String avatar;
 
+    /**
+     * 系统通知
+     */
+    @ApiModelProperty(value = "系统通知")
+    private String notice;
+
 }

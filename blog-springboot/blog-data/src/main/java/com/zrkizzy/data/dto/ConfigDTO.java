@@ -17,10 +17,14 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 public class ConfigDTO extends BaseDTO {
 
-
     /**
      * 用户默认头像
      */
     private String avatar;
+
+    /**
+     * 系统通知
+     */
+    private String notice;
 
 }
