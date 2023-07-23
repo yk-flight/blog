@@ -34,6 +34,8 @@
               <el-form-item label="网站配置3：">
                 <el-input type="textarea" size="small">网站配置2</el-input>
               </el-form-item>
+              <!-- 富文本组件 -->
+              <vue-editor v-model="content" />
             </el-form>
           </el-col>
         </el-row>
@@ -106,7 +108,8 @@ export default {
       // 等待框
       loading: false,
       // 按钮加载框
-      buttonLoading: false
+      buttonLoading: false,
+      content: '<p>html content</p>'
     }
   },
 
@@ -156,6 +159,9 @@ export default {
     // 取消编辑
     cancel () {
       this.getConfig()
+    },
+    setup (editor) {
+      console.log(editor)
     }
   }
 }

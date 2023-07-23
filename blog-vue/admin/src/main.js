@@ -5,6 +5,7 @@ import store from './store'
 import SvgIcons from './icons'
 import ElementUI from 'element-ui'
 import TagCloud from './utils/tag-cloud'
+import Vue2Editor from 'vue2-editor'
 import filters from './filter/index'
 import './permission'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -17,6 +18,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(SvgIcons)
 Vue.use(TagCloud)
+Vue.use(Vue2Editor)
 
 // 时间过滤器
 Object.keys(filters).forEach((key) => {
