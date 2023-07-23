@@ -11,23 +11,12 @@ export const getCaptcha = () => {
 }
 
 /**
- * 获取在线用户
+ * 获取首页信息
  */
-export const listOnline = (data) => {
+export const getHomeInfo = () => {
   return request({
-    url: '/admin/online/list',
-    method: 'POST',
-    data: data
-  })
-}
-
-/**
- * 下线指定用户
- */
-export const offline = (param) => {
-  return request({
-    url: `/admin/online/offline/${param}`,
-    method: 'DELETE'
+    url: '/admin/index/getHomeInfo',
+    method: 'GET'
   })
 }
 
@@ -70,5 +59,26 @@ export const saveConfig = (data) => {
     url: '/admin/config/save',
     method: 'POST',
     data: data
+  })
+}
+
+/**
+ * 获取在线用户
+ */
+export const listOnline = (data) => {
+  return request({
+    url: '/admin/online/list',
+    method: 'POST',
+    data: data
+  })
+}
+
+/**
+ * 下线指定用户
+ */
+export const offline = (param) => {
+  return request({
+    url: `/admin/online/offline/${param}`,
+    method: 'DELETE'
   })
 }

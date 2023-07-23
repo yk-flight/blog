@@ -34,12 +34,13 @@
               <el-form-item label="网站配置3：">
                 <el-input type="textarea" size="small">网站配置2</el-input>
               </el-form-item>
-              <!-- 富文本组件 -->
-              <vue-editor v-model="content" />
+              <!-- 系统通知 -->
+              <label class="item_label">系统通知：</label>
+              <vue-editor v-model="configForm.notice" />
             </el-form>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="center">
+        <el-row type="flex" justify="center" style="margin-top: 30px;">
           <el-button
             type="primary"
             icon="el-icon-circle-check"
@@ -103,13 +104,14 @@ export default {
       // 系统配置表单
       configForm: {
         // 用户默认头像
-        avatar: undefined
+        avatar: undefined,
+        // 系统通知
+        notice: undefined
       },
       // 等待框
       loading: false,
       // 按钮加载框
-      buttonLoading: false,
-      content: '<p>html content</p>'
+      buttonLoading: false
     }
   },
 
@@ -192,22 +194,32 @@ export default {
     width: 150px;
   }
 
-  .image-info:hover:after {
-    content: '+';
-    position: absolute;
-    text-align: center;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    color: #eee;
-    background: rgba(0, 0, 0, 0.4);
-    font-size: 24px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    cursor: pointer;
-    line-height: 150px;
-    border-radius: 10px;
-  }
+.image-info:hover:after {
+  content: '+';
+  position: absolute;
+  text-align: center;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  color: #eee;
+  background: rgba(0, 0, 0, 0.4);
+  font-size: 24px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: pointer;
+  line-height: 150px;
+  border-radius: 10px;
+}
+
+.item_label {
+  text-align: right;
+  vertical-align: middle;
+  font-size: 14px;
+  color: #606266;
+  line-height: 40px;
+  padding: 0 12px 0 0;
+  box-sizing: border-box;
+}
 </style>

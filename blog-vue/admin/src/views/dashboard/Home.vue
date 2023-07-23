@@ -169,15 +169,14 @@
       :close-on-press-escape="false"
       :close-on-click-modal="false"
       :before-close="handleClose">
-      <b>尊敬的用户：</b><br>
-      <p>欢迎来到我的个人博客! 我是Dream_飞翔，非常感谢您的来访。这里是我分享自己生活、学习和工作中的一些体验与见解的地方。您可以随意浏览我的文章以及后台的所有页面，也可以在评论区分享您的想法和反馈。如果您有任何问题或建议，请与我联系，祝您生活愉快！</p>
-      <b>其他：</b>
+      <span v-html="homeInfo.notice"></span>
     </el-dialog>
   </div>
 </template>
 
 <script>
 import GithubCorner from '../../components/GithubCorner/index.vue'
+import { getHomeInfo } from '../../api/system'
 
 export default {
   name: 'Home',
@@ -186,13 +185,20 @@ export default {
     GithubCorner
   },
 
-  mounted () {
-
+  created () {
+    // 获取首页数据
+    this.getHomeInfo()
   },
 
   data () {
     return {
-
+      // 系统公告加载框
+      noticeLoading: false,
+      // 首页数据
+      homeInfo: {
+        // 系统通知
+        notice: undefined
+      }
     }
   },
 
@@ -212,6 +218,18 @@ export default {
   },
 
   methods: {
+    // 获取首页信息
+    getHomeInfo () {
+      this.noticeLoading = true
+      getHomeInfo().then((res) => {
+        this.homeInfo = res
+        // 关闭加载框
+        this.noticeLoading = false
+      }).catch(() => {
+        // 关闭加载框
+        this.noticeLoading = false
+      })
+    },
     // 关闭对话框
     handleClose () {
       this.$store.commit('app/SET_HOME_DIALOG')
