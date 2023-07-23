@@ -242,6 +242,9 @@ export default {
         this.total = res.total
         // 关闭等待框
         this.loading = false
+      }).catch(() => {
+        // 关闭等待框
+        this.loading = false
       })
     },
     // 点击查询按钮
@@ -370,7 +373,9 @@ export default {
         description: undefined
       }
       // 清除表单的校验
-      this.$refs.roleForm.clearValidate()
+      if (this.$refs.roleForm) {
+        this.$refs.roleForm.clearValidate()
+      }
     },
     // 多选框
     handleSelectionChange (selection) {
