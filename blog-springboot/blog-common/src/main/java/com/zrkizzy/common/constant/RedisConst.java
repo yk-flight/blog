@@ -33,4 +33,9 @@ public class RedisConst {
      */
     public static final String CAPTCHA_SMS_PREFIX = "captcha:sms:";
 
+    /**
+     * 系统基本配置键
+     */
+    public static final String CONFIG_BASIC_KEY = "config:basic";
+
 }

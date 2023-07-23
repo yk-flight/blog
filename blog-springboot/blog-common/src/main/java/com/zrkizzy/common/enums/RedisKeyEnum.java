@@ -20,7 +20,11 @@ public enum RedisKeyEnum {
     /**
      * 验证码信息前缀
      */
-    CAPTCHA("captcha:", "验证码");
+    CAPTCHA("captcha:", "验证码"),
+    /**
+     * 系统配置信息
+     */
+    CONFIG("config:", "配置信息");
 
     /**
      * 缓存键
