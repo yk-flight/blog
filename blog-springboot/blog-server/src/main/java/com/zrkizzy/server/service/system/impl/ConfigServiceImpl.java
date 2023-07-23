@@ -45,7 +45,6 @@ public class ConfigServiceImpl implements IConfigService {
      */
     @Override
     public ConfigVO getConfig() {
-        // 定义返回结果
         // 从Redis中获取基本配置信息
         ConfigVO configVO = redisService.get(RedisConst.CONFIG_BASIC_KEY, ConfigVO.class);
         if (null == configVO) {

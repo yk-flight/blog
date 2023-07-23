@@ -1,6 +1,8 @@
 package com.zrkizzy.web.controller.system;
 
+import com.zrkizzy.common.annotation.OperateLogAnnotation;
 import com.zrkizzy.common.base.response.Result;
+import com.zrkizzy.common.constant.AnnotationConst;
 import com.zrkizzy.data.dto.ConfigDTO;
 import com.zrkizzy.data.vo.ConfigVO;
 import com.zrkizzy.server.service.system.IConfigService;
@@ -30,8 +32,9 @@ public class ConfigController {
         return Result.success(configService.getConfig());
     }
             
+    @OperateLogAnnotation(type = AnnotationConst.UPDATE)
     @ApiOperation("更新系统配置")
-    @PostMapping("/save") 
+    @PostMapping("/save")
     public Result<?> saveConfig(@RequestBody ConfigDTO configDTO) {
         // 保存系统配置数据
         return Result.success(configService.saveConfig(configDTO));
