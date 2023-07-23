@@ -438,7 +438,9 @@ export default {
         remark: undefined
       }
       // 清除表单的校验
-      this.$refs.userForm.clearValidate()
+      if (this.$refs.userForm) {
+        this.$refs.userForm.clearValidate()
+      }
     },
     // 多选框
     handleSelectionChange (selection) {

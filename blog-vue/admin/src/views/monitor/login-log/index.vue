@@ -234,6 +234,9 @@ export default {
         this.total = res.total
         // 关闭等待框
         this.loading = false
+      }).catch(() => {
+        // 关闭等待框
+        this.loading = false
       })
     },
     // 点击查询按钮

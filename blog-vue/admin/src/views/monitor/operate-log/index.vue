@@ -395,6 +395,9 @@ export default {
         this.total = res.total
         // 关闭等待框
         this.loading = false
+      }).catch(() => {
+        // 关闭等待框
+        this.loading = false
       })
     },
     // 查询模块选项数据
