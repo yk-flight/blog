@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 22/07/2023 22:45:28
+ Date: 23/07/2023 20:59:34
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `tb_config`  (
 -- ----------------------------
 -- Records of tb_config
 -- ----------------------------
-INSERT INTO `tb_config` VALUES (1682761996493127680, 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192353.jpg', '2023-07-22 22:38:28', '2023-07-22 22:38:31');
+INSERT INTO `tb_config` VALUES (1682761996493127680, 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg', '2023-07-22 22:38:28', '2023-07-23 20:57:48');
 
 -- ----------------------------
 -- Table structure for tb_file
@@ -135,6 +135,8 @@ INSERT INTO `tb_login_info` VALUES (1681897322843209728, '2675525537@qq.com', '1
 INSERT INTO `tb_login_info` VALUES (1681931684896833536, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-20 15:38:56');
 INSERT INTO `tb_login_info` VALUES (1682397470891442176, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-21 22:29:49');
 INSERT INTO `tb_login_info` VALUES (1682748766060281856, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-22 21:45:44');
+INSERT INTO `tb_login_info` VALUES (1683012474535673856, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-23 15:13:37');
+INSERT INTO `tb_login_info` VALUES (1683091885125533696, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-23 20:29:10');
 
 -- ----------------------------
 -- Table structure for tb_menu
@@ -304,6 +306,10 @@ INSERT INTO `tb_operate_log` VALUES (1680183441259233280, 1636182933754609665, 3
 INSERT INTO `tb_operate_log` VALUES (1680231076905091072, 1636182933754609665, 3, 'com.zrkizzy.web.controller.monitor.CacheController.deleteCacheKey()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[\"captcha:1680230908587671552\"]', 'Result(code=200, message=请求成功, data=null)', 1, 2, '2023-07-15 23:01:21', NULL);
 INSERT INTO `tb_operate_log` VALUES (1680235728878960640, 1636182933754609665, 3, 'com.zrkizzy.web.controller.monitor.CacheController.deleteCacheKey()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[\"captcha:1680235666417385472\"]', 'Result(code=200, message=请求成功, data=null)', 1, 2, '2023-07-15 23:19:50', NULL);
 INSERT INTO `tb_operate_log` VALUES (1680236540690694144, 1636182933754609665, 3, 'com.zrkizzy.web.controller.monitor.CacheController.deleteCacheKey()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[\"captcha:1680235694112374784\"]', 'Result(code=200, message=请求成功, data=null)', 1, 2, '2023-07-15 23:23:03', NULL);
+INSERT INTO `tb_operate_log` VALUES (1683012981316648960, 1636182933754609665, 3, 'com.zrkizzy.web.controller.monitor.CacheController.deleteCacheKey()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[\"config:basic\"]', 'Result(code=200, message=请求成功, data=null)', 1, 0, '2023-07-23 15:15:38', NULL);
+INSERT INTO `tb_operate_log` VALUES (1683014881030176768, 1636182933754609665, 3, 'com.zrkizzy.web.controller.monitor.CacheController.deleteCacheKey()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[\"config:basic\"]', 'Result(code=200, message=请求成功, data=null)', 1, 0, '2023-07-23 15:23:11', NULL);
+INSERT INTO `tb_operate_log` VALUES (1683099059398639616, 1636182933754609665, 2, 'com.zrkizzy.web.controller.system.ConfigController.saveConfig()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"avatar\":\"https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192353.jpg\",\"createTime\":\"2023-07-22T22:38:28\",\"id\":1682761996493127680,\"updateTime\":\"2023-07-23T20:56:25\"}]', 'Result(code=200, message=请求成功, data=1)', 1, 51, '2023-07-23 20:57:41', NULL);
+INSERT INTO `tb_operate_log` VALUES (1683099087357870080, 1636182933754609665, 2, 'com.zrkizzy.web.controller.system.ConfigController.saveConfig()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"avatar\":\"https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg\",\"createTime\":\"2023-07-22T22:38:28\",\"id\":1682761996493127680,\"updateTime\":\"2023-07-23T20:56:25\"}]', 'Result(code=200, message=请求成功, data=1)', 1, 44, '2023-07-23 20:57:48', NULL);
 
 -- ----------------------------
 -- Table structure for tb_resource
@@ -365,6 +371,7 @@ INSERT INTO `tb_resource` VALUES (1680179775546589184, '清除缓存列表', '�
 INSERT INTO `tb_resource` VALUES (1680179775546589185, '删除指定缓存', '删除指定缓存', 'DELETE', '/admin/cache/deleteCacheKey/**', 1636182933754609665, '2023-07-15 21:39:56', '2023-07-15 21:40:07');
 INSERT INTO `tb_resource` VALUES (1681231793782521856, '获取指定用户信息', '根据用户ID获取指定用户信息', 'GET', '/admin/user-info/getUserInfoById/**', 1636182933754609665, '2023-07-18 17:20:09', '2023-07-18 09:23:06');
 INSERT INTO `tb_resource` VALUES (1682422693888000001, '获取系统配置', '获取系统基本配置', 'GET', '/admin/config/getConfig', 1636182933754609665, '2023-07-22 22:05:04', '2023-07-22 22:07:29');
+INSERT INTO `tb_resource` VALUES (1683094177929232384, '保存系统基本配置', '更新系统基本配置', 'POST', '/admin/config/save', 1636182933754609665, '2023-07-23 20:38:02', '2023-07-23 20:38:05');
 
 -- ----------------------------
 -- Table structure for tb_role

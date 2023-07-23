@@ -61,3 +61,14 @@ export const getConfig = () => {
     method: 'GET'
   })
 }
+
+/**
+ * 更新系统配置信息
+ */
+export const saveConfig = (data) => {
+  return request({
+    url: '/admin/config/save',
+    method: 'POST',
+    data: data
+  })
+}

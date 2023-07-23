@@ -7,7 +7,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" v-loading="loading" element-loading-text="正在加载系统基本配置数据">
       <div class="config-container">
         <el-row>
           <el-col :md="{span: 14, offset: 5}" :sm="{span: 20, offset: 2}" :xs="24">
@@ -38,8 +38,24 @@
           </el-col>
         </el-row>
         <el-row type="flex" justify="center">
-          <el-button type="primary" icon="el-icon-circle-check" size="small" plain>保存配置</el-button>
-          <el-button type="danger" icon="el-icon-close" size="small" plain>关闭</el-button>
+          <el-button
+            type="primary"
+            icon="el-icon-circle-check"
+            size="small"
+            plain
+            :loading="buttonLoading"
+            @click="saveConfig">
+            保存配置
+          </el-button>
+          <el-button
+            type="danger"
+            icon="el-icon-close"
+            size="small"
+            plain
+            :loading="buttonLoading"
+            @click="cancel">
+            取消编辑
+          </el-button>
         </el-row>
       </div>
     </div>
@@ -59,7 +75,7 @@
 <script>
 import PageTitle from '../../../components/PageTitle/index.vue'
 import FileSpace from '../../../components/FileSpace/index.vue'
-import { getConfig } from '../../../api/system'
+import { getConfig, saveConfig } from '../../../api/system'
 
 export default {
   name: 'Other',
@@ -86,15 +102,29 @@ export default {
       configForm: {
         // 用户默认头像
         avatar: undefined
-      }
+      },
+      // 等待框
+      loading: false,
+      // 按钮加载框
+      buttonLoading: false
     }
   },
 
   methods: {
     // 获取系统基本配置信息
     getConfig () {
+      // 等待框
+      this.loading = true
+      this.buttonLoading = true
       getConfig().then((res) => {
         this.configForm = res
+        // 关闭等待框
+        this.loading = false
+        this.buttonLoading = false
+      }).catch(() => {
+        // 关闭等待框
+        this.loading = false
+        this.buttonLoading = false
       })
     },
     // 打开文件空间对话框
@@ -109,6 +139,23 @@ export default {
     changeAvatar (value) {
       // 修改当前头像值
       this.configForm.avatar = value[0].src
+    },
+    // 保存配置信息
+    saveConfig () {
+      // 开启加载框
+      this.loading = true
+      saveConfig(this.configForm).then((res) => {
+        this.$message.success('保存成功')
+        this.loading = false
+        this.buttonLoading = false
+      }).catch(() => {
+        this.loading = false
+        this.buttonLoading = false
+      })
+    },
+    // 取消编辑
+    cancel () {
+      this.getConfig()
     }
   }
 }
