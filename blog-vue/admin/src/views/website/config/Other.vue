@@ -19,20 +19,12 @@
                 </div>
 
               </el-form-item>
-              <!-- 网站配置 -->
-              <el-form-item label="网站配置1：">
-                <el-input size="small">网站配置1</el-input>
-              </el-form-item>
-              <!-- 网站配置 -->
+              <!-- 上传策略 -->
               <el-form-item label="上传策略：">
                 <el-radio-group v-model="configForm.upload">
                   <el-radio label="local">本地策略</el-radio>
                   <el-radio label="oss">OSS策略</el-radio>
                 </el-radio-group>
-              </el-form-item>
-              <!-- 网站配置 -->
-              <el-form-item label="网站配置3：">
-                <el-input type="textarea" size="small">网站配置2</el-input>
               </el-form-item>
               <!-- 系统通知 -->
               <label class="item_label">系统通知：</label>
