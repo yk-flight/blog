@@ -117,21 +117,6 @@
       width="500px"
       title="文件上传">
       <div class="upload-container" v-loading="uploadLoading" element-loading-text="正在加载文件上传资源...">
-        <div class="select-item">
-          <span>上传模式：</span>
-          <el-select v-model="upload.mode" placeholder="请选择上传方式" size="small" style="width: 290px;">
-            <el-option
-              v-for="item in uploadMode"
-              :key="item.mark"
-              :label="item.mode"
-              :value="item.mark">
-              <span style="float: left">{{ item.mode }}</span>
-              <span style="float: right; color: #8492a6; font-size: 13px">
-                {{ item.mark }}
-              </span>
-            </el-option>
-          </el-select>
-        </div>
 
         <div class="select-item">
           <span>文件分类：</span>
@@ -301,8 +286,6 @@ export default {
       uploadMode: [],
       // 文件上传对象
       upload: {
-        // 文件上传模式
-        mode: '',
         // 文件所属分类
         fileTypeId: ''
       },
@@ -447,10 +430,10 @@ export default {
     // 文件上传前校验
     beforeUpload (file) {
       // 参数校验
-      if (this.upload.mode === '') {
-        this.$message.error('文件上传模式不能为空')
-        return false
-      }
+      // if (this.upload.mode === '') {
+      //   this.$message.error('文件上传模式不能为空')
+      //   return false
+      // }
       if (this.upload.type === '') {
         this.$message.error('文件分类不能为空')
         return false
@@ -495,7 +478,6 @@ export default {
       if (this.beforeUpload(file)) {
         // 定义formData方式上传，因为后续涉及到清空当前对象，因此使用let定义
         let formData = new FormData()
-        formData.append('mode', this.upload.mode)
         formData.append('fileTypeId', this.upload.fileTypeId)
         formData.append('file', file)
         // 加载等待框

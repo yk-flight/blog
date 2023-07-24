@@ -2,12 +2,13 @@ package com.zrkizzy.web.controller.system;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.zrkizzy.common.base.response.Result;
-import com.zrkizzy.common.enums.file.FileUploadModeEnum;
 import com.zrkizzy.common.enums.HttpStatusEnum;
+import com.zrkizzy.common.enums.file.FileUploadModeEnum;
 import com.zrkizzy.data.dto.FileDTO;
 import com.zrkizzy.data.dto.UploadDTO;
 import com.zrkizzy.data.vo.FileUploadModeVO;
 import com.zrkizzy.server.factory.FileUploadFactory;
+import com.zrkizzy.server.service.system.IConfigService;
 import com.zrkizzy.server.template.AbstractFileUpload;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +34,8 @@ import static com.zrkizzy.common.constant.FileUploadConst.OSS_UPLOAD;
 @RequestMapping("/admin/file")
 public class FileController {
     @Autowired
+    private IConfigService configService;
+    @Autowired
     private FileUploadFactory fileUploadFactory;
 
     @ApiOperation("获取文件上传模式")
@@ -56,10 +59,12 @@ public class FileController {
     @ApiOperation("上传文件")
     @PostMapping("/upload")
     public Result<String> upload(@Validated @ModelAttribute UploadDTO uploadDTO) throws IOException {
+        // 获取文件上传策略
+        String uploadStrategy = configService.getConfig().getUpload();
         // 根据上传模式获取对应的上传内容
-        AbstractFileUpload fileUpload = fileUploadFactory.getInstance(uploadDTO.getMode());
+        AbstractFileUpload fileUpload = fileUploadFactory.getInstance(uploadStrategy);
         // 上传文件并返回文件的访问域名
-        String accessPath = fileUpload.uploadFile(uploadDTO.getFile(), uploadDTO.getFileTypeId(), uploadDTO.getMode());
+        String accessPath = fileUpload.uploadFile(uploadDTO.getFile(), uploadDTO.getFileTypeId(), uploadStrategy);
         // 返回结果
         return Result.success(accessPath);
     }
@@ -95,4 +100,5 @@ public class FileController {
         }
         return Result.failure(HttpStatusEnum.INTERNAL_SERVER_ERROR, "文件删除失败");
     }
+
 }
