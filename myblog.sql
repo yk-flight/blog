@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 24/07/2023 22:23:22
+ Date: 24/07/2023 23:15:21
 */
 
 SET NAMES utf8mb4;
@@ -69,7 +69,6 @@ INSERT INTO `tb_file` VALUES (1663556688776527872, '20230530224316.jpg', 'cover/
 INSERT INTO `tb_file` VALUES (1665355748768481280, '20230604215201.jpeg', 'cover/20230604215201.jpeg', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/cover/20230604215201.jpeg', 604332, '.jpeg', 'oss', 1653794265890816000, 1656676089927303168, '67bd2983a12ea08bffa358d68e1169f7', '2023-06-04 21:52:06', '2023-06-04 21:52:06');
 INSERT INTO `tb_file` VALUES (1667556674283503616, '20230610233746.jpg', 'article/20230610233746.jpg', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/article/20230610233746.jpg', 1284390, '.jpg', 'oss', 1653794265890816000, 1656676089927303169, 'e8afdebb8420ad7822f75df100c8cc99', '2023-06-10 23:37:48', '2023-06-10 23:37:48');
 INSERT INTO `tb_file` VALUES (1683472159025922048, '20230724214014.jpeg', 'article/20230724214014.jpeg', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/article/20230724214014.jpeg', 604332, '.jpeg', 'oss', 1653794265890816000, 1656676089927303169, '67bd2983a12ea08bffa358d68e1169f7', '2023-07-24 21:40:15', '2023-07-24 21:40:15');
-INSERT INTO `tb_file` VALUES (1683474969658392576, '20230724215124.jpg', 'article/20230724215124.jpg', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/article/20230724215124.jpg', 152031, '.jpg', 'oss', 1653794265890816000, 1656676089927303169, 'fd43ed5490db1894cb5c46cb300e1cf2', '2023-07-24 21:51:25', '2023-07-24 21:51:25');
 
 -- ----------------------------
 -- Table structure for tb_file_type
@@ -145,6 +144,20 @@ INSERT INTO `tb_login_info` VALUES (1683126491543502848, '2675525537@qq.com', '1
 INSERT INTO `tb_login_info` VALUES (1683361700956340224, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-24 14:21:19');
 INSERT INTO `tb_login_info` VALUES (1683461001057402880, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-24 20:55:54');
 INSERT INTO `tb_login_info` VALUES (1683461454834958336, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-24 20:57:43');
+INSERT INTO `tb_login_info` VALUES (1683491805116497920, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-24 22:58:19');
+INSERT INTO `tb_login_info` VALUES (1683493188335042560, '123@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-24 23:03:48');
+INSERT INTO `tb_login_info` VALUES (1683493260846170112, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-24 23:04:06');
+INSERT INTO `tb_login_info` VALUES (1683495082721804288, '1@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-24 23:11:20');
+INSERT INTO `tb_login_info` VALUES (1683495142473859072, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-24 23:11:34');
+INSERT INTO `tb_login_info` VALUES (1683495226779369472, '17@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 0, '服务器内部错误', '2023-07-24 23:11:55');
+INSERT INTO `tb_login_info` VALUES (1683495248019324928, '1@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 0, '服务器内部错误', '2023-07-24 23:11:59');
+INSERT INTO `tb_login_info` VALUES (1683495262355456000, '1@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-24 23:12:03');
+INSERT INTO `tb_login_info` VALUES (1683495299261136896, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-24 23:12:12');
+INSERT INTO `tb_login_info` VALUES (1683495811566010368, '1@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 0, '验证码错误', '2023-07-24 23:14:14');
+INSERT INTO `tb_login_info` VALUES (1683495829056258048, '1@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 0, '密码错误', '2023-07-24 23:14:18');
+INSERT INTO `tb_login_info` VALUES (1683495849553821696, '11@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 0, '用户不存在', '2023-07-24 23:14:23');
+INSERT INTO `tb_login_info` VALUES (1683495861897658368, '1@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-24 23:14:26');
+INSERT INTO `tb_login_info` VALUES (1683495904398540800, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-24 23:14:36');
 
 -- ----------------------------
 -- Table structure for tb_menu
@@ -392,6 +405,7 @@ INSERT INTO `tb_resource` VALUES (1682422693888000001, '获取系统配置', '�
 INSERT INTO `tb_resource` VALUES (1683094177929232384, '保存系统基本配置', '更新系统基本配置', 'POST', '/admin/config/save', 1636182933754609665, '2023-07-23 20:38:02', '2023-07-23 20:38:05');
 INSERT INTO `tb_resource` VALUES (1683131008930545664, '获取首页内容', '获取系统后台首页信息', 'GET', '/admin/index/getHomeInfo', 1636182933754609665, '2023-07-23 23:04:49', '2023-07-23 23:04:52');
 INSERT INTO `tb_resource` VALUES (1683471580354576384, '富文本上传图片', '富文本上传图片，默认保存到文章图片中', 'POST', '/admin/file/addImage', 1636182933754609665, '2023-07-24 21:38:56', '2023-07-24 21:39:05');
+INSERT INTO `tb_resource` VALUES (1683471580354576385, '新增用户', '新增用户', 'POST', '/admin/user/insert', 1636182933754609665, '2023-07-24 22:47:55', '2023-07-24 22:48:04');
 
 -- ----------------------------
 -- Table structure for tb_role
@@ -439,7 +453,8 @@ CREATE TABLE `tb_user`  (
 -- Records of tb_user
 -- ----------------------------
 INSERT INTO `tb_user` VALUES (1633027432405532672, '1072876976@qq.com', '$2a$10$Kbb.k6umlihAQBRtSxNGiuHaqT5YP4IVP9Cmytfn8xsecp7Z4e50G', '世纪末的架构师', 'https://s1.ax1x.com/2023/04/26/p9K181A.jpg', 1, NULL, '2023-03-07 16:52:16', '2023-04-28 07:04:14');
-INSERT INTO `tb_user` VALUES (1653794265890816000, '2675525537@qq.com', '$2a$10$d4plA8fBNLdMFCQjo86vP.zrt714ei8llHZ.bvJk/OM1T.g77m5I2', '测试账号', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg', 1, '自古英雄出炼狱，破马长枪定乾坤！', '2023-05-03 16:15:23', '2023-06-06 11:09:55');
+INSERT INTO `tb_user` VALUES (1653794265890816000, '2675525537@qq.com', '$2a$10$d4plA8fBNLdMFCQjo86vP.zrt714ei8llHZ.bvJk/OM1T.g77m5I2', '测试账号', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg', 1, '自古英雄出炼狱，破马长枪定乾坤！', '2023-05-03 16:15:23', '2023-07-24 22:39:46');
+INSERT INTO `tb_user` VALUES (1683495037519790080, '1@qq.com', '$2a$10$M6eEP1AiqIbHT2xnGSXT8umugtiKwI.2OlYkGNHtiTOR4gyUyipSa', '12', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg', 1, NULL, '2023-07-24 23:11:10', '2023-07-24 23:11:09');
 
 -- ----------------------------
 -- Table structure for tb_user_info
