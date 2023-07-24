@@ -430,10 +430,6 @@ export default {
     // 文件上传前校验
     beforeUpload (file) {
       // 参数校验
-      // if (this.upload.mode === '') {
-      //   this.$message.error('文件上传模式不能为空')
-      //   return false
-      // }
       if (this.upload.type === '') {
         this.$message.error('文件分类不能为空')
         return false

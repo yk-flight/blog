@@ -28,8 +28,8 @@
               </el-form-item>
               <!-- 系统通知 -->
               <label class="item_label">系统通知：</label>
-              <!-- <vue-editor v-model="configForm.notice" /> -->
-              <rich-text :value="configForm.notice"></rich-text>
+              <vue-editor v-model="configForm.notice" :useCustomImageHandler="true"  @image-added="handleImageAdded" :customModules="customModulesForEditor" :editorOptions="editorSettings"></vue-editor>
+              <!-- <rich-text :value="configForm.notice"></rich-text> -->
             </el-form>
           </el-col>
         </el-row>
@@ -71,13 +71,16 @@
 <script>
 import PageTitle from '../../../components/PageTitle/index.vue'
 import FileSpace from '../../../components/FileSpace/index.vue'
-import RichText from '../../../components/RichText/index.vue'
 import { getConfig, saveConfig } from '../../../api/system'
+import { addImage } from '../../../api/file'
+// 导入图片操作相关插件
+import { ImageDrop } from 'quill-image-drop-module'
+import ImageResize from 'quill-image-resize-module'
 
 export default {
   name: 'Other',
 
-  components: { PageTitle, FileSpace, RichText },
+  components: { PageTitle, FileSpace },
 
   created () {
     // 赋值当前页面内容
@@ -107,7 +110,16 @@ export default {
       // 等待框
       loading: false,
       // 按钮加载框
-      buttonLoading: false
+      buttonLoading: false,
+      // 调整图片大小和位置
+      customModulesForEditor: [
+        { alias: 'imageDrop', module: ImageDrop },
+        { alias: 'imageResize', module: ImageResize }
+      ],
+      // 设置编辑器图片可拖拽
+      editorSettings: {
+        modules: { imageDrop: true, imageResize: {} }
+      }
     }
   },
 
@@ -157,6 +169,24 @@ export default {
     // 取消编辑
     cancel () {
       this.getConfig()
+    },
+    // 图片上传方法
+    handleImageAdded (file, Editor, cursorLocation, resetUploader) {
+      // 定义文件上传对象
+      let formData = new FormData()
+      formData.append('fileTypeId', '1656676089927303169')
+      formData.append('file', file)
+
+      addImage(formData).then((res) => {
+        const url = res
+        formData = undefined
+        // 将图片插入到编辑器的文本中
+        Editor.insertEmbed(cursorLocation, 'image', url)
+        // 重置上传器状态
+        resetUploader()
+      }).catch(() => {
+        this.$message.error('上传失败')
+      })
     }
   }
 }
@@ -214,5 +244,12 @@ export default {
   line-height: 40px;
   padding: 0 12px 0 0;
   box-sizing: border-box;
+}
+
+.image-size {
+  /* 设置图片最大宽度为父容器的宽度 */
+  max-width: 100px;
+  /* 根据宽度自动调整高度，保持图片比例 */
+  height: auto;
 }
 </style>
