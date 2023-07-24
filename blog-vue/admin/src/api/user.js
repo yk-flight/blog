@@ -85,11 +85,11 @@ export const listUsers = (data) => {
 }
 
 /**
- * 新增/更新用户信息
+ * 新增用户
  */
-export const saveUser = (data) => {
+export const insert = (data) => {
   return request({
-    url: '/admin/user/save',
+    url: '/admin/user/insert',
     method: 'POST',
     data: data
   })

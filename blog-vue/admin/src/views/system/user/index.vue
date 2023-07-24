@@ -196,7 +196,7 @@
 import PageTitle from '../../../components/PageTitle/index.vue'
 import Pagination from '../../../components/Pagination/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
-import { listUsers, saveUser, getUserInfoById, deleteUser } from '../../../api/user'
+import { listUsers, insert, getUserInfoById, deleteUser } from '../../../api/user'
 
 export default {
   name: 'User',
@@ -377,7 +377,6 @@ export default {
       } else {
         userIds = this.ids
       }
-      console.log(userIds)
       this.$confirm('是否确认删除选中的用户数据？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -398,28 +397,27 @@ export default {
         // 开启加载框
         that.buttonLoading = true
         that.userLoading = true
-        // 提交表单
-        saveUser(that.formData).then((res) => {
-          // 根据是否存在ID输出对应消息
-          if (that.formData.id) {
-            // 输出更新成功信息
-            that.$message.success('用户信息更新成功')
-          } else {
+        // 如果存在用户ID则进行用户更新操作
+        if (that.formData.id) {
+          // 输出更新成功信息
+          that.$message.success('用户信息更新成功')
+          // 关闭等待框
+          that.closeLoading()
+        } else {
+          insert(that.formData).then((res) => {
             // 输出添加成功消息
             that.$message.success('用户添加成功')
-          }
-          // 刷新表单数据并关闭对话框
-          that.handleClose()
-          // 刷新用户数据
-          that.getTableData()
-          // 关闭加载框
-          that.buttonLoading = false
-          that.userLoading = false
-        }).catch(() => {
-          // 关闭加载框
-          that.buttonLoading = false
-          that.userLoading = false
-        })
+            // 刷新表单数据并关闭对话框
+            that.handleClose()
+            // 刷新用户数据
+            that.getTableData()
+            // 关闭加载框
+            that.closeLoading()
+          }).catch(() => {
+            // 关闭加载框
+            that.closeLoading()
+          })
+        }
       })
     },
     // 重置表单
@@ -450,6 +448,11 @@ export default {
       this.single = selection.length !== 1
       // 表头的删除是否可以点击
       this.multiple = !selection.length
+    },
+    // 关闭所有等待框
+    closeLoading () {
+      this.buttonLoading = false
+      this.userLoading = false
     }
   }
 }
