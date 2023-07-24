@@ -1,5 +1,6 @@
 package com.zrkizzy.data.dto;
 
+import com.zrkizzy.common.annotation.IsEmail;
 import com.zrkizzy.common.base.BaseDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,6 +28,7 @@ public class UserUpdateDTO extends BaseDTO {
      * 用户名
      */
     @NotBlank(message = "用户名不能为空")
+    @IsEmail
     private String username;
 
     /**

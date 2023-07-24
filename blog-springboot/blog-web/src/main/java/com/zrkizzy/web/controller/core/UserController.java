@@ -5,6 +5,7 @@ import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.data.dto.AvatarDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
+import com.zrkizzy.data.dto.UserDTO;
 import com.zrkizzy.data.dto.UserUpdateDTO;
 import com.zrkizzy.data.query.UserQuery;
 import com.zrkizzy.data.vo.UserVO;
@@ -74,5 +75,13 @@ public class UserController {
     @GetMapping("/listUserOptions")
     public Result<List<OptionsVO>> listUserOptions() {
         return Result.success(userService.listUserOptions());
+    }
+
+    @ApiOperation("新增用户")
+    @PostMapping("/insert")
+    public Result<Integer> insert(@Validated @RequestBody UserDTO userDTO) {
+        // 新增用户
+        userService.insert(userDTO);
+        return Result.success();
     }
 }

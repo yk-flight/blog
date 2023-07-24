@@ -21,4 +21,10 @@ public class SecurityConst {
      * 管理员默认ID
      */
     public static final Long ROLE_ID = 1000000000000000000L;
+
+    /**
+     * 新用户默认密码
+     */
+    public static final String PASSWORD = "123456";
+
 }

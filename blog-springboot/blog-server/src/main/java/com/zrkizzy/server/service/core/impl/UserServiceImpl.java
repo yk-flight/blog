@@ -4,22 +4,23 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.base.response.PageResult;
+import com.zrkizzy.common.constant.SecurityConst;
 import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.service.IRedisService;
 import com.zrkizzy.common.utils.IpUtil;
 import com.zrkizzy.common.utils.ServletUtil;
+import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.common.utils.security.JwtTokenUtil;
 import com.zrkizzy.data.domain.User;
-import com.zrkizzy.data.dto.AvatarDTO;
-import com.zrkizzy.data.dto.LoginDTO;
-import com.zrkizzy.data.dto.PasswordDTO;
-import com.zrkizzy.data.dto.UserUpdateDTO;
+import com.zrkizzy.data.dto.*;
 import com.zrkizzy.data.mapper.UserMapper;
 import com.zrkizzy.data.query.UserQuery;
 import com.zrkizzy.data.vo.UserVO;
 import com.zrkizzy.security.context.SecurityContext;
+import com.zrkizzy.server.service.core.IUserRoleService;
 import com.zrkizzy.server.service.core.IUserService;
+import com.zrkizzy.server.service.system.IConfigService;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,17 +45,27 @@ import static com.zrkizzy.common.enums.HttpStatusEnum.*;
  */
 @Service
 public class UserServiceImpl implements IUserService {
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private IConfigService configService;
+
+    @Autowired
+    private IUserRoleService userRoleService;
 
     @Autowired
     private IRedisService redisService;
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private SnowFlakeUtil snowFlakeUtil;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * 获取所有用户
@@ -157,15 +168,11 @@ public class UserServiceImpl implements IUserService {
     public Integer updateUser(UserUpdateDTO userUpdateDTO) {
         // 根据ID查询个人信息
         User user = userMapper.getUserByUserId(userUpdateDTO.getId());
+        String username = userUpdateDTO.getUsername();
         // 如果修改用户名
-        if (!user.getUsername().equals(userUpdateDTO.getUsername())) {
-            // 校验修改后用户名的合法性
-            Long count = userMapper.selectCount(new QueryWrapper<User>().eq("username", userUpdateDTO.getUsername()));
-            // 校验修改内容的合法性，如果没有修改用户名则能查出1条
-            if (null != count && count > 0) {
-                // 确保用户名是唯一的
-                throw new BusinessException(USERNAME_REPEAT);
-            }
+        if (!user.getUsername().equals(username)) {
+            // 校验用户名合法性
+            checkUsername(username);
         }
         // 将用户密码提前保存下来，在Redis中不缓存密码
         String password = user.getPassword();
@@ -178,7 +185,7 @@ public class UserServiceImpl implements IUserService {
 
         // 设置用户信息
         user.setNickname(userUpdateDTO.getNickname());
-        user.setUsername(userUpdateDTO.getUsername());
+        user.setUsername(username);
         user.setRemark(userUpdateDTO.getRemark());
         user.setUpdateTime(LocalDateTime.now());
         // Redis中不展示密码
@@ -300,6 +307,49 @@ public class UserServiceImpl implements IUserService {
         userVO.setRoles(user.getRoles().get(0).getMark());
         // 返回用户登录对象
         return userVO;
+    }
+
+    /**
+     * 新增用户
+     *
+     * @param userDTO 用户数据传输对象
+     * @return 是否新增成功
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean insert(UserDTO userDTO) {
+        // 校验用户名合法性
+        checkUsername(userDTO.getUsername());
+        // 获取用户默认头像
+        String avatar = configService.getConfig().getAvatar();
+        User user = BeanCopyUtil.copy(userDTO, User.class);
+        // ID
+        user.setId(snowFlakeUtil.nextId());
+        // 默认头像
+        user.setAvatar(avatar);
+        // 默认密码123456
+        user.setPassword(passwordEncoder.encode(SecurityConst.PASSWORD));
+        // TODO 用户默认角色，如果没有成功添加用户角色则抛出异常
+
+        // TODO 后期添加手机号码时校验手机
+
+        // 添加新用户到数据库，受影响行数是否为1
+        return userMapper.insert(user) == 1;
+    }
+
+    /**
+     * 校验用户名合法性
+     *
+     * @param username 用户名
+     */
+    private void checkUsername(String username) {
+        // 校验修改后用户名的合法性
+        Long count = userMapper.selectCount(new QueryWrapper<User>().eq("username", username));
+        // 校验修改内容的合法性，如果没有修改用户名则能查出1条
+        if (null != count && count > 0) {
+            // 确保用户名是唯一的
+            throw new BusinessException(USERNAME_REPEAT);
+        }
     }
 
 }

@@ -2,10 +2,7 @@ package com.zrkizzy.server.service.core;
 
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.base.response.PageResult;
-import com.zrkizzy.data.dto.AvatarDTO;
-import com.zrkizzy.data.dto.LoginDTO;
-import com.zrkizzy.data.dto.PasswordDTO;
-import com.zrkizzy.data.dto.UserUpdateDTO;
+import com.zrkizzy.data.dto.*;
 import com.zrkizzy.data.query.UserQuery;
 import com.zrkizzy.data.vo.UserVO;
 
@@ -65,5 +62,19 @@ public interface IUserService {
      */
     List<OptionsVO> listUserOptions();
 
+    /**
+     * 通过ID获取用户返回对象
+     *
+     * @param id 用户ID
+     * @return 用户数据返回对象
+     */
     UserVO getUserById(Long id);
+
+    /**
+     * 新增用户
+     *
+     * @param userDTO 用户数据传输对象
+     * @return 是否新增成功
+     */
+    Boolean insert(UserDTO userDTO);
 }
