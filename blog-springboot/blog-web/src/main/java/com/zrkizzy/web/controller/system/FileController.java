@@ -64,8 +64,8 @@ public class FileController {
 
     @ApiOperation("编辑器上传图片")
     @PostMapping("/addImage")
-    public Result<String> addImage(@Validated @ModelAttribute UploadDTO uploadDTO) {
+    public Result<String> addImage(@Validated @ModelAttribute UploadDTO uploadDTO) throws IOException {
         String imageUrl = fileService.addImage(uploadDTO);
-        return Result.success();
+        return Result.success(imageUrl);
     }
 }

@@ -6,6 +6,7 @@ import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
+import com.zrkizzy.common.utils.file.FileUtil;
 import com.zrkizzy.data.domain.File;
 import com.zrkizzy.data.dto.FileDTO;
 import com.zrkizzy.data.dto.UploadDTO;
@@ -101,11 +102,22 @@ public class FileServiceImpl implements IFileService {
      * @return 图片访问路径
      */
     @Override
-    public String addImage(UploadDTO uploadDTO) {
+    public String addImage(UploadDTO uploadDTO) throws IOException {
         // 获取文件上传策略
         String strategy = configService.getConfig().getUpload();
+        // 文件分类ID
+        Long fileTypeId = uploadDTO.getFileTypeId();
         // 根据上传策略获取对应上传方式
-        return null;
+        AbstractFileUpload fileUpload = fileUploadFactory.getInstance(strategy);
+        // 如果存在当前文件则直接获取当前文件的访问路径
+        if (fileUpload.isExist(uploadDTO.getFile(), fileTypeId)) {
+            // 获取文件MD5值
+            String md5 = FileUtil.getFileMd5(uploadDTO.getFile().getInputStream());
+            // 通过图片MD5值获取文件访问路径
+            return getFileByMd5(md5, fileTypeId).getSrc();
+        }
+        // 上传图片并返回图片访问路径
+        return fileUpload.uploadFile(uploadDTO.getFile(), fileTypeId, strategy);
     }
 
     /**

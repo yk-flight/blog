@@ -46,7 +46,7 @@ public interface IFileService {
      * @param uploadDTO 文件数据传输对象
      * @return 图片访问路径
      */
-    String addImage(UploadDTO uploadDTO);
+    String addImage(UploadDTO uploadDTO) throws IOException;
 
     /**
      * 批量删除文件
