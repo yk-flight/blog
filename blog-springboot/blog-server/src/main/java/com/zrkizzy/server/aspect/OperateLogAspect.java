@@ -85,8 +85,11 @@ public class OperateLogAspect {
         try {
             // 设置本次操作日志信息
             setOperateInfo(operateLog, joinPoint);
-            // 转换结果对象
-            Result<?> result = JsonUtil.jsonToObject(JSONUtil.parse(jsonResult).toString(), Result.class);
+            Result<?> result = null;
+            if (null != jsonResult) {
+                // 转换结果对象
+                result = JsonUtil.jsonToObject(JSONUtil.parse(jsonResult).toString(), Result.class);
+            }
             // 设置操作结果
             if (null != result) {
                 // 操作结果
