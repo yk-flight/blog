@@ -24,10 +24,10 @@
                 <el-input size="small">网站配置1</el-input>
               </el-form-item>
               <!-- 网站配置 -->
-              <el-form-item label="网站配置2：">
-                <el-radio-group>
-                  <el-radio label="线上品牌商赞助"></el-radio>
-                  <el-radio label="线下场地免费"></el-radio>
+              <el-form-item label="上传策略：">
+                <el-radio-group v-model="configForm.upload">
+                  <el-radio label="local">本地策略</el-radio>
+                  <el-radio label="oss">OSS策略</el-radio>
                 </el-radio-group>
               </el-form-item>
               <!-- 网站配置 -->
@@ -36,7 +36,8 @@
               </el-form-item>
               <!-- 系统通知 -->
               <label class="item_label">系统通知：</label>
-              <vue-editor v-model="configForm.notice" />
+              <!-- <vue-editor v-model="configForm.notice" /> -->
+              <rich-text :value="configForm.notice"></rich-text>
             </el-form>
           </el-col>
         </el-row>
@@ -78,12 +79,13 @@
 <script>
 import PageTitle from '../../../components/PageTitle/index.vue'
 import FileSpace from '../../../components/FileSpace/index.vue'
+import RichText from '../../../components/RichText/index.vue'
 import { getConfig, saveConfig } from '../../../api/system'
 
 export default {
   name: 'Other',
 
-  components: { PageTitle, FileSpace },
+  components: { PageTitle, FileSpace, RichText },
 
   created () {
     // 赋值当前页面内容
@@ -106,7 +108,9 @@ export default {
         // 用户默认头像
         avatar: undefined,
         // 系统通知
-        notice: undefined
+        notice: undefined,
+        // 上传策略
+        upload: undefined
       },
       // 等待框
       loading: false,
@@ -161,9 +165,6 @@ export default {
     // 取消编辑
     cancel () {
       this.getConfig()
-    },
-    setup (editor) {
-      console.log(editor)
     }
   }
 }
