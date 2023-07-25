@@ -1,8 +1,10 @@
 package com.zrkizzy.web.controller.core;
 
+import com.zrkizzy.common.annotation.OperateLogAnnotation;
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
+import com.zrkizzy.common.constant.AnnotationConst;
 import com.zrkizzy.data.dto.AvatarDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
 import com.zrkizzy.data.dto.UserDTO;
@@ -79,6 +81,7 @@ public class UserController {
 
     @ApiOperation("新增用户")
     @PostMapping("/insert")
+    @OperateLogAnnotation(type = AnnotationConst.ADD)
     public Result<Integer> insert(@Validated @RequestBody UserDTO userDTO) {
         // 新增用户
         userService.insert(userDTO);

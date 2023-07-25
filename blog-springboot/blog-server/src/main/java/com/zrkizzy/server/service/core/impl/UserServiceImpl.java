@@ -328,8 +328,8 @@ public class UserServiceImpl implements IUserService {
         // 默认头像
         user.setAvatar(avatar);
         // 默认密码123456
-        user.setPassword(passwordEncoder.encode(SecurityConst.PASSWORD));
-        // TODO 用户默认角色，如果没有成功添加用户角色关联信息则抛出异常
+        user.setPassword(passwordEncoder.encode(SecurityConst.DEFAULT_PASSWORD));
+        // 用户默认角色，如果没有成功添加用户角色关联信息则抛出异常
         if (!userRoleService.setDefaultRole(user.getId())) {
             throw new BusinessException(INSERT_ERROR);
         }

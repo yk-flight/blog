@@ -367,6 +367,8 @@ export default {
         this.formData = res
         // 关闭加载框
         this.userLoading = false
+      }).catch(() => {
+        this.closeLoading()
       })
     },
     // 点击删除事件
@@ -386,7 +388,9 @@ export default {
       }).then(() => {
         this.getTableData()
         this.$message.success('删除成功')
-      }).catch(() => {})
+      }).catch(() => {
+        this.closeLoading()
+      })
     },
     // 提交表单
     submitForm () {

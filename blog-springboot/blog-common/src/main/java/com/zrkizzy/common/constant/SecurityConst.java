@@ -25,7 +25,7 @@ public class SecurityConst {
     /**
      * 新用户默认密码
      */
-    public static final String PASSWORD = "123456";
+    public static final String DEFAULT_PASSWORD = "123456";
 
     /**
      * 系统默认用户标识
