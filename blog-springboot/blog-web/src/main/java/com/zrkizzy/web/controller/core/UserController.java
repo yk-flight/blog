@@ -47,20 +47,20 @@ public class UserController {
     }
 
     @ApiOperation("更新用户个人信息")
-    @PostMapping("/updateLoginUser")
+    @PutMapping("/updateLoginUser")
     @OperateLogAnnotation(type = AnnotationConst.UPDATE)
     public Result<Integer> updateLoginUser(@RequestBody @Validated UserUpdateDTO userUpdateDTO) {
         return Result.success(userService.updateLoginUser(userUpdateDTO));
     }
 
     @ApiOperation("更新登录用户头像")
-    @PostMapping("/updateLoginUserAvatar")
+    @PutMapping("/updateLoginUserAvatar")
     public Result<String> updateLoginUserAvatar(@RequestBody @Validated AvatarDTO avatarDTO) {
         return Result.success(userService.updateLoginUserAvatar(avatarDTO));
     }
 
     @ApiOperation("更新用户密码")
-    @PostMapping("/updatePassword")
+    @PutMapping("/updatePassword")
     public Result<Integer> updatePassword(@RequestBody @Validated PasswordDTO passwordDTO) {
         // 更新用户密码
         return Result.success(userService.updatePassword(passwordDTO));
@@ -87,10 +87,11 @@ public class UserController {
     }
 
     @ApiOperation("更新指定用户")
-    @PostMapping("/updateUser")
+    @PutMapping("/updateUser")
     @OperateLogAnnotation(type = AnnotationConst.UPDATE)
     public Result<Boolean> updateUser(@RequestBody UserUpdateDTO userUpdateDTO) {
         // 更新用户并返回结果
         return Result.success(userService.updateUser(userUpdateDTO));
     }
+
 }
