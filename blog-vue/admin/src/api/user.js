@@ -23,10 +23,10 @@ export const getUserInfo = () => {
 /**
  * 更新用户个人信息
  */
-export const updateUser = (data) => {
+export const updateLoginUser = (data) => {
   return request({
-    url: '/admin/user/updateUser',
-    method: 'POST',
+    url: '/admin/user/updateLoginUser',
+    method: 'PUT',
     data: data
   })
 }
@@ -37,7 +37,7 @@ export const updateUser = (data) => {
 export const updateLoginUserAvatar = (data) => {
   return request({
     url: '/admin/user/updateLoginUserAvatar',
-    method: 'POST',
+    method: 'PUT',
     data: data
   })
 }
@@ -58,7 +58,7 @@ export const sendEmailCode = () => {
 export const updatePassword = (data) => {
   return request({
     url: '/admin/user/updatePassword',
-    method: 'POST',
+    method: 'PUT',
     data: data
   })
 }
@@ -102,6 +102,17 @@ export const getUserInfoById = (id) => {
   return request({
     url: `/admin/user-info/getUserInfoById/${id}`,
     method: 'GET'
+  })
+}
+
+/**
+ * 更新指定用户个人信息
+ */
+export const updateUser = (data) => {
+  return request({
+    url: '/admin/user/updateUser',
+    method: 'PUT',
+    data: data
   })
 }
 

@@ -196,7 +196,7 @@
 import PageTitle from '../../../components/PageTitle/index.vue'
 import Pagination from '../../../components/Pagination/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
-import { listUsers, insert, getUserInfoById, deleteUser } from '../../../api/user'
+import { listUsers, insert, getUserInfoById, deleteUser, updateUser } from '../../../api/user'
 
 export default {
   name: 'User',
@@ -403,10 +403,19 @@ export default {
         that.userLoading = true
         // 如果存在用户ID则进行用户更新操作
         if (that.formData.id) {
-          // 输出更新成功信息
-          that.$message.success('用户信息更新成功')
-          // 关闭等待框
-          that.closeLoading()
+          updateUser(that.formData).then((res) => {
+            // 刷新表单数据并关闭对话框
+            that.handleClose()
+            // 输出更新成功信息
+            that.$message.success('用户更新成功')
+            // 刷新用户数据
+            that.getTableData()
+            // 关闭等待框
+            that.closeLoading()
+          }).catch(() => {
+            // 关闭加载框
+            that.closeLoading()
+          })
         } else {
           insert(that.formData).then((res) => {
             // 输出添加成功消息
