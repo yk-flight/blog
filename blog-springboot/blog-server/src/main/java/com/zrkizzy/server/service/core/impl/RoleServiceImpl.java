@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.constant.SecurityConst;
 import com.zrkizzy.common.enums.HttpStatusEnum;
+import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.data.domain.Role;
@@ -138,8 +139,13 @@ public class RoleServiceImpl implements IRoleService {
      */
     @Override
     public Long getDefaultRoleId() {
+        Role role = roleMapper.getRoleByMark(SecurityConst.DEFAULT_ROLE);
+        if (null == role) {
+            // 抛出找不到默认角色异常
+            throw new BusinessException(HttpStatusEnum.ROLE_ALLOCATION_ERROR);
+        }
         // 获取默认角色标识并通过标识获取用户对象
-        return roleMapper.getRoleByMark(SecurityConst.DEFAULT_ROLE).getId();
+        return role.getId();
     }
 
     /**
