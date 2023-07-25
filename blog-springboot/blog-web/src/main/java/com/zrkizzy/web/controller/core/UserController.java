@@ -47,10 +47,10 @@ public class UserController {
     }
 
     @ApiOperation("更新用户个人信息")
-    @PostMapping("/updateUser")
-    public Result<?> updateUser(@RequestBody @Validated UserUpdateDTO userUpdateDTO) {
-        userService.updateUser(userUpdateDTO);
-        return Result.success();
+    @PostMapping("/updateLoginUser")
+    @OperateLogAnnotation(type = AnnotationConst.UPDATE)
+    public Result<Integer> updateLoginUser(@RequestBody @Validated UserUpdateDTO userUpdateDTO) {
+        return Result.success(userService.updateLoginUser(userUpdateDTO));
     }
 
     @ApiOperation("更新登录用户头像")
@@ -61,10 +61,9 @@ public class UserController {
 
     @ApiOperation("更新用户密码")
     @PostMapping("/updatePassword")
-    public Result<?> updatePassword(@RequestBody @Validated PasswordDTO passwordDTO) {
+    public Result<Integer> updatePassword(@RequestBody @Validated PasswordDTO passwordDTO) {
         // 更新用户密码
-        userService.updatePassword(passwordDTO);
-        return Result.success();
+        return Result.success(userService.updatePassword(passwordDTO));
     }
 
     @ApiOperation("获取所有用户")
@@ -82,9 +81,16 @@ public class UserController {
     @ApiOperation("新增用户")
     @PostMapping("/insert")
     @OperateLogAnnotation(type = AnnotationConst.ADD)
-    public Result<Integer> insert(@Validated @RequestBody UserDTO userDTO) {
+    public Result<Boolean> insert(@Validated @RequestBody UserDTO userDTO) {
         // 新增用户
-        userService.insert(userDTO);
-        return Result.success();
+        return Result.success(userService.insert(userDTO));
+    }
+
+    @ApiOperation("更新指定用户")
+    @PostMapping("/updateUser")
+    @OperateLogAnnotation(type = AnnotationConst.UPDATE)
+    public Result<Boolean> updateUser(@RequestBody UserUpdateDTO userUpdateDTO) {
+        // 更新用户并返回结果
+        return Result.success(userService.updateUser(userUpdateDTO));
     }
 }

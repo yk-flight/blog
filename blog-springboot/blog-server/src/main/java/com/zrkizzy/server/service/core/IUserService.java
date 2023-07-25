@@ -32,12 +32,12 @@ public interface IUserService {
     String login(LoginDTO loginDTO);
 
     /**
-     * 更新用户个人信息
+     * 更新登录用户个人信息
      *
      * @param userUpdateDTO 用户个人信息数据传输对象
      * @return 受影响的行数
      */
-    Integer updateUser(UserUpdateDTO userUpdateDTO);
+    Integer updateLoginUser(UserUpdateDTO userUpdateDTO);
 
     /**
      * 更新用户密码
@@ -77,4 +77,12 @@ public interface IUserService {
      * @return 是否新增成功
      */
     Boolean insert(UserDTO userDTO);
+
+    /**
+     * 更新指定用户信息
+     *
+     * @param userUpdateDTO 用户更新数据对象
+     * @return 是否跟新成功
+     */
+    Boolean updateUser(UserUpdateDTO userUpdateDTO);
 }

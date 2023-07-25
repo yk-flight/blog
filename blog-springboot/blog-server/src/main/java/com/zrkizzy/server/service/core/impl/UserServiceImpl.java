@@ -165,41 +165,37 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer updateUser(UserUpdateDTO userUpdateDTO) {
-        // 根据ID查询个人信息
-        User user = userMapper.getUserByUserId(userUpdateDTO.getId());
-        String username = userUpdateDTO.getUsername();
-        // 如果修改用户名
-        if (!user.getUsername().equals(username)) {
-            // 校验用户名合法性
-            checkUsername(username);
+    public Integer updateLoginUser(UserUpdateDTO userUpdateDTO) {
+        // 校验当期更新用户数据
+        User user = checkUser(userUpdateDTO);
+        // 更新用户对象
+        int row = userMapper.updateById(user);
+        if (row != 1) {
+            // 抛出更新失败异常
+            throw new BusinessException(UPDATE_ERROR);
         }
-        // 将用户密码提前保存下来，在Redis中不缓存密码
-        String password = user.getPassword();
+        // 刷新Redis中缓存的用户信息
+        refreshUserCache(user);
+        // 数据并返回受影响的行数
+        return row;
+    }
+
+    /**
+     * 刷新Redis中缓存的用户信息
+     *
+     * @param user 用户对象
+     */
+    private void refreshUserCache(User user) {
+        // Redis中不展示密码
+        user.setPassword(null);
         // 获取用户全局唯一标识
         String track = SecurityContext.getTrack();
         // 获取当前更新个人信息用户缓存的失效时间
         Long expire = redisService.getExpire(USER_PREFIX + track);
         // 删除Redis中缓存的用户个人信息
         redisService.del(USER_PREFIX + track);
-
-        // 设置用户信息
-        user.setNickname(userUpdateDTO.getNickname());
-        user.setUsername(username);
-        user.setRemark(userUpdateDTO.getRemark());
-        user.setUpdateTime(LocalDateTime.now());
-        // Redis中不展示密码
-        user.setPassword(null);
         // 更新缓存中的用户个人信息，缓存失效时间不改变
         redisService.set(USER_PREFIX + track, user, expire);
-        user.setPassword(password);
-        // 数据并返回受影响的行数
-        int row = userMapper.updateById(user);
-        if (row > 0) {
-            return row;
-        }
-        // 否则抛出修改失败异常
-        throw new BusinessException(INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -230,7 +226,7 @@ public class UserServiceImpl implements IUserService {
         // 与原密码对比是否一致
         if (passwordEncoder.matches(passwordDTO.getPassword(), user.getPassword())) {
             // 抛出原密码和新密码不能相同业务异常被全局异常管理器捕获并返回前端
-            throw new BusinessException(PASSWORD_UPDATE_ERROR);
+            throw new BusinessException(PASSWORD_SAME);
         }
         // 获取Redis中存储的Key
         String userKey = USER_PREFIX + SecurityContext.getTrack();
@@ -267,16 +263,8 @@ public class UserServiceImpl implements IUserService {
         user.setUpdateTime(LocalDateTime.now());
         // 更新数据库中用户信息
         userMapper.updateUserAvatar(avatarDTO.getUserId(), avatarDTO.getSrc());
-        // 获取用户唯一标识
-        String track = SecurityContext.getTrack();
-        // 获取当前用户缓存的失效时间
-        Long expire = redisService.getExpire(USER_PREFIX + track);
-        // 删除Redis中缓存的用户个人信息
-        redisService.del(USER_PREFIX + track);
-        // Redis中不展示密码
-        user.setPassword(null);
-        // 更新缓存中的用户个人信息，缓存失效时间不改变
-        redisService.set(USER_PREFIX + track, user, expire);
+        // 刷新缓存中的用户
+        refreshUserCache(user);
         // 将头像返回
         return avatarDTO.getSrc();
     }
@@ -337,6 +325,45 @@ public class UserServiceImpl implements IUserService {
 
         // 添加新用户到数据库，受影响行数是否为1
         return userMapper.insert(user) == 1;
+    }
+
+    /**
+     * 更新指定用户信息
+     *
+     * @param userUpdateDTO 用户更新数据对象
+     * @return 是否跟新成功
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean updateUser(UserUpdateDTO userUpdateDTO) {
+        // 校验用户并返回用户信息
+        User user = checkUser(userUpdateDTO);
+        // 更新用户信息
+        return userMapper.updateById(user) == 1;
+    }
+
+    /**
+     * 校验并返回User对象
+     *
+     * @param userUpdateDTO 用户数据更新对象
+     * @return 受影响的行数
+     */
+    private User checkUser(UserUpdateDTO userUpdateDTO) {
+        // 先更新数据库，再更新Redis
+        User user = userMapper.getUserByUserId(userUpdateDTO.getId());
+        String username = userUpdateDTO.getUsername();
+        // 如果修改用户名
+        if (!user.getUsername().equals(username)) {
+            // 校验修改后用户名的合法性
+            checkUsername(username);
+        }
+        // 设置用户信息
+        user.setNickname(userUpdateDTO.getNickname());
+        user.setUsername(username);
+        user.setRemark(userUpdateDTO.getRemark());
+        user.setUpdateTime(LocalDateTime.now());
+        // 更新并返回最新的User对象
+        return user;
     }
 
     /**
