@@ -132,6 +132,17 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     /**
+     * 获取默认角色ID
+     *
+     * @return 默认角色ID
+     */
+    @Override
+    public Long getDefaultRoleId() {
+        // 获取默认角色标识并通过标识获取用户对象
+        return roleMapper.getRoleByMark(SecurityConst.DEFAULT_ROLE).getId();
+    }
+
+    /**
      * 更新当前角色
      *
      * @param roleDTO 角色数据接收对象

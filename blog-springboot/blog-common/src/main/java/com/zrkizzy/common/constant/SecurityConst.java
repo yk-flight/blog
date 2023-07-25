@@ -27,4 +27,9 @@ public class SecurityConst {
      */
     public static final String PASSWORD = "123456";
 
+    /**
+     * 系统默认用户标识
+     */
+    public static final String DEFAULT_ROLE = "ROLE_DEFAULT";
+
 }

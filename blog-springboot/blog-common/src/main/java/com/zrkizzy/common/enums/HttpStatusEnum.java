@@ -60,6 +60,7 @@ public enum HttpStatusEnum {
     CODE_EXPIRED(508, "验证码已过期"),
     CODE_ERROR(509, "验证码错误"),
     UPDATE_ERROR(510, "更新失败，请稍后重试"),
+    INSERT_ERROR(511, "新增失败，请稍后重试"),
 
     /**
      * 其他状态码

@@ -329,8 +329,10 @@ public class UserServiceImpl implements IUserService {
         user.setAvatar(avatar);
         // 默认密码123456
         user.setPassword(passwordEncoder.encode(SecurityConst.PASSWORD));
-        // TODO 用户默认角色，如果没有成功添加用户角色则抛出异常
-
+        // TODO 用户默认角色，如果没有成功添加用户角色关联信息则抛出异常
+        if (!userRoleService.setDefaultRole(user.getId())) {
+            throw new BusinessException(INSERT_ERROR);
+        }
         // TODO 后期添加手机号码时校验手机
 
         // 添加新用户到数据库，受影响行数是否为1
