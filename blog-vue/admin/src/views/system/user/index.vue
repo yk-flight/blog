@@ -81,6 +81,7 @@
           <template slot-scope="scope">
             <el-switch
               v-if="scope.row.roles !== 'ROLE_ADMIN'"
+              @change="handleUserStatus(scope.row.id)"
               v-model="scope.row.status"
               active-color="#13ce66"
               inactive-color="#ff4949">
@@ -105,10 +106,16 @@
           </template>
         </el-table-column>
         <el-table-column label="操作"  align="center">
-          <!-- v-if="scope.row.roles !== 'ROLE_ADMIN'" -->
-          <template slot-scope="scope">
+          <template slot-scope="scope" v-if="scope.row.roles !== 'ROLE_ADMIN'">
             <el-button type="text" size="small" icon="el-icon-edit" @click="handleUpdate(scope.row)">编辑</el-button>
             <el-button type="text" size="small" icon="el-icon-delete" @click="handleDelete(scope.row)">删除</el-button>
+            <el-dropdown  @command="(command) => handleCommand(command, scope.row)" style="margin-left: 10px;">
+              <el-button size="small" type="text" icon="el-icon-d-arrow-right">更多</el-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command="handleResetPassword" icon="el-icon-refresh-left">重置密码</el-dropdown-item>
+                <el-dropdown-item command="handleAuthUser" icon="el-icon-s-custom">分配角色</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </template>
         </el-table-column>
       </el-table>
@@ -196,7 +203,7 @@
 import PageTitle from '../../../components/PageTitle/index.vue'
 import Pagination from '../../../components/Pagination/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
-import { listUsers, insert, getUserInfoById, deleteUser, updateUser } from '../../../api/user'
+import { listUsers, insert, getUserInfoById, deleteUser, updateUser, updateUserStatus, resetPassword } from '../../../api/user'
 
 export default {
   name: 'User',
@@ -341,10 +348,37 @@ export default {
       this.resetForm()
       this.userVisible = true
     },
+    // 更多操作触发
+    handleCommand (command, row) {
+      switch (command) {
+        case 'handleResetPassword':
+          this.handleResetPassword(row)
+          // console.log('重置密码')
+          break
+        case 'handleAuthUser':
+          console.log('分配角色')
+          // this.handleAuthUser(row);
+          break
+        default: break
+      }
+    },
     // 关闭用户对话框表单
     handleClose () {
       this.resetForm()
       this.userVisible = false
+    },
+    handleResetPassword (row) {
+      const that = this
+      this.$confirm('是否重置用户 ' + row.nickname + ' 的密码？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // 执行重置用户密码方法
+        resetPassword(row.id).then((res) => {
+          that.$message.success('密码重置成功')
+        })
+      }).catch(() => {})
     },
     // 点击新增按钮
     handleAdd () {
@@ -390,6 +424,20 @@ export default {
         this.$message.success('删除成功')
       }).catch(() => {
         this.closeLoading()
+      })
+    },
+    // 更新用户状态
+    handleUserStatus (id) {
+      // 加载等待框
+      this.userLoading = true
+      updateUserStatus(id).then((res) => {
+        // 输出提示信息
+        this.$message.success('用户状态修改成功')
+        // 关闭加载框
+        this.userLoading = false
+      }).catch(() => {
+        // 关闭加载框
+        this.userLoading = false
       })
     },
     // 提交表单

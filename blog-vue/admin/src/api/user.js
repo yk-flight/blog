@@ -117,6 +117,26 @@ export const updateUser = (data) => {
 }
 
 /**
+ * 获取指定用户状态
+ */
+export const updateUserStatus = (id) => {
+  return request({
+    url: `/admin/user/updateUserStatus/${id}`,
+    method: 'GET'
+  })
+}
+
+/**
+ * 重置指定用户密码
+ */
+export const resetPassword = (id) => {
+  return request({
+    url: `/admin/user/resetPassword/${id}`,
+    method: 'GET'
+  })
+}
+
+/**
  * 批量删除用户信息
  */
 export const deleteUser = (data) => {
