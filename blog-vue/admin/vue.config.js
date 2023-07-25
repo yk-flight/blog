@@ -41,10 +41,10 @@ module.exports = {
       })
       .end()
     // Quill.js文件引入失败配置
-    config.plugin("provide").use(webpack.ProvidePlugin, [
+    config.plugin('provide').use(webpack.ProvidePlugin, [
       {
-        "window.Quill": "quill/dist/quill.js",
-        Quill: "quill/dist/quill.js"
+        'window.Quill': 'quill/dist/quill.js',
+        Quill: 'quill/dist/quill.js'
       }
     ])
   },

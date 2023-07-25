@@ -29,7 +29,7 @@
               <!-- 系统通知 -->
               <label class="item_label">系统通知：</label>
               <vue-editor v-model="configForm.notice" :useCustomImageHandler="true"  @image-added="handleImageAdded" :customModules="customModulesForEditor" :editorOptions="editorSettings"></vue-editor>
-              <!-- <rich-text :value="configForm.notice"></rich-text> -->
+              <!-- <rich-text :default-text="configForm.notice" :richText.sync="configForm.notice"></rich-text> -->
             </el-form>
           </el-col>
         </el-row>
