@@ -58,4 +58,13 @@ public interface UserMapper extends BaseMapper<User> {
      * @return 获取用户选项集合
      */
     List<OptionsVO> listUserOptions();
+
+    /**
+     * 更新用户密码
+     * @param userId 用户ID
+     * @param password 加密后的密码
+     * @return 受影响行数
+     */
+    Integer resetPassword(@Param("userId") Long userId, @Param("password") String password);
+
 }

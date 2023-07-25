@@ -94,4 +94,18 @@ public class UserController {
         return Result.success(userService.updateUser(userUpdateDTO));
     }
 
+    @ApiOperation("更新用户状态")
+    @GetMapping("/updateUserStatus/{id}")
+    @OperateLogAnnotation(type = AnnotationConst.UPDATE)
+    public Result<Boolean> updateUserStatus(@PathVariable Long id) {
+        return Result.success(userService.updateUserStatus(id));
+    }
+
+    @ApiOperation("重置指定用户密码")
+    @GetMapping("/resetPassword/{id}")
+    @OperateLogAnnotation(type = AnnotationConst.UPDATE)
+    public Result<Boolean> resetPassword(@PathVariable Long id) {
+        return Result.success(userService.resetPassword(id));
+    }
+
 }

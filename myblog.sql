@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 25/07/2023 22:44:44
+ Date: 25/07/2023 23:34:41
 */
 
 SET NAMES utf8mb4;
@@ -163,6 +163,13 @@ INSERT INTO `tb_login_info` VALUES (1683838967784407040, '2675525537@qq.com', '1
 INSERT INTO `tb_login_info` VALUES (1683838999594008576, '26755255371@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-25 21:57:56');
 INSERT INTO `tb_login_info` VALUES (1683839290091503616, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-25 21:59:06');
 INSERT INTO `tb_login_info` VALUES (1683839780061708288, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-25 22:01:02');
+INSERT INTO `tb_login_info` VALUES (1683856599656955904, '123@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-25 23:07:52');
+INSERT INTO `tb_login_info` VALUES (1683856728036212736, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-25 23:08:23');
+INSERT INTO `tb_login_info` VALUES (1683856867131916288, '123@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 0, '当前用户已禁用', '2023-07-25 23:08:56');
+INSERT INTO `tb_login_info` VALUES (1683856896798228480, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-25 23:09:03');
+INSERT INTO `tb_login_info` VALUES (1683862868178501632, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 0, '密码错误', '2023-07-25 23:32:47');
+INSERT INTO `tb_login_info` VALUES (1683862884087496704, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-25 23:32:51');
+INSERT INTO `tb_login_info` VALUES (1683863040220463104, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-25 23:33:28');
 
 -- ----------------------------
 -- Table structure for tb_menu
@@ -358,6 +365,15 @@ INSERT INTO `tb_operate_log` VALUES (1683848636783394816, 1636182933754609665, 2
 INSERT INTO `tb_operate_log` VALUES (1683848827095744512, 1636182933754609665, 2, 'com.zrkizzy.web.controller.core.UserController.updateUser()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"avatar\":\"https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg\",\"createTime\":\"2023-07-25T22:14:44\",\"id\":1683843225900548096,\"nickname\":\"1111\",\"updateTime\":\"2023-07-25T22:36:14\",\"username\":\"123@qq.com\"}]', 'Result(code=200, message=请求成功, data=true)', 1, 111, '2023-07-25 22:36:59', NULL);
 INSERT INTO `tb_operate_log` VALUES (1683848968431206400, 1636182933754609665, 2, 'com.zrkizzy.web.controller.core.UserController.updateUser()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"avatar\":\"https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg\",\"createTime\":\"2023-07-25T22:14:44\",\"id\":1683843225900548096,\"nickname\":\"1\",\"updateTime\":\"2023-07-25T22:36:59\",\"username\":\"123@qq.com\"}]', 'Result(code=200, message=请求成功, data=true)', 1, 37, '2023-07-25 22:37:33', NULL);
 INSERT INTO `tb_operate_log` VALUES (1683850728679931904, 1636182933754609665, 2, 'com.zrkizzy.web.controller.core.UserController.updateLoginUser()', 'PUT', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"avatar\":\"https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg\",\"id\":1653794265890816000,\"nickname\":\"测试账号\",\"phone\":\"\",\"remark\":\"自古英雄出炼狱，破马长枪定乾坤！\",\"username\":\"2675525537@qq.com\"}]', 'Result(code=200, message=请求成功, data=1)', 1, 33, '2023-07-25 22:44:33', NULL);
+INSERT INTO `tb_operate_log` VALUES (1683856532871053312, 1636182933754609665, 2, 'com.zrkizzy.web.controller.core.UserController.updateUserStatus()', 'GET', 1653794265890816000, '127.0.0.1', '本地登录', '[1683843225900548096]', 'Result(code=200, message=请求成功, data=true)', 1, 106, '2023-07-25 23:07:37', NULL);
+INSERT INTO `tb_operate_log` VALUES (1683856543755272192, 1636182933754609665, 2, 'com.zrkizzy.web.controller.core.UserController.updateUserStatus()', 'GET', 1653794265890816000, '127.0.0.1', '本地登录', '[1683843225900548096]', 'Result(code=200, message=请求成功, data=true)', 1, 35, '2023-07-25 23:07:39', NULL);
+INSERT INTO `tb_operate_log` VALUES (1683856787708575744, 1636182933754609665, 2, 'com.zrkizzy.web.controller.core.UserController.updateUserStatus()', 'GET', 1653794265890816000, '127.0.0.1', '本地登录', '[1683843225900548096]', 'Result(code=200, message=请求成功, data=true)', 1, 51, '2023-07-25 23:08:37', NULL);
+INSERT INTO `tb_operate_log` VALUES (1683861498486587392, 1636182933754609665, 2, 'com.zrkizzy.web.controller.core.UserController.resetPassword()', 'GET', 1653794265890816000, '127.0.0.1', '本地登录', '[1683843225900548096]', 'Result(code=200, message=请求成功, data=true)', 1, 270, '2023-07-25 23:27:21', NULL);
+INSERT INTO `tb_operate_log` VALUES (1683862267659026432, 1636182933754609665, 2, 'com.zrkizzy.web.controller.core.UserController.resetPassword()', 'GET', 1653794265890816000, '127.0.0.1', '本地登录', '[1683843225900548096]', 'Result(code=200, message=请求成功, data=true)', 1, 229, '2023-07-25 23:30:24', NULL);
+INSERT INTO `tb_operate_log` VALUES (1683862313888645120, 1636182933754609665, 2, 'com.zrkizzy.web.controller.core.UserController.resetPassword()', 'GET', 1653794265890816000, '127.0.0.1', '本地登录', '[1683843225900548096]', 'Result(code=200, message=请求成功, data=true)', 1, 246, '2023-07-25 23:30:35', NULL);
+INSERT INTO `tb_operate_log` VALUES (1683862553542787072, 1636182933754609665, 2, 'com.zrkizzy.web.controller.core.UserController.resetPassword()', 'GET', 1653794265890816000, '127.0.0.1', '本地登录', '[1683843225900548096]', 'Result(code=200, message=请求成功, data=true)', 1, 221, '2023-07-25 23:31:32', NULL);
+INSERT INTO `tb_operate_log` VALUES (1683862560438222848, 1636182933754609665, 2, 'com.zrkizzy.web.controller.core.UserController.updateUserStatus()', 'GET', 1653794265890816000, '127.0.0.1', '本地登录', '[1683843225900548096]', 'Result(code=200, message=请求成功, data=true)', 1, 18, '2023-07-25 23:31:34', NULL);
+INSERT INTO `tb_operate_log` VALUES (1683862984880816128, 1636182933754609665, 2, 'com.zrkizzy.web.controller.core.UserController.resetPassword()', 'GET', 1653794265890816000, '127.0.0.1', '本地登录', '[1653794265890816000]', 'Result(code=200, message=请求成功, data=true)', 1, 234, '2023-07-25 23:33:15', NULL);
 
 -- ----------------------------
 -- Table structure for tb_resource
@@ -424,7 +440,8 @@ INSERT INTO `tb_resource` VALUES (1683131008930545664, '获取首页内容', '�
 INSERT INTO `tb_resource` VALUES (1683471580354576384, '富文本上传图片', '富文本上传图片，默认保存到文章图片中', 'POST', '/admin/file/addImage', 1636182933754609665, '2023-07-24 21:38:56', '2023-07-24 21:39:05');
 INSERT INTO `tb_resource` VALUES (1683471580354576385, '新增用户', '新增用户', 'POST', '/admin/user/insert', 1636182933754609665, '2023-07-24 22:47:55', '2023-07-24 22:48:04');
 INSERT INTO `tb_resource` VALUES (1683841299993591808, '更新指定用户信息', '更新指定用户信息', 'POST', '/admin/user/updateUser', 1636182933754609665, '2023-07-25 22:08:08', '2023-07-25 22:09:19');
-INSERT INTO `tb_resource` VALUES (1683841299993591809, '重置指定用户密码', '重置指定用户密码', 'PUT', '/admin/user/resetPassword', 1636182933754609665, '2023-07-25 22:28:23', '2023-07-25 22:42:29');
+INSERT INTO `tb_resource` VALUES (1683841299993591809, '重置指定用户密码', '重置指定用户密码', 'GET', '/admin/user/resetPassword/**', 1636182933754609665, '2023-07-25 22:28:23', '2023-07-25 23:20:56');
+INSERT INTO `tb_resource` VALUES (1683841299993591810, '更新指定用户状态', '更新指定用户状态', 'GET', '/admin/user/updateUserStatus/**', 1636182933754609665, '2023-07-25 22:58:29', '2023-07-25 22:58:31');
 
 -- ----------------------------
 -- Table structure for tb_role
@@ -472,8 +489,8 @@ CREATE TABLE `tb_user`  (
 -- Records of tb_user
 -- ----------------------------
 INSERT INTO `tb_user` VALUES (1633027432405532672, '1072876976@qq.com', '$2a$10$Kbb.k6umlihAQBRtSxNGiuHaqT5YP4IVP9Cmytfn8xsecp7Z4e50G', '世纪末的架构师', 'https://s1.ax1x.com/2023/04/26/p9K181A.jpg', 1, NULL, '2023-03-07 16:52:16', '2023-04-28 07:04:14');
-INSERT INTO `tb_user` VALUES (1653794265890816000, '2675525537@qq.com', '$2a$10$d4FqxnmBxeuuBqYJHJ21Q.wt6jFE6v1kNOKdTnzsaI9ClT4/4Am.m', '测试账号', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192556.jpg', 1, '自古英雄出炼狱，破马长枪定乾坤！', '2023-05-03 16:15:23', '2023-07-25 22:44:33');
-INSERT INTO `tb_user` VALUES (1683843225900548096, '123@qq.com', '$2a$10$vvfoz1DXpF2xBAkGa0cHFeTcoJh4g3eiPatNmGrII0Ps0hLlCL5Py', '1', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg', 1, NULL, '2023-07-25 22:14:44', '2023-07-25 22:37:33');
+INSERT INTO `tb_user` VALUES (1653794265890816000, '2675525537@qq.com', '$2a$10$INorakGPR9WOUBOSQGh3k.QhZLcbjr..hgALnlgdQ1t3D.hgZKqey', '测试账号', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192556.jpg', 1, '自古英雄出炼狱，破马长枪定乾坤！', '2023-05-03 16:15:23', '2023-07-25 23:33:14');
+INSERT INTO `tb_user` VALUES (1683843225900548096, '123@qq.com', '$2a$10$pKwYhNtnyTlhCj7M5c4qqeZr2vbS95JQnMl/HOydlPfg5KWBSIvS.', '1', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg', 1, NULL, '2023-07-25 22:14:44', '2023-07-25 23:31:34');
 
 -- ----------------------------
 -- Table structure for tb_user_info

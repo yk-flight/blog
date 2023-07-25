@@ -85,4 +85,20 @@ public interface IUserService {
      * @return 是否跟新成功
      */
     Boolean updateUser(UserUpdateDTO userUpdateDTO);
+
+    /**
+     * 修改用户状态
+     *
+     * @param id 用户ID
+     * @return 是否修改成功
+     */
+    Boolean updateUserStatus(Long id);
+
+    /**
+     * 重置用户密码
+     *
+     * @param id 用户ID
+     * @return 是否重置成功
+     */
+    Boolean resetPassword(Long id);
 }

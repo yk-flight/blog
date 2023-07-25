@@ -343,6 +343,35 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
+     * 修改用户状态
+     *
+     * @param id 用户ID
+     * @return 是否修改成功
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean updateUserStatus(Long id) {
+        // 获取当前用户状态
+        User user = userMapper.selectById(id);
+        // 设置用户状态
+        user.setStatus(!user.getStatus());
+        return userMapper.updateById(user) == 1;
+    }
+
+    /**
+     * 重置用户密码
+     *
+     * @param id 用户ID
+     * @return 是否重置成功
+     */
+    @Override
+    public Boolean resetPassword(Long id) {
+        String password = passwordEncoder.encode(SecurityConst.DEFAULT_PASSWORD);
+        // 更新用户并返回结果
+        return userMapper.resetPassword(id, password) == 1;
+    }
+
+    /**
      * 校验并返回User对象
      *
      * @param userUpdateDTO 用户数据更新对象
