@@ -12,6 +12,7 @@ import com.zrkizzy.common.utils.ServletUtil;
 import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.common.utils.security.JwtTokenUtil;
+import com.zrkizzy.data.domain.Role;
 import com.zrkizzy.data.domain.User;
 import com.zrkizzy.data.dto.*;
 import com.zrkizzy.data.mapper.UserMapper;
@@ -291,8 +292,14 @@ public class UserServiceImpl implements IUserService {
         User user = userMapper.getUserByUserId(id);
         // 转换为用户数据返回对象
         UserVO userVO = BeanCopyUtil.copy(user, UserVO.class);
-        // 单独定义用户角色（用户只有一个角色）
-        userVO.setRoles(user.getRoles().get(0).getMark());
+        // 单独定义用户角色标识与角色ID（用户只有一个角色）
+        Role role = user.getRoles().get(0);
+        if (null == role) {
+            // 抛出当前用户未分配角色异常
+            throw new BusinessException(USER_NOT_ROLE);
+        }
+        userVO.setRoles(role.getMark());
+        userVO.setRoleId(role.getId());
         // 返回用户登录对象
         return userVO;
     }

@@ -1,5 +1,6 @@
 package com.zrkizzy.data.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zrkizzy.common.base.response.BaseVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -67,6 +68,12 @@ public class UserInfoVO extends BaseVO {
      * 电话号码
      */
     private String phone;
+
+    /**
+     * 角色ID
+     */
+    @JsonFormat(shape =JsonFormat.Shape.STRING)
+    private Long roleId;
 
     /**
      * 用户角色
