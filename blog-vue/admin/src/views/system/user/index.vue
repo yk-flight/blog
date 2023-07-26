@@ -139,7 +139,7 @@
       :close-on-click-modal="false"
       :visible="userVisible"
       :before-close="handleClose">
-      <div class="user-wrapper" v-loading="userLoading" element-loading-text="正在加载用户信息">
+      <div class="dialog-wrapper" v-loading="userLoading" element-loading-text="正在加载用户信息">
         <el-form ref="userForm" :model="formData" :rules="rules" label-width="80px" label-position="right">
           <el-row :gutter="10">
             <el-col :span="12">
@@ -197,12 +197,52 @@
         </el-button>
       </div>
     </el-dialog>
+
+    <!-- 分配角色对话框 -->
+    <el-dialog
+      title="分配角色"
+      width="600px"
+      :modal-append-to-body="true"
+      :append-to-body="true"
+      :close-on-click-modal="false"
+      :visible="userRoleVisible"
+      :before-close="handleRoleClose">
+      <div class="dialog-wrapper" v-loading="userRoleLoading" element-loading-text="正在加载角色信息">
+        <el-radio-group v-model="userRole.roleId">
+          <el-radio
+            v-for="radio in roleOptions"
+            :key="radio.value"
+            :label="radio.value">
+            {{ radio.label }}
+          </el-radio>
+        </el-radio-group>
+      </div>
+      <div slot="footer">
+        <el-button
+          type="danger"
+          :loading="buttonLoading"
+          @click="handleRoleClose()"
+          size="small"
+          icon="el-icon-error">
+          取消
+        </el-button>
+        <el-button
+          type="success"
+          :loading="buttonLoading"
+          @click="handleUserRoleUpdate()"
+          size="small"
+          icon="el-icon-success">
+          保存
+        </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
 import PageTitle from '../../../components/PageTitle/index.vue'
 import Pagination from '../../../components/Pagination/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
+import { listRoleOptions } from '../../../api/role'
 import { listUsers, insert, getUserInfoById, deleteUser, updateUser, updateUserStatus, resetPassword } from '../../../api/user'
 
 export default {
@@ -220,6 +260,8 @@ export default {
       total: 0,
       // 用户对话框是否显示
       userVisible: false,
+      // 分配角色对话框是否展示
+      userRoleVisible: false,
       // 数据表格等待框
       loading: false,
       // 查询参数
@@ -246,7 +288,16 @@ export default {
         // 状态
         status: undefined,
         // 备注
-        remark: undefined
+        remark: undefined,
+        // 用户角色
+        roles: undefined
+      },
+      // 用户角色对象
+      userRole: {
+        // 角色ID
+        roleId: undefined,
+        // 用户ID
+        userId: undefined
       },
       // 用户表单校验规则
       rules: {
@@ -261,6 +312,8 @@ export default {
       userLoading: false,
       // 对话框按钮等待框
       buttonLoading: false,
+      // 分配角色对话框等待框
+      userRoleLoading: false,
       // 列信息
       columns: [
         // 用户名
@@ -296,7 +349,9 @@ export default {
           value: false,
           label: '禁用'
         }
-      ]
+      ],
+      // 分配角色选项
+      roleOptions: []
     }
   },
 
@@ -356,8 +411,8 @@ export default {
           // console.log('重置密码')
           break
         case 'handleAuthUser':
-          console.log('分配角色')
-          // this.handleAuthUser(row);
+          // console.log('分配角色')
+          this.handleAuthUser(row)
           break
         default: break
       }
@@ -367,6 +422,34 @@ export default {
       this.resetForm()
       this.userVisible = false
     },
+    // 打开分配用户角色对话框
+    handleAuthUser (row) {
+      // 将当前选中的角色ID和用户ID
+      this.userRole.roleId = row.roleId
+      this.userRole.userId = row.id
+      // 打开分配角色对话框
+      this.userRoleVisible = true
+      // 开启加载框
+      this.userRoleLoading = true
+      // 获取角色选项
+      listRoleOptions().then((res) => {
+        this.roleOptions = res
+        // 关闭加载框
+        this.userRoleLoading = false
+      }).catch(() => {
+        // 关闭加载框
+        this.userRoleLoading = false
+      })
+    },
+    // 更新用户角色
+    handleUserRoleUpdate () {
+      console.log(this.userRole)
+    },
+    // 关闭分配角色对话框
+    handleRoleClose () {
+      this.userRoleVisible = false
+    },
+    // 重置用户密码
     handleResetPassword (row) {
       const that = this
       this.$confirm('是否重置用户 ' + row.nickname + ' 的密码？', '提示', {
@@ -521,7 +604,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.user-wrapper {
+.dialog-wrapper {
   padding: 10px 30px;
 }
 .search-item {

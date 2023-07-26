@@ -42,3 +42,24 @@ export const deleteRole = (data) => {
     data: data
   })
 }
+
+/**
+ * 获取角色选项
+ */
+export const listRoleOptions = () => {
+  return request({
+    url: '/admin/role/listRoleOptions',
+    method: 'GET'
+  })
+}
+
+/**
+ * 更新用户角色
+ */
+export const updateUserRole = (data) => {
+  return request({
+    url: '/admin/user-role/update',
+    method: 'PUT',
+    data: data
+  })
+}
