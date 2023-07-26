@@ -1,7 +1,6 @@
 package com.zrkizzy.server.service.core;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.data.domain.Role;
 import com.zrkizzy.data.dto.RoleDTO;
 import com.zrkizzy.data.query.RoleQuery;
@@ -27,9 +26,9 @@ public interface IRoleService {
      * 添加或更新角色
      *
      * @param roleDTO 角色数据接收对象
-     * @return 前端响应对象
+     * @return 是否更新成功
      */
-    Result<?> saveRole(RoleDTO roleDTO);
+    Boolean saveRole(RoleDTO roleDTO);
 
     /**
      * 获取指定角色信息

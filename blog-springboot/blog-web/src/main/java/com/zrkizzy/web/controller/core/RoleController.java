@@ -50,7 +50,7 @@ public class RoleController {
         if (roleDTO.getMark().equals(SecurityConst.ADMIN)) {
             return Result.failure(HttpStatusEnum.ROLE_NOT_ACTION);
         }
-        return roleService.saveRole(roleDTO);
+        return Result.success(roleService.saveRole(roleDTO));
     }
 
     @ApiOperation("获取指定角色信息")
@@ -61,18 +61,8 @@ public class RoleController {
 
     @ApiOperation("批量删除角色数据")
     @DeleteMapping("/delete")
-    public Result<?> delete(@RequestBody List<Long> ids) {
-        // 检查角色ID中是否含有
-        for (Long roleId : ids) {
-            // 如果有选中了管理员角色则直接返回错误
-            if (SecurityConst.ROLE_ID.equals(roleId)) {
-                return Result.failure(HttpStatusEnum.ROLE_NOT_ACTION);
-            }
-        }
-        if (roleService.deleteBatch(ids)) {
-            return Result.success();
-        }
-        return Result.failure(HttpStatusEnum.INTERNAL_SERVER_ERROR, "角色数据删除失败");
+    public Result<Boolean> delete(@RequestBody List<Long> ids) {
+        return Result.success(roleService.deleteBatch(ids));
     }
 
 }

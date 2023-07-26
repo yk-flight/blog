@@ -68,4 +68,9 @@ public class UserInfoVO extends BaseVO {
      */
     private String phone;
 
+    /**
+     * 用户角色
+     */
+    private String roles;
+
 }
