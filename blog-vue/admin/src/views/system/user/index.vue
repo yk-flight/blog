@@ -443,7 +443,6 @@ export default {
     },
     // 更新用户角色
     handleUserRoleUpdate () {
-      console.log(this.userRole)
       // 加载框
       this.userRoleLoading = true
       this.buttonLoading = true
@@ -506,6 +505,7 @@ export default {
     },
     // 点击删除事件
     handleDelete (row) {
+      const that = this
       let userIds = []
       if (row.id) {
         userIds.push(row.id)
@@ -516,14 +516,17 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(function () {
-        return deleteUser(userIds)
       }).then(() => {
-        this.getTableData()
-        this.$message.success('删除成功')
-      }).catch(() => {
-        this.closeLoading()
-      })
+        // 打开加载框
+        that.loading = true
+        deleteUser(userIds).then((res) => {
+          that.$message.success('删除成功')
+          that.getTableData()
+          that.loading = false
+        }).catch(() => {
+          that.loading = false
+        })
+      }).catch(() => {})
     },
     // 更新用户状态
     handleUserStatus (id) {
