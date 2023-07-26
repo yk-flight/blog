@@ -300,7 +300,6 @@ export default {
       } else {
         roleIds = this.ids
       }
-      console.log(roleIds)
       this.$confirm('是否确认删除选中的角色数据？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -385,7 +384,6 @@ export default {
       this.single = selection.length !== 1
       // 表头的删除是否可以点击
       this.multiple = !selection.length
-      console.log(this.ids)
     }
   }
 }
