@@ -108,4 +108,11 @@ public class UserController {
         return Result.success(userService.resetPassword(id));
     }
 
+    @ApiOperation("批量删除用户")
+    @DeleteMapping("/delete")
+    @OperateLogAnnotation(type = AnnotationConst.DELETE)
+    public Result<Boolean> delete(@RequestBody List<Long> ids) {
+        return Result.success(userService.delete(ids));
+    }
+
 }

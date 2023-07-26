@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 /**
  * 用户角色业务逻辑接口实现类
@@ -60,5 +62,16 @@ public class UserRoleServiceImpl implements IUserRoleService {
     public Boolean update(UserRoleDTO userRoleDTO) {
         // 更新用户角色
         return userRoleMapper.updateByUserId(userRoleDTO.getRoleId(), userRoleDTO.getUserId()) == 1;
+    }
+
+    /**
+     * 通过用户ID获取角色ID
+     *
+     * @param ids 用户ID集合
+     * @return 角色ID集合
+     */
+    @Override
+    public List<Long> listRoleIdByUserId(List<Long> ids) {
+        return userRoleMapper.listRoleIdByUserId(ids);
     }
 }

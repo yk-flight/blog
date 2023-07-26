@@ -2,6 +2,8 @@ package com.zrkizzy.server.service.core;
 
 import com.zrkizzy.data.dto.UserRoleDTO;
 
+import java.util.List;
+
 /**
  * 用户角色业务逻辑接口
  *
@@ -26,4 +28,11 @@ public interface IUserRoleService {
      */
     Boolean update(UserRoleDTO userRoleDTO);
 
+    /**
+     * 通过用户ID获取角色ID
+     *
+     * @param ids 用户ID集合
+     * @return 角色ID集合
+     */
+    List<Long> listRoleIdByUserId(List<Long> ids);
 }

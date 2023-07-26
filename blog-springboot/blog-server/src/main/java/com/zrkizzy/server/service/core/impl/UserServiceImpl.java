@@ -379,6 +379,37 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
+     * 批量删除用户
+     *
+     * @param ids 用户集合
+     * @return 是否删除成功
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean delete(List<Long> ids) {
+        // 检测要删除的用户中是否包括管理员
+        checkAdmin(ids);
+        // 通过校验后可以进行删除
+        return userMapper.deleteBatchIds(ids) == ids.size();
+    }
+
+    /**
+     * 校验传来的用户是否都可以被删除
+     *
+     * @param ids 用户ID
+     */
+    private void checkAdmin(List<Long> ids) {
+        // 通过用户ID获取角色ID集合
+        List<Long> roleIds = userRoleService.listRoleIdByUserId(ids);
+        for (Long roleId : roleIds) {
+            if (roleId.equals(SecurityConst.ROLE_ID)) {
+                // 抛出不能删除管理员异常
+                throw new BusinessException(CAN_DELETE_ADMIN);
+            }
+        }
+    }
+
+    /**
      * 校验并返回User对象
      *
      * @param userUpdateDTO 用户数据更新对象

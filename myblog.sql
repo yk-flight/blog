@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 26/07/2023 22:31:47
+ Date: 26/07/2023 23:35:10
 */
 
 SET NAMES utf8mb4;
@@ -384,6 +384,23 @@ INSERT INTO `tb_operate_log` VALUES (1683862984880816128, 1636182933754609665, 2
 INSERT INTO `tb_operate_log` VALUES (1684208355532341248, 1636182933754609665, 2, 'com.zrkizzy.web.controller.core.UserRoleController.update()', 'PUT', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"roleId\":1667607066451116032,\"userId\":1683843225900548096}]', 'Result(code=200, message=请求成功, data=true)', 1, 31, '2023-07-26 22:25:38', NULL);
 INSERT INTO `tb_operate_log` VALUES (1684208757753511936, 1636182933754609665, 2, 'com.zrkizzy.web.controller.core.UserRoleController.update()', 'PUT', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"roleId\":1633657944153260032,\"userId\":1683843225900548096}]', 'Result(code=200, message=请求成功, data=true)', 1, 73, '2023-07-26 22:27:14', NULL);
 INSERT INTO `tb_operate_log` VALUES (1684208781497466880, 1636182933754609665, 2, 'com.zrkizzy.web.controller.core.UserRoleController.update()', 'PUT', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"roleId\":1000000000000000000,\"userId\":1683843225900548096}]', 'Result(code=200, message=请求成功, data=true)', 1, 14, '2023-07-26 22:27:19', NULL);
+INSERT INTO `tb_operate_log` VALUES (1684216535897341952, 1636182933754609665, 3, 'com.zrkizzy.web.controller.core.UserController.delete()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[[1633027432405532672,1653794265890816000]]', 'org.springframework.jdbc.BadSqlGrammarException: \r\n### Error querying database.  Cause: java.sql.SQLException: Operand should contain 1 column(s)\r\n### The error may exist in file [E:\\JavaProject\\blog\\blog-springboot\\blog-data\\target\\classes\\mapper\\UserRoleMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: SELECT             role_id         FROM tb_user_role          WHERE (                 user_id = ?             ,                 user_id = ?             )\r\n### Cause: java.sql.SQLException: Operand should contain 1 column(s)\n; bad SQL grammar []; nested exception is java.sql.SQLException: Operand should contain 1 column(s)', 0, 64, '2023-07-26 22:58:08', NULL);
+INSERT INTO `tb_operate_log` VALUES (1684217254385811456, 1636182933754609665, 3, 'com.zrkizzy.web.controller.core.UserController.delete()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[[1633027432405532672,1653794265890816000]]', '管理员不可以被删除', 0, 25, '2023-07-26 23:00:59', NULL);
+INSERT INTO `tb_operate_log` VALUES (1684217274422001664, 1636182933754609665, 3, 'com.zrkizzy.web.controller.core.UserController.delete()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[[1653794265890816000]]', '管理员不可以被删除', 0, 1, '2023-07-26 23:01:04', NULL);
+INSERT INTO `tb_operate_log` VALUES (1684217316637671424, 1636182933754609665, 1, 'com.zrkizzy.web.controller.core.UserController.insert()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"nickname\":\"123\",\"status\":true,\"username\":\"12@qq.com\"}]', 'Result(code=200, message=请求成功, data=true)', 1, 234, '2023-07-26 23:01:14', NULL);
+INSERT INTO `tb_operate_log` VALUES (1684217357393723392, 1636182933754609665, 1, 'com.zrkizzy.web.controller.core.UserController.insert()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"nickname\":\"1234\",\"status\":false,\"username\":\"1234@qq.com\"}]', 'Result(code=200, message=请求成功, data=true)', 1, 217, '2023-07-26 23:01:24', NULL);
+INSERT INTO `tb_operate_log` VALUES (1684218523561230336, 1636182933754609665, 3, 'com.zrkizzy.web.controller.core.UserController.delete()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[[1653794265890816000,1683843225900548096]]', '管理员不可以被删除', 0, 3, '2023-07-26 23:06:02', NULL);
+INSERT INTO `tb_operate_log` VALUES (1684218877120086016, 1636182933754609665, 3, 'com.zrkizzy.web.controller.core.UserController.delete()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[[1653794265890816000,1683843225900548096]]', '管理员不可以被删除', 0, 6, '2023-07-26 23:07:26', NULL);
+INSERT INTO `tb_operate_log` VALUES (1684219233153581056, 1636182933754609665, 3, 'com.zrkizzy.web.controller.core.UserController.delete()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[[1683843225900548096,1684217315379380224]]', 'Result(code=200, message=请求成功, data=true)', 1, 48, '2023-07-26 23:08:51', NULL);
+INSERT INTO `tb_operate_log` VALUES (1684220066247213056, 1636182933754609665, 3, 'com.zrkizzy.web.controller.core.UserController.delete()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[[1653794265890816000,1684217356554862592]]', '管理员不可以被删除', 0, 8, '2023-07-26 23:12:10', NULL);
+INSERT INTO `tb_operate_log` VALUES (1684220170089791488, 1636182933754609665, 3, 'com.zrkizzy.web.controller.core.UserController.delete()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[[1653794265890816000,1684217356554862592]]', '管理员不可以被删除', 0, 5, '2023-07-26 23:12:35', NULL);
+INSERT INTO `tb_operate_log` VALUES (1684220675163684864, 1636182933754609665, 3, 'com.zrkizzy.web.controller.core.UserController.delete()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[[1653794265890816000,1684217356554862592]]', '管理员不可以被删除', 0, 3, '2023-07-26 23:14:35', NULL);
+INSERT INTO `tb_operate_log` VALUES (1684220720629940224, 1636182933754609665, 3, 'com.zrkizzy.web.controller.core.UserController.delete()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[[1653794265890816000,1684217356554862592]]', '管理员不可以被删除', 0, 2, '2023-07-26 23:14:46', NULL);
+INSERT INTO `tb_operate_log` VALUES (1684220777064300544, 1636182933754609665, 3, 'com.zrkizzy.web.controller.core.UserController.delete()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[[1633027432405532672]]', '管理员不可以被删除', 0, 3, '2023-07-26 23:14:59', NULL);
+INSERT INTO `tb_operate_log` VALUES (1684220798845321216, 1636182933754609665, 3, 'com.zrkizzy.web.controller.core.UserController.delete()', 'DELETE', 1653794265890816000, '127.0.0.1', '本地登录', '[[1684217356554862592]]', 'Result(code=200, message=请求成功, data=true)', 1, 45, '2023-07-26 23:15:04', NULL);
+INSERT INTO `tb_operate_log` VALUES (1684221353630105600, 1636182933754609665, 1, 'com.zrkizzy.web.controller.core.UserController.insert()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"nickname\":\"123456\",\"status\":true,\"username\":\"1@qq.com\"}]', 'Result(code=200, message=请求成功, data=true)', 1, 184, '2023-07-26 23:17:17', NULL);
+INSERT INTO `tb_operate_log` VALUES (1684222894634172416, 1636182933754609665, 2, 'com.zrkizzy.web.controller.core.UserController.updateUser()', 'PUT', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"avatar\":\"https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg\",\"createTime\":\"2023-07-26T23:17:17\",\"id\":1684221352883519488,\"nickname\":\"123456\",\"updateTime\":\"2023-07-26T23:17:16\",\"username\":\"1@qq.com\"}]', 'Result(code=200, message=请求成功, data=true)', 1, 133, '2023-07-26 23:23:24', NULL);
+INSERT INTO `tb_operate_log` VALUES (1684222916486496256, 1636182933754609665, 2, 'com.zrkizzy.web.controller.core.UserController.updateUser()', 'PUT', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"avatar\":\"https://s1.ax1x.com/2023/04/26/p9K181A.jpg\",\"createTime\":\"2023-03-07T16:52:16\",\"id\":1633027432405532672,\"nickname\":\"世纪末的架构师\",\"updateTime\":\"2023-04-28T07:04:14\",\"username\":\"1072876976@qq.com\"}]', 'Result(code=200, message=请求成功, data=true)', 1, 42, '2023-07-26 23:23:29', NULL);
 
 -- ----------------------------
 -- Table structure for tb_resource
@@ -449,11 +466,12 @@ INSERT INTO `tb_resource` VALUES (1683094177929232384, '保存系统基本配置
 INSERT INTO `tb_resource` VALUES (1683131008930545664, '获取首页内容', '获取系统后台首页信息', 'GET', '/admin/index/getHomeInfo', 1636182933754609665, '2023-07-23 23:04:49', '2023-07-23 23:04:52');
 INSERT INTO `tb_resource` VALUES (1683471580354576384, '富文本上传图片', '富文本上传图片，默认保存到文章图片中', 'POST', '/admin/file/addImage', 1636182933754609665, '2023-07-24 21:38:56', '2023-07-24 21:39:05');
 INSERT INTO `tb_resource` VALUES (1683471580354576385, '新增用户', '新增用户', 'POST', '/admin/user/insert', 1636182933754609665, '2023-07-24 22:47:55', '2023-07-24 22:48:04');
-INSERT INTO `tb_resource` VALUES (1683841299993591808, '更新指定用户信息', '更新指定用户信息', 'POST', '/admin/user/updateUser', 1636182933754609665, '2023-07-25 22:08:08', '2023-07-25 22:09:19');
+INSERT INTO `tb_resource` VALUES (1683841299993591808, '更新指定用户信息', '更新指定用户信息', 'PUT', '/admin/user/updateUser', 1636182933754609665, '2023-07-25 22:08:08', '2023-07-26 23:20:41');
 INSERT INTO `tb_resource` VALUES (1683841299993591809, '重置指定用户密码', '重置指定用户密码', 'GET', '/admin/user/resetPassword/**', 1636182933754609665, '2023-07-25 22:28:23', '2023-07-25 23:20:56');
 INSERT INTO `tb_resource` VALUES (1683841299993591810, '更新指定用户状态', '更新指定用户状态', 'GET', '/admin/user/updateUserStatus/**', 1636182933754609665, '2023-07-25 22:58:29', '2023-07-25 22:58:31');
 INSERT INTO `tb_resource` VALUES (1684082256563404800, '获取角色选项', '获取角色选项', 'GET', '/admin/role/listRoleOptions', 1636182933754609665, '2023-07-26 14:03:37', '2023-07-26 14:03:40');
 INSERT INTO `tb_resource` VALUES (1684128046551924736, '更新用户角色', '更新用户角色', 'PUT', '/admin/user-role/update', 1636182933754609665, '2023-07-26 17:06:18', '2023-07-26 17:06:21');
+INSERT INTO `tb_resource` VALUES (1684216181440905216, '批量删除用户', '批量删除指定用户', 'DELETE', '/admin/user/delete', 1636182933754609665, '2023-07-26 22:57:17', '2023-07-26 22:57:26');
 
 -- ----------------------------
 -- Table structure for tb_role
@@ -500,9 +518,9 @@ CREATE TABLE `tb_user`  (
 -- ----------------------------
 -- Records of tb_user
 -- ----------------------------
-INSERT INTO `tb_user` VALUES (1633027432405532672, '1072876976@qq.com', '$2a$10$Kbb.k6umlihAQBRtSxNGiuHaqT5YP4IVP9Cmytfn8xsecp7Z4e50G', '世纪末的架构师', 'https://s1.ax1x.com/2023/04/26/p9K181A.jpg', 1, NULL, '2023-03-07 16:52:16', '2023-04-28 07:04:14');
+INSERT INTO `tb_user` VALUES (1633027432405532672, '1072876976@qq.com', '$2a$10$Kbb.k6umlihAQBRtSxNGiuHaqT5YP4IVP9Cmytfn8xsecp7Z4e50G', '世纪末的架构师', 'https://s1.ax1x.com/2023/04/26/p9K181A.jpg', 1, NULL, '2023-03-07 16:52:16', '2023-07-26 23:23:29');
 INSERT INTO `tb_user` VALUES (1653794265890816000, '2675525537@qq.com', '$2a$10$INorakGPR9WOUBOSQGh3k.QhZLcbjr..hgALnlgdQ1t3D.hgZKqey', '测试账号', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192556.jpg', 1, '自古英雄出炼狱，破马长枪定乾坤！', '2023-05-03 16:15:23', '2023-07-25 23:33:14');
-INSERT INTO `tb_user` VALUES (1683843225900548096, '123@qq.com', '$2a$10$pKwYhNtnyTlhCj7M5c4qqeZr2vbS95JQnMl/HOydlPfg5KWBSIvS.', '1', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg', 1, NULL, '2023-07-25 22:14:44', '2023-07-25 23:31:34');
+INSERT INTO `tb_user` VALUES (1684221352883519488, '1@qq.com', '$2a$10$JcnvFXeXlcU7YFjHje2n5eaiiVxO/byA0hSBMT.RubSbhjXlcKUve', '123456', 'https://blog-yk0504.oss-cn-hangzhou.aliyuncs.com/avatar/20230529192531.jpg', 1, NULL, '2023-07-26 23:17:17', '2023-07-26 23:23:24');
 
 -- ----------------------------
 -- Table structure for tb_user_info
@@ -537,5 +555,8 @@ CREATE TABLE `tb_user_role`  (
 INSERT INTO `tb_user_role` VALUES (1635171865322323968, 1633027432405532672, 1000000000000000000);
 INSERT INTO `tb_user_role` VALUES (1653794265890816001, 1653794265890816000, 1000000000000000000);
 INSERT INTO `tb_user_role` VALUES (1683843226475167744, 1683843225900548096, 1633657944153260032);
+INSERT INTO `tb_user_role` VALUES (1684217316075634688, 1684217315379380224, 1633657944153260032);
+INSERT INTO `tb_user_role` VALUES (1684217357158842368, 1684217356554862592, 1633657944153260032);
+INSERT INTO `tb_user_role` VALUES (1684221353441361920, 1684221352883519488, 1633657944153260032);
 
 SET FOREIGN_KEY_CHECKS = 1;

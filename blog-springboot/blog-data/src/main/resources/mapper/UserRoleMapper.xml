@@ -9,4 +9,18 @@
         SET role_id = #{roleId}
         WHERE user_id = #{userId}
     </update>
+
+    <!-- 根据用户ID获取角色ID -->
+    <select id="listRoleIdByUserId" resultType="java.lang.Long">
+        SELECT
+            role_id
+        FROM
+            tb_user_role
+        <where>
+            user_id IN
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+        </where>
+    </select>
 </mapper>
