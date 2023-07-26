@@ -2,6 +2,7 @@ package com.zrkizzy.server.service.core.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.constant.SecurityConst;
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.exception.BusinessException;
@@ -153,6 +154,16 @@ public class RoleServiceImpl implements IRoleService {
         }
         // 获取默认角色标识并通过标识获取用户对象
         return role.getId();
+    }
+
+    /**
+     * 获取角色选项集合
+     *
+     * @return 角色选项集合
+     */
+    @Override
+    public List<OptionsVO> listRoleOptions() {
+        return roleMapper.listRoleOptions();
     }
 
     /**

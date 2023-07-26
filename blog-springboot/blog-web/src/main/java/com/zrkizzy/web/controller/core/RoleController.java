@@ -1,6 +1,7 @@
 package com.zrkizzy.web.controller.core;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.constant.SecurityConst;
@@ -63,6 +64,12 @@ public class RoleController {
     @DeleteMapping("/delete")
     public Result<Boolean> delete(@RequestBody List<Long> ids) {
         return Result.success(roleService.deleteBatch(ids));
+    }
+
+    @ApiOperation("获取角色选项")
+    @GetMapping("/listRoleOptions")
+    public Result<List<OptionsVO>> listRoleOptions() {
+        return Result.success(roleService.listRoleOptions());
     }
 
 }

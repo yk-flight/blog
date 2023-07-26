@@ -1,6 +1,7 @@
 package com.zrkizzy.server.service.core;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.data.domain.Role;
 import com.zrkizzy.data.dto.RoleDTO;
 import com.zrkizzy.data.query.RoleQuery;
@@ -53,4 +54,10 @@ public interface IRoleService {
      */
     Long getDefaultRoleId();
 
+    /**
+     * 获取角色选项集合
+     *
+     * @return 角色选项集合
+     */
+    List<OptionsVO> listRoleOptions();
 }

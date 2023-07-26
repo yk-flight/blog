@@ -1,8 +1,11 @@
 package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.data.domain.Role;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 角色数据持久化接口
@@ -61,4 +64,11 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @return 角色数量
      */
     Integer countByMark(String mark);
+
+    /**
+     * 获取所有角色选项
+     *
+     * @return 角色选项集合
+     */
+    List<OptionsVO> listRoleOptions();
 }
