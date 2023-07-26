@@ -2,6 +2,7 @@ package com.zrkizzy.server.service.core.impl;
 
 import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.data.domain.UserRole;
+import com.zrkizzy.data.dto.UserRoleDTO;
 import com.zrkizzy.data.mapper.UserRoleMapper;
 import com.zrkizzy.server.service.core.IRoleService;
 import com.zrkizzy.server.service.core.IUserRoleService;
@@ -47,5 +48,17 @@ public class UserRoleServiceImpl implements IUserRoleService {
         // 获取默认角色ID
         userRole.setRoleId(roleService.getDefaultRoleId());
         return userRoleMapper.insert(userRole) == 1;
+    }
+
+    /**
+     * 更新用户角色
+     *
+     * @param userRoleDTO 用户角色关联数据传输对象
+     * @return 是否更新成功
+     */
+    @Override
+    public Boolean update(UserRoleDTO userRoleDTO) {
+        // 更新用户角色
+        return userRoleMapper.updateByUserId(userRoleDTO.getRoleId(), userRoleDTO.getUserId()) == 1;
     }
 }
