@@ -132,7 +132,7 @@ public class RoleServiceImpl implements IRoleService {
         // 检查角色ID中是否含有
         for (Long roleId : ids) {
             // 如果有选中了管理员角色则直接返回错误
-            if (SecurityConst.ROLE_ID.equals(roleId)) {
+            if (SecurityConst.ADMIN_ID.equals(roleId)) {
                 // 抛出不可删除管理员异常
                 throw new BusinessException(HttpStatusEnum.ROLE_NOT_ACTION);
             }

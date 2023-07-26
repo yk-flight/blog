@@ -345,6 +345,12 @@ public class UserServiceImpl implements IUserService {
     public Boolean updateUser(UserUpdateDTO userUpdateDTO) {
         // 校验用户并返回用户信息
         User user = checkUser(userUpdateDTO);
+        // 获取当前用户角色
+        Role role = user.getRoles().get(0);
+        if (role.getId().equals(SecurityConst.ADMIN_ID)) {
+            // 抛出不能编辑管理员信息异常
+            throw new BusinessException(NOT_EDIT_ADMIN);
+        }
         // 更新用户信息
         return userMapper.updateById(user) == 1;
     }
@@ -402,9 +408,9 @@ public class UserServiceImpl implements IUserService {
         // 通过用户ID获取角色ID集合
         List<Long> roleIds = userRoleService.listRoleIdByUserId(ids);
         for (Long roleId : roleIds) {
-            if (roleId.equals(SecurityConst.ROLE_ID)) {
+            if (roleId.equals(SecurityConst.ADMIN_ID)) {
                 // 抛出不能删除管理员异常
-                throw new BusinessException(CAN_DELETE_ADMIN);
+                throw new BusinessException(NOT_DELETE_ADMIN);
             }
         }
     }
