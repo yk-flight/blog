@@ -242,7 +242,7 @@
 import PageTitle from '../../../components/PageTitle/index.vue'
 import Pagination from '../../../components/Pagination/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
-import { listRoleOptions } from '../../../api/role'
+import { listRoleOptions, updateUserRole } from '../../../api/role'
 import { listUsers, insert, getUserInfoById, deleteUser, updateUser, updateUserStatus, resetPassword } from '../../../api/user'
 
 export default {
@@ -444,6 +444,22 @@ export default {
     // 更新用户角色
     handleUserRoleUpdate () {
       console.log(this.userRole)
+      // 加载框
+      this.userRoleLoading = true
+      this.buttonLoading = true
+      updateUserRole(this.userRole).then((res) => {
+        this.$message.success('角色更新成功')
+        // 关闭对话框
+        this.handleRoleClose()
+        // 刷新数据
+        this.getTableData()
+        // 关闭加载框
+        this.userRoleLoading = false
+        this.buttonLoading = false
+      }).catch(() => {
+        this.userRoleLoading = false
+        this.buttonLoading = false
+      })
     },
     // 关闭分配角色对话框
     handleRoleClose () {
