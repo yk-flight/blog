@@ -1,6 +1,7 @@
 package com.zrkizzy.server.aspect;
 
 import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson.JSON;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.constant.CommonConst;
 import com.zrkizzy.common.enums.HttpStatusEnum;
@@ -11,10 +12,12 @@ import com.zrkizzy.common.utils.ServletUtil;
 import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.data.domain.LoginInfo;
 import com.zrkizzy.data.dto.LoginDTO;
-import com.zrkizzy.data.mapper.LoginInfoMapper;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageProperties;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.stereotype.Component;
@@ -23,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
 import static com.zrkizzy.common.constant.CommonConst.USER_AGENT;
+import static com.zrkizzy.common.constant.RabbitMqConst.LOG_EXCHANGE;
 
 /**
  * 登录日志AOP切面
@@ -38,7 +42,7 @@ public class LoginAspect {
     private SnowFlakeUtil snowFlakeUtil;
 
     @Autowired
-    private LoginInfoMapper loginInfoMapper;
+    private RabbitTemplate rabbitTemplate;
 
     /**
      * 用于记录登录时间
@@ -148,8 +152,8 @@ public class LoginAspect {
             // 用户名
             loginInfo.setUsername(USERNAME_THREAD_LOCAL.get());
 
-            // 存储当前登录日志到数据库中
-            loginInfoMapper.insert(loginInfo);
+            // 推送登录日志到消息队列中，扇形交换机无需路由
+            rabbitTemplate.convertAndSend(LOG_EXCHANGE, "", new Message(JSON.toJSONBytes(loginInfo), new MessageProperties()));
         } catch (Exception exp) {
             exp.printStackTrace();
         } finally {

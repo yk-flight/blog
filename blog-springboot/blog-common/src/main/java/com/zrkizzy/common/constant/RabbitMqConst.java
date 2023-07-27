@@ -29,8 +29,13 @@ public class RabbitMqConst {
     public static final String OPERATE_LOG_QUEUE = "operate_log_queue";
 
     /**
-     * 操作日志交换机
+     * 登录日志队列
      */
-    public static final String OPERATE_LOG_EXCHANGE = "operate_log_exchange";
+    public static final String LOGIN_LOG_QUEUE = "login_log_queue";
+
+    /**
+     * 日志交换机
+     */
+    public static final String LOG_EXCHANGE = "log_exchange";
 
 }
