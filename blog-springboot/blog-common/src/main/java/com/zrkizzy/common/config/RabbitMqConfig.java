@@ -1,9 +1,6 @@
 package com.zrkizzy.common.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -34,6 +31,24 @@ public class RabbitMqConfig {
     public Binding bindingEmailDirect() {
         // 绑定队列到交换机并配置对应路由
         return BindingBuilder.bind(emailQueue()).to(emailExchange()).with(EMAIL_ROUTING);
+    }
+
+    @Bean
+    public Queue operateLogQueue() {
+        // 创建操作日志队列并配置队列持久化，即使RabbitMQ重启，当前队列也不会丢失
+        return new Queue(OPERATE_LOG_QUEUE, true);
+    }
+
+    @Bean
+    public FanoutExchange operateLogExchange() {
+        // 绑定扇形交换机，并配置交换机持久化，第三个参数表示即使没有与交换机绑定的队列交换机也不用删除
+        return new FanoutExchange(OPERATE_LOG_EXCHANGE, true, false);
+    }
+
+    @Bean
+    public Binding bindingOperateLogFanout() {
+        // 绑定队列到扇形交换机
+        return BindingBuilder.bind(operateLogQueue()).to(operateLogExchange());
     }
 
 }

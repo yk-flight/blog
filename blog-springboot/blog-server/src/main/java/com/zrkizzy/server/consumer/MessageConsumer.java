@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import static com.zrkizzy.common.constant.RabbitMqConst.EMAIL_QUEUE;
 
 /**
- * 消息发送生产者
+ * 邮件短信消费者
  *
  * @author zhangrongkang
  * @since 2023/5/5

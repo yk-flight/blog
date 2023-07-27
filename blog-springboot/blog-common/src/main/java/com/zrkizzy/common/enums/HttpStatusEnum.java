@@ -83,7 +83,8 @@ public enum HttpStatusEnum {
     FILE_EXIST_ERROR(3000, "当前文件已经存在，请勿重复上传"),
     FILE_UPLOAD_ERROR(3001, "文件上传失败"),
     FILE_SELECT_ERROR(3002, "请选择要删除的文件"),
-    FILE_DELETE_ERROR(3003, "文件删除失败");
+    FILE_DELETE_ERROR(3003, "文件删除失败"),
+    LOG_SAVE_ERROR(3004, "日志保存出错");
 
     /**
      * 状态码

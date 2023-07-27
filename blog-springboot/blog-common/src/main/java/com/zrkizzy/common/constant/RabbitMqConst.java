@@ -23,4 +23,14 @@ public class RabbitMqConst {
      */
     public static final String EMAIL_ROUTING = "email_routing";
 
+    /**
+     * 操作日志队列
+     */
+    public static final String OPERATE_LOG_QUEUE = "operate_log_queue";
+
+    /**
+     * 操作日志交换机
+     */
+    public static final String OPERATE_LOG_EXCHANGE = "operate_log_exchange";
+
 }
