@@ -30,12 +30,14 @@
         SELECT
             res.method AS method,
             res.url AS url,
-            res.module_id AS moduleId,
+            res.description AS description,
+            mr.module_id AS module_id,
             r.mark AS roleMark
         FROM
             tb_resource res
-            LEFT JOIN tb_module_role mr ON res.module_id = mr.module_id
-            LEFT JOIN tb_role r ON mr.role_id = r.id
+                LEFT JOIN tb_module_resource mres ON res.id = mres.resource_id
+                LEFT JOIN tb_module_role mr ON mres.module_id = mr.module_id
+                LEFT JOIN tb_role r ON mr.role_id = r.id
     </select>
 
 </mapper>

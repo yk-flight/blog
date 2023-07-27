@@ -31,6 +31,12 @@ public class OperateLog extends BaseEntity {
     private Long moduleId;
 
     /**
+     * 操作内容
+     */
+    @ApiModelProperty(value = "操作内容")
+    private String operateContent;
+
+    /**
      * 操作类型 0 其他操作，1 新增，2 修改， 3 删除， 4 查询
      */
     @ApiModelProperty(value = "操作类型 0 其他操作， 1 新增， 2 修改， 3 删除， 4 查询")
