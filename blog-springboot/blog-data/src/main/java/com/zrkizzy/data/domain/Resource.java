@@ -32,12 +32,6 @@ public class Resource extends BaseEntity {
     private String description;
 
     /**
-     * 资源所属模块ID
-     */
-    @ApiModelProperty("资源所属模块ID")
-    private Long moduleId;
-
-    /**
      * 资源请求方式
      */
     @ApiModelProperty("资源请求方式")

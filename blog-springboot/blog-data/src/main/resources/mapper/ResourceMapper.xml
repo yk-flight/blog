@@ -10,17 +10,16 @@
         <result column="url" property="url" />
         <result column="method" property="method" />
         <result column="description" property="description" />
-        <result column="module_id" property="moduleId" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
 
     <!-- 资源角色映射集合 -->
     <resultMap id="ResourceRoles" type="com.zrkizzy.data.dto.ResourceRoleDTO">
-        <result property="url" column="url" />
-        <result property="method" column="method" />
-        <result property="moduleId" column="module_id" />
-        <result property="description" column="description" />
+        <result column="url" property="url" />
+        <result column="method" property="method" />
+        <result column="module_id" property="moduleId" />
+        <result column="description" property="description" />
         <collection property="roles" ofType="java.lang.String">
             <result column="role_mark" />
         </collection>
