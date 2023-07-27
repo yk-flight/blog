@@ -3,7 +3,6 @@ package com.zrkizzy.web.controller.core;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
-import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.Resource;
 import com.zrkizzy.data.dto.ResourceDTO;
@@ -14,8 +13,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * 资源数据返回对象
@@ -31,7 +28,7 @@ public class ResourceController {
      @Autowired
      private IResourceService resourceService;
 
-    @ApiOperation("获取所有资源")
+    @ApiOperation("分页获取所有资源")
     @PostMapping("/list")
     public Result<PageResult<ResourceVO>> listResources(@RequestBody ResourceQuery resourceQuery) {
         // 查询到对应的资源集合
@@ -42,26 +39,17 @@ public class ResourceController {
             .list(BeanCopyUtil.copyList(resourcePage.getRecords(), ResourceVO.class)).build());
     }
             
-    @ApiOperation("添加-更新资源") 
-    @PostMapping("/save")
+    @ApiOperation("更新指定请求资源")
+    @PutMapping("/save")
     public Result<Boolean> saveResource(@RequestBody ResourceDTO resourceDTO) {
         // 保存资源数据
         return Result.success(resourceService.saveResource(resourceDTO));
     }
 
     @ApiOperation("获取指定资源信息")
-    @GetMapping("/getResourceById/{resourceId}")
-    public Result<ResourceVO> getResourceById (@PathVariable Long resourceId) {
-        return Result.success(BeanCopyUtil.copy(resourceService.getResourceById(resourceId), ResourceVO.class));
-    }
-
-    @ApiOperation("批量删除资源数据")
-    @DeleteMapping("/delete")
-    public Result<?> delete(@RequestBody List<Long> ids) {
-        if (resourceService.deleteBatch(ids)) {
-            return Result.success();
-        }
-        return Result.failure(HttpStatusEnum.INTERNAL_SERVER_ERROR, "资源数据删除失败");
+    @GetMapping("/getResourceById/{id}")
+    public Result<ResourceVO> getResourceById (@PathVariable Long id) {
+        return Result.success(BeanCopyUtil.copy(resourceService.getResourceById(id), ResourceVO.class));
     }
 
 }

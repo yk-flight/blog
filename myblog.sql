@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 27/07/2023 20:58:30
+ Date: 27/07/2023 22:48:11
 */
 
 SET NAMES utf8mb4;
@@ -289,7 +289,8 @@ CREATE TABLE `tb_module`  (
 -- Records of tb_module
 -- ----------------------------
 INSERT INTO `tb_module` VALUES (1636182933754609664, '基本模块', '个人博客系统基本模块，包括用户基本信息编辑、文件上传下载等功能', '2023-03-16 10:04:53', '2023-03-16 10:04:55');
-INSERT INTO `tb_module` VALUES (1636182933754609665, '系统模块', '主要用于管理用户、角色等信息', '2023-03-16 10:05:44', '2023-03-16 10:05:47');
+INSERT INTO `tb_module` VALUES (1636182933754609665, '系统模块', '主要用于管理用户、角色等信息', '2023-03-16 10:05:44', '2023-07-27 20:59:17');
+INSERT INTO `tb_module` VALUES (1684552012043124736, '测试模块', '测试模块描述', '2023-07-27 21:11:12', '2023-07-27 21:11:12');
 
 -- ----------------------------
 -- Table structure for tb_module_resource
@@ -484,6 +485,9 @@ INSERT INTO `tb_resource` VALUES (1684541750435119104, '分页查询资源模块
 INSERT INTO `tb_resource` VALUES (1684541750435119105, '根据ID查询模块内容', '获取指定模块信息', 'GET', '/admin/module/getModuleById/**', '2023-07-27 20:51:12', '2023-07-27 20:51:14');
 INSERT INTO `tb_resource` VALUES (1684548449283866624, '添加-更新资源模块', '添加-更新资源模块', 'POST', '/admin/module/save', '2023-07-27 20:57:44', '2023-07-27 20:57:47');
 INSERT INTO `tb_resource` VALUES (1684548449283866625, '批量删除资源模块数据', '批量删除资源模块数据', 'DELETE', '/admin/module/delete', '2023-07-27 20:58:18', '2023-07-27 20:58:21');
+INSERT INTO `tb_resource` VALUES (1684568413176856576, '分页获取所有资源', '分页获取所有资源', 'POST', '/admin/resource/list', '2023-07-27 22:17:43', '2023-07-27 22:17:45');
+INSERT INTO `tb_resource` VALUES (1684568413176856577, '更新指定请求资源', '更新指定请求资源', 'PUT', '/admin/resource/save', '2023-07-27 22:38:18', '2023-07-27 22:43:58');
+INSERT INTO `tb_resource` VALUES (1684568413176856578, '获取指定资源信息', '根据ID获取指定资源信息', 'GET', '/admin/resource/getResourceById/**', '2023-07-27 22:39:15', '2023-07-27 22:39:17');
 
 -- ----------------------------
 -- Table structure for tb_role

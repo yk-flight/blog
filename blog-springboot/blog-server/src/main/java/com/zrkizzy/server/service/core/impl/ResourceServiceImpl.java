@@ -2,7 +2,6 @@ package com.zrkizzy.server.service.core.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.Resource;
 import com.zrkizzy.data.dto.ResourceDTO;
@@ -31,9 +30,6 @@ import java.util.List;
 public class ResourceServiceImpl implements IResourceService {
 
     @Autowired
-    private SnowFlakeUtil snowFlakeUtil;
-
-    @Autowired
     private ResourceMapper resourceMapper;
 
     /**
@@ -50,7 +46,7 @@ public class ResourceServiceImpl implements IResourceService {
         QueryWrapper<Resource> queryWrapper = new QueryWrapper<>();
         // 资源名称
         if (StringUtils.hasLength(resourceQuery.getName())) {
-            queryWrapper.eq("name", resourceQuery.getName());
+            queryWrapper.like("name", resourceQuery.getName());
         }
         // 资源请求方式
         if (StringUtils.hasLength(resourceQuery.getMethod())) {
@@ -58,7 +54,7 @@ public class ResourceServiceImpl implements IResourceService {
         }
         // 资源请求路径
         if (StringUtils.hasLength(resourceQuery.getUrl())) {
-            queryWrapper.eq("url", resourceQuery.getUrl());
+            queryWrapper.like("url", resourceQuery.getUrl());
         }
         // 获取时间范围
         List<String> dataRange = resourceQuery.getDataRange();
@@ -72,23 +68,18 @@ public class ResourceServiceImpl implements IResourceService {
     }
 
     /**
-     * 添加或更新资源
+     * 更新指定请求资源
      *
      * @param resourceDTO 资源数据接收对象
-     * @return 是否添加/更新成功
+     * @return 是否更新成功
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean saveResource(ResourceDTO resourceDTO) {
-        log.info("--------------------- 开始进行新增-更新操作 ---------------------");
+        log.info("--------------------- 开始进行更新操作 ---------------------");
         log.info("resourceDTO: {}", resourceDTO);
-        // 根据是否包含ID来判断添加-更新操作
-        if (null != resourceDTO.getId()) {
-            // 更新资源
-            return updateResource(resourceDTO);
-        }
-        // 添加资源
-        return insertResource(resourceDTO);
+        // 对资源进行更新操作并返回更新结果
+        return resourceMapper.updateById(BeanCopyUtil.copy(resourceDTO, Resource.class)) == 1;
     }
 
     /**
@@ -100,45 +91,6 @@ public class ResourceServiceImpl implements IResourceService {
     @Override
     public Resource getResourceById(Long resourceId) {
         return resourceMapper.selectById(resourceId);
-    }
-    
-    /**
-     * 批量删除资源数据
-     *
-     * @param ids 资源ID
-     * @return true：删除成功，false：删除失败
-     */
-    @Override
-    public Boolean deleteBatch(List<Long> ids) {
-        return resourceMapper.deleteBatchIds(ids) == ids.size();
-    }
-
-    /**
-     * 更新当前资源
-     *
-     * @param resourceDTO 资源数据接收对象
-     * @return 是否更新成功
-     */
-    private Boolean updateResource(ResourceDTO resourceDTO) {
-        log.info("--------------------- 执行更新操作 ---------------------");
-        // 对资源进行更新操作并返回响应结果
-        return resourceMapper.updateById(BeanCopyUtil.copy(resourceDTO, Resource.class)) == 1;
-    }
-    
-    /**
-     * 添加新的资源
-     *
-     * @param resourceDTO 资源数据接收对象
-     * @return 是否添加成功
-     */
-    private Boolean insertResource(ResourceDTO resourceDTO) {
-        log.info("--------------------- 开始进行新增操作 ---------------------");
-        // 生成资源ID
-        Long id = snowFlakeUtil.nextId();
-        // 设置ID
-        resourceDTO.setId(id);
-        // 添加资源数据并返回添加结果
-        return resourceMapper.insert(BeanCopyUtil.copy(resourceDTO, Resource.class)) == 1;
     }
 
 }
