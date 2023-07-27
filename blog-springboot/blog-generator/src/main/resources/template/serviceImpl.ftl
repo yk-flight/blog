@@ -79,11 +79,12 @@ public class ${entityName}ServiceImpl implements I${entityName}Service {
      * 添加或更新${objectName}
      *
      * @param ${entityLowerName}DTO ${objectName}数据接收对象
-     * @return 前端响应对象
+     * @return 是否添加/更新成功
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Result<?> save${entityName}(${entityName}DTO ${entityLowerName}DTO) {
+    <#assign B = "Boolean">
+    public Result<${B}> save${entityName}(${entityName}DTO ${entityLowerName}DTO) {
         log.info("--------------------- 开始进行新增-更新操作 ---------------------");
         log.info("${entityLowerName}DTO: {}", ${entityLowerName}DTO);
         // 根据是否包含ID来判断添加-更新操作
@@ -122,31 +123,28 @@ public class ${entityName}ServiceImpl implements I${entityName}Service {
      * 更新当前${objectName}
      *
      * @param ${entityLowerName}DTO ${objectName}数据接收对象
-     * @return 前端响应对象
+     * @return 是否更新成功
      */
-    private Result<?> update${entityName}(${entityName}DTO ${entityLowerName}DTO) {
+    private ${B} update${entityName}(${entityName}DTO ${entityLowerName}DTO) {
         log.info("--------------------- 执行更新操作 ---------------------");
         // 对${objectName}进行更新操作并返回响应结果
-        return ${entityLowerName}Mapper.updateById(BeanCopyUtil.copy(${entityLowerName}DTO, ${entityName}.class)) == 1 ?
-        Result.success() : Result.failure();
+        return ${entityLowerName}Mapper.updateById(BeanCopyUtil.copy(${entityLowerName}DTO, ${entityName}.class)) == 1;
     }
     
     /**
      * 添加新的${objectName}
      *
      * @param ${entityLowerName}DTO ${objectName}数据接收对象
-     * @return 前端响应对象
+     * @return 是否添加成功
      */
-    <#assign V = "VO">
-    private Result<${entityName}${V}> insert${entityName}(${entityName}DTO ${entityLowerName}DTO) {
+    private ${B} insert${entityName}(${entityName}DTO ${entityLowerName}DTO) {
         log.info("--------------------- 开始进行新增操作 ---------------------");
         // 生成${objectName}ID
         Long id = snowFlakeUtil.nextId();
         // 设置ID
         ${entityLowerName}DTO.setId(id);
         // 添加${objectName}数据并返回添加结果
-        return ${entityLowerName}Mapper.insert(BeanCopyUtil.copy(${entityLowerName}DTO, ${entityName}.class)) == 1 ?
-            Result.success() : Result.failure();
+        return ${entityLowerName}Mapper.insert(BeanCopyUtil.copy(${entityLowerName}DTO, ${entityName}.class)) == 1;
     }
 
 }

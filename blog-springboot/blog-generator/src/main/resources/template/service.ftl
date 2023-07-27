@@ -28,9 +28,10 @@ public interface I${entityName}Service {
      * 添加或更新${objectName}
      *
      * @param ${entityLowerName}DTO ${objectName}数据接收对象
-     * @return 前端响应对象
+     * @return 是否添加/更新成功
      */
-    Result<?> save${entityName}(${entityName}DTO ${entityLowerName}DTO);
+    <#assign B = "Boolean">
+    Result<${B}> save${entityName}(${entityName}DTO ${entityLowerName}DTO);
 
     /**
      * 获取指定${objectName}信息
