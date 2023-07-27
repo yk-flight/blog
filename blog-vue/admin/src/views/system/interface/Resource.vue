@@ -11,7 +11,14 @@
               </el-form-item>
 
               <el-form-item label="请求方式">
-                <el-input v-model="queryParams.method" class="search-item" placeholder="请求方式" size="small" clearable></el-input>
+                <el-select v-model="queryParams.method" placeholder="请选择请求类型" size="small" class="search-item" clearable>
+                  <el-option
+                    v-for="item in requestOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
               </el-form-item>
 
               <el-form-item label="请求路径">
@@ -48,15 +55,22 @@
           <template slot="empty">
             <el-empty :image-size="200"></el-empty>
           </template>
-          <el-table-column label="序号" type="index" width="50" align="center" />
+          <el-table-column label="序号" type="index" align="center" />
           <!-- 资源名称 -->
-          <el-table-column prop="name" label="资源名称" align="center" v-if="columns[0].visible"></el-table-column>
+          <el-table-column prop="name" label="资源名称" align="center" v-if="columns[0].visible" show-overflow-tooltip></el-table-column>
           <!-- 资源描述 -->
-          <el-table-column prop="description" label="资源描述" align="center" v-if="columns[1].visible"></el-table-column>
+          <el-table-column prop="description" label="资源描述" align="center" v-if="columns[1].visible" show-overflow-tooltip></el-table-column>
           <!-- 资源请求方式 -->
-          <el-table-column prop="method" label="资源请求方式" align="center" v-if="columns[2].visible"></el-table-column>
+          <el-table-column prop="method" label="请求方式" align="center" v-if="columns[2].visible">
+            <template slot-scope="scope">
+              <el-tag type="primary" v-if="scope.row.method === 'POST'">POST</el-tag>
+              <el-tag type="success" v-else-if="scope.row.method === 'GET'">GET</el-tag>
+              <el-tag type="warning" v-else-if="scope.row.method === 'PUT'">PUT</el-tag>
+              <el-tag type="danger" v-else>DELETE</el-tag>
+            </template>
+          </el-table-column>
           <!-- 资源请求路径 -->
-          <el-table-column prop="url" label="资源请求路径" align="center" v-if="columns[3].visible"></el-table-column>
+          <el-table-column prop="url" label="请求路径" align="center" v-if="columns[3].visible"></el-table-column>
           <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[4].visible">
             <template slot-scope="scope">
               <span>{{ scope.row.createTime | dateFilter }}</span>
@@ -102,7 +116,7 @@
               </el-form-item>
               <!-- 资源描述 -->
               <el-form-item label="资源描述" prop="description">
-                <el-input v-model="formData.description" placeholder="请输入资源描述" clearable></el-input>
+                <el-input type="textarea" v-model="formData.description" placeholder="请输入资源描述" clearable></el-input>
               </el-form-item>
               <!-- 资源请求方式 -->
               <el-form-item label="请求方式" prop="method">
@@ -137,10 +151,10 @@
     </div>
   </template>
 <script>
-import PageTitle from '../../../../components/PageTitle/index.vue'
-import Pagination from '../../../../components/Pagination/index.vue'
-import RightToolbar from '../../../../components/RightToolbar/index.vue'
-import { listResources, saveResource, getResourceById } from '../../../../api/resource'
+import PageTitle from '../../../components/PageTitle/index.vue'
+import Pagination from '../../../components/Pagination/index.vue'
+import RightToolbar from '../../../components/RightToolbar/index.vue'
+import { listResources, saveResource, getResourceById } from '../../../api/resource'
 
 export default {
   name: 'Resource',
@@ -210,7 +224,26 @@ export default {
         { key: 5, label: '更新时间', visible: true }
       ],
       // 表格数据
-      tableData: []
+      tableData: [],
+      // 请求类型选项
+      requestOptions: [
+        {
+          value: 'POST',
+          label: 'POST'
+        },
+        {
+          value: 'GET',
+          label: 'GET'
+        },
+        {
+          value: 'PUT',
+          label: 'PUT'
+        },
+        {
+          value: 'DELETE',
+          label: 'DELETE'
+        }
+      ]
     }
   },
 

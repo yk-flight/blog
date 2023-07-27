@@ -88,7 +88,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'resource',
-        component: () => import('@/views/system/interface/components/Resource.vue'),
+        component: () => import('@/views/system/interface/Resource.vue'),
         name: 'Resource',
         meta: { title: '接口信息' }
       }
