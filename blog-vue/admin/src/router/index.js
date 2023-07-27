@@ -81,14 +81,14 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/api',
+    path: '/interface',
     component: () => import('../layout/index.vue'),
     hidden: true,
     redirect: 'Redirect',
     children: [
       {
         path: 'resource',
-        component: () => import('@/views/system/api/components/Resource.vue'),
+        component: () => import('@/views/system/interface/components/Resource.vue'),
         name: 'Resource',
         meta: { title: '接口信息' }
       }

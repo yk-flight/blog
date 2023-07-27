@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 27/07/2023 22:48:11
+ Date: 27/07/2023 22:56:41
 */
 
 SET NAMES utf8mb4;
@@ -181,6 +181,7 @@ INSERT INTO `tb_login_info` VALUES (1684369189361418240, '2675525537@qq.com', '1
 INSERT INTO `tb_login_info` VALUES (1684405187155853312, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-27 11:27:46');
 INSERT INTO `tb_login_info` VALUES (1684436695002382336, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-27 13:32:58');
 INSERT INTO `tb_login_info` VALUES (1684539020152930304, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-27 20:19:34');
+INSERT INTO `tb_login_info` VALUES (1684576785045389312, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-27 22:49:38');
 
 -- ----------------------------
 -- Table structure for tb_menu
@@ -220,7 +221,7 @@ INSERT INTO `tb_menu` VALUES (1651217423560343555, '角色管理', 1652313423859
 INSERT INTO `tb_menu` VALUES (1651217423560343556, '友链管理', 1647951751875133441, 'link', 'website/link/index', 0, 0, 0, 'personnel', 5, '2023-04-26 21:33:29', '2023-04-26 13:53:02');
 INSERT INTO `tb_menu` VALUES (1651217423560343557, '用户管理', 1652313423859417088, 'user', 'system/user/index', 0, 0, 0, 'personnel-manage', 6, '2023-04-26 21:33:29', '2023-04-29 14:11:16');
 INSERT INTO `tb_menu` VALUES (1651217423560343558, '公告管理', 1647951751875133441, 'notice', 'website/notice/index', 0, 0, 0, 'email', 7, '2023-04-26 21:33:29', '2023-04-26 13:53:49');
-INSERT INTO `tb_menu` VALUES (1651217423560343559, '接口管理', 1652313423859417088, 'dictionary', 'system/api/index', 0, 0, 0, 'dict', 8, '2023-04-26 21:33:29', '2023-07-26 22:29:45');
+INSERT INTO `tb_menu` VALUES (1651217423560343559, '接口管理', 1652313423859417088, 'interface', 'system/interface/index', 0, 0, 0, 'dict', 8, '2023-04-26 21:33:29', '2023-07-27 22:53:34');
 INSERT INTO `tb_menu` VALUES (1651217423560343560, '菜单管理', 1652313423859417088, 'menu', 'system/menu/index', 0, 0, 0, 'menu', 9, '2023-04-26 21:33:29', '2023-04-29 14:11:25');
 INSERT INTO `tb_menu` VALUES (1651217423560343561, '网站配置', 1647951751875133441, 'config', 'website/config/index', 0, 0, 0, 'edit', 10, '2023-04-26 21:33:29', '2023-07-03 23:23:03');
 INSERT INTO `tb_menu` VALUES (1651227500568641536, '系统监控', 0, 'monitor', NULL, 0, 0, 0, 'monitor', 4, '2023-04-26 22:15:11', '2023-04-29 14:07:25');

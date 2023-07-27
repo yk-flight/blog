@@ -353,7 +353,7 @@ export default {
     },
     // 跳转到所有接口路径
     goApiList () {
-      this.$router.push('/api/resource')
+      this.$router.push('/interface/resource')
     }
   }
 }
