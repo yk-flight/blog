@@ -31,7 +31,7 @@ public interface I${entityName}Service {
      * @return 是否添加/更新成功
      */
     <#assign B = "Boolean">
-    Result<${B}> save${entityName}(${entityName}DTO ${entityLowerName}DTO);
+    ${B} save${entityName}(${entityName}DTO ${entityLowerName}DTO);
 
     /**
      * 获取指定${objectName}信息

@@ -84,7 +84,7 @@ public class ${entityName}ServiceImpl implements I${entityName}Service {
     @Override
     @Transactional(rollbackFor = Exception.class)
     <#assign B = "Boolean">
-    public Result<${B}> save${entityName}(${entityName}DTO ${entityLowerName}DTO) {
+    public ${B} save${entityName}(${entityName}DTO ${entityLowerName}DTO) {
         log.info("--------------------- 开始进行新增-更新操作 ---------------------");
         log.info("${entityLowerName}DTO: {}", ${entityLowerName}DTO);
         // 根据是否包含ID来判断添加-更新操作
