@@ -39,24 +39,16 @@
         </el-row>
         <el-row :gutter="10" class="button-container">
           <el-col :span="1.5">
-            <el-button type="primary" icon="el-icon-plus" @click="handleAdd" size="mini">
-              新增
-            </el-button>
-          </el-col>
-          <el-col :span="1.5">
-            <el-button type="success" icon="el-icon-edit" size="mini" :disabled="single" @click="handleUpdate">编辑</el-button>
-          </el-col>
-          <el-col :span="1.5">
-            <el-button type="danger" icon="el-icon-delete" size="mini" :disabled="multiple" @click="handleDelete">删除</el-button>
+            <el-button type="warning" icon="el-icon-download" size="mini">导出接口</el-button>
           </el-col>
           <right-toolbar :showSearch.sync="showSearch" :columns="columns" @getTableData="getTableData"></right-toolbar>
         </el-row>
 
-        <el-table v-loading="loading" element-loading-text="正在加载表格数据" :data="tableData" @selection-change="handleSelectionChange" border>
+        <el-table v-loading="loading" element-loading-text="正在加载表格数据" :data="tableData" border>
           <template slot="empty">
             <el-empty :image-size="200"></el-empty>
           </template>
-          <el-table-column type="selection" width="50" align="center" />
+          <el-table-column label="序号" type="index" width="50" align="center" />
           <!-- 资源名称 -->
           <el-table-column prop="name" label="资源名称" align="center" v-if="columns[0].visible"></el-table-column>
           <!-- 资源描述 -->
@@ -78,7 +70,6 @@
           <el-table-column label="操作"  align="center">
             <template slot-scope="scope">
               <el-button type="text" size="small" icon="el-icon-edit" @click="handleUpdate(scope.row)">编辑</el-button>
-              <el-button type="text" size="small" icon="el-icon-delete" @click="handleDelete(scope.row)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -95,7 +86,7 @@
 
       <!-- 资源信息对话框 -->
       <el-dialog
-        :title="resourceTitle"
+        title="编辑资源"
         width="500px"
         :modal-append-to-body="true"
         :append-to-body="true"
@@ -114,12 +105,12 @@
                 <el-input v-model="formData.description" placeholder="请输入资源描述" clearable></el-input>
               </el-form-item>
               <!-- 资源请求方式 -->
-              <el-form-item label="资源请求方式" prop="method">
-                <el-input v-model="formData.method" placeholder="请输入资源请求方式" clearable></el-input>
+              <el-form-item label="请求方式" prop="method">
+                <el-input v-model="formData.method" disabled></el-input>
               </el-form-item>
               <!-- 资源请求路径 -->
-              <el-form-item label="资源请求路径" prop="url">
-                <el-input v-model="formData.url" placeholder="请输入资源请求路径" clearable></el-input>
+              <el-form-item label="请求路径" prop="url">
+                <el-input v-model="formData.url" disabled></el-input>
               </el-form-item>
             </el-row>
           </el-form>
@@ -149,7 +140,7 @@
 import PageTitle from '../../../../components/PageTitle/index.vue'
 import Pagination from '../../../../components/Pagination/index.vue'
 import RightToolbar from '../../../../components/RightToolbar/index.vue'
-import { listResources, saveResource, getResourceById, deleteResource } from '../../../../api/resource'
+import { listResources, saveResource, getResourceById } from '../../../../api/resource'
 
 export default {
   name: 'Resource',
@@ -198,10 +189,8 @@ export default {
       rules: {
         // 资源名称
         name: [{ required: true, message: '请输入资源名称', trigger: 'blur' }],
-        // 资源请求方式
-        method: [{ required: true, message: '请输入资源请求方式', trigger: 'blur' }],
-        // 资源请求路径
-        url: [{ required: true, message: '请输入资源请求路径', trigger: 'blur' }]
+        // 资源描述
+        description: [{ required: true, message: '请输入资源描述', trigger: 'blur' }]
       },
       // 资源对话框等待框
       resourceLoading: false,
@@ -221,15 +210,7 @@ export default {
         { key: 5, label: '更新时间', visible: true }
       ],
       // 表格数据
-      tableData: [],
-      // 表头选中的数据
-      ids: [],
-      // 多数据禁用
-      single: true,
-      // 单数据禁用
-      multiple: true,
-      // 对话框标题
-      resourceTitle: ''
+      tableData: []
     }
   },
 
@@ -276,28 +257,17 @@ export default {
       this.queryParams.url = ''
       this.queryParams.dataRange = []
     },
-    // 打开资源信息对话框
-    handleOpen () {
-      // 清除表单数据
-      this.resetForm()
-      this.resourceVisible = true
-    },
     // 关闭资源对话框表单
     handleClose () {
       this.resetForm()
       this.resourceVisible = false
     },
-    // 点击新增按钮
-    handleAdd () {
-      this.resourceTitle = '新增资源'
-      this.handleOpen()
-    },
     // 点击编辑按钮
     handleUpdate (row) {
-      // 修改对话框标题
-      this.resourceTitle = '更新资源'
+      // 清除表单数据
+      this.resetForm()
       // 获取到传来的ID
-      const resourceId = row.id || this.ids
+      const resourceId = row.id
       // 打开加载框
       this.resourceLoading = true
       // 打开编辑资源对话框
@@ -315,26 +285,6 @@ export default {
         this.resourceLoading = false
       })
     },
-    // 点击删除事件
-    handleDelete (row) {
-      let resourceIds = []
-      if (row.id) {
-        resourceIds.push(row.id)
-      } else {
-        resourceIds = this.ids
-      }
-      console.log(resourceIds)
-      this.$confirm('是否确认删除选中的资源数据？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(function () {
-        return deleteResource(resourceIds)
-      }).then(() => {
-        this.getTableData()
-        this.$message.success('删除成功')
-      }).catch(() => {})
-    },
     // 提交表单
     submitForm () {
       const that = this
@@ -346,14 +296,8 @@ export default {
         that.resourceLoading = true
         // 提交表单
         saveResource(that.formData).then((res) => {
-          // 根据是否存在ID输出对应消息
-          if (that.formData.id) {
-            // 输出更新成功信息
-            that.$message.success('资源信息更新成功')
-          } else {
-            // 输出添加成功消息
-            that.$message.success('资源添加成功')
-          }
+          // 输出更新成功信息
+          that.$message.success('资源信息更新成功')
           // 刷新表单数据并关闭对话框
           that.handleClose()
           // 刷新资源数据
@@ -381,15 +325,6 @@ export default {
         // 资源请求路径
         url: undefined
       }
-    },
-    // 多选框
-    handleSelectionChange (selection) {
-      // 获取当前选中数组的ID
-      this.ids = selection.map(item => item.id)
-      // 表头的编辑是否可以点击
-      this.single = selection.length !== 1
-      // 表头的删除是否可以点击
-      this.multiple = !selection.length
     }
   }
 }
