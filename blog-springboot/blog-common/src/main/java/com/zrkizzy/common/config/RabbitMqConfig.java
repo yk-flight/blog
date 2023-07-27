@@ -76,7 +76,7 @@ public class RabbitMqConfig {
      * @return 交换机队列绑定对象
      */
     @Bean
-    public Binding bindingOperateLogFanout() {
+    public Binding bindingOperateLogDirect() {
         // 绑定操作日志队列到直连交换机
         return BindingBuilder.bind(operateLogQueue()).to(operateLogExchange()).with(OPERATE_LOG_ROUTING);
     }
@@ -109,7 +109,7 @@ public class RabbitMqConfig {
      * @return 交换机队列绑定对象
      */
     @Bean
-    public Binding bindingLoginLogFanout() {
+    public Binding bindingLoginLogDirect() {
         // 绑定登录日志队列到直连交换机
         return BindingBuilder.bind(loginLogQueue()).to(loginLogExchange()).with(LOGIN_LOG_ROUTING);
     }
