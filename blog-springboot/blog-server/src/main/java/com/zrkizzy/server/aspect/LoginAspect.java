@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
 import static com.zrkizzy.common.constant.CommonConst.USER_AGENT;
-import static com.zrkizzy.common.constant.RabbitMqConst.LOG_EXCHANGE;
+import static com.zrkizzy.common.constant.RabbitMqConst.*;
 
 /**
  * 登录日志AOP切面
@@ -152,8 +152,8 @@ public class LoginAspect {
             // 用户名
             loginInfo.setUsername(USERNAME_THREAD_LOCAL.get());
 
-            // 推送登录日志到消息队列中，扇形交换机无需路由
-            rabbitTemplate.convertAndSend(LOG_EXCHANGE, "", new Message(JSON.toJSONBytes(loginInfo), new MessageProperties()));
+            // 推送登录日志到消息队列中
+            rabbitTemplate.convertAndSend(LOGIN_LOG_EXCHANGE, LOGIN_LOG_ROUTING, new Message(JSON.toJSONBytes(loginInfo), new MessageProperties()));
         } catch (Exception exp) {
             exp.printStackTrace();
         } finally {

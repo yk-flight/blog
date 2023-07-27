@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
-import static com.zrkizzy.common.constant.RabbitMqConst.LOG_EXCHANGE;
+import static com.zrkizzy.common.constant.RabbitMqConst.*;
 
 /**
  * 操作日志AOP切面
@@ -134,8 +134,8 @@ public class OperateLogAspect {
             // 操作内容
             operateLog.setOperateContent(SystemContext.getOperateContent());
 
-            // 添加当前操作信息推送到MQ中，扇形交换机采用发布-订阅模式，消息广播无需采用路由无需绑定路由
-            rabbitTemplate.convertAndSend(LOG_EXCHANGE, "", new Message(JSON.toJSONBytes(operateLog), new MessageProperties()));
+            // 添加当前操作信息推送到MQ中
+            rabbitTemplate.convertAndSend(OPERATE_LOG_EXCHANGE, OPERATE_LOG_ROUTING, new Message(JSON.toJSONBytes(operateLog), new MessageProperties()));
 
         } catch (Exception exp) {
             exp.printStackTrace();

@@ -84,7 +84,8 @@ public enum HttpStatusEnum {
     FILE_UPLOAD_ERROR(3001, "文件上传失败"),
     FILE_SELECT_ERROR(3002, "请选择要删除的文件"),
     FILE_DELETE_ERROR(3003, "文件删除失败"),
-    LOG_SAVE_ERROR(3004, "日志保存出错");
+    LOGIN_SAVE_ERROR(3004, "登录日志保存出错"),
+    OPERATE_SAVE_ERROR(3005, "操作日志保存出错");
 
     /**
      * 状态码

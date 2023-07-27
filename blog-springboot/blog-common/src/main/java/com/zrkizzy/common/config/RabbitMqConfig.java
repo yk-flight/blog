@@ -60,6 +60,28 @@ public class RabbitMqConfig {
     }
 
     /**
+     * 创建操作日志直连交换机
+     *
+     * @return 直连交换机
+     */
+    @Bean
+    public DirectExchange operateLogExchange() {
+        // 创建直连交换机，并配置交换机持久化，第三个参数表示即使没有与交换机绑定的队列交换机也不用删除
+        return new DirectExchange(OPERATE_LOG_EXCHANGE, true, false);
+    }
+
+    /**
+     * 绑定操作日志队列到直连交换机
+     *
+     * @return 交换机队列绑定对象
+     */
+    @Bean
+    public Binding bindingOperateLogFanout() {
+        // 绑定操作日志队列到直连交换机
+        return BindingBuilder.bind(operateLogQueue()).to(operateLogExchange()).with(OPERATE_LOG_ROUTING);
+    }
+
+    /**
      * 创建持久化登录日志队列
      *
      * @return 登录日志队列
@@ -71,36 +93,25 @@ public class RabbitMqConfig {
     }
 
     /**
-     * 创建扇形交换机
+     * 创建直连交换机
      *
-     * @return 扇形交换机
+     * @return 直连交换机
      */
     @Bean
-    public FanoutExchange logExchange() {
-        // 创建扇形交换机，并配置交换机持久化，第三个参数表示即使没有与交换机绑定的队列交换机也不用删除
-        return new FanoutExchange(LOG_EXCHANGE, true, false);
+    public DirectExchange loginLogExchange() {
+        // 创建直连交换机，并配置交换机持久化，第三个参数表示即使没有与交换机绑定的队列交换机也不用删除
+        return new DirectExchange(LOGIN_LOG_EXCHANGE, true, false);
     }
 
     /**
-     * 绑定操作日志队列到扇形交换机
-     *
-     * @return 交换机队列绑定对象
-     */
-    @Bean
-    public Binding bindingOperateLogFanout() {
-        // 绑定操作日志队列到扇形交换机
-        return BindingBuilder.bind(operateLogQueue()).to(logExchange());
-    }
-
-    /**
-     * 绑定登录日志队列到扇形交换机
+     * 绑定登录日志队列到直连交换机
      *
      * @return 交换机队列绑定对象
      */
     @Bean
     public Binding bindingLoginLogFanout() {
-        // 绑定登录日志队列到扇形交换机
-        return BindingBuilder.bind(loginLogQueue()).to(logExchange());
+        // 绑定登录日志队列到直连交换机
+        return BindingBuilder.bind(loginLogQueue()).to(loginLogExchange()).with(LOGIN_LOG_ROUTING);
     }
 
 }
