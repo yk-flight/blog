@@ -41,6 +41,9 @@
         <el-col :span="1.5">
           <el-button type="danger" icon="el-icon-delete" size="mini" :disabled="multiple" @click="handleDelete">删除</el-button>
         </el-col>
+        <el-col :span="1.5">
+          <el-button type="info" icon="el-icon-s-promotion" size="mini" @click="goApiList">接口信息</el-button>
+        </el-col>
         <right-toolbar :showSearch.sync="showSearch" :columns="columns" @getTableData="getTableData"></right-toolbar>
       </el-row>
 
@@ -65,6 +68,7 @@
         </el-table-column>
         <el-table-column label="操作"  align="center">
           <template slot-scope="scope">
+            <el-button type="text" size="small" icon="el-icon-view" @click="handleUpdate(scope.row)">查看</el-button>
             <el-button type="text" size="small" icon="el-icon-edit" @click="handleUpdate(scope.row)">编辑</el-button>
             <el-button type="text" size="small" icon="el-icon-delete" @click="handleDelete(scope.row)">删除</el-button>
           </template>
@@ -99,7 +103,7 @@
             </el-form-item>
             <!-- 模块描述 -->
             <el-form-item label="模块描述" prop="description">
-              <el-input type="textarea" rows="3" v-model="formData.description" placeholder="请输入模块描述" clearable></el-input>
+              <el-input type="textarea" rows="3" autosize v-model="formData.description" placeholder="请输入模块描述" clearable></el-input>
             </el-form-item>
           </el-row>
         </el-form>
@@ -346,6 +350,10 @@ export default {
       this.single = selection.length !== 1
       // 表头的删除是否可以点击
       this.multiple = !selection.length
+    },
+    // 跳转到所有接口路径
+    goApiList () {
+      this.$router.push('/api/resource')
     }
   }
 }

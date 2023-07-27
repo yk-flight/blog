@@ -79,6 +79,20 @@ export const constantRoutes = [
         meta: { title: '其他配置' }
       }
     ]
+  },
+  {
+    path: '/api',
+    component: () => import('../layout/index.vue'),
+    hidden: true,
+    redirect: 'Redirect',
+    children: [
+      {
+        path: 'resource',
+        component: () => import('@/views/system/api/components/Resource.vue'),
+        name: 'Resource',
+        meta: { title: '接口信息' }
+      }
+    ]
   }
 ]
 
