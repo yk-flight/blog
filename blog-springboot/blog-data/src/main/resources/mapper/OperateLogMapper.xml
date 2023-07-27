@@ -82,7 +82,7 @@
             <if test="null != operateLogQuery.type">
                 AND o.type = #{operateLogQuery.type}
             </if>
-            <if test="null != operateLogQuery.type and '' != operateLogQuery.requestMethod">
+            <if test="null != operateLogQuery.requestMethod and '' != operateLogQuery.requestMethod">
                 AND o.request_method = #{operateLogQuery.requestMethod}
             </if>
             <if test="null != operateLogQuery.status">
