@@ -5,7 +5,11 @@
       <el-row class="search-container" type="flex">
         <el-col :span="24" :xs="24">
           <el-form size="small" :inline="true" v-show="showSearch" label-width="68px" :model="queryParams" ref="queryForm">
-                        <!-- 创建时间 -->
+            
+            <el-form-item label="模块名称">
+              <el-input v-model="queryParams.name" class="search-item" placeholder="请输入模块名称" size="small" clearable></el-input>
+            </el-form-item>
+            <!-- 创建时间 -->
             <el-form-item label="创建时间" size="small">
               <el-date-picker
                 v-model="queryParams.dataRange"
@@ -45,22 +49,16 @@
           <el-empty :image-size="200"></el-empty>
         </template>
         <el-table-column type="selection" width="50" align="center" />
-        <!-- 配置名称 -->
-        <el-table-column prop="configName" label="配置名称" align="center" v-if="columns[0].visible"></el-table-column>
-        <!-- 配置描述 -->
-        <el-table-column prop="configDesc" label="配置描述" align="center" v-if="columns[1].visible"></el-table-column>
-        <!-- 配置值 -->
-        <el-table-column prop="configValue" label="配置值" align="center" v-if="columns[2].visible"></el-table-column>
-        <!-- 是否为系统内置：1 是，0 否 -->
-        <el-table-column prop="configBuild" label="是否为系统内置：1 是，0 否" align="center" v-if="columns[3].visible"></el-table-column>
-        <!-- 配置类型： IMAGE 图片，TEXT 文本，RADIO 单选 -->
-        <el-table-column prop="configType" label="配置类型： IMAGE 图片，TEXT 文本，RADIO 单选" align="center" v-if="columns[4].visible"></el-table-column>
-        <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[5].visible">
+        <!-- 模块名称 -->
+        <el-table-column prop="name" label="模块名称" align="center" v-if="columns[0].visible"></el-table-column>
+        <!-- 模块描述 -->
+        <el-table-column prop="description" label="模块描述" align="center" v-if="columns[1].visible"></el-table-column>
+        <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[2].visible">
           <template slot-scope="scope">
             <span>{{ scope.row.createTime | dateFilter }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="updateTime" label="更新时间" align="center" v-if="columns[6].visible">
+        <el-table-column prop="updateTime" label="更新时间" align="center" v-if="columns[3].visible">
           <template slot-scope="scope">
             <span>{{ scope.row.updateTime | dateFilter }}</span>
           </template>
@@ -83,37 +81,25 @@
       />
     </div>
 
-    <!-- 系统配置表信息对话框 -->
+    <!-- 资源模块信息对话框 -->
     <el-dialog
-      :title="configTitle"
+      :title="moduleTitle"
       width="500px"
       :modal-append-to-body="true"
       :append-to-body="true"
       :close-on-click-modal="false"
-      :visible="configVisible"
+      :visible="moduleVisible"
       :before-close="handleClose">
-      <div class="config-wrapper" v-loading="configLoading" element-loading-text="正在加载系统配置表信息">
-        <el-form ref="configForm" :model="formData" :rules="rules" label-width="80px" label-position="right">
+      <div class="module-wrapper" v-loading="moduleLoading" element-loading-text="正在加载资源模块信息">
+        <el-form ref="moduleForm" :model="formData" :rules="rules" label-width="80px" label-position="right">
           <el-row :gutter="15">
-            <!-- 配置名称 -->
-            <el-form-item label="配置名称" prop="configName">
-              <el-input v-model="formData.configName" placeholder="请输入配置名称" clearable></el-input>
+            <!-- 模块名称 -->
+            <el-form-item label="模块名称" prop="name">
+              <el-input v-model="formData.name" placeholder="请输入模块名称" clearable></el-input>
             </el-form-item>
-            <!-- 配置描述 -->
-            <el-form-item label="配置描述" prop="configDesc">
-              <el-input v-model="formData.configDesc" placeholder="请输入配置描述" clearable></el-input>
-            </el-form-item>
-            <!-- 配置值 -->
-            <el-form-item label="配置值" prop="configValue">
-              <el-input v-model="formData.configValue" placeholder="请输入配置值" clearable></el-input>
-            </el-form-item>
-            <!-- 是否为系统内置：1 是，0 否 -->
-            <el-form-item label="是否为系统内置：1 是，0 否" prop="configBuild">
-              <el-input v-model="formData.configBuild" placeholder="请输入是否为系统内置：1 是，0 否" clearable></el-input>
-            </el-form-item>
-            <!-- 配置类型： IMAGE 图片，TEXT 文本，RADIO 单选 -->
-            <el-form-item label="配置类型： IMAGE 图片，TEXT 文本，RADIO 单选" prop="configType">
-              <el-input v-model="formData.configType" placeholder="请输入配置类型： IMAGE 图片，TEXT 文本，RADIO 单选" clearable></el-input>
+            <!-- 模块描述 -->
+            <el-form-item label="模块描述" prop="description">
+              <el-input v-model="formData.description" placeholder="请输入模块描述" clearable></el-input>
             </el-form-item>
           </el-row>
         </el-form>
@@ -143,10 +129,10 @@
 import PageTitle from '../../../components/PageTitle/index.vue'
 import Pagination from '../../../components/Pagination/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
-import { listConfigs, saveConfig, getConfigById, deleteConfig } from '../../../api/config'
+import { listModules, saveModule, getModuleById, deleteModule } from '../../../api/module'
 
 export default {
-  name: 'Config',
+  name: 'Module',
 
   components: { PageTitle, Pagination, RightToolbar },
 
@@ -158,8 +144,8 @@ export default {
       showSearch: true,
       // 数据总条数
       total: 0,
-      // 系统配置表对话框是否显示
-      configVisible: false,
+      // 资源模块对话框是否显示
+      moduleVisible: false,
       // 数据表格等待框
       loading: false,
       // 查询参数
@@ -168,43 +154,35 @@ export default {
         currentPage: 1,
         // 页面大小
         pageSize: 10,
+        // 模块名称
+        name: undefined,
         // 时间范围
         dataRange: []
       },
-      // 系统配置表表单对象
+      // 资源模块表单对象
       formData: {
-        // 配置名称
-        configName: undefined,
-        // 配置描述
-        configDesc: undefined,
-        // 配置值
-        configValue: undefined,
-        // 是否为系统内置：1 是，0 否
-        configBuild: undefined,
-        // 配置类型： IMAGE 图片，TEXT 文本，RADIO 单选
-        configType: undefined,
+        // 模块名称
+        name: undefined,
+        // 模块描述
+        description: undefined,
       },
-      // 系统配置表表单校验规则
+      // 资源模块表单校验规则
       rules: {
+        // 模块名称
+        name: [{ required: true, message: '请输入模块名称', trigger: 'blur' }],
       },
-      // 系统配置表对话框等待框
-      configLoading: false,
+      // 资源模块对话框等待框
+      moduleLoading: false,
       // 对话框按钮等待框
       buttonLoading: false,
       // 列信息
       columns: [
-        // 配置名称
-        { key: 0, label: '配置名称', visible: true },
-        // 配置描述
-        { key: 1, label: '配置描述', visible: true },
-        // 配置值
-        { key: 2, label: '配置值', visible: true },
-        // 是否为系统内置：1 是，0 否
-        { key: 3, label: '是否为系统内置：1 是，0 否', visible: true },
-        // 配置类型： IMAGE 图片，TEXT 文本，RADIO 单选
-        { key: 4, label: '配置类型： IMAGE 图片，TEXT 文本，RADIO 单选', visible: true },
-        { key: 5, label: '创建时间', visible: true },
-        { key: 6, label: '更新时间', visible: true }
+        // 模块名称
+        { key: 0, label: '模块名称', visible: true },
+        // 模块描述
+        { key: 1, label: '模块描述', visible: true },
+        { key: 2, label: '创建时间', visible: true },
+        { key: 3, label: '更新时间', visible: true }
       ],
       // 表格数据
       tableData: [],
@@ -215,7 +193,7 @@ export default {
       // 单数据禁用
       multiple: true,
       // 对话框标题
-      configTitle: ''
+      moduleTitle: ''
     }
   },
 
@@ -237,7 +215,7 @@ export default {
     getTableData () {
       // 开启加载框
       this.loading = true
-      listConfigs(this.queryParams).then((res) => {
+      listModules(this.queryParams).then((res) => {
         // 赋值数据参数
         this.tableData = res.list
         this.total = res.total
@@ -252,57 +230,59 @@ export default {
     },
     // 点击重置按钮
     handleReset () {
+      // 模块名称
+      this.queryParams.name = ''
       this.queryParams.dataRange = []
     },
-    // 打开系统配置表信息对话框
+    // 打开资源模块信息对话框
     handleOpen () {
       // 清除表单数据
       this.resetForm()
-      this.configVisible = true
+      this.moduleVisible = true
     },
-    // 关闭系统配置表对话框表单
+    // 关闭资源模块对话框表单
     handleClose () {
       this.resetForm()
-      this.configVisible = false
+      this.moduleVisible = false
     },
     // 点击新增按钮
     handleAdd () {
-      this.configTitle = '新增系统配置表'
+      this.moduleTitle = '新增资源模块'
       this.handleOpen()
     },
     // 点击编辑按钮
     handleUpdate (row) {
       // 修改对话框标题
-      this.configTitle = '更新系统配置表'
+      this.moduleTitle = '更新资源模块'
       // 获取到传来的ID
-      const configId = row.id || this.ids
+      const moduleId = row.id || this.ids
       // 打开加载框
-      this.configLoading = true
-      // 根据系统配置表ID获取对应的数据
-      getConfigById(configId).then((res) => {
-        // 赋值当前的系统配置表数据
+      this.moduleLoading = true
+      // 根据资源模块ID获取对应的数据
+      getModuleById(moduleId).then((res) => {
+        // 赋值当前的资源模块数据
         this.formData = res
-        // 打开编辑系统配置表对话框
-        this.configVisible = true
+        // 打开编辑资源模块对话框
+        this.moduleVisible = true
         // 关闭加载框
-        this.configLoading = false
+        this.moduleLoading = false
       })
     },
     // 点击删除事件
     handleDelete (row) {
-      let configIds = []
+      let moduleIds = []
       if (row.id) {
-        configIds.push(row.id)
+        moduleIds.push(row.id)
       } else {
-        configIds = this.ids
+        moduleIds = this.ids
       }
-      console.log(configIds)
-      this.$confirm('是否确认删除选中的系统配置表数据？', '提示', {
+      console.log(moduleIds)
+      this.$confirm('是否确认删除选中的资源模块数据？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(function () {
-        return deleteConfig(configIds)
+        return deleteModule(moduleIds)
       }).then(() => {
         this.getTableData()
         this.$message.success('删除成功')
@@ -311,33 +291,33 @@ export default {
     // 提交表单
     submitForm () {
       const that = this
-      this.$refs.configForm.validate(valid => {
+      this.$refs.moduleForm.validate(valid => {
         // 校验未通过则直接返回
         if (!valid) return
         // 开启加载框
         that.buttonLoading = true
-        that.configLoading = true
+        that.moduleLoading = true
         // 提交表单
-        saveConfig(that.formData).then((res) => {
+        saveModule(that.formData).then((res) => {
           // 根据是否存在ID输出对应消息
           if (that.formData.id) {
             // 输出更新成功信息
-            that.$message.success('系统配置表信息更新成功')
+            that.$message.success('资源模块信息更新成功')
           } else {
             // 输出添加成功消息
-            that.$message.success('系统配置表添加成功')
+            that.$message.success('资源模块添加成功')
           }
           // 刷新表单数据并关闭对话框
           that.handleClose()
-          // 刷新系统配置表数据
+          // 刷新资源模块数据
           that.getTableData()
           // 关闭加载框
           that.buttonLoading = false
-          that.configLoading = false
+          that.moduleLoading = false
         }).catch(() => {
           // 关闭加载框
           that.buttonLoading = false
-          that.configLoading = false
+          that.moduleLoading = false
         })
       })
     },
@@ -345,8 +325,10 @@ export default {
     resetForm () {
       // 清除校验条件
       this.formData = {
-        // 系统配置表ID
+        // 资源模块ID
         id: undefined,
+        // 模块名称
+        name: undefined,
       }
     },
     // 多选框
@@ -364,7 +346,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.config-wrapper {
+.module-wrapper {
   padding: 10px 30px;
 }
 .search-item {
