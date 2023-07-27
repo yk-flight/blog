@@ -7,7 +7,12 @@ import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.config.properties.OssProperties;
 import com.zrkizzy.common.enums.file.FIleTypeEnum;
 import com.zrkizzy.common.utils.ServletUtil;
+import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.common.utils.file.FileExportUtil;
+import com.zrkizzy.data.domain.ModuleResource;
+import com.zrkizzy.data.domain.Resource;
+import com.zrkizzy.data.mapper.ModuleResourceMapper;
+import com.zrkizzy.data.mapper.ResourceMapper;
 import com.zrkizzy.data.vo.export.ApiScanVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -60,9 +65,23 @@ public class TestController {
     private OssProperties ossProperties;
     @Autowired
     private JavaMailSender javaMailSender;
+    @Autowired
+    private ModuleResourceMapper moduleResourceMapper;
+    @Autowired
+    private ResourceMapper resourceMapper;
+    @Autowired
+    private SnowFlakeUtil snowFlakeUtil;
 
     @GetMapping("/hello")
     public String hello() {
+        List<Resource> resources = resourceMapper.selectList(null);
+        for (Resource resource : resources) {
+            ModuleResource moduleResource = new ModuleResource();
+            moduleResource.setId(snowFlakeUtil.nextId());
+            moduleResource.setModuleId(1636182933754609665L);
+            moduleResource.setResourceId(resource.getId());
+            moduleResourceMapper.insert(moduleResource);
+        }
         return "Hello, World!";
     }
 

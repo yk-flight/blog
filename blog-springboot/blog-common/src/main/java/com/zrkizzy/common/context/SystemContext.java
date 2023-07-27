@@ -19,6 +19,11 @@ public class SystemContext {
     private static final ThreadLocal<Long> OPERATE_TIME_THREAD_LOCAL = new ThreadLocal<>();
 
     /**
+     * 记录当前操作内容
+     */
+    private static final ThreadLocal<String> OPERATE_CONTENT_THREAD_LOCAL = new ThreadLocal<>();
+
+    /**
      * 设置当前请求开始时间戳
      *
      * @param startTime 开始操作时间戳
@@ -55,6 +60,24 @@ public class SystemContext {
     }
 
     /**
+     * 记录当前用户操作内容
+     *
+     * @param operateContent 操作内容
+     */
+    public static void setOperateContent(String operateContent) {
+        OPERATE_CONTENT_THREAD_LOCAL.set(operateContent);
+    }
+
+    /**
+     * 获取用户操作内容
+     *
+     * @return 用户操作内容
+     */
+    public static String getOperateContent() {
+        return OPERATE_CONTENT_THREAD_LOCAL.get();
+    }
+
+    /**
      * 清空当前线程中所有变量
      */
     public static void remove() {
@@ -62,5 +85,8 @@ public class SystemContext {
         MODULE_ID_THREAD_LOCAL.remove();
         // 清除方法操作时间变量
         OPERATE_TIME_THREAD_LOCAL.remove();
+        // 清空操作内容
+        OPERATE_CONTENT_THREAD_LOCAL.remove();
     }
+
 }

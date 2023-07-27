@@ -127,6 +127,8 @@ public class OperateLogAspect {
             operateLog.setId(snowFlakeUtil.nextId());
             // 请求所属模块ID
             operateLog.setModuleId(SystemContext.getModuleId());
+            // 操作内容
+            operateLog.setOperateContent(SystemContext.getOperateContent());
 
             // 添加当前操作信息到数据库中
             operateLogLogMapper.insert(operateLog);

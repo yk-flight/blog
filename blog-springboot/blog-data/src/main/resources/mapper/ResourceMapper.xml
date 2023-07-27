@@ -19,9 +19,10 @@
     <resultMap id="ResourceRoles" type="com.zrkizzy.data.dto.ResourceRoleDTO">
         <result property="url" column="url" />
         <result property="method" column="method" />
-        <result property="moduleId" column="moduleId" />
+        <result property="moduleId" column="module_id" />
+        <result property="description" column="description" />
         <collection property="roles" ofType="java.lang.String">
-            <result column="roleMark" />
+            <result column="role_mark" />
         </collection>
     </resultMap>
 
@@ -32,7 +33,7 @@
             res.url AS url,
             res.description AS description,
             mr.module_id AS module_id,
-            r.mark AS roleMark
+            r.mark AS role_mark
         FROM
             tb_resource res
                 LEFT JOIN tb_module_resource mres ON res.id = mres.resource_id
