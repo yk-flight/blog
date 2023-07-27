@@ -52,7 +52,7 @@
         <!-- 模块名称 -->
         <el-table-column prop="name" label="模块名称" align="center" v-if="columns[0].visible"></el-table-column>
         <!-- 模块描述 -->
-        <el-table-column prop="description" label="模块描述" align="center" v-if="columns[1].visible"></el-table-column>
+        <el-table-column prop="description" label="模块描述" align="center" v-if="columns[1].visible" show-overflow-tooltip></el-table-column>
         <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[2].visible">
           <template slot-scope="scope">
             <span>{{ scope.row.createTime | dateFilter }}</span>
@@ -99,7 +99,7 @@
             </el-form-item>
             <!-- 模块描述 -->
             <el-form-item label="模块描述" prop="description">
-              <el-input v-model="formData.description" placeholder="请输入模块描述" clearable></el-input>
+              <el-input type="textarea" rows="3" v-model="formData.description" placeholder="请输入模块描述" clearable></el-input>
             </el-form-item>
           </el-row>
         </el-form>
@@ -272,23 +272,28 @@ export default {
     },
     // 点击删除事件
     handleDelete (row) {
+      const that = this
       let moduleIds = []
       if (row.id) {
         moduleIds.push(row.id)
       } else {
         moduleIds = this.ids
       }
-      console.log(moduleIds)
       this.$confirm('是否确认删除选中的资源模块数据？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(function () {
-        return deleteModule(moduleIds)
       }).then(() => {
-        this.getTableData()
-        this.$message.success('删除成功')
-      }).catch(() => {})
+        // 开启加载框
+        this.loading = true
+        deleteModule(moduleIds).then((res) => {
+          // 在获取表格数据时会关闭等待框
+          that.getTableData()
+          that.$message.success('删除成功')
+        })
+      }).catch(() => {
+
+      })
     },
     // 提交表单
     submitForm () {
