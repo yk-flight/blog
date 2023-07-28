@@ -1,16 +1,19 @@
 package com.zrkizzy.common.utils;
 
 import com.alibaba.fastjson.JSON;
+import org.lionsoul.ip2region.xdb.Searcher;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static com.zrkizzy.common.constant.CommonConst.*;
 
@@ -87,5 +90,45 @@ public class IpUtil {
         } catch (UnknownHostException e) {
             return UNKNOWN_HOST_NAME;
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        String dbPath = Thread.currentThread().getContextClassLoader().getResource("ip2region.xdb").getPath();
+
+        // 1、从 dbPath 加载整个 xdb 到内存。
+        byte[] cBuff;
+        try {
+            cBuff = Searcher.loadContentFromFile(dbPath);
+        } catch (Exception e) {
+            System.out.printf("failed to load content from `%s`: %s\n", dbPath, e);
+            return;
+        }
+
+        // 2、使用上述的 cBuff 创建一个完全基于内存的查询对象。
+        Searcher searcher;
+        try {
+            searcher = Searcher.newWithBuffer(cBuff);
+        } catch (Exception e) {
+            System.out.printf("failed to create content cached searcher: %s\n", e);
+            return;
+        }
+
+        String ip = null;
+        // 3、查询
+        try {
+            ip = "58.211.152.4";
+            long sTime = System.nanoTime();
+            String region = searcher.search(ip);
+            long cost = TimeUnit.NANOSECONDS.toMicros((long) (System.nanoTime() - sTime));
+            System.out.printf("{region: %s, ioCount: %d, took: %d μs}\n", region, searcher.getIOCount(), cost);
+        } catch (Exception e) {
+            System.out.printf("failed to search(%s): %s\n", ip, e);
+        }
+
+        // 4、关闭资源 - 该 searcher 对象可以安全用于并发，等整个服务关闭的时候再关闭 searcher
+         searcher.close();
+//        long start = System.currentTimeMillis();
+//        getIpLocation("58.211.152.4");
+//        System.out.println(System.currentTimeMillis() - start);
     }
 }

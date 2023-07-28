@@ -83,6 +83,12 @@
             <artifactId>oshi-core</artifactId>
         </dependency>
 
+        <!-- 离线IP地址解析 -->
+        <dependency>
+            <groupId>org.lionsoul</groupId>
+            <artifactId>ip2region</artifactId>
+        </dependency>
+
         <!-- Commons Pool2对象池依赖 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
