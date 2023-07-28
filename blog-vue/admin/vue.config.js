@@ -1,3 +1,5 @@
+// webpack
+const webpack = require('webpack')
 // 使用svg图标时的路径处理
 const path = require('path')
 function resolve (dir) {
@@ -38,6 +40,13 @@ module.exports = {
         symbolId: 'icon-[name]'
       })
       .end()
+    // Quill.js文件引入失败配置
+    config.plugin('provide').use(webpack.ProvidePlugin, [
+      {
+        'window.Quill': 'quill/dist/quill.js',
+        Quill: 'quill/dist/quill.js'
+      }
+    ])
   },
   // 配置网站标题
   configureWebpack: {

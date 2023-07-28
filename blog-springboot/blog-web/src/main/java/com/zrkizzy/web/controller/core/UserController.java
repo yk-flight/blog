@@ -1,10 +1,13 @@
 package com.zrkizzy.web.controller.core;
 
+import com.zrkizzy.common.annotation.OperateLogAnnotation;
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
+import com.zrkizzy.common.constant.AnnotationConst;
 import com.zrkizzy.data.dto.AvatarDTO;
 import com.zrkizzy.data.dto.PasswordDTO;
+import com.zrkizzy.data.dto.UserDTO;
 import com.zrkizzy.data.dto.UserUpdateDTO;
 import com.zrkizzy.data.query.UserQuery;
 import com.zrkizzy.data.vo.UserVO;
@@ -44,24 +47,23 @@ public class UserController {
     }
 
     @ApiOperation("更新用户个人信息")
-    @PostMapping("/updateUser")
-    public Result<?> updateUser(@RequestBody @Validated UserUpdateDTO userUpdateDTO) {
-        userService.updateUser(userUpdateDTO);
-        return Result.success();
+    @PutMapping("/updateLoginUser")
+    @OperateLogAnnotation(type = AnnotationConst.UPDATE)
+    public Result<Integer> updateLoginUser(@RequestBody @Validated UserUpdateDTO userUpdateDTO) {
+        return Result.success(userService.updateLoginUser(userUpdateDTO));
     }
 
     @ApiOperation("更新登录用户头像")
-    @PostMapping("/updateLoginUserAvatar")
+    @PutMapping("/updateLoginUserAvatar")
     public Result<String> updateLoginUserAvatar(@RequestBody @Validated AvatarDTO avatarDTO) {
         return Result.success(userService.updateLoginUserAvatar(avatarDTO));
     }
 
     @ApiOperation("更新用户密码")
-    @PostMapping("/updatePassword")
-    public Result<?> updatePassword(@RequestBody @Validated PasswordDTO passwordDTO) {
+    @PutMapping("/updatePassword")
+    public Result<Integer> updatePassword(@RequestBody @Validated PasswordDTO passwordDTO) {
         // 更新用户密码
-        userService.updatePassword(passwordDTO);
-        return Result.success();
+        return Result.success(userService.updatePassword(passwordDTO));
     }
 
     @ApiOperation("获取所有用户")
@@ -75,4 +77,35 @@ public class UserController {
     public Result<List<OptionsVO>> listUserOptions() {
         return Result.success(userService.listUserOptions());
     }
+
+    @ApiOperation("新增用户")
+    @PostMapping("/insert")
+    @OperateLogAnnotation(type = AnnotationConst.ADD)
+    public Result<Boolean> insert(@Validated @RequestBody UserDTO userDTO) {
+        // 新增用户
+        return Result.success(userService.insert(userDTO));
+    }
+
+    @ApiOperation("更新指定用户")
+    @PutMapping("/updateUser")
+    @OperateLogAnnotation(type = AnnotationConst.UPDATE)
+    public Result<Boolean> updateUser(@RequestBody UserUpdateDTO userUpdateDTO) {
+        // 更新用户并返回结果
+        return Result.success(userService.updateUser(userUpdateDTO));
+    }
+
+    @ApiOperation("更新用户状态")
+    @GetMapping("/updateUserStatus/{id}")
+    @OperateLogAnnotation(type = AnnotationConst.UPDATE)
+    public Result<Boolean> updateUserStatus(@PathVariable Long id) {
+        return Result.success(userService.updateUserStatus(id));
+    }
+
+    @ApiOperation("重置指定用户密码")
+    @GetMapping("/resetPassword/{id}")
+    @OperateLogAnnotation(type = AnnotationConst.UPDATE)
+    public Result<Boolean> resetPassword(@PathVariable Long id) {
+        return Result.success(userService.resetPassword(id));
+    }
+
 }

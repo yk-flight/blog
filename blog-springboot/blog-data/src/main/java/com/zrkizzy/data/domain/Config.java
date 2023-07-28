@@ -36,4 +36,10 @@ public class Config extends BaseEntity {
     @ApiModelProperty(value = "系统通知")
     private String notice;
 
+    /**
+     * 上传策略
+     */
+    @ApiModelProperty(value = "上传策略")
+    private String upload;
+
 }

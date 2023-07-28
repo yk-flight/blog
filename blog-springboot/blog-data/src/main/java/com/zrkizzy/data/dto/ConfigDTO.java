@@ -27,4 +27,9 @@ public class ConfigDTO extends BaseDTO {
      */
     private String notice;
 
+    /**
+     * 上传策略
+     */
+    private String upload;
+
 }

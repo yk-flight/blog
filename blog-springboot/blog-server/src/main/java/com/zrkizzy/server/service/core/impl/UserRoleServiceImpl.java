@@ -1,10 +1,14 @@
 package com.zrkizzy.server.service.core.impl;
 
+import com.zrkizzy.common.utils.SnowFlakeUtil;
+import com.zrkizzy.data.domain.UserRole;
 import com.zrkizzy.data.mapper.UserRoleMapper;
+import com.zrkizzy.server.service.core.IRoleService;
 import com.zrkizzy.server.service.core.IUserRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -18,6 +22,30 @@ import org.springframework.stereotype.Service;
 public class UserRoleServiceImpl implements IUserRoleService {
 
     @Autowired
+    private SnowFlakeUtil snowFlakeUtil;
+
+    @Autowired
+    private IRoleService roleService;
+
+    @Autowired
     private UserRoleMapper userRoleMapper;
 
+    /**
+     * 添加用户角色关联信息
+     *
+     * @param userId 用户ID
+     * @return 是否添加成功
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean setDefaultRole(Long userId) {
+        UserRole userRole = new UserRole();
+        // ID
+        userRole.setId(snowFlakeUtil.nextId());
+        // 用户ID
+        userRole.setUserId(userId);
+        // 获取默认角色ID
+        userRole.setRoleId(roleService.getDefaultRoleId());
+        return userRoleMapper.insert(userRole) == 1;
+    }
 }

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.zrkizzy.common.annotation.OperateLogAnnotation;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.context.SystemContext;
+import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.utils.IpUtil;
 import com.zrkizzy.common.utils.JsonUtil;
 import com.zrkizzy.common.utils.ServletUtil;
@@ -85,8 +86,11 @@ public class OperateLogAspect {
         try {
             // 设置本次操作日志信息
             setOperateInfo(operateLog, joinPoint);
-            // 转换结果对象
-            Result<?> result = JsonUtil.jsonToObject(JSONUtil.parse(jsonResult).toString(), Result.class);
+            Result<?> result = null;
+            if (null != jsonResult) {
+                // 转换结果对象
+                result = JsonUtil.jsonToObject(JSONUtil.parse(jsonResult).toString(), Result.class);
+            }
             // 设置操作结果
             if (null != result) {
                 // 操作结果
@@ -100,6 +104,10 @@ public class OperateLogAspect {
                 operateLog.setStatus(Boolean.FALSE);
                 // 设置返回消息
                 operateLog.setOperateResult(String.valueOf(e));
+                if (e instanceof BusinessException) {
+                    // 重新设置返回消息
+                    operateLog.setOperateResult(((BusinessException) e).getHttpStatusEnum().getMessage());
+                }
             }
             // 操作用户
             operateLog.setUserId(securityUtil.getLoginUser().getId());

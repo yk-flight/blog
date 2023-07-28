@@ -60,6 +60,7 @@ public enum HttpStatusEnum {
     CODE_EXPIRED(508, "验证码已过期"),
     CODE_ERROR(509, "验证码错误"),
     UPDATE_ERROR(510, "更新失败，请稍后重试"),
+    INSERT_ERROR(511, "新增失败，请稍后重试"),
 
     /**
      * 其他状态码
@@ -67,6 +68,7 @@ public enum HttpStatusEnum {
     ROLE_NAME_EXIST(1001, "角色名称已存在"),
     ROLE_MARK_EXIST(1002, "角色标识已存在"),
     ROLE_NOT_ACTION(1003, "不允许操作最高权限角色数据"),
+    ROLE_ALLOCATION_ERROR(1004, "角色分配失败，请联系管理员"),
     USER_NOT_FOUND(2000, "用户未登录或登录已过期"),
     USER_EXIST(2001, "用户已存在"),
     USER_NOT_EXIST(2002, "用户不存在"),
@@ -76,7 +78,9 @@ public enum HttpStatusEnum {
     PASSWORD_SAME(2006, "新密码不能与旧密码相同"),
     PASSWORD_UPDATE_ERROR(2007, "密码更新失败"),
     FILE_EXIST_ERROR(3000, "当前文件已经存在，请勿重复上传"),
-    FILE_UPLOAD_ERROR(3001, "文件上传失败");
+    FILE_UPLOAD_ERROR(3001, "文件上传失败"),
+    FILE_SELECT_ERROR(3002, "请选择要删除的文件"),
+    FILE_DELETE_ERROR(3003, "文件删除失败");
 
     /**
      * 状态码

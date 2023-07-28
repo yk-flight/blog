@@ -23,10 +23,10 @@ export const getUserInfo = () => {
 /**
  * 更新用户个人信息
  */
-export const updateUser = (data) => {
+export const updateLoginUser = (data) => {
   return request({
-    url: '/admin/user/updateUser',
-    method: 'POST',
+    url: '/admin/user/updateLoginUser',
+    method: 'PUT',
     data: data
   })
 }
@@ -37,7 +37,7 @@ export const updateUser = (data) => {
 export const updateLoginUserAvatar = (data) => {
   return request({
     url: '/admin/user/updateLoginUserAvatar',
-    method: 'POST',
+    method: 'PUT',
     data: data
   })
 }
@@ -58,7 +58,7 @@ export const sendEmailCode = () => {
 export const updatePassword = (data) => {
   return request({
     url: '/admin/user/updatePassword',
-    method: 'POST',
+    method: 'PUT',
     data: data
   })
 }
@@ -85,11 +85,11 @@ export const listUsers = (data) => {
 }
 
 /**
- * 新增/更新用户信息
+ * 新增用户
  */
-export const saveUser = (data) => {
+export const insert = (data) => {
   return request({
-    url: '/admin/user/save',
+    url: '/admin/user/insert',
     method: 'POST',
     data: data
   })
@@ -101,6 +101,37 @@ export const saveUser = (data) => {
 export const getUserInfoById = (id) => {
   return request({
     url: `/admin/user-info/getUserInfoById/${id}`,
+    method: 'GET'
+  })
+}
+
+/**
+ * 更新指定用户个人信息
+ */
+export const updateUser = (data) => {
+  return request({
+    url: '/admin/user/updateUser',
+    method: 'PUT',
+    data: data
+  })
+}
+
+/**
+ * 获取指定用户状态
+ */
+export const updateUserStatus = (id) => {
+  return request({
+    url: `/admin/user/updateUserStatus/${id}`,
+    method: 'GET'
+  })
+}
+
+/**
+ * 重置指定用户密码
+ */
+export const resetPassword = (id) => {
+  return request({
+    url: `/admin/user/resetPassword/${id}`,
     method: 'GET'
   })
 }

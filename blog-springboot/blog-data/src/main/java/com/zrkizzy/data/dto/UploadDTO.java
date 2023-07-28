@@ -3,7 +3,6 @@ package com.zrkizzy.data.dto;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -15,12 +14,6 @@ import java.io.Serializable;
  */
 @Data
 public class UploadDTO implements Serializable {
-
-    /**
-     * 上传模式
-     */
-    @NotBlank(message = "上传模式不能为空")
-    private String mode;
 
     /**
      * 文件分类ID

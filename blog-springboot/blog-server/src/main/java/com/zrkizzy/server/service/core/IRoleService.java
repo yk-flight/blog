@@ -46,4 +46,12 @@ public interface IRoleService {
      * @return true：删除成功，false：删除失败
      */
     Boolean deleteBatch(List<Long> ids);
+
+    /**
+     * 获取默认角色ID
+     *
+     * @return 默认角色ID
+     */
+    Long getDefaultRoleId();
+
 }

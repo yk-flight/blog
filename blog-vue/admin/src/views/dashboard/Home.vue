@@ -17,7 +17,7 @@
           </el-row>
         </el-col>
         <el-col :xs="0" :sm="4" :md="3">
-          项目数
+          <el-button @click="handleClose">系统通知</el-button>
         </el-col>
       </el-row>
     </el-card>
@@ -169,7 +169,8 @@
       :close-on-press-escape="false"
       :close-on-click-modal="false"
       :before-close="handleClose">
-      <span v-html="homeInfo.notice"></span>
+      <!-- 使用span防止出无法撑开容器的情况 -->
+      <span class="notice" v-html="homeInfo.notice"></span>
     </el-dialog>
   </div>
 </template>
@@ -242,6 +243,10 @@ export default {
 .home-container {
   position: relative;
   padding: 0px 20px;
+
+  .notice img {
+    max-width: 100px !important;
+  }
 
   .github-corner {
     position: absolute;

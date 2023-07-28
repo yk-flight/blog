@@ -27,4 +27,9 @@ public class ConfigVO extends BaseVO {
      */
     private String notice;
 
+    /**
+     * 上传策略
+     */
+    private String upload;
+
 }

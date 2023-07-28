@@ -33,6 +33,18 @@ export const upload = (data) => {
 }
 
 /**
+ * 富文本上传图片
+ */
+export const addImage = (data) => {
+  return request({
+    url: '/admin/file/addImage',
+    method: 'POST',
+    data: data,
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
+}
+
+/**
  * 批量删除文件
  */
 export const deleteBatch = (data) => {

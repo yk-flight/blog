@@ -148,4 +148,9 @@
     <update id="updateUserAvatar">
         UPDATE tb_user SET avatar = #{src} WHERE id = #{userId}
     </update>
+
+    <!-- 更新指定用户密码 -->
+    <update id="resetPassword">
+        UPDATE tb_user SET password = #{password} WHERE id = #{userId}
+    </update>
 </mapper>

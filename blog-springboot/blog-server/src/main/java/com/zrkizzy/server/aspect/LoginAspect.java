@@ -4,6 +4,7 @@ import cn.hutool.json.JSONUtil;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.constant.CommonConst;
 import com.zrkizzy.common.enums.HttpStatusEnum;
+import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.utils.IpUtil;
 import com.zrkizzy.common.utils.JsonUtil;
 import com.zrkizzy.common.utils.ServletUtil;
@@ -105,7 +106,10 @@ public class LoginAspect {
         LoginInfo loginInfo = new LoginInfo();
         try {
             // 转换结果对象
-            Result<?> result = JsonUtil.jsonToObject(JSONUtil.parse(jsonResult).toString(), Result.class);
+            Result<?> result = null;
+            if (null != jsonResult) {
+                result = JsonUtil.jsonToObject(JSONUtil.parse(jsonResult).toString(), Result.class);
+            }
             // 如果没有登录成功
             if (null != result) {
                 // 登录消息提示
@@ -115,6 +119,13 @@ public class LoginAspect {
             }
             // 判断是否出现异常
             if (null != e) {
+                // 根据异常类型来定义返回信息
+                if (e instanceof BusinessException) {
+                    loginInfo.setMessage(((BusinessException) e).getHttpStatusEnum().getMessage());
+                } else {
+                    loginInfo.setMessage(HttpStatusEnum.INTERNAL_SERVER_ERROR.getMessage());
+                }
+                // 设置登录状态
                 loginInfo.setStatus(Boolean.FALSE);
             }
             // 获取请求和响应

@@ -2,10 +2,7 @@ package com.zrkizzy.server.service.core;
 
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.base.response.PageResult;
-import com.zrkizzy.data.dto.AvatarDTO;
-import com.zrkizzy.data.dto.LoginDTO;
-import com.zrkizzy.data.dto.PasswordDTO;
-import com.zrkizzy.data.dto.UserUpdateDTO;
+import com.zrkizzy.data.dto.*;
 import com.zrkizzy.data.query.UserQuery;
 import com.zrkizzy.data.vo.UserVO;
 
@@ -35,12 +32,12 @@ public interface IUserService {
     String login(LoginDTO loginDTO);
 
     /**
-     * 更新用户个人信息
+     * 更新登录用户个人信息
      *
      * @param userUpdateDTO 用户个人信息数据传输对象
      * @return 受影响的行数
      */
-    Integer updateUser(UserUpdateDTO userUpdateDTO);
+    Integer updateLoginUser(UserUpdateDTO userUpdateDTO);
 
     /**
      * 更新用户密码
@@ -65,5 +62,43 @@ public interface IUserService {
      */
     List<OptionsVO> listUserOptions();
 
+    /**
+     * 通过ID获取用户返回对象
+     *
+     * @param id 用户ID
+     * @return 用户数据返回对象
+     */
     UserVO getUserById(Long id);
+
+    /**
+     * 新增用户
+     *
+     * @param userDTO 用户数据传输对象
+     * @return 是否新增成功
+     */
+    Boolean insert(UserDTO userDTO);
+
+    /**
+     * 更新指定用户信息
+     *
+     * @param userUpdateDTO 用户更新数据对象
+     * @return 是否跟新成功
+     */
+    Boolean updateUser(UserUpdateDTO userUpdateDTO);
+
+    /**
+     * 修改用户状态
+     *
+     * @param id 用户ID
+     * @return 是否修改成功
+     */
+    Boolean updateUserStatus(Long id);
+
+    /**
+     * 重置用户密码
+     *
+     * @param id 用户ID
+     * @return 是否重置成功
+     */
+    Boolean resetPassword(Long id);
 }

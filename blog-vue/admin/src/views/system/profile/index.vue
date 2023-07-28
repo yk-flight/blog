@@ -121,7 +121,7 @@
 </template>
 
 <script>
-import { getUserInfo, updateUser } from '../../../api/user'
+import { getUserInfo, updateLoginUser } from '../../../api/user'
 import { mapGetters } from 'vuex'
 import Password from './component/Password.vue'
 import FileSpace from '../../../components/FileSpace/index.vue'
@@ -209,7 +209,7 @@ export default {
     updateUser () {
       // 开启等待框
       this.saveLoading = true
-      updateUser({
+      updateLoginUser({
         id: this.userInfo.id,
         avatar: this.userInfo.avatar,
         username: this.userInfo.username,

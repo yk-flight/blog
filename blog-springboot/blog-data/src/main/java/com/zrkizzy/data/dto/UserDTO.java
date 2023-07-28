@@ -1,9 +1,13 @@
 package com.zrkizzy.data.dto;
 
+import com.zrkizzy.common.annotation.IsEmail;
 import com.zrkizzy.common.base.BaseDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 
 /**
@@ -21,6 +25,8 @@ public class UserDTO extends BaseDTO {
     /**
      * 用户名
      */
+    @NotBlank(message = "用户名不能为空")
+    @IsEmail
     private String username;
 
     /**
@@ -31,6 +37,7 @@ public class UserDTO extends BaseDTO {
     /**
      * 昵称
      */
+    @NotBlank(message = "昵称不能为空")
     private String nickname;
 
     /**
@@ -41,6 +48,7 @@ public class UserDTO extends BaseDTO {
     /**
      * 状态，0：禁用，1：启用
      */
+    @NotNull(message = "用户状态不能为空")
     private Boolean status;
 
     /**

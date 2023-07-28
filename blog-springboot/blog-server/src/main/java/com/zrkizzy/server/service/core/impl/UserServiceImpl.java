@@ -4,22 +4,23 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.base.response.PageResult;
+import com.zrkizzy.common.constant.SecurityConst;
 import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.service.IRedisService;
 import com.zrkizzy.common.utils.IpUtil;
 import com.zrkizzy.common.utils.ServletUtil;
+import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.common.utils.security.JwtTokenUtil;
 import com.zrkizzy.data.domain.User;
-import com.zrkizzy.data.dto.AvatarDTO;
-import com.zrkizzy.data.dto.LoginDTO;
-import com.zrkizzy.data.dto.PasswordDTO;
-import com.zrkizzy.data.dto.UserUpdateDTO;
+import com.zrkizzy.data.dto.*;
 import com.zrkizzy.data.mapper.UserMapper;
 import com.zrkizzy.data.query.UserQuery;
 import com.zrkizzy.data.vo.UserVO;
 import com.zrkizzy.security.context.SecurityContext;
+import com.zrkizzy.server.service.core.IUserRoleService;
 import com.zrkizzy.server.service.core.IUserService;
+import com.zrkizzy.server.service.system.IConfigService;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,17 +45,27 @@ import static com.zrkizzy.common.enums.HttpStatusEnum.*;
  */
 @Service
 public class UserServiceImpl implements IUserService {
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private IConfigService configService;
+
+    @Autowired
+    private IUserRoleService userRoleService;
 
     @Autowired
     private IRedisService redisService;
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private SnowFlakeUtil snowFlakeUtil;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * 获取所有用户
@@ -154,45 +165,37 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer updateUser(UserUpdateDTO userUpdateDTO) {
-        // 根据ID查询个人信息
-        User user = userMapper.getUserByUserId(userUpdateDTO.getId());
-        // 如果修改用户名
-        if (!user.getUsername().equals(userUpdateDTO.getUsername())) {
-            // 校验修改后用户名的合法性
-            Long count = userMapper.selectCount(new QueryWrapper<User>().eq("username", userUpdateDTO.getUsername()));
-            // 校验修改内容的合法性，如果没有修改用户名则能查出1条
-            if (null != count && count > 0) {
-                // 确保用户名是唯一的
-                throw new BusinessException(USERNAME_REPEAT);
-            }
+    public Integer updateLoginUser(UserUpdateDTO userUpdateDTO) {
+        // 校验当期更新用户数据
+        User user = checkUser(userUpdateDTO);
+        // 更新用户对象
+        int row = userMapper.updateById(user);
+        if (row != 1) {
+            // 抛出更新失败异常
+            throw new BusinessException(UPDATE_ERROR);
         }
-        // 将用户密码提前保存下来，在Redis中不缓存密码
-        String password = user.getPassword();
+        // 刷新Redis中缓存的用户信息
+        refreshUserCache(user);
+        // 数据并返回受影响的行数
+        return row;
+    }
+
+    /**
+     * 刷新Redis中缓存的用户信息
+     *
+     * @param user 用户对象
+     */
+    private void refreshUserCache(User user) {
+        // Redis中不展示密码
+        user.setPassword(null);
         // 获取用户全局唯一标识
         String track = SecurityContext.getTrack();
         // 获取当前更新个人信息用户缓存的失效时间
         Long expire = redisService.getExpire(USER_PREFIX + track);
         // 删除Redis中缓存的用户个人信息
         redisService.del(USER_PREFIX + track);
-
-        // 设置用户信息
-        user.setNickname(userUpdateDTO.getNickname());
-        user.setUsername(userUpdateDTO.getUsername());
-        user.setRemark(userUpdateDTO.getRemark());
-        user.setUpdateTime(LocalDateTime.now());
-        // Redis中不展示密码
-        user.setPassword(null);
         // 更新缓存中的用户个人信息，缓存失效时间不改变
         redisService.set(USER_PREFIX + track, user, expire);
-        user.setPassword(password);
-        // 数据并返回受影响的行数
-        int row = userMapper.updateById(user);
-        if (row > 0) {
-            return row;
-        }
-        // 否则抛出修改失败异常
-        throw new BusinessException(INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -223,7 +226,7 @@ public class UserServiceImpl implements IUserService {
         // 与原密码对比是否一致
         if (passwordEncoder.matches(passwordDTO.getPassword(), user.getPassword())) {
             // 抛出原密码和新密码不能相同业务异常被全局异常管理器捕获并返回前端
-            throw new BusinessException(PASSWORD_UPDATE_ERROR);
+            throw new BusinessException(PASSWORD_SAME);
         }
         // 获取Redis中存储的Key
         String userKey = USER_PREFIX + SecurityContext.getTrack();
@@ -260,16 +263,8 @@ public class UserServiceImpl implements IUserService {
         user.setUpdateTime(LocalDateTime.now());
         // 更新数据库中用户信息
         userMapper.updateUserAvatar(avatarDTO.getUserId(), avatarDTO.getSrc());
-        // 获取用户唯一标识
-        String track = SecurityContext.getTrack();
-        // 获取当前用户缓存的失效时间
-        Long expire = redisService.getExpire(USER_PREFIX + track);
-        // 删除Redis中缓存的用户个人信息
-        redisService.del(USER_PREFIX + track);
-        // Redis中不展示密码
-        user.setPassword(null);
-        // 更新缓存中的用户个人信息，缓存失效时间不改变
-        redisService.set(USER_PREFIX + track, user, expire);
+        // 刷新缓存中的用户
+        refreshUserCache(user);
         // 将头像返回
         return avatarDTO.getSrc();
     }
@@ -300,6 +295,119 @@ public class UserServiceImpl implements IUserService {
         userVO.setRoles(user.getRoles().get(0).getMark());
         // 返回用户登录对象
         return userVO;
+    }
+
+    /**
+     * 新增用户
+     *
+     * @param userDTO 用户数据传输对象
+     * @return 是否新增成功
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean insert(UserDTO userDTO) {
+        // 校验用户名合法性
+        checkUsername(userDTO.getUsername());
+        // 获取用户默认头像
+        String avatar = configService.getConfig().getAvatar();
+        User user = BeanCopyUtil.copy(userDTO, User.class);
+        // ID
+        user.setId(snowFlakeUtil.nextId());
+        // 默认头像
+        user.setAvatar(avatar);
+        // 默认密码123456
+        user.setPassword(passwordEncoder.encode(SecurityConst.DEFAULT_PASSWORD));
+        // 用户默认角色，如果没有成功添加用户角色关联信息则抛出异常
+        if (!userRoleService.setDefaultRole(user.getId())) {
+            throw new BusinessException(INSERT_ERROR);
+        }
+        // TODO 后期添加手机号码时校验手机
+
+        // 添加新用户到数据库，受影响行数是否为1
+        return userMapper.insert(user) == 1;
+    }
+
+    /**
+     * 更新指定用户信息
+     *
+     * @param userUpdateDTO 用户更新数据对象
+     * @return 是否跟新成功
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean updateUser(UserUpdateDTO userUpdateDTO) {
+        // 校验用户并返回用户信息
+        User user = checkUser(userUpdateDTO);
+        // 更新用户信息
+        return userMapper.updateById(user) == 1;
+    }
+
+    /**
+     * 修改用户状态
+     *
+     * @param id 用户ID
+     * @return 是否修改成功
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean updateUserStatus(Long id) {
+        // 获取当前用户状态
+        User user = userMapper.selectById(id);
+        // 设置用户状态
+        user.setStatus(!user.getStatus());
+        return userMapper.updateById(user) == 1;
+    }
+
+    /**
+     * 重置用户密码
+     *
+     * @param id 用户ID
+     * @return 是否重置成功
+     */
+    @Override
+    public Boolean resetPassword(Long id) {
+        String password = passwordEncoder.encode(SecurityConst.DEFAULT_PASSWORD);
+        // 更新用户并返回结果
+        return userMapper.resetPassword(id, password) == 1;
+    }
+
+    /**
+     * 校验并返回User对象
+     *
+     * @param userUpdateDTO 用户数据更新对象
+     * @return 受影响的行数
+     */
+    private User checkUser(UserUpdateDTO userUpdateDTO) {
+        // 先更新数据库，再更新Redis
+        User user = userMapper.getUserByUserId(userUpdateDTO.getId());
+        String username = userUpdateDTO.getUsername();
+        // 如果修改用户名
+        if (!user.getUsername().equals(username)) {
+            // 校验修改后用户名的合法性
+            checkUsername(username);
+        }
+        // 设置用户信息
+        user.setNickname(userUpdateDTO.getNickname());
+        user.setUsername(username);
+        user.setRemark(userUpdateDTO.getRemark());
+        user.setUpdateTime(LocalDateTime.now());
+        // 更新并返回最新的User对象
+        return user;
+    }
+
+    /**
+     * 校验用户名合法性
+     *
+     * @param username 用户名
+     */
+    private void checkUsername(String username) {
+        // 校验修改后用户名的合法性
+        Long count = userMapper.selectCount(new QueryWrapper<User>().eq("username", username));
+        // 校验修改内容的合法性，如果没有修改用户名则能查出1条
+        if (null != count && count > 0) {
+            // 确保用户名是唯一的
+            throw new BusinessException(USERNAME_REPEAT);
+        }
     }
 
 }
