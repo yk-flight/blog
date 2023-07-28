@@ -1,7 +1,7 @@
 <template>
   <div>
     <transition name="fade-transform" mode="out-in">
-      <router-view />
+      <router-view :key="$route.fullPath" />
     </transition>
   </div>
 </template>

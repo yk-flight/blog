@@ -68,7 +68,7 @@
         </el-table-column>
         <el-table-column label="操作"  align="center">
           <template slot-scope="scope">
-            <el-button type="text" size="small" icon="el-icon-view" @click="handleUpdate(scope.row)">查看</el-button>
+            <el-button type="text" size="small" icon="el-icon-view" @click="goModulePage(scope.row.id)">查看</el-button>
             <el-button type="text" size="small" icon="el-icon-edit" @click="handleUpdate(scope.row)">编辑</el-button>
             <el-button type="text" size="small" icon="el-icon-delete" @click="handleDelete(scope.row)">删除</el-button>
           </template>
@@ -354,6 +354,11 @@ export default {
     // 跳转到所有接口路径
     goApiList () {
       this.$router.push('/interface/resource')
+    },
+    // 跳转到模块管理页面
+    goModulePage (id) {
+      console.log(id)
+      this.$router.push('/interface/module/' + id)
     }
   }
 }

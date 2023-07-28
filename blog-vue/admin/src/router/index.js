@@ -91,6 +91,12 @@ export const constantRoutes = [
         component: () => import('@/views/system/interface/Resource.vue'),
         name: 'Resource',
         meta: { title: '接口信息' }
+      },
+      {
+        path: 'module/:id',
+        component: () => import('@/views/system/interface/Module.vue'),
+        name: 'Resource',
+        meta: { title: '模块管理' }
       }
     ]
   }
