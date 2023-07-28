@@ -13,4 +13,32 @@
     <sql id="Base_Column_List">
         id, module_id, resource_id
     </sql>
+
+    <resultMap id="ResourceVO" type="com.zrkizzy.data.vo.ResourceVO">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="method" property="method" />
+        <result column="url" property="url" />
+        <result column="description" property="description" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 分页查询指定模块对应请求资源 -->
+    <select id="listByModuleId" resultMap="ResourceVO">
+        SELECT
+            mr.id AS id,
+            r.`name` AS `name`,
+            r.method AS method,
+            r.url AS url,
+            r.description AS description,
+            mr.create_time AS create_time
+        FROM
+            tb_module_resource mr
+                LEFT JOIN tb_resource r ON mr.resource_id = r.id
+        WHERE
+            mr.module_id = #{moduleResourceQuery.moduleId}
+        <if test="null != moduleResourceQuery.dataRange and 2 == moduleResourceQuery.dataRange.size">
+            AND mr.create_time BETWEEN #{moduleResourceQuery.dataRange[0]} AND #{moduleResourceQuery.dataRange[1]}
+        </if>
+    </select>
 </mapper>

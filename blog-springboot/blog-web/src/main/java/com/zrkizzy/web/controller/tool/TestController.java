@@ -41,6 +41,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -80,6 +81,7 @@ public class TestController {
             moduleResource.setId(snowFlakeUtil.nextId());
             moduleResource.setModuleId(1636182933754609665L);
             moduleResource.setResourceId(resource.getId());
+            moduleResource.setCreateTime(LocalDateTime.now());
             moduleResourceMapper.insert(moduleResource);
         }
         return "Hello, World!";

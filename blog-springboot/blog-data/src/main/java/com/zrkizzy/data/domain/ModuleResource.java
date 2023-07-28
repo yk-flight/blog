@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 资源模块关联实体类
@@ -39,5 +40,11 @@ public class ModuleResource implements Serializable {
      */
     @ApiModelProperty(value = "资源主键")
     private Long resourceId;
+
+    /**
+     * 添加时间
+     */
+    @ApiModelProperty(value = "添加时间")
+    private LocalDateTime createTime;
 
 }
