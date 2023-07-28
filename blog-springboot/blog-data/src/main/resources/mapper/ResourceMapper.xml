@@ -10,18 +10,18 @@
         <result column="url" property="url" />
         <result column="method" property="method" />
         <result column="description" property="description" />
-        <result column="module_id" property="moduleId" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
 
     <!-- 资源角色映射集合 -->
     <resultMap id="ResourceRoles" type="com.zrkizzy.data.dto.ResourceRoleDTO">
-        <result property="url" column="url" />
-        <result property="method" column="method" />
-        <result property="moduleId" column="moduleId" />
+        <result column="url" property="url" />
+        <result column="method" property="method" />
+        <result column="module_id" property="moduleId" />
+        <result column="description" property="description" />
         <collection property="roles" ofType="java.lang.String">
-            <result column="roleMark" />
+            <result column="role_mark" />
         </collection>
     </resultMap>
 
@@ -30,12 +30,14 @@
         SELECT
             res.method AS method,
             res.url AS url,
-            res.module_id AS moduleId,
-            r.mark AS roleMark
+            res.description AS description,
+            mr.module_id AS module_id,
+            r.mark AS role_mark
         FROM
             tb_resource res
-            LEFT JOIN tb_module_role mr ON res.module_id = mr.module_id
-            LEFT JOIN tb_role r ON mr.role_id = r.id
+                LEFT JOIN tb_module_resource mres ON res.id = mres.resource_id
+                LEFT JOIN tb_module_role mr ON mres.module_id = mr.module_id
+                LEFT JOIN tb_role r ON mr.role_id = r.id
     </select>
 
 </mapper>

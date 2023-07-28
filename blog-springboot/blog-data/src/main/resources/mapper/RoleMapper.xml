@@ -73,4 +73,15 @@
         SELECT COUNT(id) FROM tb_role WHERE mark = #{mark}
     </select>
 
+    <!-- 角色选项 -->
+    <resultMap id="roleOptions" type="com.zrkizzy.common.base.response.OptionsVO">
+        <id column="id" property="value" />
+        <result column="name" property="label" />
+    </resultMap>
+
+    <!-- 获取所有角色选项 -->
+    <select id="listRoleOptions" resultMap="roleOptions">
+        SELECT id, name FROM tb_role
+    </select>
+
 </mapper>

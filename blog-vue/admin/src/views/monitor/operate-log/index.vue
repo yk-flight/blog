@@ -97,8 +97,9 @@
         <el-table-column type="selection" width="50" align="center" />
         <!-- 操作模块 -->
         <el-table-column prop="moduleName" label="操作模块" align="center" v-if="columns[0].visible"></el-table-column>
+        <el-table-column prop="operateContent" label="操作内容" align="center" v-if="columns[1].visible" show-overflow-tooltip></el-table-column>
         <!-- 操作类型 -->
-        <el-table-column prop="type" label="操作类型" align="center" v-if="columns[1].visible">
+        <el-table-column prop="type" label="操作类型" align="center" v-if="columns[2].visible">
           <template slot-scope="scope">
             <el-tag type="success" v-if="scope.row.type === 1">新增</el-tag>
             <el-tag type="primary" v-else-if="scope.row.type == 2">修改</el-tag>
@@ -108,7 +109,7 @@
           </template>
         </el-table-column>
         <!-- 请求类型 -->
-        <el-table-column prop="requestMethod" label="请求类型" align="center" v-if="columns[2].visible">
+        <el-table-column prop="requestMethod" label="请求类型" align="center" v-if="columns[3].visible">
           <template slot-scope="scope">
             <el-tag type="primary" v-if="scope.row.requestMethod === 'POST'">POST</el-tag>
             <el-tag type="success" v-else-if="scope.row.requestMethod === 'GET'">GET</el-tag>
@@ -117,25 +118,25 @@
           </template>
         </el-table-column>
         <!-- 操作用户 -->
-        <el-table-column prop="nickname" label="操作用户" align="center" v-if="columns[3].visible"></el-table-column>
+        <el-table-column prop="nickname" label="操作用户" align="center" v-if="columns[4].visible"></el-table-column>
         <!-- 操作IP -->
-        <el-table-column prop="operateIp" label="操作IP" align="center" v-if="columns[4].visible"></el-table-column>
+        <el-table-column prop="operateIp" label="操作IP" align="center" v-if="columns[5].visible"></el-table-column>
         <!-- 操作地址 -->
-        <el-table-column prop="operateLocation" label="操作地址" align="center" v-if="columns[5].visible"></el-table-column>
+        <el-table-column prop="operateLocation" label="操作地址" align="center" v-if="columns[6].visible"></el-table-column>
         <!-- 操作状态 -->
-        <el-table-column prop="status" label="操作状态" align="center" v-if="columns[6].visible">
+        <el-table-column prop="status" label="操作状态" align="center" v-if="columns[7].visible">
           <template slot-scope="scope">
             <el-tag type="success" v-if="scope.row.status">成功</el-tag>
             <el-tag type="danger" v-else>失败</el-tag>
           </template>
         </el-table-column>
         <!-- 操作消耗时间 -->
-        <el-table-column prop="costTime" label="请求耗时" align="center" v-if="columns[7].visible" sortable>
+        <el-table-column prop="costTime" label="请求耗时" align="center" v-if="columns[8].visible" sortable>
           <template slot-scope="scope">
             <span>{{ scope.row.costTime }}ms</span>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="操作时间" align="center" width="180" v-if="columns[8].visible">
+        <el-table-column prop="createTime" label="操作时间" align="center" width="180" v-if="columns[9].visible">
           <template slot-scope="scope">
             <span>{{ scope.row.createTime | dateFilter }}</span>
           </template>
@@ -178,6 +179,9 @@
               </el-col>
               <el-col :span="12">
                 <el-form-item label="操作地址：">{{ formData.operateIp }} / {{ formData.operateLocation }}</el-form-item>
+              </el-col>
+              <el-col :span="24">
+                <el-form-item label="操作内容：">{{ formData.operateContent }}</el-form-item>
               </el-col>
               <el-col :span="24">
                 <el-form-item label="操作方法：">{{ formData.methodName }}</el-form-item>
@@ -285,21 +289,23 @@ export default {
       columns: [
         // 模块ID
         { key: 0, label: '操作模块', visible: true },
+        // 操作内容
+        { key: 1, label: '操作内容', visible: true },
         // 操作类型
-        { key: 1, label: '操作类型', visible: true },
+        { key: 2, label: '操作类型', visible: true },
         // 请求类型
-        { key: 2, label: '请求类型', visible: true },
+        { key: 3, label: '请求类型', visible: true },
         // 用户ID
-        { key: 3, label: '操作用户', visible: true },
+        { key: 4, label: '操作用户', visible: true },
         // 操作IP
-        { key: 4, label: '操作IP', visible: true },
+        { key: 5, label: '操作IP', visible: true },
         // 操作地址
-        { key: 5, label: '操作地址', visible: true },
+        { key: 6, label: '操作地址', visible: true },
         // 操作状态
-        { key: 6, label: '操作状态', visible: true },
+        { key: 7, label: '操作状态', visible: true },
         // 操作消耗时间
-        { key: 7, label: '请求耗时', visible: true },
-        { key: 8, label: '操作时间', visible: true }
+        { key: 8, label: '请求耗时', visible: true },
+        { key: 9, label: '操作时间', visible: true }
       ],
       // 表格数据
       tableData: [],

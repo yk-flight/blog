@@ -11,16 +11,20 @@ import com.zrkizzy.common.utils.JsonUtil;
 import com.zrkizzy.common.utils.ServletUtil;
 import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.data.domain.OperateLog;
-import com.zrkizzy.data.mapper.OperateLogMapper;
 import com.zrkizzy.security.util.SecurityUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageProperties;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+
+import static com.zrkizzy.common.constant.RabbitMqConst.*;
 
 /**
  * 操作日志AOP切面
@@ -39,7 +43,7 @@ public class OperateLogAspect {
     private SnowFlakeUtil snowFlakeUtil;
 
     @Autowired
-    private OperateLogMapper operateLogLogMapper;
+    private RabbitTemplate rabbitTemplate;
 
     /**
      * 声明切入点位置
@@ -127,9 +131,11 @@ public class OperateLogAspect {
             operateLog.setId(snowFlakeUtil.nextId());
             // 请求所属模块ID
             operateLog.setModuleId(SystemContext.getModuleId());
+            // 操作内容
+            operateLog.setOperateContent(SystemContext.getOperateContent());
 
-            // 添加当前操作信息到数据库中
-            operateLogLogMapper.insert(operateLog);
+            // 添加当前操作信息推送到MQ中
+            rabbitTemplate.convertAndSend(OPERATE_LOG_EXCHANGE, OPERATE_LOG_ROUTING, new Message(JSON.toJSONBytes(operateLog), new MessageProperties()));
 
         } catch (Exception exp) {
             exp.printStackTrace();

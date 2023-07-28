@@ -69,18 +69,23 @@ public enum HttpStatusEnum {
     ROLE_MARK_EXIST(1002, "角色标识已存在"),
     ROLE_NOT_ACTION(1003, "不允许操作最高权限角色数据"),
     ROLE_ALLOCATION_ERROR(1004, "角色分配失败，请联系管理员"),
+    NOT_DELETE_ADMIN(1005, "管理员不可以被删除"),
+    NOT_EDIT_ADMIN(1006, "管理员不可以被编辑"),
     USER_NOT_FOUND(2000, "用户未登录或登录已过期"),
     USER_EXIST(2001, "用户已存在"),
     USER_NOT_EXIST(2002, "用户不存在"),
-    USER_ENABLE(2003, "当前用户已禁用"),
-    PASSWORD_ERROR(2004, "密码错误"),
-    USERNAME_REPEAT(2005, "用户名重复，当前用户名已存在"),
-    PASSWORD_SAME(2006, "新密码不能与旧密码相同"),
-    PASSWORD_UPDATE_ERROR(2007, "密码更新失败"),
+    USER_NOT_ROLE(2003, "当前用户为分配角色"),
+    USER_ENABLE(2004, "当前用户已禁用"),
+    PASSWORD_ERROR(2005, "密码错误"),
+    USERNAME_REPEAT(2006, "用户名重复，当前用户名已存在"),
+    PASSWORD_SAME(2007, "新密码不能与旧密码相同"),
+    PASSWORD_UPDATE_ERROR(2008, "密码更新失败"),
     FILE_EXIST_ERROR(3000, "当前文件已经存在，请勿重复上传"),
     FILE_UPLOAD_ERROR(3001, "文件上传失败"),
     FILE_SELECT_ERROR(3002, "请选择要删除的文件"),
-    FILE_DELETE_ERROR(3003, "文件删除失败");
+    FILE_DELETE_ERROR(3003, "文件删除失败"),
+    LOGIN_SAVE_ERROR(3004, "登录日志保存出错"),
+    OPERATE_SAVE_ERROR(3005, "操作日志保存出错");
 
     /**
      * 状态码

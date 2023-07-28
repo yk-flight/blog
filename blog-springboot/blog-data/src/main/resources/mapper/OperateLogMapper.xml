@@ -5,6 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.OperateLog">
         <id column="id" property="id" />
+        <result column="operate_content" property="operateContent" />
         <result column="module_id" property="moduleId" />
         <result column="type" property="type" />
         <result column="method_name" property="methodName" />
@@ -22,7 +23,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, module_id, `type`, method_name, request_method, user_id, operate_ip, operate_location, operate_param, operate_result, status, cost_time, create_time, update_time
+        id, operate_content, module_id, `type`, method_name, request_method, user_id, operate_ip, operate_location, operate_param, operate_result, status, cost_time, create_time, update_time
     </sql>
 
     <!-- 清空操作日志 -->
@@ -32,6 +33,7 @@
 
     <resultMap id="operateLogVo" type="com.zrkizzy.data.vo.OperateLogVO">
         <id column="id" property="id" />
+        <result column="operate_content" property="operateContent" />
         <result column="module_name" property="moduleName" />
         <result column="type" property="type" />
         <result column="method_name" property="methodName" />
@@ -50,6 +52,7 @@
     <select id="listOperateLog" resultMap="operateLogVo">
         SELECT
             o.id AS id,
+            o.operate_content AS operate_content,
             m.name AS module_name,
             o.`type` AS `type`,
             o.method_name AS method_name,
@@ -79,7 +82,7 @@
             <if test="null != operateLogQuery.type">
                 AND o.type = #{operateLogQuery.type}
             </if>
-            <if test="null != operateLogQuery.type and '' != operateLogQuery.requestMethod">
+            <if test="null != operateLogQuery.requestMethod and '' != operateLogQuery.requestMethod">
                 AND o.request_method = #{operateLogQuery.requestMethod}
             </if>
             <if test="null != operateLogQuery.status">

@@ -18,6 +18,11 @@ import lombok.ToString;
 public class OperateLogVO extends BaseVO {
 
     /**
+     * 操作内容
+     */
+    private String operateContent;
+
+    /**
      * 模块名称
      */
     private String moduleName;

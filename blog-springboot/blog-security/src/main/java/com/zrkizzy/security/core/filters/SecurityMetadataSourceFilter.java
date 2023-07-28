@@ -71,6 +71,7 @@ public class SecurityMetadataSourceFilter implements FilterInvocationSecurityMet
             if (antPathMatcher.match(resourceRoleDTO.getUrl(), requestUrl) && resourceRoleDTO.getMethod().equals(method)) {
                 // 将当前请求的模块ID添加到全局线程变量中
                 SystemContext.setModuleId(resourceRoleDTO.getModuleId());
+                SystemContext.setOperateContent(resourceRoleDTO.getDescription());
 //                log.info("开始对当前请求：{} 进行授权", resourceRoleDTO.getUrl());
 //                log.info("授予的角色集合为： {}", Arrays.toString(resourceRoleDTO.getRoles().toArray()));
                 return SecurityConfig.createList(resourceRoleDTO.getRoles().toArray(new String[]{}));

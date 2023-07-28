@@ -39,6 +39,7 @@
         <result column="status" property="status" />
         <result column="remark" property="remark" />
         <result column="roles" property="roles" />
+        <result column="role_id" property="roleId" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
@@ -123,6 +124,7 @@
             avatar,
             status,
             remark,
+            r.id AS role_id,
             r.mark AS roles,
             u.create_time AS create_time,
             u.update_time AS update_time

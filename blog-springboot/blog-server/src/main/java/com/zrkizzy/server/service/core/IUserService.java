@@ -101,4 +101,12 @@ public interface IUserService {
      * @return 是否重置成功
      */
     Boolean resetPassword(Long id);
+
+    /**
+     * 批量删除用户
+     *
+     * @param ids 用户集合
+     * @return 是否删除成功
+     */
+    Boolean delete(List<Long> ids);
 }

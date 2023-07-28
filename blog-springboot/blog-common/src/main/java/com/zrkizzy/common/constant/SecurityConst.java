@@ -13,14 +13,14 @@ public class SecurityConst {
     public static final String ADMIN = "ROLE_ADMIN";
 
     /**
+     * 管理员默认ID
+     */
+    public static final Long ADMIN_ID = 1000000000000000000L;
+
+    /**
      * 角色标识前缀
      */
     public static final String ROLE_PREFIX = "ROLE_";
-
-    /**
-     * 管理员默认ID
-     */
-    public static final Long ROLE_ID = 1000000000000000000L;
 
     /**
      * 新用户默认密码

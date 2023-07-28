@@ -52,10 +52,11 @@ public class ${entityName}Controller {
     }
             
     @ApiOperation("添加-更新${objectName}") 
-    @PostMapping("/save") 
-    public Result<?> save${entityName}(@RequestBody ${entityName}DTO ${entityLowerName}DTO) {
+    @PostMapping("/save")
+    <#assign B = "Boolean">
+    public Result<${B}> save${entityName}(@RequestBody ${entityName}DTO ${entityLowerName}DTO) {
         // 保存${objectName}数据
-        return ${entityLowerName}Service.save${entityName}(${entityLowerName}DTO); 
+        return Result.success(${entityLowerName}Service.save${entityName}(${entityLowerName}DTO));
     }
 
     @ApiOperation("获取指定${objectName}信息")
