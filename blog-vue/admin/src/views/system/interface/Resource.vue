@@ -217,9 +217,9 @@ export default {
         // 资源描述
         { key: 1, label: '资源描述', visible: true },
         // 资源请求方式
-        { key: 2, label: '资源请求方式', visible: true },
+        { key: 2, label: '请求方式', visible: true },
         // 资源请求路径
-        { key: 3, label: '资源请求路径', visible: true },
+        { key: 3, label: '请求路径', visible: true },
         { key: 4, label: '创建时间', visible: true },
         { key: 5, label: '更新时间', visible: true }
       ],
