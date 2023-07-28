@@ -1,155 +1,155 @@
 <template>
-    <div class="page-container">
-      <div class="card">
-      <page-title :title="title"></page-title>
-        <el-row class="search-container" type="flex">
-          <el-col :span="24" :xs="24">
-            <el-form size="small" :inline="true" v-show="showSearch" label-width="68px" :model="queryParams" ref="queryForm">
+  <div class="page-container">
+    <div class="card">
+    <page-title :title="title"></page-title>
+      <el-row class="search-container" type="flex">
+        <el-col :span="24" :xs="24">
+          <el-form size="small" :inline="true" v-show="showSearch" label-width="68px" :model="queryParams" ref="queryForm">
 
-              <el-form-item label="资源名称">
-                <el-input v-model="queryParams.name" class="search-item" placeholder="请输入资源名称" size="small" clearable></el-input>
-              </el-form-item>
+            <el-form-item label="资源名称">
+              <el-input v-model="queryParams.name" class="search-item" placeholder="请输入资源名称" size="small" clearable></el-input>
+            </el-form-item>
 
-              <el-form-item label="请求方式">
-                <el-select v-model="queryParams.method" placeholder="请选择请求类型" size="small" class="search-item" clearable>
-                  <el-option
-                    v-for="item in requestOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                  </el-option>
-                </el-select>
-              </el-form-item>
+            <el-form-item label="请求方式">
+              <el-select v-model="queryParams.method" placeholder="请选择请求类型" size="small" class="search-item" clearable>
+                <el-option
+                  v-for="item in requestOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
 
-              <el-form-item label="请求路径">
-                <el-input v-model="queryParams.url" class="search-item" placeholder="请求路径" size="small" clearable></el-input>
-              </el-form-item>
-              <!-- 创建时间 -->
-              <el-form-item label="创建时间" size="small">
-                <el-date-picker
-                  v-model="queryParams.dataRange"
-                  class="search-item"
-                  value-format="yyyy-MM-dd"
-                  type="daterange"
-                  range-separator="-"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期"
-                ></el-date-picker>
-              </el-form-item>
-              <!-- 搜索按钮 -->
-              <el-form-item>
-                <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-                <el-button icon="el-icon-refresh" size="mini" @click="handleReset">重置</el-button>
-              </el-form-item>
-            </el-form>
-          </el-col>
-        </el-row>
-        <el-row :gutter="10" class="button-container">
-          <el-col :span="1.5">
-            <el-button type="warning" icon="el-icon-download" size="mini">导出接口</el-button>
-          </el-col>
-          <right-toolbar :showSearch.sync="showSearch" :columns="columns" @getTableData="getTableData"></right-toolbar>
-        </el-row>
-
-        <el-table v-loading="loading" element-loading-text="正在加载表格数据" :data="tableData" border>
-          <template slot="empty">
-            <el-empty :image-size="200"></el-empty>
-          </template>
-          <el-table-column label="序号" type="index" align="center" />
-          <!-- 资源名称 -->
-          <el-table-column prop="name" label="资源名称" align="center" v-if="columns[0].visible" show-overflow-tooltip></el-table-column>
-          <!-- 资源描述 -->
-          <el-table-column prop="description" label="资源描述" align="center" v-if="columns[1].visible" show-overflow-tooltip></el-table-column>
-          <!-- 资源请求方式 -->
-          <el-table-column prop="method" label="请求方式" align="center" v-if="columns[2].visible">
-            <template slot-scope="scope">
-              <el-tag type="primary" v-if="scope.row.method === 'POST'">POST</el-tag>
-              <el-tag type="success" v-else-if="scope.row.method === 'GET'">GET</el-tag>
-              <el-tag type="warning" v-else-if="scope.row.method === 'PUT'">PUT</el-tag>
-              <el-tag type="danger" v-else>DELETE</el-tag>
-            </template>
-          </el-table-column>
-          <!-- 资源请求路径 -->
-          <el-table-column prop="url" label="请求路径" align="center" v-if="columns[3].visible"></el-table-column>
-          <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[4].visible">
-            <template slot-scope="scope">
-              <span>{{ scope.row.createTime | dateFilter }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="updateTime" label="更新时间" align="center" v-if="columns[5].visible">
-            <template slot-scope="scope">
-              <span>{{ scope.row.updateTime | dateFilter }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="操作"  align="center">
-            <template slot-scope="scope">
-              <el-button type="text" size="small" icon="el-icon-edit" @click="handleUpdate(scope.row)">编辑</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-
-        <!-- 分页器 -->
-        <pagination
-          :background="false"
-          :total="total"
-          :page.sync="queryParams.currentPage"
-          :limit.sync="queryParams.pageSize"
-          @pagination="getTableData"
-        />
-      </div>
-
-      <!-- 资源信息对话框 -->
-      <el-dialog
-        title="编辑资源"
-        width="500px"
-        :modal-append-to-body="true"
-        :append-to-body="true"
-        :close-on-click-modal="false"
-        :visible="resourceVisible"
-        :before-close="handleClose">
-        <div class="resource-wrapper" v-loading="resourceLoading" element-loading-text="正在加载资源信息">
-          <el-form ref="resourceForm" :model="formData" :rules="rules" label-width="80px" label-position="right">
-            <el-row :gutter="15">
-              <!-- 资源名称 -->
-              <el-form-item label="资源名称" prop="name">
-                <el-input v-model="formData.name" placeholder="请输入资源名称" clearable></el-input>
-              </el-form-item>
-              <!-- 资源描述 -->
-              <el-form-item label="资源描述" prop="description">
-                <el-input type="textarea" v-model="formData.description" placeholder="请输入资源描述" clearable></el-input>
-              </el-form-item>
-              <!-- 资源请求方式 -->
-              <el-form-item label="请求方式" prop="method">
-                <el-input v-model="formData.method" disabled></el-input>
-              </el-form-item>
-              <!-- 资源请求路径 -->
-              <el-form-item label="请求路径" prop="url">
-                <el-input v-model="formData.url" disabled></el-input>
-              </el-form-item>
-            </el-row>
+            <el-form-item label="请求路径">
+              <el-input v-model="queryParams.url" class="search-item" placeholder="请求路径" size="small" clearable></el-input>
+            </el-form-item>
+            <!-- 创建时间 -->
+            <el-form-item label="创建时间" size="small">
+              <el-date-picker
+                v-model="queryParams.dataRange"
+                class="search-item"
+                value-format="yyyy-MM-dd"
+                type="daterange"
+                range-separator="-"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
+              ></el-date-picker>
+            </el-form-item>
+            <!-- 搜索按钮 -->
+            <el-form-item>
+              <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+              <el-button icon="el-icon-refresh" size="mini" @click="handleReset">重置</el-button>
+            </el-form-item>
           </el-form>
-        </div>
-        <div slot="footer">
-          <el-button
-            type="danger"
-            :loading="buttonLoading"
-            @click="handleClose()"
-            size="small"
-            icon="el-icon-error">
-            取消
-          </el-button>
-          <el-button
-            type="success"
-            :loading="buttonLoading"
-            @click="submitForm()"
-            size="small"
-            icon="el-icon-success">
-            保存
-          </el-button>
-        </div>
-      </el-dialog>
+        </el-col>
+      </el-row>
+      <el-row :gutter="10" class="button-container">
+        <el-col :span="1.5">
+          <el-button type="warning" icon="el-icon-download" size="mini">导出接口</el-button>
+        </el-col>
+        <right-toolbar :showSearch.sync="showSearch" :columns="columns" @getTableData="getTableData"></right-toolbar>
+      </el-row>
+
+      <el-table v-loading="loading" element-loading-text="正在加载表格数据" :data="tableData" border>
+        <template slot="empty">
+          <el-empty :image-size="200"></el-empty>
+        </template>
+        <el-table-column label="序号" type="index" align="center" />
+        <!-- 资源名称 -->
+        <el-table-column prop="name" label="资源名称" align="center" v-if="columns[0].visible" show-overflow-tooltip></el-table-column>
+        <!-- 资源描述 -->
+        <el-table-column prop="description" label="资源描述" align="center" v-if="columns[1].visible" show-overflow-tooltip></el-table-column>
+        <!-- 资源请求方式 -->
+        <el-table-column prop="method" label="请求方式" align="center" v-if="columns[2].visible">
+          <template slot-scope="scope">
+            <el-tag type="primary" v-if="scope.row.method === 'POST'">POST</el-tag>
+            <el-tag type="success" v-else-if="scope.row.method === 'GET'">GET</el-tag>
+            <el-tag type="warning" v-else-if="scope.row.method === 'PUT'">PUT</el-tag>
+            <el-tag type="danger" v-else>DELETE</el-tag>
+          </template>
+        </el-table-column>
+        <!-- 资源请求路径 -->
+        <el-table-column prop="url" label="请求路径" align="center" v-if="columns[3].visible"></el-table-column>
+        <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[4].visible">
+          <template slot-scope="scope">
+            <span>{{ scope.row.createTime | dateFilter }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="updateTime" label="更新时间" align="center" v-if="columns[5].visible">
+          <template slot-scope="scope">
+            <span>{{ scope.row.updateTime | dateFilter }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作"  align="center">
+          <template slot-scope="scope">
+            <el-button type="text" size="small" icon="el-icon-edit" @click="handleUpdate(scope.row)">编辑</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <!-- 分页器 -->
+      <pagination
+        :background="false"
+        :total="total"
+        :page.sync="queryParams.currentPage"
+        :limit.sync="queryParams.pageSize"
+        @pagination="getTableData"
+      />
     </div>
-  </template>
+
+    <!-- 资源信息对话框 -->
+    <el-dialog
+      title="编辑资源"
+      width="500px"
+      :modal-append-to-body="true"
+      :append-to-body="true"
+      :close-on-click-modal="false"
+      :visible="resourceVisible"
+      :before-close="handleClose">
+      <div class="resource-wrapper" v-loading="resourceLoading" element-loading-text="正在加载资源信息">
+        <el-form ref="resourceForm" :model="formData" :rules="rules" label-width="80px" label-position="right">
+          <el-row :gutter="15">
+            <!-- 资源名称 -->
+            <el-form-item label="资源名称" prop="name">
+              <el-input v-model="formData.name" placeholder="请输入资源名称" clearable></el-input>
+            </el-form-item>
+            <!-- 资源描述 -->
+            <el-form-item label="资源描述" prop="description">
+              <el-input type="textarea" v-model="formData.description" placeholder="请输入资源描述" clearable></el-input>
+            </el-form-item>
+            <!-- 资源请求方式 -->
+            <el-form-item label="请求方式" prop="method">
+              <el-input v-model="formData.method" disabled></el-input>
+            </el-form-item>
+            <!-- 资源请求路径 -->
+            <el-form-item label="请求路径" prop="url">
+              <el-input v-model="formData.url" disabled></el-input>
+            </el-form-item>
+          </el-row>
+        </el-form>
+      </div>
+      <div slot="footer">
+        <el-button
+          type="danger"
+          :loading="buttonLoading"
+          @click="handleClose()"
+          size="small"
+          icon="el-icon-error">
+          取消
+        </el-button>
+        <el-button
+          type="success"
+          :loading="buttonLoading"
+          @click="submitForm()"
+          size="small"
+          icon="el-icon-success">
+          保存
+        </el-button>
+      </div>
+    </el-dialog>
+  </div>
+</template>
 <script>
 import PageTitle from '../../../components/PageTitle/index.vue'
 import Pagination from '../../../components/Pagination/index.vue'

@@ -52,3 +52,46 @@ export const deleteModule = (data) => {
     data: data
   })
 }
+
+/**
+ * 获取资源模块关联列表
+ */
+export const listModuleResources = (data) => {
+  return request({
+    url: '/admin/module-resource/list',
+    method: 'POST',
+    data: data
+  })
+}
+
+/**
+ * 新增/更新资源模块关联信息
+ */
+export const saveModuleResource = (data) => {
+  return request({
+    url: '/admin/module-resource/save',
+    method: 'POST',
+    data: data
+  })
+}
+
+/**
+ * 获取指定资源模块关联信息
+ */
+export const getModuleResourceById = (id) => {
+  return request({
+    url: `/admin/module-resource/getModuleResourceById/${id}`,
+    method: 'GET'
+  })
+}
+
+/**
+ * 批量删除资源模块关联信息
+ */
+export const deleteModuleResource = (data) => {
+  return request({
+    url: '/admin/module-resource/delete',
+    method: 'DELETE',
+    data: data
+  })
+}
