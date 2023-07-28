@@ -84,7 +84,7 @@ export const constantRoutes = [
     path: '/interface',
     component: () => import('../layout/index.vue'),
     hidden: true,
-    redirect: 'Redirect',
+    redirect: 'noRedirect',
     children: [
       {
         path: 'resource',

@@ -5,7 +5,7 @@
       <el-row class="search-container" type="flex">
         <el-col :span="24" :xs="24">
           <el-form size="small" :inline="true" v-show="showSearch" label-width="68px" :model="queryParams" ref="queryForm">
-                        <!-- 创建时间 -->
+            <!-- 创建时间 -->
             <el-form-item label="创建时间" size="small">
               <el-date-picker
                 v-model="queryParams.dataRange"
@@ -45,18 +45,24 @@
           <el-empty :image-size="200"></el-empty>
         </template>
         <el-table-column type="selection" width="50" align="center" />
-        <!-- 模块主键 -->
-        <el-table-column prop="moduleId" label="模块主键" align="center" v-if="columns[0].visible"></el-table-column>
-        <!-- 资源主键 -->
-        <el-table-column prop="resourceId" label="资源主键" align="center" v-if="columns[1].visible"></el-table-column>
-        <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[2].visible">
+        <!-- 资源名称 -->
+        <el-table-column prop="name" label="资源名称" align="center" v-if="columns[0].visible" show-overflow-tooltip></el-table-column>
+        <!-- 资源描述 -->
+        <el-table-column prop="description" label="资源描述" align="center" v-if="columns[1].visible" show-overflow-tooltip></el-table-column>
+        <!-- 资源请求方式 -->
+        <el-table-column prop="method" label="请求方式" align="center" v-if="columns[2].visible">
           <template slot-scope="scope">
-            <span>{{ scope.row.createTime | dateFilter }}</span>
+            <el-tag type="primary" v-if="scope.row.method === 'POST'">POST</el-tag>
+            <el-tag type="success" v-else-if="scope.row.method === 'GET'">GET</el-tag>
+            <el-tag type="warning" v-else-if="scope.row.method === 'PUT'">PUT</el-tag>
+            <el-tag type="danger" v-else>DELETE</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="updateTime" label="更新时间" align="center" v-if="columns[3].visible">
+        <!-- 资源请求路径 -->
+        <el-table-column prop="url" label="请求路径" align="center" v-if="columns[3].visible"></el-table-column>
+        <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[4].visible">
           <template slot-scope="scope">
-            <span>{{ scope.row.updateTime | dateFilter }}</span>
+            <span>{{ scope.row.createTime | dateFilter }}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作"  align="center">
@@ -150,6 +156,8 @@ export default {
         currentPage: 1,
         // 页面大小
         pageSize: 10,
+        // 模块ID
+        moduleId: '',
         // 时间范围
         dataRange: []
       },
@@ -169,12 +177,15 @@ export default {
       buttonLoading: false,
       // 列信息
       columns: [
-        // 模块主键
-        { key: 0, label: '模块主键', visible: true },
-        // 资源主键
-        { key: 1, label: '资源主键', visible: true },
-        { key: 2, label: '创建时间', visible: true },
-        { key: 3, label: '更新时间', visible: true }
+        // 资源名称
+        { key: 0, label: '资源名称', visible: true },
+        // 资源描述
+        { key: 1, label: '资源描述', visible: true },
+        // 资源请求方式
+        { key: 2, label: '请求方式', visible: true },
+        // 资源请求路径
+        { key: 3, label: '请求路径', visible: true },
+        { key: 4, label: '创建时间', visible: true }
       ],
       // 表格数据
       tableData: [],
@@ -205,6 +216,8 @@ export default {
   methods: {
     // 获取表格数据
     getTableData () {
+      // 赋值当前模块ID
+      this.queryParams.moduleId = this.$route.params.id
       // 开启加载框
       this.loading = true
       listModuleResources(this.queryParams).then((res) => {

@@ -5,19 +5,7 @@
       <el-row class="search-container" type="flex">
         <el-col :span="24" :xs="24">
           <el-form size="small" :inline="true" v-show="showSearch" label-width="68px" :model="queryParams" ref="queryForm">
-            
-            <el-form-item label="资源名称">
-              <el-input v-model="queryParams.name" class="search-item" placeholder="请输入资源名称" size="small" clearable></el-input>
-            </el-form-item>
-
-            <el-form-item label="资源请求方式">
-              <el-input v-model="queryParams.method" class="search-item" placeholder="请输入资源请求方式" size="small" clearable></el-input>
-            </el-form-item>
-
-            <el-form-item label="资源请求路径">
-              <el-input v-model="queryParams.url" class="search-item" placeholder="请输入资源请求路径" size="small" clearable></el-input>
-            </el-form-item>
-            <!-- 创建时间 -->
+                        <!-- 创建时间 -->
             <el-form-item label="创建时间" size="small">
               <el-date-picker
                 v-model="queryParams.dataRange"
@@ -57,20 +45,16 @@
           <el-empty :image-size="200"></el-empty>
         </template>
         <el-table-column type="selection" width="50" align="center" />
-        <!-- 资源名称 -->
-        <el-table-column prop="name" label="资源名称" align="center" v-if="columns[0].visible"></el-table-column>
-        <!-- 资源描述 -->
-        <el-table-column prop="description" label="资源描述" align="center" v-if="columns[1].visible"></el-table-column>
-        <!-- 资源请求方式 -->
-        <el-table-column prop="method" label="资源请求方式" align="center" v-if="columns[2].visible"></el-table-column>
-        <!-- 资源请求路径 -->
-        <el-table-column prop="url" label="资源请求路径" align="center" v-if="columns[3].visible"></el-table-column>
-        <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[4].visible">
+        <!-- 模块主键 -->
+        <el-table-column prop="moduleId" label="模块主键" align="center" v-if="columns[0].visible"></el-table-column>
+        <!-- 资源主键 -->
+        <el-table-column prop="resourceId" label="资源主键" align="center" v-if="columns[1].visible"></el-table-column>
+        <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[2].visible">
           <template slot-scope="scope">
             <span>{{ scope.row.createTime | dateFilter }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="updateTime" label="更新时间" align="center" v-if="columns[5].visible">
+        <el-table-column prop="updateTime" label="更新时间" align="center" v-if="columns[3].visible">
           <template slot-scope="scope">
             <span>{{ scope.row.updateTime | dateFilter }}</span>
           </template>
@@ -93,33 +77,25 @@
       />
     </div>
 
-    <!-- 资源信息对话框 -->
+    <!-- 资源模块关联信息对话框 -->
     <el-dialog
-      :title="resourceTitle"
+      :title="moduleResourceTitle"
       width="500px"
       :modal-append-to-body="true"
       :append-to-body="true"
       :close-on-click-modal="false"
-      :visible="resourceVisible"
+      :visible="moduleResourceVisible"
       :before-close="handleClose">
-      <div class="resource-wrapper" v-loading="resourceLoading" element-loading-text="正在加载资源信息">
-        <el-form ref="resourceForm" :model="formData" :rules="rules" label-width="80px" label-position="right">
+      <div class="moduleResource-wrapper" v-loading="moduleResourceLoading" element-loading-text="正在加载资源模块关联信息">
+        <el-form ref="moduleResourceForm" :model="formData" :rules="rules" label-width="80px" label-position="right">
           <el-row :gutter="15">
-            <!-- 资源名称 -->
-            <el-form-item label="资源名称" prop="name">
-              <el-input v-model="formData.name" placeholder="请输入资源名称" clearable></el-input>
+            <!-- 模块主键 -->
+            <el-form-item label="模块主键" prop="moduleId">
+              <el-input v-model="formData.moduleId" placeholder="请输入模块主键" clearable></el-input>
             </el-form-item>
-            <!-- 资源描述 -->
-            <el-form-item label="资源描述" prop="description">
-              <el-input v-model="formData.description" placeholder="请输入资源描述" clearable></el-input>
-            </el-form-item>
-            <!-- 资源请求方式 -->
-            <el-form-item label="资源请求方式" prop="method">
-              <el-input v-model="formData.method" placeholder="请输入资源请求方式" clearable></el-input>
-            </el-form-item>
-            <!-- 资源请求路径 -->
-            <el-form-item label="资源请求路径" prop="url">
-              <el-input v-model="formData.url" placeholder="请输入资源请求路径" clearable></el-input>
+            <!-- 资源主键 -->
+            <el-form-item label="资源主键" prop="resourceId">
+              <el-input v-model="formData.resourceId" placeholder="请输入资源主键" clearable></el-input>
             </el-form-item>
           </el-row>
         </el-form>
@@ -149,10 +125,10 @@
 import PageTitle from '../../../components/PageTitle/index.vue'
 import Pagination from '../../../components/Pagination/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
-import { listResources, saveResource, getResourceById, deleteResource } from '../../../api/resource'
+import { listModuleResources, saveModuleResource, getModuleResourceById, deleteModuleResource } from '../../../api/moduleResource'
 
 export default {
-  name: 'Resource',
+  name: 'ModuleResource',
 
   components: { PageTitle, Pagination, RightToolbar },
 
@@ -164,8 +140,8 @@ export default {
       showSearch: true,
       // 数据总条数
       total: 0,
-      // 资源对话框是否显示
-      resourceVisible: false,
+      // 资源模块关联对话框是否显示
+      moduleResourceVisible: false,
       // 数据表格等待框
       loading: false,
       // 查询参数
@@ -174,51 +150,31 @@ export default {
         currentPage: 1,
         // 页面大小
         pageSize: 10,
-        // 资源名称
-        name: undefined,
-        // 资源请求方式
-        method: undefined,
-        // 资源请求路径
-        url: undefined,
         // 时间范围
         dataRange: []
       },
-      // 资源表单对象
+      // 资源模块关联表单对象
       formData: {
-        // 资源名称
-        name: undefined,
-        // 资源描述
-        description: undefined,
-        // 资源请求方式
-        method: undefined,
-        // 资源请求路径
-        url: undefined,
+        // 模块主键
+        moduleId: undefined,
+        // 资源主键
+        resourceId: undefined,
       },
-      // 资源表单校验规则
+      // 资源模块关联表单校验规则
       rules: {
-        // 资源名称
-        name: [{ required: true, message: '请输入资源名称', trigger: 'blur' }],
-        // 资源请求方式
-        method: [{ required: true, message: '请输入资源请求方式', trigger: 'blur' }],
-        // 资源请求路径
-        url: [{ required: true, message: '请输入资源请求路径', trigger: 'blur' }],
       },
-      // 资源对话框等待框
-      resourceLoading: false,
+      // 资源模块关联对话框等待框
+      moduleResourceLoading: false,
       // 对话框按钮等待框
       buttonLoading: false,
       // 列信息
       columns: [
-        // 资源名称
-        { key: 0, label: '资源名称', visible: true },
-        // 资源描述
-        { key: 1, label: '资源描述', visible: true },
-        // 资源请求方式
-        { key: 2, label: '资源请求方式', visible: true },
-        // 资源请求路径
-        { key: 3, label: '资源请求路径', visible: true },
-        { key: 4, label: '创建时间', visible: true },
-        { key: 5, label: '更新时间', visible: true }
+        // 模块主键
+        { key: 0, label: '模块主键', visible: true },
+        // 资源主键
+        { key: 1, label: '资源主键', visible: true },
+        { key: 2, label: '创建时间', visible: true },
+        { key: 3, label: '更新时间', visible: true }
       ],
       // 表格数据
       tableData: [],
@@ -229,7 +185,7 @@ export default {
       // 单数据禁用
       multiple: true,
       // 对话框标题
-      resourceTitle: ''
+      moduleResourceTitle: ''
     }
   },
 
@@ -251,7 +207,7 @@ export default {
     getTableData () {
       // 开启加载框
       this.loading = true
-      listResources(this.queryParams).then((res) => {
+      listModuleResources(this.queryParams).then((res) => {
         // 赋值数据参数
         this.tableData = res.list
         this.total = res.total
@@ -266,63 +222,57 @@ export default {
     },
     // 点击重置按钮
     handleReset () {
-      // 资源名称
-      this.queryParams.name = ''
-      // 资源请求方式
-      this.queryParams.method = ''
-      // 资源请求路径
-      this.queryParams.url = ''
       this.queryParams.dataRange = []
     },
-    // 打开资源信息对话框
+    // 打开资源模块关联信息对话框
     handleOpen () {
       // 清除表单数据
       this.resetForm()
-      this.resourceVisible = true
+      this.moduleResourceVisible = true
     },
-    // 关闭资源对话框表单
+    // 关闭资源模块关联对话框表单
     handleClose () {
       this.resetForm()
-      this.resourceVisible = false
+      this.moduleResourceVisible = false
     },
     // 点击新增按钮
     handleAdd () {
-      this.resourceTitle = '新增资源'
+      this.moduleResourceTitle = '新增资源模块关联'
       this.handleOpen()
     },
     // 点击编辑按钮
     handleUpdate (row) {
       // 修改对话框标题
-      this.resourceTitle = '更新资源'
+      this.moduleResourceTitle = '更新资源模块关联'
       // 获取到传来的ID
-      const resourceId = row.id || this.ids
+      const moduleResourceId = row.id || this.ids
       // 打开加载框
-      this.resourceLoading = true
-      // 根据资源ID获取对应的数据
-      getResourceById(resourceId).then((res) => {
-        // 赋值当前的资源数据
+      this.moduleResourceLoading = true
+      // 根据资源模块关联ID获取对应的数据
+      getModuleResourceById(moduleResourceId).then((res) => {
+        // 赋值当前的资源模块关联数据
         this.formData = res
-        // 打开编辑资源对话框
-        this.resourceVisible = true
+        // 打开编辑资源模块关联对话框
+        this.moduleResourceVisible = true
         // 关闭加载框
-        this.resourceLoading = false
+        this.moduleResourceLoading = false
       })
     },
     // 点击删除事件
     handleDelete (row) {
-      let resourceIds = []
+      let moduleResourceIds = []
       if (row.id) {
-        resourceIds.push(row.id)
+        moduleResourceIds.push(row.id)
       } else {
-        resourceIds = this.ids
+        moduleResourceIds = this.ids
       }
-      console.log(resourceIds)
-      this.$confirm('是否确认删除选中的资源数据？', '提示', {
+      console.log(moduleResourceIds)
+      this.$confirm('是否确认删除选中的资源模块关联数据？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(function () {
-        return deleteResource(resourceIds)
+        return deleteModuleResource(moduleResourceIds)
       }).then(() => {
         this.getTableData()
         this.$message.success('删除成功')
@@ -331,33 +281,33 @@ export default {
     // 提交表单
     submitForm () {
       const that = this
-      this.$refs.resourceForm.validate(valid => {
+      this.$refs.moduleResourceForm.validate(valid => {
         // 校验未通过则直接返回
         if (!valid) return
         // 开启加载框
         that.buttonLoading = true
-        that.resourceLoading = true
+        that.moduleResourceLoading = true
         // 提交表单
-        saveResource(that.formData).then((res) => {
+        saveModuleResource(that.formData).then((res) => {
           // 根据是否存在ID输出对应消息
           if (that.formData.id) {
             // 输出更新成功信息
-            that.$message.success('资源信息更新成功')
+            that.$message.success('资源模块关联信息更新成功')
           } else {
             // 输出添加成功消息
-            that.$message.success('资源添加成功')
+            that.$message.success('资源模块关联添加成功')
           }
           // 刷新表单数据并关闭对话框
           that.handleClose()
-          // 刷新资源数据
+          // 刷新资源模块关联数据
           that.getTableData()
           // 关闭加载框
           that.buttonLoading = false
-          that.resourceLoading = false
+          that.moduleResourceLoading = false
         }).catch(() => {
           // 关闭加载框
           that.buttonLoading = false
-          that.resourceLoading = false
+          that.moduleResourceLoading = false
         })
       })
     },
@@ -365,14 +315,8 @@ export default {
     resetForm () {
       // 清除校验条件
       this.formData = {
-        // 资源ID
+        // 资源模块关联ID
         id: undefined,
-        // 资源名称
-        name: undefined,
-        // 资源请求方式
-        method: undefined,
-        // 资源请求路径
-        url: undefined,
       }
     },
     // 多选框
@@ -390,7 +334,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.resource-wrapper {
+.moduleResource-wrapper {
   padding: 10px 30px;
 }
 .search-item {
