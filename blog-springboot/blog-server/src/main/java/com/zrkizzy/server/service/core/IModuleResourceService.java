@@ -31,4 +31,12 @@ public interface IModuleResourceService {
      */
     List<ResourceTreeVO> listResourceById(Long id);
 
+    /**
+     * 通过模块ID获取当前模块已有的请求资源
+     *
+     * @param moduleId 模块ID
+     * @return 当前模块中已有的资源ID集合
+     */
+    List<Long> listCheckById(Long moduleId);
+
 }

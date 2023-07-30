@@ -44,7 +44,7 @@
 
     <resultMap id="ResourceLeafVO" type="com.zrkizzy.data.vo.resource.ResourceLeafVO">
         <id column="id" property="id" />
-        <result column="name" property="name" />
+        <result column="label" property="label" />
         <result column="url" property="url" />
     </resultMap>
 
@@ -52,16 +52,19 @@
     <select id="findMissingResourceByModuleId" resultMap="ResourceLeafVO">
         SELECT
             r.id AS id,
-            r.`name` AS `name`,
+            r.`name` AS label,
             r.url AS url
         FROM
             tb_resource r
+    </select>
+
+    <!-- 通过模块ID获取当前模块已有的请求资源 -->
+    <select id="listCheckById" resultType="java.lang.Long">
+        SELECT
+            resource_id
+        FROM
+            tb_module_resource
         WHERE
-            r.id NOT IN
-            (SELECT
-                 resource_id
-             FROM
-                 tb_module_resource
-             WHERE module_id = #{moduleId})
+            module_id = #{moduleId}
     </select>
 </mapper>

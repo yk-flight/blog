@@ -23,4 +23,5 @@ public class ResourceTreeVO implements Serializable {
      * 当前节点下的数据
      */
     private List<ResourceLeafVO> children;
+
 }

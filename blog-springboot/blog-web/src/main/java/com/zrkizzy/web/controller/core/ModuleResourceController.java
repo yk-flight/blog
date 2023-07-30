@@ -4,8 +4,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.data.query.ModuleResourceQuery;
-import com.zrkizzy.data.vo.resource.ResourceTreeVO;
 import com.zrkizzy.data.vo.ResourceVO;
+import com.zrkizzy.data.vo.resource.ModuleResourceVO;
+import com.zrkizzy.data.vo.resource.ResourceTreeVO;
 import com.zrkizzy.server.service.core.IModuleResourceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,9 +42,16 @@ public class ModuleResourceController {
 
      @ApiOperation("获取指定模块可以添加的接口")
      @GetMapping("/listResourceById/{id}")
-     public Result<List<ResourceTreeVO>> listById(@PathVariable Long id) {
-          List<ResourceTreeVO> list = moduleResourceService.listResourceById(id);
-          return Result.success(list);
+     public Result<ModuleResourceVO> listById(@PathVariable Long id) {
+          // 获取当前模块中可以选择的资源
+          List<ResourceTreeVO> resourceTree = moduleResourceService.listResourceById(id);
+          // 获取当前模块中已有的资源ID集合
+          List<Long> ids = moduleResourceService.listCheckById(id);
+          List<String> checkIds = new ArrayList<>();
+          for (Long resourceId : ids) {
+               checkIds.add(String.valueOf(resourceId));
+          }
+          return Result.success(new ModuleResourceVO(resourceTree, checkIds));
      }
 
 }

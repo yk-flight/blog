@@ -23,7 +23,7 @@ public class ResourceLeafVO implements Serializable {
     /**
      * 请求资源名称
      */
-    private String name;
+    private String label;
 
     /**
      * 请求资源路径

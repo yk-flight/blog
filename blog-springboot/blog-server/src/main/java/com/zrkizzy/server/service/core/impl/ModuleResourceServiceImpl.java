@@ -90,6 +90,18 @@ public class ModuleResourceServiceImpl implements IModuleResourceService {
     }
 
     /**
+     * 通过模块ID获取当前模块已有的请求资源
+     *
+     * @param moduleId 模块ID
+     * @return 当前模块中已有的资源ID集合
+     */
+    @Override
+    public List<Long> listCheckById(Long moduleId) {
+        // 获取并返回当前已有的ID集合
+        return moduleResourceMapper.listCheckById(moduleId);
+    }
+
+    /**
      * 从请求URL中截取出分组标签
      *
      * @param url 请求URL
