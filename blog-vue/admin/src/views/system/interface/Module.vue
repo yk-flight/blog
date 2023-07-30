@@ -190,7 +190,14 @@ export default {
       // 请求资源树形结构
       resourceTree: [],
       // 当前模块已选中的ID
-      checkIds: []
+      checkIds: [],
+      // 资源删除表单
+      deleteForm: {
+        // 模块ID
+        moduleId: undefined,
+        // 请求资源集合
+        resourceIds: []
+      }
     }
   },
 
@@ -260,23 +267,29 @@ export default {
     },
     // 点击删除事件
     handleDelete (row) {
+      const that = this
       let moduleResourceIds = []
       if (row.id) {
         moduleResourceIds.push(row.id)
       } else {
         moduleResourceIds = this.ids
       }
-      console.log(moduleResourceIds)
       this.$confirm('是否确认删除选中的资源模块关联数据？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(function () {
-        return deleteModuleResource(moduleResourceIds)
       }).then(() => {
-        this.getTableData()
-        this.$message.success('删除成功')
-      }).catch(() => {})
+        // 打开加载框
+        that.loading = true
+        deleteModuleResource(moduleResourceIds).then(() => {
+          // 在获取表格数据时会关闭加载框
+          that.getTableData()
+          that.$message.success('删除成功')
+        }).catch(() => {
+          // 关闭加载框
+          that.loading = false
+        })
+      })
     },
     // 提交表单
     submitForm () {
