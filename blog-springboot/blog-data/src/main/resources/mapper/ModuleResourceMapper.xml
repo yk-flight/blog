@@ -11,7 +11,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, module_id, resource_id
+        id, module_id, resource_id, create_time
     </sql>
 
     <resultMap id="ResourceVO" type="com.zrkizzy.data.vo.ResourceVO">
@@ -68,13 +68,18 @@
             module_id = #{moduleId}
     </select>
 
+    <!-- 删除指定模块对应数据 -->
+    <delete id="deleteByModuleId">
+        DELETE FROM tb_module_resource WHERE module_id = #{moduleId}
+    </delete>
+
     <!-- 批量插入模块资源数据 -->
     <insert id="insertBatch">
         INSERT INTO
             tb_module_resource(<include refid="Base_Column_List"></include>)
         VALUES
         <foreach collection ="moduleResourceList" item="moduleResource" separator =",">
-            (#{moduleResource.id}, #{moduleResource.moduleId}, #{moduleResource.resource_id})
+            (#{moduleResource.id}, #{moduleResource.moduleId}, #{moduleResource.resourceId}, #{moduleResource.createTime})
         </foreach>
     </insert>
 

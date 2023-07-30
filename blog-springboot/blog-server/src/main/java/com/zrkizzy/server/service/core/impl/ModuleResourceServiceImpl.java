@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -127,7 +128,7 @@ public class ModuleResourceServiceImpl implements IModuleResourceService {
         // 对应模块ID
         Long moduleId = moduleResourceDTO.getModuleId();
         // 先删除对应模块的所有权限
-        moduleResourceMapper.deleteById(moduleId);
+        moduleResourceMapper.deleteByModuleId(moduleId);
         // 将当前所有的资源添加到对应模块中
         List<Long> resourceIds = moduleResourceDTO.getResourceIds();
         List<ModuleResource> list = new ArrayList<>();
@@ -139,6 +140,8 @@ public class ModuleResourceServiceImpl implements IModuleResourceService {
             moduleResource.setModuleId(moduleId);
             // 资源ID
             moduleResource.setResourceId(resourceId);
+            // 创建时间
+            moduleResource.setCreateTime(LocalDateTime.now());
             list.add(moduleResource);
         }
         return moduleResourceMapper.insertBatch(list) == resourceIds.size();
