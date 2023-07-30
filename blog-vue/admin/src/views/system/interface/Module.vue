@@ -96,7 +96,6 @@
           node-key="id"
           :default-checked-keys="checkIds"
           :filter-node-method="filterNode"
-          :expand-on-click-node="expandNode"
           show-checkbox>
         </el-tree>
       </div>
@@ -125,7 +124,7 @@
 import PageTitle from '../../../components/PageTitle/index.vue'
 import Pagination from '../../../components/Pagination/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
-import { listModuleResources, listResourceById, deleteModuleResource } from '../../../api/module'
+import { listModuleResources, listResourceById, saveModuleResource, deleteModuleResource } from '../../../api/module'
 
 export default {
   name: 'Module',
@@ -161,8 +160,8 @@ export default {
       formData: {
         // 模块主键
         moduleId: undefined,
-        // 资源主键
-        resourceId: undefined
+        // 资源主键集合
+        resourceIds: undefined
       },
       // 资源模块关联对话框等待框
       moduleResourceLoading: false,
@@ -296,6 +295,32 @@ export default {
     },
     // 提交表单
     submitForm () {
+      this.formData.moduleId = this.moduleId
+      // 获取到当前所有节点数据
+      const leafNodes = this.$refs.tree.getCheckedNodes(true)
+      const resourceIds = []
+      leafNodes.forEach((leaf) => {
+        resourceIds.push(leaf.id)
+      })
+      this.formData.resourceIds = resourceIds
+      // 开启加载框
+      this.moduleResourceLoading = true
+      this.buttonLoading = true
+      // 执行保存资源方法
+      saveModuleResource(this.formData).then((res) => {
+        this.$message.success('保存成功')
+        // 关闭对话框
+        this.moduleResourceVisible = false
+        // 关闭加载框
+        this.moduleResourceLoading = false
+        this.buttonLoading = false
+        // 刷新表格数据
+        this.getTableData()
+      }).catch(() => {
+        // 关闭加载框
+        this.moduleResourceLoading = false
+        this.buttonLoading = false
+      })
     },
     // 重置表单
     resetForm () {
