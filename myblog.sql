@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 30/07/2023 18:06:26
+ Date: 30/07/2023 23:37:00
 */
 
 SET NAMES utf8mb4;
@@ -187,6 +187,9 @@ INSERT INTO `tb_login_info` VALUES (1684799218218172416, '2675525537@qq.com', '1
 INSERT INTO `tb_login_info` VALUES (1684832579586359296, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-28 15:46:04');
 INSERT INTO `tb_login_info` VALUES (1685314474354933760, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-29 23:40:57');
 INSERT INTO `tb_login_info` VALUES (1685590070666461184, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-30 17:56:04');
+INSERT INTO `tb_login_info` VALUES (1685606379118657536, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-30 19:00:52');
+INSERT INTO `tb_login_info` VALUES (1685642070636625920, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-30 21:22:42');
+INSERT INTO `tb_login_info` VALUES (1685673287306182656, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-30 23:26:44');
 
 -- ----------------------------
 -- Table structure for tb_menu
@@ -364,7 +367,6 @@ INSERT INTO `tb_module_resource` VALUES (1684834775229005824, 163618293375460966
 INSERT INTO `tb_module_resource` VALUES (1684834775623270400, 1636182933754609665, 1683841299993591810, '2023-07-28 15:54:48');
 INSERT INTO `tb_module_resource` VALUES (1684834776101421056, 1636182933754609665, 1684082256563404800, '2023-07-28 15:54:48');
 INSERT INTO `tb_module_resource` VALUES (1684834776407605248, 1636182933754609665, 1684128046551924736, '2023-07-28 15:54:48');
-INSERT INTO `tb_module_resource` VALUES (1684834777338740736, 1636182933754609665, 1684216181440905216, '2023-07-28 15:54:48');
 INSERT INTO `tb_module_resource` VALUES (1684834777712033792, 1636182933754609665, 1684541750435119104, '2023-07-28 15:54:48');
 INSERT INTO `tb_module_resource` VALUES (1684834778106298368, 1636182933754609665, 1684541750435119105, '2023-07-28 15:54:48');
 INSERT INTO `tb_module_resource` VALUES (1684834778404093952, 1636182933754609665, 1684548449283866624, '2023-07-28 15:54:49');
@@ -373,9 +375,15 @@ INSERT INTO `tb_module_resource` VALUES (1684834780157313024, 163618293375460966
 INSERT INTO `tb_module_resource` VALUES (1684834780580937728, 1636182933754609665, 1684568413176856577, '2023-07-28 15:54:49');
 INSERT INTO `tb_module_resource` VALUES (1684834781289775104, 1636182933754609665, 1684568413176856578, '2023-07-28 15:54:49');
 INSERT INTO `tb_module_resource` VALUES (1684834781616930816, 1636182933754609665, 1684832097144930304, '2023-07-28 15:54:49');
-INSERT INTO `tb_module_resource` VALUES (1685583450557382656, 1636182933754609664, 1636187548919267328, '2023-07-30 17:30:47');
-INSERT INTO `tb_module_resource` VALUES (1685583450557382657, 1636182933754609664, 1636187548919267329, '2023-07-30 17:31:15');
+INSERT INTO `tb_module_resource` VALUES (1685583450557382656, 1636182933754609665, 1684216181440905216, '2023-07-28 15:54:48');
 INSERT INTO `tb_module_resource` VALUES (1685590302728912897, 1636182933754609665, 1685590302728912896, '2023-07-30 17:58:30');
+INSERT INTO `tb_module_resource` VALUES (1685641090624913408, 1636182933754609665, 1685641090620719104, '2023-07-30 21:57:07');
+INSERT INTO `tb_module_resource` VALUES (1685641090624913416, 1636182933754609665, 1685664653591445512, '2023-07-30 22:09:44');
+INSERT INTO `tb_module_resource` VALUES (1685675815997538304, 1636182933754609664, 1675800348175892482, '2023-07-30 23:36:48');
+INSERT INTO `tb_module_resource` VALUES (1685675816018509824, 1636182933754609664, 1684541750435119104, '2023-07-30 23:36:48');
+INSERT INTO `tb_module_resource` VALUES (1685675816018509825, 1636182933754609664, 1684541750435119105, '2023-07-30 23:36:48');
+INSERT INTO `tb_module_resource` VALUES (1685675816018509826, 1636182933754609664, 1684548449283866624, '2023-07-30 23:36:48');
+INSERT INTO `tb_module_resource` VALUES (1685675816018509827, 1636182933754609664, 1684548449283866625, '2023-07-30 23:36:48');
 
 -- ----------------------------
 -- Table structure for tb_module_role
@@ -430,6 +438,12 @@ INSERT INTO `tb_operate_log` VALUES (1684442544491986944, 1636182933754609665, '
 INSERT INTO `tb_operate_log` VALUES (1684442572354748416, 1636182933754609665, '分页查询友链', 4, 'com.zrkizzy.web.controller.system.LinkController.listLinks()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"currentPage\":1,\"dataRange\":[],\"pageSize\":10}]', 'Result(code=200, message=请求成功, data={list=[{website=https://banq.ink/, introduce=Semisunny, updateTime=1687331851000, createTime=1687330423000, name=半晴Miko, logo=https://www.static.banq.ink/sunnyBlog/avatar/fcc72d35fc928185c3e70773a29a310f.jpg, id=1671411053646315520}], total=1})', 1, 102, '2023-07-27 13:56:19', NULL);
 INSERT INTO `tb_operate_log` VALUES (1684539208418459648, 1636182933754609665, '分页查询友链', 4, 'com.zrkizzy.web.controller.system.LinkController.listLinks()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"currentPage\":1,\"dataRange\":[],\"pageSize\":10}]', 'Result(code=200, message=请求成功, data={list=[{website=https://banq.ink/, introduce=Semisunny, updateTime=1687331851000, createTime=1687330423000, name=半晴Miko, logo=https://www.static.banq.ink/sunnyBlog/avatar/fcc72d35fc928185c3e70773a29a310f.jpg, id=1671411053646315520}], total=1})', 1, 34, '2023-07-27 20:20:19', NULL);
 INSERT INTO `tb_operate_log` VALUES (1684539244103598080, 1636182933754609665, '分页查询友链', 4, 'com.zrkizzy.web.controller.system.LinkController.listLinks()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"currentPage\":1,\"dataRange\":[],\"pageSize\":10}]', 'Result(code=200, message=请求成功, data={list=[{website=https://banq.ink/, introduce=Semisunny, updateTime=1687331851000, createTime=1687330423000, name=半晴Miko, logo=https://www.static.banq.ink/sunnyBlog/avatar/fcc72d35fc928185c3e70773a29a310f.jpg, id=1671411053646315520}], total=1})', 1, 11, '2023-07-27 20:20:28', NULL);
+INSERT INTO `tb_operate_log` VALUES (1685673373675290624, 1636182933754609665, '为指定模块分配资源请求', 1, 'com.zrkizzy.web.controller.core.ModuleResourceController.save()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"moduleId\":1636182933754609664,\"resourceIds\":[1675800348175892482,1684541750435119104,1684541750435119105,1684548449283866624,1684548449283866625,1654391949517389824,1683094177929232384]}]', 'org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.binding.BindingException: Parameter \'moduleResourceList\' not found. Available parameters are [arg0, collection, list]', 0, 7, '2023-07-30 23:27:05', NULL);
+INSERT INTO `tb_operate_log` VALUES (1685673678005600256, 1636182933754609665, '为指定模块分配资源请求', 1, 'com.zrkizzy.web.controller.core.ModuleResourceController.save()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"moduleId\":1636182933754609664,\"resourceIds\":[1675800348175892482,1684541750435119104,1684541750435119105,1684548449283866624,1684548449283866625,1654391949517389824,1683094177929232384]}]', 'org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named \'resource_id\' in \'class com.zrkizzy.data.domain.ModuleResource\'', 0, 150, '2023-07-30 23:28:18', NULL);
+INSERT INTO `tb_operate_log` VALUES (1685674081631862784, 1636182933754609665, '为指定模块分配资源请求', 1, 'com.zrkizzy.web.controller.core.ModuleResourceController.save()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"moduleId\":1636182933754609664,\"resourceIds\":[1675800348175892482,1684541750435119104,1684541750435119105,1684548449283866624,1684548449283866625,1654391949517389824,1683094177929232384]}]', 'org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named \'resource_id\' in \'class com.zrkizzy.data.domain.ModuleResource\'', 0, 175, '2023-07-30 23:29:54', NULL);
+INSERT INTO `tb_operate_log` VALUES (1685674472654241792, 1636182933754609665, '为指定模块分配资源请求', 1, 'com.zrkizzy.web.controller.core.ModuleResourceController.save()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"moduleId\":1636182933754609664,\"resourceIds\":[1675800348175892482,1684541750435119104,1684541750435119105,1684548449283866624,1684548449283866625,1654391949517389824,1683094177929232384]}]', 'Result(code=200, message=请求成功, data=true)', 1, 245, '2023-07-30 23:31:27', NULL);
+INSERT INTO `tb_operate_log` VALUES (1685674968811044864, 1636182933754609665, '为指定模块分配资源请求', 1, 'com.zrkizzy.web.controller.core.ModuleResourceController.save()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"moduleId\":1636182933754609664,\"resourceIds\":[1675800348175892482,1684541750435119104,1684541750435119105,1684548449283866624,1684548449283866625,1654391949517389824,1682422693888000001,1683094177929232384]}]', 'Result(code=200, message=请求成功, data=true)', 1, 294, '2023-07-30 23:33:26', NULL);
+INSERT INTO `tb_operate_log` VALUES (1685675817406824448, 1636182933754609665, '为指定模块分配资源请求', 1, 'com.zrkizzy.web.controller.core.ModuleResourceController.save()', 'POST', 1653794265890816000, '127.0.0.1', '本地登录', '[{\"moduleId\":1636182933754609664,\"resourceIds\":[1675800348175892482,1684541750435119104,1684541750435119105,1684548449283866624,1684548449283866625]}]', 'Result(code=200, message=请求成功, data=true)', 1, 191, '2023-07-30 23:36:48', NULL);
 
 -- ----------------------------
 -- Table structure for tb_resource
@@ -509,6 +523,8 @@ INSERT INTO `tb_resource` VALUES (1684568413176856577, '更新指定请求资源
 INSERT INTO `tb_resource` VALUES (1684568413176856578, '获取指定资源信息', '根据ID获取指定资源信息', 'GET', '/admin/resource/getResourceById/**', '2023-07-27 22:39:15', '2023-07-27 22:39:17');
 INSERT INTO `tb_resource` VALUES (1684832097144930304, '分页获取指定模块请求资源', '分页获取指定模块请求资源', 'POST', '/admin/module-resource/list', '2023-07-28 15:44:41', '2023-07-28 15:44:44');
 INSERT INTO `tb_resource` VALUES (1685590302728912896, '获取指定模块可以添加的接口', '获取指定模块可以添加的接口', 'GET', '/admin/module-resource/listResourceById/**', '2023-07-30 17:57:37', '2023-07-30 17:57:39');
+INSERT INTO `tb_resource` VALUES (1685641090620719104, '批量删除模块对应请求资源', '批量删除模块对应请求资源', 'DELETE', '/admin/module-resource/delete', '2023-07-30 21:56:44', '2023-07-30 21:56:48');
+INSERT INTO `tb_resource` VALUES (1685664653591445512, '为指定模块分配资源请求', '为指定模块分配资源请求', 'POST', '/admin/module-resource/save', '2023-07-30 23:11:07', '2023-07-30 23:11:10');
 
 -- ----------------------------
 -- Table structure for tb_role
