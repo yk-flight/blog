@@ -45,4 +45,11 @@ public interface ModuleResourceMapper extends BaseMapper<ModuleResource> {
      */
     List<Long> listCheckById(Long moduleId);
 
+    /**
+     * 批量插入模块资源数据
+     *
+     * @param moduleResourceList 模块资源集合
+     * @return 受影响行数
+     */
+    Integer insertBatch(List<ModuleResource> moduleResourceList);
 }

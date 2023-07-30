@@ -1,9 +1,11 @@
 package com.zrkizzy.web.controller.core;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zrkizzy.common.annotation.OperateLogAnnotation;
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
+import com.zrkizzy.common.constant.AnnotationConst;
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.Module;
@@ -62,6 +64,7 @@ public class ModuleController {
 
     @ApiOperation("批量删除资源模块数据")
     @DeleteMapping("/delete")
+    @OperateLogAnnotation(type = AnnotationConst.DELETE)
     public Result<?> delete(@RequestBody List<Long> ids) {
         if (moduleService.deleteBatch(ids)) {
             return Result.success();

@@ -1,8 +1,11 @@
 package com.zrkizzy.web.controller.core;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zrkizzy.common.annotation.OperateLogAnnotation;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
+import com.zrkizzy.common.constant.AnnotationConst;
+import com.zrkizzy.data.dto.resource.ModuleResourceDTO;
 import com.zrkizzy.data.query.ModuleResourceQuery;
 import com.zrkizzy.data.vo.ResourceVO;
 import com.zrkizzy.data.vo.resource.ModuleResourceVO;
@@ -54,8 +57,16 @@ public class ModuleResourceController {
           return Result.success(new ModuleResourceVO(resourceTree, checkIds));
      }
 
+     @ApiOperation("为指定模块分配资源请求")
+     @PostMapping("/save")
+     @OperateLogAnnotation(type = AnnotationConst.ADD)
+     public Result<Boolean> save(@Validated @RequestBody ModuleResourceDTO moduleResourceDTO) {
+          return Result.success(moduleResourceService.save(moduleResourceDTO));
+     }
+
      @ApiOperation("批量删除模块对应请求资源")
      @DeleteMapping("/delete")
+     @OperateLogAnnotation(type = AnnotationConst.DELETE)
      public Result<Boolean> delete(@RequestBody List<Long> ids) {
           // 删除对应数据并返回结果
           return Result.success(moduleResourceService.delete(ids));

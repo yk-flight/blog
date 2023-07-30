@@ -67,4 +67,15 @@
         WHERE
             module_id = #{moduleId}
     </select>
+
+    <!-- 批量插入模块资源数据 -->
+    <insert id="insertBatch">
+        INSERT INTO
+            tb_module_resource(<include refid="Base_Column_List"></include>)
+        VALUES
+        <foreach collection ="moduleResourceList" item="moduleResource" separator =",">
+            (#{moduleResource.id}, #{moduleResource.moduleId}, #{moduleResource.resource_id})
+        </foreach>
+    </insert>
+
 </mapper>

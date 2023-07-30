@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.data.domain.ModuleResource;
+import com.zrkizzy.data.dto.resource.ModuleResourceDTO;
 import com.zrkizzy.data.mapper.ModuleResourceMapper;
 import com.zrkizzy.data.query.ModuleResourceQuery;
 import com.zrkizzy.data.vo.ResourceVO;
@@ -14,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,8 +110,38 @@ public class ModuleResourceServiceImpl implements IModuleResourceService {
      * @return 是否删除成功
      */
     @Override
+    @Transactional
     public Boolean delete(List<Long> ids) {
         return moduleResourceMapper.deleteBatchIds(ids) == ids.size();
+    }
+
+    /**
+     * 为指定模块分配资源请求
+     *
+     * @param moduleResourceDTO 模块资源关联对象
+     * @return 是否保存成功
+     */
+    @Override
+    @Transactional
+    public Boolean save(ModuleResourceDTO moduleResourceDTO) {
+        // 对应模块ID
+        Long moduleId = moduleResourceDTO.getModuleId();
+        // 先删除对应模块的所有权限
+        moduleResourceMapper.deleteById(moduleId);
+        // 将当前所有的资源添加到对应模块中
+        List<Long> resourceIds = moduleResourceDTO.getResourceIds();
+        List<ModuleResource> list = new ArrayList<>();
+        for (Long resourceId : resourceIds) {
+            ModuleResource moduleResource = new ModuleResource();
+            // ID
+            moduleResource.setId(snowFlakeUtil.nextId());
+            // 模块ID
+            moduleResource.setModuleId(moduleId);
+            // 资源ID
+            moduleResource.setResourceId(resourceId);
+            list.add(moduleResource);
+        }
+        return moduleResourceMapper.insertBatch(list) == resourceIds.size();
     }
 
     /**
