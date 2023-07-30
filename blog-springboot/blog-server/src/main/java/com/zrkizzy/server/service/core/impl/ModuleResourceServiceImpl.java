@@ -110,7 +110,7 @@ public class ModuleResourceServiceImpl implements IModuleResourceService {
      * @return 是否删除成功
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Boolean delete(List<Long> ids) {
         return moduleResourceMapper.deleteBatchIds(ids) == ids.size();
     }
@@ -122,7 +122,7 @@ public class ModuleResourceServiceImpl implements IModuleResourceService {
      * @return 是否保存成功
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Boolean save(ModuleResourceDTO moduleResourceDTO) {
         // 对应模块ID
         Long moduleId = moduleResourceDTO.getModuleId();

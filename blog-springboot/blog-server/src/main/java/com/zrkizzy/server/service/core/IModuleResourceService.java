@@ -1,6 +1,7 @@
 package com.zrkizzy.server.service.core;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zrkizzy.data.dto.resource.ModuleResourceDTO;
 import com.zrkizzy.data.query.ModuleResourceQuery;
 import com.zrkizzy.data.vo.ResourceVO;
 import com.zrkizzy.data.vo.resource.ResourceTreeVO;
@@ -46,4 +47,13 @@ public interface IModuleResourceService {
      * @return 是否删除成功
      */
     Boolean delete(List<Long> ids);
+
+    /**
+     * 为指定模块分配资源请求
+     *
+     * @param moduleResourceDTO 模块资源关联对象
+     * @return 是否保存成功
+     */
+    Boolean save(ModuleResourceDTO moduleResourceDTO);
+
 }
