@@ -1,6 +1,6 @@
 package com.zrkizzy.security.service;
 
-import com.zrkizzy.data.dto.ResourceRoleDTO;
+import com.zrkizzy.data.dto.resource.ResourceRoleDTO;
 
 import java.util.List;
 

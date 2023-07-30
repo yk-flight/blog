@@ -1,6 +1,6 @@
 package com.zrkizzy.security.service.impl;
 
-import com.zrkizzy.data.dto.ResourceRoleDTO;
+import com.zrkizzy.data.dto.resource.ResourceRoleDTO;
 import com.zrkizzy.data.mapper.ModuleRoleMapper;
 import com.zrkizzy.data.mapper.ResourceMapper;
 import com.zrkizzy.security.service.DynamicSecurityService;

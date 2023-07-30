@@ -6,7 +6,7 @@ import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.Module;
-import com.zrkizzy.data.dto.ModuleDTO;
+import com.zrkizzy.data.dto.resource.ModuleDTO;
 import com.zrkizzy.data.mapper.ModuleMapper;
 import com.zrkizzy.data.query.ModuleQuery;
 import com.zrkizzy.server.service.core.IModuleService;

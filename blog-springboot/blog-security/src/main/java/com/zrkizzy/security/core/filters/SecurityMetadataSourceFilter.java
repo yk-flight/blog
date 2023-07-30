@@ -1,7 +1,7 @@
 package com.zrkizzy.security.core.filters;
 
 import com.zrkizzy.common.context.SystemContext;
-import com.zrkizzy.data.dto.ResourceRoleDTO;
+import com.zrkizzy.data.dto.resource.ResourceRoleDTO;
 import com.zrkizzy.security.service.DynamicSecurityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

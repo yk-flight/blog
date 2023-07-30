@@ -1,4 +1,4 @@
-package com.zrkizzy.data.dto;
+package com.zrkizzy.data.dto.resource;
 
 import com.zrkizzy.common.base.BaseDTO;
 import lombok.Data;

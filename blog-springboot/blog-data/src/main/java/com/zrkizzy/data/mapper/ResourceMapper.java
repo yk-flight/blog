@@ -2,7 +2,7 @@ package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zrkizzy.data.domain.Resource;
-import com.zrkizzy.data.dto.ResourceRoleDTO;
+import com.zrkizzy.data.dto.resource.ResourceRoleDTO;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package com.zrkizzy.server.service.core;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.data.domain.Resource;
-import com.zrkizzy.data.dto.ResourceDTO;
+import com.zrkizzy.data.dto.resource.ResourceDTO;
 import com.zrkizzy.data.query.ResourceQuery;
 
 /**

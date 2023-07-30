@@ -15,7 +15,7 @@
     </resultMap>
 
     <!-- 资源角色映射集合 -->
-    <resultMap id="ResourceRoles" type="com.zrkizzy.data.dto.ResourceRoleDTO">
+    <resultMap id="ResourceRoles" type="com.zrkizzy.data.dto.resource.ResourceRoleDTO">
         <result column="url" property="url" />
         <result column="method" property="method" />
         <result column="module_id" property="moduleId" />
