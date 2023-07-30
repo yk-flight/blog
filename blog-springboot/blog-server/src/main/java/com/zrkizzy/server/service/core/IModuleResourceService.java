@@ -2,8 +2,8 @@ package com.zrkizzy.server.service.core;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.data.query.ModuleResourceQuery;
-import com.zrkizzy.data.vo.resource.ResourceTreeVO;
 import com.zrkizzy.data.vo.ResourceVO;
+import com.zrkizzy.data.vo.resource.ResourceTreeVO;
 
 import java.util.List;
 
@@ -39,4 +39,11 @@ public interface IModuleResourceService {
      */
     List<Long> listCheckById(Long moduleId);
 
+    /**
+     * 批量删除指定模块中资源
+     *
+     * @param ids 模块资源关联ID集合
+     * @return 是否删除成功
+     */
+    Boolean delete(List<Long> ids);
 }

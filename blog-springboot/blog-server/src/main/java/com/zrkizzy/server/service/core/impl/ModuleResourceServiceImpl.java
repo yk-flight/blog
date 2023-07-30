@@ -6,9 +6,9 @@ import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.data.domain.ModuleResource;
 import com.zrkizzy.data.mapper.ModuleResourceMapper;
 import com.zrkizzy.data.query.ModuleResourceQuery;
+import com.zrkizzy.data.vo.ResourceVO;
 import com.zrkizzy.data.vo.resource.ResourceLeafVO;
 import com.zrkizzy.data.vo.resource.ResourceTreeVO;
-import com.zrkizzy.data.vo.ResourceVO;
 import com.zrkizzy.server.service.core.IModuleResourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.map.HashedMap;
@@ -99,6 +99,17 @@ public class ModuleResourceServiceImpl implements IModuleResourceService {
     public List<Long> listCheckById(Long moduleId) {
         // 获取并返回当前已有的ID集合
         return moduleResourceMapper.listCheckById(moduleId);
+    }
+
+    /**
+     * 批量删除指定模块中资源
+     *
+     * @param ids 模块资源关联ID集合
+     * @return 是否删除成功
+     */
+    @Override
+    public Boolean delete(List<Long> ids) {
+        return moduleResourceMapper.deleteBatchIds(ids) == ids.size();
     }
 
     /**

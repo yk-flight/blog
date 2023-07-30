@@ -54,4 +54,11 @@ public class ModuleResourceController {
           return Result.success(new ModuleResourceVO(resourceTree, checkIds));
      }
 
+     @ApiOperation("批量删除模块对应请求资源")
+     @DeleteMapping("/delete")
+     public Result<Boolean> delete(@RequestBody List<Long> ids) {
+          // 删除对应数据并返回结果
+          return Result.success(moduleResourceService.delete(ids));
+     }
+
 }
