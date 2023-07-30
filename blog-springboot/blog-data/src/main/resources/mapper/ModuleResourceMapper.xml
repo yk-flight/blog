@@ -42,8 +42,14 @@
         </if>
     </select>
 
+    <resultMap id="ResourceLeafVO" type="com.zrkizzy.data.vo.resource.ResourceLeafVO">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="url" property="url" />
+    </resultMap>
+
     <!-- 获取当前模块中所有可以添加的资源集合 -->
-    <select id="findMissingResourceByModuleId" resultMap="ResourceVO">
+    <select id="findMissingResourceByModuleId" resultMap="ResourceLeafVO">
         SELECT
             r.id AS id,
             r.`name` AS `name`,

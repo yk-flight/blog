@@ -2,7 +2,7 @@ package com.zrkizzy.server.service.core;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.data.query.ModuleResourceQuery;
-import com.zrkizzy.data.vo.ResourceTreeVO;
+import com.zrkizzy.data.vo.resource.ResourceTreeVO;
 import com.zrkizzy.data.vo.ResourceVO;
 
 import java.util.List;
@@ -30,4 +30,5 @@ public interface IModuleResourceService {
      * @return 请求资源树形数据集合
      */
     List<ResourceTreeVO> listResourceById(Long id);
+
 }

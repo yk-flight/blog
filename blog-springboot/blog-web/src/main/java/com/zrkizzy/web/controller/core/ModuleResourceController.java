@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.data.query.ModuleResourceQuery;
-import com.zrkizzy.data.vo.ResourceTreeVO;
+import com.zrkizzy.data.vo.resource.ResourceTreeVO;
 import com.zrkizzy.data.vo.ResourceVO;
 import com.zrkizzy.server.service.core.IModuleResourceService;
 import io.swagger.annotations.Api;
@@ -44,6 +44,5 @@ public class ModuleResourceController {
           List<ResourceTreeVO> list = moduleResourceService.listResourceById(id);
           return Result.success(list);
      }
-
 
 }

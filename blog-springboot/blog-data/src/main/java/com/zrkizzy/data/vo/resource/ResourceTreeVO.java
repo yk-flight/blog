@@ -1,4 +1,4 @@
-package com.zrkizzy.data.vo;
+package com.zrkizzy.data.vo.resource;
 
 import lombok.Data;
 
@@ -22,5 +22,5 @@ public class ResourceTreeVO implements Serializable {
     /**
      * 当前节点下的数据
      */
-    private List<ResourceVO> children;
+    private List<ResourceLeafVO> children;
 }

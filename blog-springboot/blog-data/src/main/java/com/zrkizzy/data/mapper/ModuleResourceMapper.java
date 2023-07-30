@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.data.domain.ModuleResource;
 import com.zrkizzy.data.query.ModuleResourceQuery;
 import com.zrkizzy.data.vo.ResourceVO;
+import com.zrkizzy.data.vo.resource.ResourceLeafVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -32,8 +33,8 @@ public interface ModuleResourceMapper extends BaseMapper<ModuleResource> {
      * 获取当前模块中所有可以添加的资源集合
      *
      * @param moduleId 模块ID
-     * @return 指定模块可以添加请求资源的集合
+     * @return 指定模块可以添加请求资源叶子集合
      */
-    List<ResourceVO> findMissingResourceByModuleId(Long moduleId);
+    List<ResourceLeafVO> findMissingResourceByModuleId(Long moduleId);
 
 }

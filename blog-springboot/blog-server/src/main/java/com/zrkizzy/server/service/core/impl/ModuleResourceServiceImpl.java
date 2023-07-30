@@ -6,7 +6,8 @@ import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.data.domain.ModuleResource;
 import com.zrkizzy.data.mapper.ModuleResourceMapper;
 import com.zrkizzy.data.query.ModuleResourceQuery;
-import com.zrkizzy.data.vo.ResourceTreeVO;
+import com.zrkizzy.data.vo.resource.ResourceLeafVO;
+import com.zrkizzy.data.vo.resource.ResourceTreeVO;
 import com.zrkizzy.data.vo.ResourceVO;
 import com.zrkizzy.server.service.core.IModuleResourceService;
 import lombok.extern.slf4j.Slf4j;
@@ -58,22 +59,22 @@ public class ModuleResourceServiceImpl implements IModuleResourceService {
     @Override
     public List<ResourceTreeVO> listResourceById(Long id) {
         // 获取当前模块中所有可以添加的资源集合
-        List<ResourceVO> list = moduleResourceMapper.findMissingResourceByModuleId(id);
-        Map<String, List<ResourceVO>> map = new HashedMap<>();
+        List<ResourceLeafVO> leafList = moduleResourceMapper.findMissingResourceByModuleId(id);
+        Map<String, List<ResourceLeafVO>> map = new HashedMap<>();
         // 按照请求路径进行分组
-        for (ResourceVO resourceVO : list) {
+        for (ResourceLeafVO leaf : leafList) {
             // 获取请求链接
-            String url = resourceVO.getUrl();
+            String url = leaf.getUrl();
             // 截取出前面分组标签
             String label = subLabelFromUrl(url);
             if (map.containsKey(label)) {
                 // 获取当前组的资源
-                List<ResourceVO> resourceList = map.get(label);
-                resourceList.add(resourceVO);
+                List<ResourceLeafVO> resourceList = map.get(label);
+                resourceList.add(leaf);
             } else {
                 // 创建新的集合并添加当前请求
-                List<ResourceVO> resourceList = new ArrayList<>();
-                resourceList.add(resourceVO);
+                List<ResourceLeafVO> resourceList = new ArrayList<>();
+                resourceList.add(leaf);
                 map.put(label, resourceList);
             }
         }
