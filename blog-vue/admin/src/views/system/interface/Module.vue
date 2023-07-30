@@ -89,12 +89,15 @@
       :visible="moduleResourceVisible"
       :before-close="handleClose">
       <div class="moduleResource-wrapper" v-loading="moduleResourceLoading" element-loading-text="正在加载资源模块关联信息">
-        <el-tree :data="resourceTree" :default-checked-keys="checkIds" node-key="id" show-checkbox>
-          <!-- slot-scope="{ node, data }" -->
-          <span class="custom-tree-node" slot-scope="{ node }">
-            <span>{{ node.label }}</span>
-            <span>{{ node.url }}</span>
-          </span>
+        <el-input placeholder="输入关键字进行过滤" v-model="filterText" size="small" style="margin-bottom: 10px;"></el-input>
+        <el-tree
+          ref="tree"
+          :data="resourceTree"
+          node-key="id"
+          :default-checked-keys="checkIds"
+          :filter-node-method="filterNode"
+          :expand-on-click-node="expandNode"
+          show-checkbox>
         </el-tree>
       </div>
       <div slot="footer">
@@ -191,19 +194,19 @@ export default {
       resourceTree: [],
       // 当前模块已选中的ID
       checkIds: [],
-      // 资源删除表单
-      deleteForm: {
-        // 模块ID
-        moduleId: undefined,
-        // 请求资源集合
-        resourceIds: []
-      }
+      // 过滤树节点关键字
+      filterText: ''
     }
   },
 
   computed: {},
 
-  watch: {},
+  watch: {
+    // 通过关键字过滤树节点
+    filterText (val) {
+      this.$refs.tree.filter(val)
+    }
+  },
 
   created () {},
 
@@ -307,6 +310,11 @@ export default {
       this.single = selection.length !== 1
       // 表头的删除是否可以点击
       this.multiple = !selection.length
+    },
+    // 通过关键字过滤树节点
+    filterNode (value, data) {
+      if (!value) return true
+      return data.label.indexOf(value) !== -1
     }
   }
 }
