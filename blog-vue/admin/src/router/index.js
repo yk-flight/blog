@@ -95,7 +95,7 @@ export const constantRoutes = [
       {
         path: 'module/:id',
         component: () => import('@/views/system/interface/Module.vue'),
-        name: 'Resource',
+        name: 'ModuleResource',
         meta: { title: '模块管理' }
       }
     ]

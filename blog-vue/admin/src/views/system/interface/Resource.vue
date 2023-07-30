@@ -55,7 +55,7 @@
         <template slot="empty">
           <el-empty :image-size="200"></el-empty>
         </template>
-        <el-table-column label="序号" type="index" align="center" />
+        <el-table-column label="序号" type="index" width="50" align="center"/>
         <!-- 资源名称 -->
         <el-table-column prop="name" label="资源名称" align="center" v-if="columns[0].visible" show-overflow-tooltip></el-table-column>
         <!-- 资源描述 -->

@@ -357,7 +357,6 @@ export default {
     },
     // 跳转到模块管理页面
     goModulePage (id) {
-      console.log(id)
       this.$router.push('/interface/module/' + id)
     }
   }

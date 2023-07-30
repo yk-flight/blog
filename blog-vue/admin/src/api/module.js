@@ -76,16 +76,6 @@ export const saveModuleResource = (data) => {
 }
 
 /**
- * 获取指定资源模块关联信息
- */
-export const getModuleResourceById = (id) => {
-  return request({
-    url: `/admin/module-resource/getModuleResourceById/${id}`,
-    method: 'GET'
-  })
-}
-
-/**
  * 批量删除资源模块关联信息
  */
 export const deleteModuleResource = (data) => {
@@ -93,5 +83,15 @@ export const deleteModuleResource = (data) => {
     url: '/admin/module-resource/delete',
     method: 'DELETE',
     data: data
+  })
+}
+
+/**
+ * 获取指定模块可以添加的接口
+ */
+export const listResourceById = (id) => {
+  return request({
+    url: `/admin/module-resource/listResourceById/${id}`,
+    method: 'GET'
   })
 }
