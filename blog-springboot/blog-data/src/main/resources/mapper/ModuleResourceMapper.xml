@@ -24,7 +24,7 @@
     </resultMap>
 
     <!-- 分页查询指定模块对应请求资源 -->
-    <select id="listByModuleId" resultMap="ResourceVO">
+    <select id="pageByModuleId" resultMap="ResourceVO">
         SELECT
             mr.id AS id,
             r.`name` AS `name`,
@@ -40,5 +40,22 @@
         <if test="null != moduleResourceQuery.dataRange and 2 == moduleResourceQuery.dataRange.size">
             AND mr.create_time BETWEEN #{moduleResourceQuery.dataRange[0]} AND #{moduleResourceQuery.dataRange[1]}
         </if>
+    </select>
+
+    <!-- 获取当前模块中所有可以添加的资源集合 -->
+    <select id="findMissingResourceByModuleId" resultMap="ResourceVO">
+        SELECT
+            r.id AS id,
+            r.`name` AS `name`,
+            r.url AS url
+        FROM
+            tb_resource r
+        WHERE
+            r.id NOT IN
+            (SELECT
+                 resource_id
+             FROM
+                 tb_module_resource
+             WHERE module_id = #{moduleId})
     </select>
 </mapper>

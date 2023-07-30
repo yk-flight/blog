@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 29/07/2023 23:33:42
+ Date: 30/07/2023 18:06:26
 */
 
 SET NAMES utf8mb4;
@@ -185,6 +185,8 @@ INSERT INTO `tb_login_info` VALUES (1684576785045389312, '2675525537@qq.com', '1
 INSERT INTO `tb_login_info` VALUES (1684743829787246592, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-28 09:53:24');
 INSERT INTO `tb_login_info` VALUES (1684799218218172416, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-28 13:33:30');
 INSERT INTO `tb_login_info` VALUES (1684832579586359296, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Mac OS X', 1, '登录成功', '2023-07-28 15:46:04');
+INSERT INTO `tb_login_info` VALUES (1685314474354933760, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-29 23:40:57');
+INSERT INTO `tb_login_info` VALUES (1685590070666461184, '2675525537@qq.com', '0:0:0:0:0:0:0:1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-07-30 17:56:04');
 
 -- ----------------------------
 -- Table structure for tb_menu
@@ -305,7 +307,8 @@ CREATE TABLE `tb_module_resource`  (
   `module_id` bigint(20) NULL DEFAULT NULL COMMENT '模块主键',
   `resource_id` bigint(20) NULL DEFAULT NULL COMMENT '资源主键',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_module_id`(`module_id`) USING BTREE COMMENT '模块ID索引'
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '资源模块关联表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -370,6 +373,9 @@ INSERT INTO `tb_module_resource` VALUES (1684834780157313024, 163618293375460966
 INSERT INTO `tb_module_resource` VALUES (1684834780580937728, 1636182933754609665, 1684568413176856577, '2023-07-28 15:54:49');
 INSERT INTO `tb_module_resource` VALUES (1684834781289775104, 1636182933754609665, 1684568413176856578, '2023-07-28 15:54:49');
 INSERT INTO `tb_module_resource` VALUES (1684834781616930816, 1636182933754609665, 1684832097144930304, '2023-07-28 15:54:49');
+INSERT INTO `tb_module_resource` VALUES (1685583450557382656, 1636182933754609664, 1636187548919267328, '2023-07-30 17:30:47');
+INSERT INTO `tb_module_resource` VALUES (1685583450557382657, 1636182933754609664, 1636187548919267329, '2023-07-30 17:31:15');
+INSERT INTO `tb_module_resource` VALUES (1685590302728912897, 1636182933754609665, 1685590302728912896, '2023-07-30 17:58:30');
 
 -- ----------------------------
 -- Table structure for tb_module_role
@@ -502,6 +508,7 @@ INSERT INTO `tb_resource` VALUES (1684568413176856576, '分页获取所有资源
 INSERT INTO `tb_resource` VALUES (1684568413176856577, '更新指定请求资源', '更新指定请求资源', 'PUT', '/admin/resource/save', '2023-07-27 22:38:18', '2023-07-27 22:43:58');
 INSERT INTO `tb_resource` VALUES (1684568413176856578, '获取指定资源信息', '根据ID获取指定资源信息', 'GET', '/admin/resource/getResourceById/**', '2023-07-27 22:39:15', '2023-07-27 22:39:17');
 INSERT INTO `tb_resource` VALUES (1684832097144930304, '分页获取指定模块请求资源', '分页获取指定模块请求资源', 'POST', '/admin/module-resource/list', '2023-07-28 15:44:41', '2023-07-28 15:44:44');
+INSERT INTO `tb_resource` VALUES (1685590302728912896, '获取指定模块可以添加的接口', '获取指定模块可以添加的接口', 'GET', '/admin/module-resource/listResourceById/**', '2023-07-30 17:57:37', '2023-07-30 17:57:39');
 
 -- ----------------------------
 -- Table structure for tb_role
