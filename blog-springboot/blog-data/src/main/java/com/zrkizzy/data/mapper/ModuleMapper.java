@@ -20,4 +20,11 @@ public interface ModuleMapper extends BaseMapper<Module> {
      * @return 模块选项集合
      */
     List<OptionsVO> listModuleOptions();
+
+    /**
+     * 获取所有模块ID
+     *
+     * @return 模块ID集合
+     */
+    List<Long> selectAllModuleId();
 }

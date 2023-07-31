@@ -14,4 +14,9 @@
         SELECT id, name FROM tb_module;
     </select>
 
+    <!-- 获取所有模块ID -->
+    <select id="selectAllModuleId" resultType="java.lang.Long">
+        SELECT id FROM tb_module
+    </select>
+
 </mapper>

@@ -2,6 +2,7 @@ package com.zrkizzy.server.service.core.impl;
 
 import com.zrkizzy.data.dto.core.ModuleRoleDTO;
 import com.zrkizzy.data.mapper.ModuleRoleMapper;
+import com.zrkizzy.data.vo.resource.ModuleTreeVO;
 import com.zrkizzy.server.service.core.IModuleRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,17 @@ public class ModuleRoleServiceImpl implements IModuleRoleService {
         List<Long> moduleIds = moduleRoleDTO.getModuleId();
         // 先将当前角色具有的所有模块权限删除
         return null;
+    }
+
+    /**
+     * 根据角色ID获取角色模块权限
+     *
+     * @param roleId 角色ID
+     * @return 模块树形数据返回对象
+     */
+    @Override
+    public List<ModuleTreeVO> listModuleByRoleId(Long roleId) {
+        // 获取角色模块数据并返回结果
+        return moduleRoleMapper.listModuleByRoleId(roleId);
     }
 }

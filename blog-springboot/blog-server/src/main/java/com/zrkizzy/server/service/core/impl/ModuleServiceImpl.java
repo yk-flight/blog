@@ -117,6 +117,16 @@ public class ModuleServiceImpl implements IModuleService {
     }
 
     /**
+     * 获取所有模块ID
+     *
+     * @return 模块ID集合
+     */
+    @Override
+    public List<Long> getAllModuleId() {
+        return moduleMapper.selectAllModuleId();
+    }
+
+    /**
      * 更新当前资源模块
      *
      * @param moduleDTO 资源模块数据接收对象

@@ -55,4 +55,10 @@ public interface IModuleService {
      */
     Boolean deleteBatch(List<Long> ids);
 
+    /**
+     * 获取所有模块ID
+     *
+     * @return 模块ID集合
+     */
+    List<Long> getAllModuleId();
 }
