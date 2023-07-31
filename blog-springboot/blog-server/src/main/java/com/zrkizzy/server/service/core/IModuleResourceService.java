@@ -3,7 +3,7 @@ package com.zrkizzy.server.service.core;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.data.dto.resource.ModuleResourceDTO;
 import com.zrkizzy.data.query.ModuleResourceQuery;
-import com.zrkizzy.data.vo.ResourceVO;
+import com.zrkizzy.data.vo.resource.ResourceVO;
 import com.zrkizzy.data.vo.resource.ResourceTreeVO;
 
 import java.util.List;

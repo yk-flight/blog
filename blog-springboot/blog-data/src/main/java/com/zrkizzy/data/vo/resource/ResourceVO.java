@@ -1,4 +1,4 @@
-package com.zrkizzy.data.vo;
+package com.zrkizzy.data.vo.resource;
 
 import com.zrkizzy.common.base.response.BaseVO;
 import lombok.Data;

@@ -7,7 +7,7 @@ import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.constant.AnnotationConst;
 import com.zrkizzy.data.dto.resource.ModuleResourceDTO;
 import com.zrkizzy.data.query.ModuleResourceQuery;
-import com.zrkizzy.data.vo.ResourceVO;
+import com.zrkizzy.data.vo.resource.ResourceVO;
 import com.zrkizzy.data.vo.resource.ModuleResourceVO;
 import com.zrkizzy.data.vo.resource.ResourceTreeVO;
 import com.zrkizzy.server.service.core.IModuleResourceService;

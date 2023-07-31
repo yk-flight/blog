@@ -14,7 +14,7 @@
         id, module_id, resource_id, create_time
     </sql>
 
-    <resultMap id="ResourceVO" type="com.zrkizzy.data.vo.ResourceVO">
+    <resultMap id="ResourceVO" type="com.zrkizzy.data.vo.resource.ResourceVO">
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="method" property="method" />

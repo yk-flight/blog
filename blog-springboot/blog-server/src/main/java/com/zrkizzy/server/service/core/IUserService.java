@@ -3,6 +3,7 @@ package com.zrkizzy.server.service.core;
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.data.dto.*;
+import com.zrkizzy.data.dto.core.PasswordDTO;
 import com.zrkizzy.data.dto.core.UserDTO;
 import com.zrkizzy.data.dto.core.UserUpdateDTO;
 import com.zrkizzy.data.query.UserQuery;

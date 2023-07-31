@@ -6,7 +6,7 @@ import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.constant.AnnotationConst;
 import com.zrkizzy.data.dto.AvatarDTO;
-import com.zrkizzy.data.dto.PasswordDTO;
+import com.zrkizzy.data.dto.core.PasswordDTO;
 import com.zrkizzy.data.dto.core.UserDTO;
 import com.zrkizzy.data.dto.core.UserUpdateDTO;
 import com.zrkizzy.data.query.UserQuery;
