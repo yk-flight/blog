@@ -11,7 +11,8 @@
           :style="{
             backgroundColor: isActive(tag) ? '#409EFF' : '',
           }"
-          >{{ tag.meta.title }}
+          @contextmenu.prevent.native="openMenu(tag,$event)">
+          {{ tag.meta.title }}
           <i
             v-show="tag.path != '/home'"
             class="el-icon-close"
@@ -24,18 +25,46 @@
     <div class="tags-view-right">
       <el-button size="mini" @click="closeAll" plain>关闭全部</el-button>
     </div>
+
+    <!-- :index="selectIndex" -->
+    <context-menu
+      v-show="visible"
+      :style="menuStyle"
+    ></context-menu>
+
   </div>
 </template>
 
 <script>
+import ContextMenu from './ContextMenu.vue'
+
 export default {
   name: 'TagsView',
 
   data () {
-    return {}
+    return {
+      // 右侧菜单是否展示
+      visible: false,
+      selectedTag: {},
+      // 右键菜单样式
+      menuStyle: {
+        left: 0,
+        top: 0
+      }
+    }
   },
 
-  mounted () {},
+  components: { ContextMenu },
+
+  watch: {
+    visible (value) {
+      if (value) {
+        document.body.addEventListener('click', this.closeMenu)
+      } else {
+        document.body.removeEventListener('click', this.closeMenu)
+      }
+    }
+  },
 
   methods: {
     /**
@@ -68,6 +97,20 @@ export default {
       this.$store.commit('app/CLOSE_ALL_TAGS')
       // 跳转到工作台页面
       this.$router.push('/home')
+    },
+    // 打开右键菜单
+    openMenu (tag, e) {
+      // 获取鼠标在屏幕的位置
+      const { x, y } = e
+      this.menuStyle.left = x + 'px'
+      this.menuStyle.top = y + 'px'
+      // 打开菜单
+      this.visible = true
+      this.selectedTag = tag
+    },
+    // 关闭右键菜单
+    closeMenu () {
+      this.visible = false
     }
   }
 }
