@@ -3,6 +3,7 @@ package com.zrkizzy.data.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zrkizzy.data.domain.Module;
 import com.zrkizzy.common.base.response.OptionsVO;
+import com.zrkizzy.data.vo.resource.ModuleTreeVO;
 
 import java.util.List;
 
@@ -27,4 +28,11 @@ public interface ModuleMapper extends BaseMapper<Module> {
      * @return 模块ID集合
      */
     List<Long> selectAllModuleId();
+
+    /**
+     * 获取所有模块树形数据集合
+     *
+     * @return 所有模块树形数据
+     */
+    List<ModuleTreeVO> getAllModuleTree();
 }

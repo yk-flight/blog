@@ -37,13 +37,13 @@ public class ModuleRoleController {
     @ApiOperation("获取角色对应模块权限")
     @GetMapping("/listByRoleId/{id}")
     public Result<ModuleRoleVO> listByRoleId(@PathVariable Long id) {
+        // 获取所有模块树形数据
+        List<ModuleTreeVO> moduleTree = moduleService.getAllModuleTree();
         // 获取当前角色已有的模块权限
-        List<ModuleTreeVO> moduleTree = moduleRoleService.listModuleByRoleId(id);
-        // 获取所有模块ID
-        List<Long> moduleIds = moduleService.getAllModuleId();
+        List<Long> checkIds = moduleRoleService.listModuleIdByRoleId(id);
 
         List<String> list = new ArrayList<>();
-        for (Long moduleId : moduleIds) {
+        for (Long moduleId : checkIds) {
             list.add(String.valueOf(moduleId));
         }
         return Result.success(new ModuleRoleVO(list, moduleTree));

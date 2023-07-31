@@ -5,6 +5,7 @@ import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.data.domain.Module;
 import com.zrkizzy.data.dto.resource.ModuleDTO;
 import com.zrkizzy.data.query.ModuleQuery;
+import com.zrkizzy.data.vo.resource.ModuleTreeVO;
 
 import java.util.List;
 
@@ -61,4 +62,11 @@ public interface IModuleService {
      * @return 模块ID集合
      */
     List<Long> getAllModuleId();
+
+    /**
+     * 获取所有模块树形数据集合
+     *
+     * @return 所有模块树形数据
+     */
+    List<ModuleTreeVO> getAllModuleTree();
 }

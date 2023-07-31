@@ -6,21 +6,14 @@
     <!-- 删除指定角色具有的所有请求权限 -->
     <delete id="deleteByRoleId"></delete>
 
-    <resultMap id="ModuleTreeVO" type="com.zrkizzy.data.vo.resource.ModuleTreeVO">
-        <id column="id" property="id" />
-        <result column="label" property="label" />
-    </resultMap>
-
     <!-- 获取指定角色具有的模块权限 -->
-    <select id="listModuleByRoleId" resultMap="ModuleTreeVO">
+    <select id="listModuleIdByRoleId" resultType="java.lang.Long">
         SELECT
-            m.id AS id,
-            m.name AS label
+            module_id
         FROM
-            tb_module_role mr
-        INNER JOIN tb_module m
-                    ON mr.module_id = m.id
-        WHERE mr.role_id = #{roleId}
+            tb_module_role
+        WHERE
+            role_id = #{roleId}
 
     </select>
 </mapper>

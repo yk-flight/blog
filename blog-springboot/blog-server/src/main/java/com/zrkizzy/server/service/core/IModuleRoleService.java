@@ -1,7 +1,6 @@
 package com.zrkizzy.server.service.core;
 
 import com.zrkizzy.data.dto.core.ModuleRoleDTO;
-import com.zrkizzy.data.vo.resource.ModuleTreeVO;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public interface IModuleRoleService {
      * 根据角色ID获取角色模块权限
      *
      * @param roleId 角色ID
-     * @return 模块树形数据返回对象
+     * @return 所有选中的模块ID
      */
-    List<ModuleTreeVO> listModuleByRoleId(Long roleId);
+    List<Long> listModuleIdByRoleId(Long roleId);
 }

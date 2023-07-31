@@ -19,7 +19,7 @@ public class ModuleRoleVO implements Serializable {
     /**
      * 当前模块选中的ID
      */
-    private List<String> moduleIds;
+    private List<String> checkIds;
 
     /**
      * 模块树形数据

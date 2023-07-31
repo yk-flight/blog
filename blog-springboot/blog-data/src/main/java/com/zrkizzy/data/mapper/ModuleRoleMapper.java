@@ -2,7 +2,6 @@ package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zrkizzy.data.domain.ModuleRole;
-import com.zrkizzy.data.vo.resource.ModuleTreeVO;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public interface ModuleRoleMapper extends BaseMapper<ModuleRole> {
      * 根据角色ID获取角色模块权限
      *
      * @param roleId 角色ID
-     * @return 模块树形数据返回对象
+     * @return 所有选中的模块ID集合
      */
-    List<ModuleTreeVO> listModuleByRoleId(Long roleId);
+    List<Long> listModuleIdByRoleId(Long roleId);
 }

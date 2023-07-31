@@ -19,4 +19,14 @@
         SELECT id FROM tb_module
     </select>
 
+    <resultMap id="ModuleTreeVO" type="com.zrkizzy.data.vo.resource.ModuleTreeVO">
+        <id column="id" property="id" />
+        <result column="label" property="label" />
+    </resultMap>
+
+    <!-- 获取所有模块树形数据集合 -->
+    <select id="getAllModuleTree" resultMap="ModuleTreeVO">
+        SELECT id, name AS label FROM tb_module
+    </select>
+
 </mapper>
