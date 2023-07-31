@@ -1,4 +1,4 @@
-package com.zrkizzy.data.query;
+package com.zrkizzy.data.query.core;
 
 import com.zrkizzy.common.base.request.BasePage;
 import lombok.Data;
@@ -8,25 +8,25 @@ import lombok.ToString;
 import java.util.List;
 
 /**
- * 用户信息查询对象
+ * 角色信息查询对象
  *
  * @author zhangrongkang
- * @since 2023/7/15
+ * @since 2023/6/5
  */
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
-public class UserQuery extends BasePage {
+public class RoleQuery extends BasePage {
 
     /**
-     * 用户名
+     * 角色名称
      */
-    private String username;
+    private String name;
 
     /**
-     * 状态，0：禁用，1：启用
+     * 角色标识
      */
-    private Boolean status;
+    private String mark;
 
     /**
      * 时间范围

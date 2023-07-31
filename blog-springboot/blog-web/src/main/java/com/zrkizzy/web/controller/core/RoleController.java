@@ -9,7 +9,7 @@ import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.core.Role;
 import com.zrkizzy.data.dto.core.RoleDTO;
-import com.zrkizzy.data.query.RoleQuery;
+import com.zrkizzy.data.query.core.RoleQuery;
 import com.zrkizzy.data.vo.RoleVO;
 import com.zrkizzy.server.service.core.IRoleService;
 import io.swagger.annotations.Api;

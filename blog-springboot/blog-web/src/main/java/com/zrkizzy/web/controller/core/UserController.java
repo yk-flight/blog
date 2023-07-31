@@ -9,7 +9,7 @@ import com.zrkizzy.data.dto.AvatarDTO;
 import com.zrkizzy.data.dto.core.PasswordDTO;
 import com.zrkizzy.data.dto.core.UserDTO;
 import com.zrkizzy.data.dto.core.UserUpdateDTO;
-import com.zrkizzy.data.query.UserQuery;
+import com.zrkizzy.data.query.core.UserQuery;
 import com.zrkizzy.data.vo.UserVO;
 import com.zrkizzy.security.util.SecurityUtil;
 import com.zrkizzy.server.service.core.IUserService;

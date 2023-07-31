@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.data.domain.core.Role;
 import com.zrkizzy.data.dto.core.RoleDTO;
-import com.zrkizzy.data.query.RoleQuery;
+import com.zrkizzy.data.query.core.RoleQuery;
 
 import java.util.List;
 
