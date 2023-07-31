@@ -3,7 +3,7 @@ package com.zrkizzy.server.service.core;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.data.domain.core.Resource;
 import com.zrkizzy.data.dto.resource.ResourceDTO;
-import com.zrkizzy.data.query.ResourceQuery;
+import com.zrkizzy.data.query.resource.ResourceQuery;
 
 /**
  * 资源业务逻辑接口

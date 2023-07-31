@@ -10,7 +10,7 @@ import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.core.Module;
 import com.zrkizzy.data.dto.resource.ModuleDTO;
-import com.zrkizzy.data.query.ModuleQuery;
+import com.zrkizzy.data.query.resource.ModuleQuery;
 import com.zrkizzy.data.vo.ModuleVO;
 import com.zrkizzy.server.service.core.IModuleService;
 import io.swagger.annotations.Api;

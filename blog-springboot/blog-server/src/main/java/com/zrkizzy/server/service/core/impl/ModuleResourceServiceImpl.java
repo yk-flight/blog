@@ -7,7 +7,7 @@ import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.data.domain.core.ModuleResource;
 import com.zrkizzy.data.dto.resource.ModuleResourceDTO;
 import com.zrkizzy.data.mapper.ModuleResourceMapper;
-import com.zrkizzy.data.query.ModuleResourceQuery;
+import com.zrkizzy.data.query.resource.ModuleResourceQuery;
 import com.zrkizzy.data.vo.resource.ResourceVO;
 import com.zrkizzy.data.vo.resource.ResourceLeafVO;
 import com.zrkizzy.data.vo.resource.ResourceTreeVO;

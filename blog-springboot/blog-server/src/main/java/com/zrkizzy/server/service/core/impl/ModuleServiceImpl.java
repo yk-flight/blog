@@ -8,7 +8,7 @@ import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.core.Module;
 import com.zrkizzy.data.dto.resource.ModuleDTO;
 import com.zrkizzy.data.mapper.ModuleMapper;
-import com.zrkizzy.data.query.ModuleQuery;
+import com.zrkizzy.data.query.resource.ModuleQuery;
 import com.zrkizzy.data.vo.resource.ModuleTreeVO;
 import com.zrkizzy.server.service.core.IModuleService;
 import lombok.extern.slf4j.Slf4j;

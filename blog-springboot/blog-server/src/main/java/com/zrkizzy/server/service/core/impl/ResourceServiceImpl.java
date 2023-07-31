@@ -6,7 +6,7 @@ import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.core.Resource;
 import com.zrkizzy.data.dto.resource.ResourceDTO;
 import com.zrkizzy.data.mapper.ResourceMapper;
-import com.zrkizzy.data.query.ResourceQuery;
+import com.zrkizzy.data.query.resource.ResourceQuery;
 import com.zrkizzy.server.service.core.IResourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

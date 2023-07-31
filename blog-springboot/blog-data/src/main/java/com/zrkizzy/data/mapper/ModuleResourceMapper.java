@@ -3,7 +3,7 @@ package com.zrkizzy.data.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.data.domain.core.ModuleResource;
-import com.zrkizzy.data.query.ModuleResourceQuery;
+import com.zrkizzy.data.query.resource.ModuleResourceQuery;
 import com.zrkizzy.data.vo.resource.ResourceVO;
 import com.zrkizzy.data.vo.resource.ResourceLeafVO;
 import org.apache.ibatis.annotations.Param;

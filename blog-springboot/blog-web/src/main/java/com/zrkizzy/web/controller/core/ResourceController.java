@@ -6,7 +6,7 @@ import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.core.Resource;
 import com.zrkizzy.data.dto.resource.ResourceDTO;
-import com.zrkizzy.data.query.ResourceQuery;
+import com.zrkizzy.data.query.resource.ResourceQuery;
 import com.zrkizzy.data.vo.resource.ResourceVO;
 import com.zrkizzy.server.service.core.IResourceService;
 import io.swagger.annotations.Api;

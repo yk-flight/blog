@@ -6,7 +6,7 @@ import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.constant.AnnotationConst;
 import com.zrkizzy.data.dto.resource.ModuleResourceDTO;
-import com.zrkizzy.data.query.ModuleResourceQuery;
+import com.zrkizzy.data.query.resource.ModuleResourceQuery;
 import com.zrkizzy.data.vo.resource.ResourceVO;
 import com.zrkizzy.data.vo.resource.ModuleResourceVO;
 import com.zrkizzy.data.vo.resource.ResourceTreeVO;

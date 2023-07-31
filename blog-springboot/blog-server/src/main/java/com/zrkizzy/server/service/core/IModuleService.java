@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.data.domain.core.Module;
 import com.zrkizzy.data.dto.resource.ModuleDTO;
-import com.zrkizzy.data.query.ModuleQuery;
+import com.zrkizzy.data.query.resource.ModuleQuery;
 import com.zrkizzy.data.vo.resource.ModuleTreeVO;
 
 import java.util.List;
