@@ -1,25 +1,22 @@
 <template>
   <ul class="context-menu-container">
-    <!-- @click="onRefreshClick" -->
-    <li>
+    <li @click="onRefreshClick">
       <i class="el-icon-refresh-right"></i>
       刷新
     </li>
-    <li>
+    <li @click="onCloseLeftClick">
       <i class="el-icon-d-arrow-left"></i>
       <span>关闭左侧</span>
     </li>
-    <!-- @click="onCloseRightClick" -->
-    <li>
+    <li @click="onCloseRightClick">
       <i class="el-icon-d-arrow-right"></i>
       <span>关闭右侧</span>
     </li>
-    <!-- @click="onCloseOtherClick" -->
-    <li>
+    <li @click="onCloseOtherClick">
       <i class="el-icon-remove-outline"></i>
       <span>关闭其他</span>
     </li>
-    <li>
+    <li @click="closeAll">
       <i class="el-icon-circle-close"></i>
       <span>关闭全部</span>
     </li>
@@ -29,6 +26,14 @@
 <script>
 export default {
   name: 'ContextMenu',
+
+  props: {
+    // 选中页的索引
+    index: {
+      type: Number,
+      require: true
+    }
+  },
 
   data () {
     return {
@@ -41,7 +46,49 @@ export default {
   },
 
   methods: {
-
+    // 关闭全部标签事件
+    closeAll () {
+      this.$store.commit('app/CLOSE_ALL_TAGS')
+      // 跳转到工作台页面
+      this.$router.push('/home')
+    },
+    // 刷新当前页面
+    onRefreshClick () {
+      this.$router.go(0)
+    },
+    // 关闭右侧
+    onCloseRightClick () {
+      this.$store.commit('app/REMOVE_TAGS_VIEW', {
+        type: 'right',
+        index: this.index
+      })
+      // 退回到当前标签页
+      this.$router.push(
+        this.$store.getters.tagsViewList[this.$store.getters.tagsViewList.length - 1].path
+      )
+    },
+    // 关闭其他
+    onCloseOtherClick () {
+      this.$store.commit('app/REMOVE_TAGS_VIEW', {
+        type: 'other',
+        index: this.index
+      })
+      // 退回到当前标签页
+      this.$router.push(
+        this.$store.getters.tagsViewList[this.$store.getters.tagsViewList.length - 1].path
+      )
+    },
+    // 关闭左侧
+    onCloseLeftClick () {
+      this.$store.commit('app/REMOVE_TAGS_VIEW', {
+        type: 'left',
+        index: this.index
+      })
+      // 退回到当前标签页
+      this.$router.push(
+        this.$store.getters.tagsViewList[this.$store.getters.tagsViewList.length - 1].path
+      )
+    }
   }
 }
 </script>

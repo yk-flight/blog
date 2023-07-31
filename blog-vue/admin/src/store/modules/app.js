@@ -69,6 +69,9 @@ const app = {
           payload.index + 1,
           state.tagsViewList.length - payload.index + 1
         )
+      } else if (payload.type === 'left') {
+        // 删除除首页外的左侧标签页
+        state.tagsViewList.splice(1, payload.index - 1)
       }
     },
     // 关闭全部标签页
