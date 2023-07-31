@@ -1,5 +1,6 @@
 package com.zrkizzy.data.vo.resource;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -16,6 +17,7 @@ public class ModuleTreeVO implements Serializable {
     /**
      * 模块ID
      */
+    @JsonFormat(shape =JsonFormat.Shape.STRING)
     private Long id;
 
     /**
