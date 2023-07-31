@@ -80,6 +80,7 @@ public enum HttpStatusEnum {
     USERNAME_REPEAT(2006, "用户名重复，当前用户名已存在"),
     PASSWORD_SAME(2007, "新密码不能与旧密码相同"),
     PASSWORD_UPDATE_ERROR(2008, "密码更新失败"),
+    MODULE_RESOURCE_ERROR(2009, "分配模块请求资源失败"),
     FILE_EXIST_ERROR(3000, "当前文件已经存在，请勿重复上传"),
     FILE_UPLOAD_ERROR(3001, "文件上传失败"),
     FILE_SELECT_ERROR(3002, "请选择要删除的文件"),

@@ -11,6 +11,7 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import java.util.Collection;
@@ -21,6 +22,7 @@ import java.util.List;
  *
  * <p>主要用于确定在Web应用程序中请求的资源需要哪些权限</p>
  * <p>使用自定义 DynamicSecurityService 业务来实现动态安全策略</p>
+ * <p>当ModuleRole、ModuleResource更新时都需要重新加载动态权限</p>
  *
  * @author zhangrongkang
  * @since 2023/3/13
@@ -49,12 +51,23 @@ public class SecurityMetadataSourceFilter implements FilterInvocationSecurityMet
     }
 
     /**
+     * 清空当前角色信息权限
+     */
+    public void clearDataSource() {
+        resourceRoleList = null;
+    }
+
+    /**
      * 路由匹配工具类
      */
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
+        if (CollectionUtils.isEmpty(resourceRoleList)) {
+            // 加载请求资源
+            resourceRoleList = dynamicSecurityService.loadResourceRoleData();
+        }
 //        log.info("----------------- 进入请求资源权限过滤器 -----------------");
         FilterInvocation filter = (FilterInvocation) object;
         // 获取请求的方法

@@ -1,6 +1,7 @@
 package com.zrkizzy.server.service.core.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.data.domain.ModuleResource;
@@ -10,6 +11,7 @@ import com.zrkizzy.data.query.ModuleResourceQuery;
 import com.zrkizzy.data.vo.ResourceVO;
 import com.zrkizzy.data.vo.resource.ResourceLeafVO;
 import com.zrkizzy.data.vo.resource.ResourceTreeVO;
+import com.zrkizzy.security.core.filters.SecurityMetadataSourceFilter;
 import com.zrkizzy.server.service.core.IModuleResourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.map.HashedMap;
@@ -33,6 +35,9 @@ import java.util.Map;
 @Service
 @Slf4j
 public class ModuleResourceServiceImpl implements IModuleResourceService {
+
+    @Autowired
+    private SecurityMetadataSourceFilter securityMetadataSourceFilter;
 
     @Autowired
     private SnowFlakeUtil snowFlakeUtil;
@@ -144,7 +149,14 @@ public class ModuleResourceServiceImpl implements IModuleResourceService {
             moduleResource.setCreateTime(LocalDateTime.now());
             list.add(moduleResource);
         }
-        return moduleResourceMapper.insertBatch(list) == resourceIds.size();
+        // 判断是否添加成功
+        if (moduleResourceMapper.insertBatch(list) == resourceIds.size()) {
+            // 如果添加成功则清空当前项目中存储的权限
+            securityMetadataSourceFilter.clearDataSource();
+            // 返回正确
+            return Boolean.TRUE;
+        }
+        throw new BusinessException(HttpStatusEnum.MODULE_RESOURCE_ERROR);
     }
 
     /**

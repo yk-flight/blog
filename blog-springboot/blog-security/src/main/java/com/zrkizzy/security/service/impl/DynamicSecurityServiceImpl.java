@@ -1,7 +1,6 @@
 package com.zrkizzy.security.service.impl;
 
 import com.zrkizzy.data.dto.resource.ResourceRoleDTO;
-import com.zrkizzy.data.mapper.ModuleRoleMapper;
 import com.zrkizzy.data.mapper.ResourceMapper;
 import com.zrkizzy.security.service.DynamicSecurityService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,11 +20,7 @@ import java.util.List;
 public class DynamicSecurityServiceImpl implements DynamicSecurityService {
 
     @Autowired
-    private ModuleRoleMapper moduleRoleMapper;
-
-    @Autowired
     private ResourceMapper resourceMapper;
-
 
     /**
      * 加载资源角色数据
@@ -36,4 +31,7 @@ public class DynamicSecurityServiceImpl implements DynamicSecurityService {
     public List<ResourceRoleDTO> loadResourceRoleData() {
         return resourceMapper.loadResourceRoleData();
     }
+
+
+
 }
