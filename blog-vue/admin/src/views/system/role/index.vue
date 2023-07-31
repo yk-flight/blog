@@ -70,11 +70,11 @@
           <template slot-scope="scope" v-if="scope.row.mark !== 'ROLE_ADMIN'">
             <el-button type="text" size="small" icon="el-icon-edit" @click="handleUpdate(scope.row)">编辑</el-button>
             <el-button type="text" size="small" icon="el-icon-delete" @click="handleDelete(scope.row)">删除</el-button>
-            <el-dropdown size="small" @command="(command) => handleCommand(command, scope.row)" style="margin-left: 10px;">
+            <el-dropdown @command="(command) => handleCommand(command, scope.row)" style="margin-left: 10px;">
               <el-button size="small" type="text" icon="el-icon-d-arrow-right">更多</el-button>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="handleDataScope" icon="el-icon-document">页面权限</el-dropdown-item>
-                <el-dropdown-item command="handleAuthUser" icon="el-icon-folder-opened">资源权限</el-dropdown-item>
+                <el-dropdown-item command="handleResource" icon="el-icon-folder-opened">资源权限</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -137,6 +137,44 @@
           </el-button>
       </div>
     </el-dialog>
+
+    <!-- 资源权限 -->
+    <el-dialog
+      title="资源权限"
+      width="500px"
+      :modal-append-to-body="true"
+      :append-to-body="true"
+      :close-on-click-modal="false"
+      :visible="resourceVisible"
+      :before-close="handleResourceClose">
+      <div class="resource-wrapper" v-loading="moduleLoading" element-loading-text="正在加载模块角色关联信息">
+        <el-tree
+          ref="tree"
+          :data="moduleTree"
+          node-key="id"
+          :default-checked-keys="checkIds"
+          show-checkbox>
+        </el-tree>
+      </div>
+      <div slot="footer">
+        <el-button
+          type="danger"
+          :loading="buttonLoading"
+          @click="handleResourceClose()"
+          size="small"
+          icon="el-icon-error">
+            取消
+          </el-button>
+          <!-- @click="submitForm()" -->
+        <el-button
+          type="success"
+          :loading="buttonLoading"
+          size="small"
+          icon="el-icon-success">
+            保存
+          </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -144,6 +182,7 @@ import PageTitle from '../../../components/PageTitle/index.vue'
 import Pagination from '../../../components/Pagination/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
 import { listRoles, saveRole, getRoleById, deleteRole } from '../../../api/role'
+import { listByRoleId } from '../../../api/module'
 
 export default {
   name: 'Role',
@@ -214,7 +253,15 @@ export default {
       // 单数据禁用
       multiple: true,
       // 对话框标题
-      roleTitle: ''
+      roleTitle: '',
+      // 模块角色关联加载框
+      moduleLoading: false,
+      // 资源权限对话框
+      resourceVisible: false,
+      // 请求模块树形结构
+      moduleTree: [],
+      // 所有模块资源
+      checkIds: []
     }
   },
 
@@ -347,12 +394,11 @@ export default {
     // 更多操作触发
     handleCommand (command, row) {
       switch (command) {
-        case 'handleDataScope':
-          // this.handleDataScope(row);
-          console.log('页面权限')
+        case 'handleResource':
+          this.handleResource(row)
           break
         case 'handleAuthUser':
-          console.log('资源权限')
+          console.log('页面权限')
           // this.handleAuthUser(row);
           break
         default: break
@@ -384,6 +430,26 @@ export default {
       this.single = selection.length !== 1
       // 表头的删除是否可以点击
       this.multiple = !selection.length
+    },
+    // 资源权限对话框
+    handleResource (row) {
+      // 打开对话框
+      this.resourceVisible = true
+      // 打开加载框
+      this.moduleLoading = true
+      listByRoleId(row.id).then((res) => {
+        this.moduleTree = res.moduleTree
+        this.checkIds = res.checkIds
+        // 关闭加载框
+        this.moduleLoading = false
+      }).catch(() => {
+        // 关闭加载框
+        this.moduleLoading = false
+      })
+    },
+    // 关闭资源权限对话框
+    handleResourceClose () {
+      this.resourceVisible = false
     }
   }
 }
@@ -396,5 +462,8 @@ export default {
 }
 .search-item {
   width: 240px;
+}
+.resource-wrapper {
+  padding: 10px 30px;
 }
 </style>

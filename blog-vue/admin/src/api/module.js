@@ -95,3 +95,13 @@ export const listResourceById = (id) => {
     method: 'GET'
   })
 }
+
+/**
+ * 获取角色对应模块权限
+ */
+export const listByRoleId = (id) => {
+  return request({
+    url: `/admin/module-role/listByRoleId/${id}`,
+    method: 'GET'
+  })
+}
