@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.PageResult;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
-import com.zrkizzy.data.domain.Resource;
+import com.zrkizzy.data.domain.core.Resource;
 import com.zrkizzy.data.dto.resource.ResourceDTO;
 import com.zrkizzy.data.query.ResourceQuery;
 import com.zrkizzy.data.vo.resource.ResourceVO;

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.utils.SnowFlakeUtil;
-import com.zrkizzy.data.domain.ModuleResource;
+import com.zrkizzy.data.domain.core.ModuleResource;
 import com.zrkizzy.data.dto.resource.ModuleResourceDTO;
 import com.zrkizzy.data.mapper.ModuleResourceMapper;
 import com.zrkizzy.data.query.ModuleResourceQuery;

@@ -8,7 +8,7 @@
     </sql>
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.User">
+    <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.core.User">
         <id column="id" property="id" />
         <result column="username" property="username" />
         <result column="password" property="password" />
@@ -20,8 +20,8 @@
         <result column="update_time" property="updateTime" />
     </resultMap>
 
-    <resultMap id="UserWithRole" type="com.zrkizzy.data.domain.User" extends="BaseResultMap">
-        <collection property="roles" ofType="com.zrkizzy.data.domain.Role">
+    <resultMap id="UserWithRole" type="com.zrkizzy.data.domain.core.User" extends="BaseResultMap">
+        <collection property="roles" ofType="com.zrkizzy.data.domain.core.Role">
             <id column="role_id" property="id" />
             <result column="role_name" property="name" />
             <result column="role_mark" property="mark" />

@@ -1,8 +1,8 @@
 package com.zrkizzy.server.service.core.impl;
 
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
-import com.zrkizzy.data.domain.User;
-import com.zrkizzy.data.domain.UserInfo;
+import com.zrkizzy.data.domain.core.User;
+import com.zrkizzy.data.domain.core.UserInfo;
 import com.zrkizzy.data.mapper.UserInfoMapper;
 import com.zrkizzy.data.vo.UserInfoVO;
 import com.zrkizzy.security.util.SecurityUtil;

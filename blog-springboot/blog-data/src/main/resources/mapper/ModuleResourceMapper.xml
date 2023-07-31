@@ -3,7 +3,7 @@
 <mapper namespace="com.zrkizzy.data.mapper.ModuleResourceMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.ModuleResource">
+    <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.core.ModuleResource">
         <id column="id" property="id" />
         <result column="module_id" property="moduleId" />
         <result column="resource_id" property="resourceId" />

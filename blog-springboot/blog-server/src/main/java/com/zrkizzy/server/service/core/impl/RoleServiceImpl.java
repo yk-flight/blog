@@ -8,7 +8,7 @@ import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
-import com.zrkizzy.data.domain.Role;
+import com.zrkizzy.data.domain.core.Role;
 import com.zrkizzy.data.dto.core.RoleDTO;
 import com.zrkizzy.data.mapper.RoleMapper;
 import com.zrkizzy.data.query.RoleQuery;

@@ -2,7 +2,7 @@ package com.zrkizzy.server.service.core;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.OptionsVO;
-import com.zrkizzy.data.domain.Role;
+import com.zrkizzy.data.domain.core.Role;
 import com.zrkizzy.data.dto.core.RoleDTO;
 import com.zrkizzy.data.query.RoleQuery;
 

@@ -2,7 +2,7 @@ package com.zrkizzy.security.service.impl.core;
 
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.service.IRedisService;
-import com.zrkizzy.data.domain.User;
+import com.zrkizzy.data.domain.core.User;
 import com.zrkizzy.security.util.UserDetailUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,7 +5,7 @@ import com.zrkizzy.common.constant.RedisConst;
 import com.zrkizzy.common.service.IRedisService;
 import com.zrkizzy.common.utils.PageUtil;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
-import com.zrkizzy.data.domain.User;
+import com.zrkizzy.data.domain.core.User;
 import com.zrkizzy.data.query.monitor.OnlineQuery;
 import com.zrkizzy.data.vo.monitor.OnlineUserVO;
 import com.zrkizzy.server.service.monitor.IOnlineService;

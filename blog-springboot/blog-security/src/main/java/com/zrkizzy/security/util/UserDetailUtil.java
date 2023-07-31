@@ -1,6 +1,6 @@
 package com.zrkizzy.security.util;
 
-import com.zrkizzy.data.domain.User;
+import com.zrkizzy.data.domain.core.User;
 import com.zrkizzy.security.entity.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,7 +1,7 @@
 package com.zrkizzy.server.service.core.impl;
 
 import com.zrkizzy.common.utils.SnowFlakeUtil;
-import com.zrkizzy.data.domain.UserRole;
+import com.zrkizzy.data.domain.core.UserRole;
 import com.zrkizzy.data.dto.core.UserRoleDTO;
 import com.zrkizzy.data.mapper.UserRoleMapper;
 import com.zrkizzy.server.service.core.IRoleService;

@@ -1,7 +1,7 @@
 package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zrkizzy.data.domain.UserInfo;
+import com.zrkizzy.data.domain.core.UserInfo;
 
 /**
  * 用户信息数据持久化接口

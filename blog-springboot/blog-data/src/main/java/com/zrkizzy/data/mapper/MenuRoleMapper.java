@@ -1,7 +1,7 @@
 package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zrkizzy.data.domain.MenuRole;
+import com.zrkizzy.data.domain.core.MenuRole;
 
 /**
  * 菜单角色数据持久化接口

@@ -1,6 +1,6 @@
 package com.zrkizzy.security.entity;
 
-import com.zrkizzy.data.domain.User;
+import com.zrkizzy.data.domain.core.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

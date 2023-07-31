@@ -4,7 +4,7 @@
 <mapper namespace="com.zrkizzy.data.mapper.ResourceMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.Resource">
+    <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.core.Resource">
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="url" property="url" />

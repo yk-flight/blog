@@ -1,7 +1,7 @@
 package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zrkizzy.data.domain.UserRole;
+import com.zrkizzy.data.domain.core.UserRole;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

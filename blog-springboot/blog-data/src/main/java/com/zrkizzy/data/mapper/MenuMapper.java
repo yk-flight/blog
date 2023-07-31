@@ -1,7 +1,7 @@
 package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zrkizzy.data.domain.Menu;
+import com.zrkizzy.data.domain.core.Menu;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.zrkizzy.server.service.core;
 
-import com.zrkizzy.data.domain.UserInfo;
+import com.zrkizzy.data.domain.core.UserInfo;
 import com.zrkizzy.data.vo.UserInfoVO;
 
 /**

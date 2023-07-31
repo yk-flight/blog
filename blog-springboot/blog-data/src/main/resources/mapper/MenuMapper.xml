@@ -6,7 +6,7 @@
         id, `name`, parent_id, `path`, component, is_cache, is_link, visible, icon, `order`, create_time, update_time
     </sql>
 
-    <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.Menu">
+    <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.core.Menu">
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="parent_id" property="parentId" />

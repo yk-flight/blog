@@ -26,7 +26,7 @@
     </update>
 
     <!-- 获取所有角色 -->
-    <select id="listRoles" resultType="com.zrkizzy.data.domain.Role">
+    <select id="listRoles" resultType="com.zrkizzy.data.domain.core.Role">
         SELECT
             <include refid="base_column"></include>
         FROM
@@ -34,7 +34,7 @@
     </select>
 
     <!-- 根据角色名称获取角色 -->
-    <select id="getRoleByName" resultType="com.zrkizzy.data.domain.Role">
+    <select id="getRoleByName" resultType="com.zrkizzy.data.domain.core.Role">
         SELECT
             <include refid="base_column"></include>
         FROM
@@ -44,7 +44,7 @@
     </select>
 
     <!-- 根据角色标识获取角色 -->
-    <select id="getRoleByMark" resultType="com.zrkizzy.data.domain.Role">
+    <select id="getRoleByMark" resultType="com.zrkizzy.data.domain.core.Role">
         SELECT
             <include refid="base_column"></include>
         FROM

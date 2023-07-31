@@ -8,7 +8,7 @@ import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.constant.AnnotationConst;
 import com.zrkizzy.common.enums.HttpStatusEnum;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
-import com.zrkizzy.data.domain.Module;
+import com.zrkizzy.data.domain.core.Module;
 import com.zrkizzy.data.dto.resource.ModuleDTO;
 import com.zrkizzy.data.query.ModuleQuery;
 import com.zrkizzy.data.vo.ModuleVO;

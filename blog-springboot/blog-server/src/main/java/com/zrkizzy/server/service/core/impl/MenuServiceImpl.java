@@ -1,6 +1,6 @@
 package com.zrkizzy.server.service.core.impl;
 
-import com.zrkizzy.data.domain.Menu;
+import com.zrkizzy.data.domain.core.Menu;
 import com.zrkizzy.data.mapper.MenuMapper;
 import com.zrkizzy.security.util.SecurityUtil;
 import com.zrkizzy.server.service.core.IMenuService;

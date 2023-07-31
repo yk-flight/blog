@@ -2,7 +2,7 @@ package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zrkizzy.data.domain.User;
+import com.zrkizzy.data.domain.core.User;
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.data.query.UserQuery;
 import com.zrkizzy.data.vo.UserVO;

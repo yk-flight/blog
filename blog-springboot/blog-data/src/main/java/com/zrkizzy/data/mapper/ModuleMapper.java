@@ -1,7 +1,7 @@
 package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zrkizzy.data.domain.Module;
+import com.zrkizzy.data.domain.core.Module;
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.data.vo.resource.ModuleTreeVO;
 
