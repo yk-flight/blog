@@ -1,6 +1,6 @@
 package com.zrkizzy.server.service.core;
 
-import com.zrkizzy.data.dto.UserRoleDTO;
+import com.zrkizzy.data.dto.core.UserRoleDTO;
 
 import java.util.List;
 

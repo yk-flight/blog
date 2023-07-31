@@ -3,7 +3,7 @@ package com.zrkizzy.web.controller.core;
 import com.zrkizzy.common.annotation.OperateLogAnnotation;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.constant.AnnotationConst;
-import com.zrkizzy.data.dto.UserRoleDTO;
+import com.zrkizzy.data.dto.core.UserRoleDTO;
 import com.zrkizzy.server.service.core.IUserRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

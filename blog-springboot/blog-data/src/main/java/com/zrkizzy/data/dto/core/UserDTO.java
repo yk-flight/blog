@@ -1,4 +1,4 @@
-package com.zrkizzy.data.dto;
+package com.zrkizzy.data.dto.core;
 
 import com.zrkizzy.common.annotation.IsEmail;
 import com.zrkizzy.common.base.BaseDTO;

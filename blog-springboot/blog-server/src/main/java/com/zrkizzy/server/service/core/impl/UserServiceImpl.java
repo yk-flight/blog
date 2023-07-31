@@ -15,6 +15,8 @@ import com.zrkizzy.common.utils.security.JwtTokenUtil;
 import com.zrkizzy.data.domain.Role;
 import com.zrkizzy.data.domain.User;
 import com.zrkizzy.data.dto.*;
+import com.zrkizzy.data.dto.core.UserDTO;
+import com.zrkizzy.data.dto.core.UserUpdateDTO;
 import com.zrkizzy.data.mapper.UserMapper;
 import com.zrkizzy.data.query.UserQuery;
 import com.zrkizzy.data.vo.UserVO;
