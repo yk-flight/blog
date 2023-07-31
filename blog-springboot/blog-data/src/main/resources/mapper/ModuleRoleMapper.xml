@@ -3,4 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zrkizzy.data.mapper.ModuleRoleMapper">
 
+    <!-- 删除指定角色具有的所有请求权限 -->
+    <delete id="deleteByRoleId"></delete>
 </mapper>
