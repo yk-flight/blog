@@ -1,5 +1,6 @@
 package com.zrkizzy.security.service.impl;
 
+import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.dto.resource.ResourceRoleDTO;
 import com.zrkizzy.data.dto.resource.RoleSecurityDTO;
 import com.zrkizzy.data.mapper.ResourceMapper;
@@ -51,14 +52,9 @@ public class DynamicSecurityServiceImpl implements DynamicSecurityService {
         // 此时已经根据请求路径将角色进行了区分
         for (String key : map.keySet()) {
             ResourceRoleDTO resourceRoleDTO = resourceRoleMap.get(key);
-            RoleSecurityDTO roleSecurityDTO = new RoleSecurityDTO();
+            RoleSecurityDTO roleSecurityDTO = BeanCopyUtil.copy(resourceRoleDTO, RoleSecurityDTO.class);
             // 赋值对象
-            roleSecurityDTO.setModuleId(resourceRoleDTO.getModuleId());
-            roleSecurityDTO.setMethod(resourceRoleDTO.getMethod());
-            roleSecurityDTO.setUrl(resourceRoleDTO.getUrl());
-            roleSecurityDTO.setDescription(resourceRoleDTO.getDescription());
             roleSecurityDTO.setRoles(map.get(key));
-
             result.add(roleSecurityDTO);
         }
         return result;
