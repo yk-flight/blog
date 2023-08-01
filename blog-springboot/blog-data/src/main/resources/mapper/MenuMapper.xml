@@ -24,7 +24,18 @@
     <!-- 根据角色名称获取对应菜单 -->
     <select id="getRoutes" resultMap="BaseResultMap">
         SELECT
-            <include refid="BaseColumn"></include>
+            m.id AS id,
+            m.`name` AS name,
+            m.parent_id AS parent_id,
+            m.`path` AS path,
+            m.component AS component,
+            m.is_cache AS is_cache,
+            m.is_link AS is_link,
+            m.visible AS visible,
+            m.icon AS icon,
+            m.`order` AS `order`,
+            m.create_time AS create_time,
+            m.update_time AS update_time
         FROM
             tb_menu m
                 LEFT JOIN tb_role r ON r.`name` = #{roleName}
