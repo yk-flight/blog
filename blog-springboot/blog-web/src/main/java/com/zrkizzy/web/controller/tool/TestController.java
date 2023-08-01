@@ -7,13 +7,10 @@ import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.common.config.properties.OssProperties;
 import com.zrkizzy.common.enums.file.FIleTypeEnum;
 import com.zrkizzy.common.utils.ServletUtil;
-import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.common.utils.file.FileExportUtil;
-import com.zrkizzy.data.domain.core.ModuleResource;
-import com.zrkizzy.data.domain.core.Resource;
-import com.zrkizzy.data.mapper.ModuleResourceMapper;
-import com.zrkizzy.data.mapper.ResourceMapper;
+import com.zrkizzy.data.dto.resource.RoleSecurityDTO;
 import com.zrkizzy.data.vo.export.ApiScanVO;
+import com.zrkizzy.security.service.DynamicSecurityService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +38,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -67,24 +63,12 @@ public class TestController {
     @Autowired
     private JavaMailSender javaMailSender;
     @Autowired
-    private ModuleResourceMapper moduleResourceMapper;
-    @Autowired
-    private ResourceMapper resourceMapper;
-    @Autowired
-    private SnowFlakeUtil snowFlakeUtil;
+    private DynamicSecurityService dynamicSecurityService;
 
     @GetMapping("/hello")
-    public String hello() {
-        List<Resource> resources = resourceMapper.selectList(null);
-        for (Resource resource : resources) {
-            ModuleResource moduleResource = new ModuleResource();
-            moduleResource.setId(snowFlakeUtil.nextId());
-            moduleResource.setModuleId(1636182933754609665L);
-            moduleResource.setResourceId(resource.getId());
-            moduleResource.setCreateTime(LocalDateTime.now());
-            moduleResourceMapper.insert(moduleResource);
-        }
-        return "Hello, World!";
+    public List<RoleSecurityDTO> hello() {
+        return dynamicSecurityService.loadResourceRoleData();
+//        return "Hello, World!";
     }
 
     @ApiOperation("获取邮件发送人")

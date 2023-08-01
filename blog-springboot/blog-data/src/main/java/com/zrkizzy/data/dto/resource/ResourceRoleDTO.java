@@ -3,7 +3,6 @@ package com.zrkizzy.data.dto.resource;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 资源角色数据传输对象
@@ -37,6 +36,6 @@ public class ResourceRoleDTO implements Serializable {
     /**
      * 当前资源请求对应角色
      */
-    private List<String> roles;
+    private String roleMark;
 
 }

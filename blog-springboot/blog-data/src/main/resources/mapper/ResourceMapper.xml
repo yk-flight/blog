@@ -15,18 +15,16 @@
     </resultMap>
 
     <!-- 资源角色映射集合 -->
-    <resultMap id="RoleSecurityDTO" type="com.zrkizzy.data.dto.resource.RoleSecurityDTO">
+    <resultMap id="ResourceRoleDTO" type="com.zrkizzy.data.dto.resource.ResourceRoleDTO">
         <result column="url" property="url" />
         <result column="method" property="method" />
         <result column="module_id" property="moduleId" />
         <result column="description" property="description" />
-        <collection property="roles" ofType="java.lang.String">
-            <result column="role_mark"/>
-        </collection>
+        <result column="role_mark" property="roleMark" />
     </resultMap>
 
     <!-- 加载资源角色数据 -->
-    <select id="loadResourceRoleData" resultMap="RoleSecurityDTO">
+    <select id="loadResourceRoleData" resultMap="ResourceRoleDTO">
         SELECT
             res.method AS method,
             res.url AS url,
