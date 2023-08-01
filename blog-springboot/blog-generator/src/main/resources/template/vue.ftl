@@ -43,7 +43,7 @@
           <el-button type="success" icon="el-icon-edit" size="mini" :disabled="single" @click="handleUpdate">编辑</el-button>
         </el-col>
         <el-col :span="1.5">
-          <el-button type="danger" icon="el-icon-delete" size="mini" :disabled="multiple" @click="handleDelete">删除</el-button>
+          <el-button type="danger" icon="el-icon-delete" size="mini" :disabled="multiple" @click="handleDelete" :loading="buttonLoading">删除</el-button>
         </el-col>
         <right-toolbar :showSearch.sync="showSearch" :columns="columns" @getTableData="getTableData"></right-toolbar>
       </el-row>
@@ -231,6 +231,9 @@ export default {
         this.total = res.total
         // 关闭等待框
         this.loading = false
+      }).catch(() => {
+        // 确保加载框可以关闭
+        this.loading = false
       })
     },
     // 点击查询按钮
@@ -284,22 +287,30 @@ export default {
     },
     // 点击删除事件
     handleDelete (row) {
+      const that = this
       let ${entityLowerName}Ids = []
       if (row.id) {
         ${entityLowerName}Ids.push(row.id)
       } else {
         ${entityLowerName}Ids = this.ids
       }
-      console.log(${entityLowerName}Ids)
       this.$confirm('是否确认删除选中的${objectName}数据？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(function () {
-        return delete${entityName}(${entityLowerName}Ids)
       }).then(() => {
-        this.getTableData()
-        this.$message.success('删除成功')
+        that.buttonLoading = true
+        that.loading = true
+        delete${entityName}(${entityLowerName}Ids).then((res) => {
+          that.buttonLoading = false
+          that.$message.success('删除成功')
+          // 刷新数据
+          that.getTableData()
+        }).catch(() => {
+          // 确保加载框会关闭
+          that.buttonLoading = false
+          that.loading = false
+        })
       }).catch(() => {})
     },
     // 提交表单
