@@ -74,25 +74,19 @@ public class ModuleResourceServiceImpl implements IModuleResourceService {
             // 获取请求链接
             String url = leaf.getUrl();
             // 截取出前面分组标签
-            String label = subLabelFromUrl(url);
-            if (map.containsKey(label)) {
-                // 获取当前组的资源
-                List<ResourceLeafVO> resourceList = map.get(label);
-                resourceList.add(leaf);
-            } else {
-                // 创建新的集合并添加当前请求
-                List<ResourceLeafVO> resourceList = new ArrayList<>();
-                resourceList.add(leaf);
-                map.put(label, resourceList);
-            }
+            String key = subLabelFromUrl(url);
+            // 如果存在当前键则获取对应集合，不存在则创建一个新的空集合
+            List<ResourceLeafVO> resourceList = map.getOrDefault(key, new ArrayList<>());
+            // 添加数据到集合和Map中
+            resourceList.add(leaf);
+            map.put(key, resourceList);
         }
         List<ResourceTreeVO> result = new ArrayList<>();
         // 将Map转为请求转为树形返回对象
         for (String label : map.keySet()) {
-            ResourceTreeVO resourceTreeVO = new ResourceTreeVO();
-            resourceTreeVO.setLabel(label);
-            resourceTreeVO.setChildren(map.get(label));
-            result.add(resourceTreeVO);
+            // 构建资源树对象并添加到集合中
+            result.add(ResourceTreeVO.builder()
+                    .label(label).children(map.get(label)).build());
         }
         return result;
     }
