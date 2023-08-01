@@ -26,6 +26,6 @@ public class ModuleRoleDTO implements Serializable {
      * 模块ID
      */
     @NotEmpty(message = "模块ID不能为空")
-    private List<Long> moduleId;
+    private List<Long> moduleIds;
 
 }

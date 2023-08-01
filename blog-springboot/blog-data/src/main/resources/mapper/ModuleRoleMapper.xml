@@ -3,6 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zrkizzy.data.mapper.ModuleRoleMapper">
 
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, module_id, role_id, create_time
+    </sql>
+
     <!-- 删除指定角色具有的所有请求权限 -->
     <delete id="deleteByRoleId">
         DELETE FROM tb_module_role WHERE role_id = #{roleId}
@@ -17,4 +22,15 @@
         WHERE
             role_id = #{roleId}
     </select>
+
+    <!-- 添加模块角色关联信息 -->
+    <insert id="insertBatch">
+        INSERT INTO
+        tb_module_role(<include refid="Base_Column_List"></include>)
+        VALUES
+        <foreach collection ="moduleRoleList" item="moduleRole" separator =",">
+            (#{moduleRole.id}, #{moduleRole.moduleId}, #{moduleRole.roleId}, #{moduleRole.createTime})
+        </foreach>
+    </insert>
+
 </mapper>

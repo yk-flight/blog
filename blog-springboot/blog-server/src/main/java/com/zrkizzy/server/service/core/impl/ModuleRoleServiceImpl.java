@@ -1,5 +1,7 @@
 package com.zrkizzy.server.service.core.impl;
 
+import com.zrkizzy.common.enums.HttpStatusEnum;
+import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.data.domain.core.ModuleRole;
 import com.zrkizzy.data.dto.core.ModuleRoleDTO;
@@ -8,6 +10,7 @@ import com.zrkizzy.security.core.filters.SecurityMetadataSourceFilter;
 import com.zrkizzy.server.service.core.IModuleRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,13 +41,14 @@ public class ModuleRoleServiceImpl implements IModuleRoleService {
      * @return 是否分配成功
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean save(ModuleRoleDTO moduleRoleDTO) {
         // 角色ID
         Long roleId = moduleRoleDTO.getRoleId();
         // 先根据角色ID删除模块权限
         moduleRoleMapper.deleteByRoleId(roleId);
         // 模块ID
-        List<Long> moduleIds = moduleRoleDTO.getModuleId();
+        List<Long> moduleIds = moduleRoleDTO.getModuleIds();
         List<ModuleRole> moduleRoles = new ArrayList<>();
         for (Long moduleId : moduleIds) {
             ModuleRole moduleRole = new ModuleRole();
@@ -57,11 +61,13 @@ public class ModuleRoleServiceImpl implements IModuleRoleService {
             moduleRoles.add(moduleRole);
         }
         // 添加当前模块权限
-//        if (moduleRoleMapper.insertBatch(moduleRoles) == moduleIds.size()) {
-//            // 清空内存中的动态权限
-//            securityMetadataSourceFilter.clearDataSource();
-//        }
-        return null;
+        if (moduleRoleMapper.insertBatch(moduleRoles) == moduleIds.size()) {
+            // 清空内存中的动态权限
+            securityMetadataSourceFilter.clearDataSource();
+            return Boolean.TRUE;
+        }
+        // 抛出模块角色分配异常
+        throw new BusinessException(HttpStatusEnum.MODULE_ROLE_ERROR);
     }
 
     /**

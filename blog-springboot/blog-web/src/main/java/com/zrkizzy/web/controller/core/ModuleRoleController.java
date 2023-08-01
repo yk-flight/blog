@@ -53,7 +53,6 @@ public class ModuleRoleController {
     @PostMapping("/save")
     @OperateLogAnnotation(type = AnnotationConst.ADD)
     public Result<Boolean> save(@Validated @RequestBody ModuleRoleDTO moduleRoleDTO) {
-        moduleRoleService.save(moduleRoleDTO);
-        return Result.success();
+        return Result.success(moduleRoleService.save(moduleRoleDTO));
     }
 }

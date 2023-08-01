@@ -2,6 +2,7 @@ package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zrkizzy.data.domain.core.ModuleRole;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -28,4 +29,13 @@ public interface ModuleRoleMapper extends BaseMapper<ModuleRole> {
      * @return 所有选中的模块ID集合
      */
     List<Long> listModuleIdByRoleId(Long roleId);
+
+    /**
+     * 添加模块角色关联信息
+     *
+     * @param moduleRoleList 模块角色关联集合
+     * @return 受影响行数
+     */
+    Integer insertBatch(@Param("moduleRoleList") List<ModuleRole> moduleRoleList);
+
 }
