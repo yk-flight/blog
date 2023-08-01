@@ -4,7 +4,9 @@
 <mapper namespace="com.zrkizzy.data.mapper.ModuleRoleMapper">
 
     <!-- 删除指定角色具有的所有请求权限 -->
-    <delete id="deleteByRoleId"></delete>
+    <delete id="deleteByRoleId">
+        DELETE FROM tb_module_role WHERE role_id = #{roleId}
+    </delete>
 
     <!-- 获取指定角色具有的模块权限 -->
     <select id="listModuleIdByRoleId" resultType="java.lang.Long">
@@ -14,6 +16,5 @@
             tb_module_role
         WHERE
             role_id = #{roleId}
-
     </select>
 </mapper>

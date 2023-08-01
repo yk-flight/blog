@@ -1,11 +1,16 @@
 package com.zrkizzy.server.service.core.impl;
 
+import com.zrkizzy.common.utils.SnowFlakeUtil;
+import com.zrkizzy.data.domain.core.ModuleRole;
 import com.zrkizzy.data.dto.core.ModuleRoleDTO;
 import com.zrkizzy.data.mapper.ModuleRoleMapper;
+import com.zrkizzy.security.core.filters.SecurityMetadataSourceFilter;
 import com.zrkizzy.server.service.core.IModuleRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,6 +21,12 @@ import java.util.List;
  */
 @Service
 public class ModuleRoleServiceImpl implements IModuleRoleService {
+
+    @Autowired
+    private SecurityMetadataSourceFilter securityMetadataSourceFilter;
+
+    @Autowired
+    private SnowFlakeUtil snowFlakeUtil;
 
     @Autowired
     private ModuleRoleMapper moduleRoleMapper;
@@ -30,11 +41,26 @@ public class ModuleRoleServiceImpl implements IModuleRoleService {
     public Boolean save(ModuleRoleDTO moduleRoleDTO) {
         // 角色ID
         Long roleId = moduleRoleDTO.getRoleId();
-        // 先根据角色ID删除对应资源权限
+        // 先根据角色ID删除模块权限
         moduleRoleMapper.deleteByRoleId(roleId);
         // 模块ID
         List<Long> moduleIds = moduleRoleDTO.getModuleId();
-        // 先将当前角色具有的所有模块权限删除
+        List<ModuleRole> moduleRoles = new ArrayList<>();
+        for (Long moduleId : moduleIds) {
+            ModuleRole moduleRole = new ModuleRole();
+            // 定义模块角色关联对象属性
+            moduleRole.setId(snowFlakeUtil.nextId());
+            moduleRole.setRoleId(roleId);
+            moduleRole.setModuleId(moduleId);
+            moduleRole.setCreateTime(LocalDateTime.now());
+            // 添加模块角色关联对象
+            moduleRoles.add(moduleRole);
+        }
+        // 添加当前模块权限
+//        if (moduleRoleMapper.insertBatch(moduleRoles) == moduleIds.size()) {
+//            // 清空内存中的动态权限
+//            securityMetadataSourceFilter.clearDataSource();
+//        }
         return null;
     }
 
