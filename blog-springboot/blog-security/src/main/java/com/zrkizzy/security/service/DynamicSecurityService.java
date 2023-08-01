@@ -1,6 +1,6 @@
 package com.zrkizzy.security.service;
 
-import com.zrkizzy.data.dto.resource.ResourceRoleDTO;
+import com.zrkizzy.data.dto.resource.RoleSecurityDTO;
 
 import java.util.List;
 
@@ -17,6 +17,6 @@ public interface DynamicSecurityService {
      *
      * @return 资源角色数据集合
      */
-    List<ResourceRoleDTO> loadResourceRoleData();
+    List<RoleSecurityDTO> loadResourceRoleData();
 
 }

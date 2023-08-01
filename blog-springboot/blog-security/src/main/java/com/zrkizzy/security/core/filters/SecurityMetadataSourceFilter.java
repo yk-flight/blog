@@ -1,7 +1,7 @@
 package com.zrkizzy.security.core.filters;
 
 import com.zrkizzy.common.context.SystemContext;
-import com.zrkizzy.data.dto.resource.ResourceRoleDTO;
+import com.zrkizzy.data.dto.resource.RoleSecurityDTO;
 import com.zrkizzy.security.service.DynamicSecurityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class SecurityMetadataSourceFilter implements FilterInvocationSecurityMet
     /**
      * 角色资源列表
      */
-    private static List<ResourceRoleDTO> resourceRoleList;
+    private static List<RoleSecurityDTO> roleSecurityList;
 
     /**
      * 自定义动态权限
@@ -47,14 +47,14 @@ public class SecurityMetadataSourceFilter implements FilterInvocationSecurityMet
      */
     @PostConstruct
     private void loadResourceData() {
-        resourceRoleList = dynamicSecurityService.loadResourceRoleData();
+        roleSecurityList = dynamicSecurityService.loadResourceRoleData();
     }
 
     /**
      * 清空当前角色信息权限
      */
     public void clearDataSource() {
-        resourceRoleList = null;
+        roleSecurityList = null;
     }
 
     /**
@@ -64,9 +64,9 @@ public class SecurityMetadataSourceFilter implements FilterInvocationSecurityMet
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
-        if (CollectionUtils.isEmpty(resourceRoleList)) {
+        if (CollectionUtils.isEmpty(roleSecurityList)) {
             // 加载请求资源
-            resourceRoleList = dynamicSecurityService.loadResourceRoleData();
+            roleSecurityList = dynamicSecurityService.loadResourceRoleData();
         }
 //        log.info("----------------- 进入请求资源权限过滤器 -----------------");
         FilterInvocation filter = (FilterInvocation) object;
@@ -78,16 +78,16 @@ public class SecurityMetadataSourceFilter implements FilterInvocationSecurityMet
 
 //        log.info("开始匹配权限......");
         // 匹配需要进行权限校验的请求路径
-        for (ResourceRoleDTO resourceRoleDTO : resourceRoleList) {
+        for (RoleSecurityDTO roleSecurityDTO : roleSecurityList) {
 //            log.info("校验的请求方式为：{}，校验请求的路径为：{}", resourceRoleDTO.getMethod(), resourceRoleDTO.getUrl());
             // 如果请求路径与请求方法一致则进行权限添加操作
-            if (antPathMatcher.match(resourceRoleDTO.getUrl(), requestUrl) && resourceRoleDTO.getMethod().equals(method)) {
+            if (antPathMatcher.match(roleSecurityDTO.getUrl(), requestUrl) && roleSecurityDTO.getMethod().equals(method)) {
                 // 将当前请求的模块ID添加到全局线程变量中
-                SystemContext.setModuleId(resourceRoleDTO.getModuleId());
-                SystemContext.setOperateContent(resourceRoleDTO.getDescription());
+                SystemContext.setModuleId(roleSecurityDTO.getModuleId());
+                SystemContext.setOperateContent(roleSecurityDTO.getDescription());
 //                log.info("开始对当前请求：{} 进行授权", resourceRoleDTO.getUrl());
 //                log.info("授予的角色集合为： {}", Arrays.toString(resourceRoleDTO.getRoles().toArray()));
-                return SecurityConfig.createList(resourceRoleDTO.getRoles().toArray(new String[]{}));
+                return SecurityConfig.createList(roleSecurityDTO.getRoles().toArray(new String[]{}));
             }
         }
 
