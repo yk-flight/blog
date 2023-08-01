@@ -105,3 +105,14 @@ export const listByRoleId = (id) => {
     method: 'GET'
   })
 }
+
+/**
+ * 分配角色模块权限
+ */
+export const saveModuleRole = (data) => {
+  return request({
+    url: '/admin/module-role/save',
+    method: 'POST',
+    data: data
+  })
+}

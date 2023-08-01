@@ -54,7 +54,13 @@
         </template>
         <el-table-column type="selection" width="50" align="center" />
         <el-table-column prop="name" label="角色名称" align="center" v-if="columns[0].visible"></el-table-column>
-        <el-table-column prop="mark" label="角色标识" align="center" v-if="columns[1].visible"></el-table-column>
+        <el-table-column prop="mark" label="角色标识" align="center" v-if="columns[1].visible">
+          <template slot-scope="scope">
+            <el-tag size="small" effect="plain">
+              {{ scope.row.mark }}
+            </el-tag>
+          </template>
+        </el-table-column>
         <el-table-column prop="description" label="角色描述" align="center" v-if="columns[2].visible" width="300"></el-table-column>
         <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[3].visible">
           <template slot-scope="scope">
@@ -149,9 +155,10 @@
       :before-close="handleResourceClose">
       <div class="resource-wrapper" v-loading="moduleLoading" element-loading-text="正在加载模块角色关联信息">
         <el-tree
-          ref="tree"
+          ref="moduleTree"
           :data="moduleTree"
           node-key="id"
+          check-on-click-node
           :default-checked-keys="checkIds"
           show-checkbox>
         </el-tree>
@@ -165,11 +172,11 @@
           icon="el-icon-error">
             取消
           </el-button>
-          <!-- @click="submitForm()" -->
         <el-button
           type="success"
           :loading="buttonLoading"
           size="small"
+          @click="saveModuleRole()"
           icon="el-icon-success">
             保存
           </el-button>
@@ -182,7 +189,7 @@ import PageTitle from '../../../components/PageTitle/index.vue'
 import Pagination from '../../../components/Pagination/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
 import { listRoles, saveRole, getRoleById, deleteRole } from '../../../api/role'
-import { listByRoleId } from '../../../api/module'
+import { listByRoleId, saveModuleRole } from '../../../api/module'
 
 export default {
   name: 'Role',
@@ -261,7 +268,14 @@ export default {
       // 请求模块树形结构
       moduleTree: [],
       // 所有模块资源
-      checkIds: []
+      checkIds: [],
+      // 模块角色关联对象
+      moduleRole: {
+        // 角色ID
+        roleId: undefined,
+        // 选中模块ID
+        moduleIds: undefined
+      }
     }
   },
 
@@ -433,6 +447,7 @@ export default {
     },
     // 资源权限对话框
     handleResource (row) {
+      this.moduleRole.roleId = row.id
       // 打开对话框
       this.resourceVisible = true
       // 打开加载框
@@ -450,6 +465,42 @@ export default {
     // 关闭资源权限对话框
     handleResourceClose () {
       this.resourceVisible = false
+      this.resetModuleRole()
+    },
+    // 保存资源权限
+    saveModuleRole () {
+      // 获取到当前所有节点数据
+      const leafNodes = this.$refs.moduleTree.getCheckedNodes()
+      this.moduleRole.moduleIds = leafNodes.map(node => node.id)
+      // 打开加载框
+      this.moduleLoading = true
+      this.buttonLoading = true
+      saveModuleRole(this.moduleRole).then((res) => {
+        this.$message.success('权限分配成功')
+        // 关闭加载框
+        this.moduleLoading = false
+        this.buttonLoading = false
+        // 关闭对话框
+        this.handleResourceClose()
+        // 刷新数据
+        this.getTableData()
+      }).catch(() => {
+        // 关闭加载框
+        this.moduleLoading = false
+        this.buttonLoading = false
+        this.handleResourceClose()
+      })
+    },
+    // 清空模块角色关联数据
+    resetModuleRole () {
+      this.moduleTree = []
+      this.checkIds = []
+      this.moduleRole = {
+        // 角色ID
+        roleId: undefined,
+        // 模块ID
+        moduleIds: undefined
+      }
     }
   }
 }
