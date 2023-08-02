@@ -6,17 +6,6 @@
         <el-col :span="24" :xs="24">
           <el-form size="small" :inline="true" v-show="showSearch" label-width="68px" :model="queryParams" ref="queryForm">
 
-            <el-form-item label="操作模块">
-              <el-select v-model="queryParams.moduleId" placeholder="请选择操作模块" size="small" class="search-item" clearable>
-                <el-option
-                  v-for="item in moduleOptions"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-
             <el-form-item label="操作类型">
               <el-select v-model="queryParams.type" placeholder="请选择操作类型" size="small" class="search-item" clearable>
                 <el-option
@@ -95,8 +84,6 @@
           <el-empty :image-size="200"></el-empty>
         </template>
         <el-table-column type="selection" width="50" align="center" />
-        <!-- 操作模块 -->
-        <el-table-column prop="moduleName" label="操作模块" align="center" v-if="columns[0].visible"></el-table-column>
         <el-table-column prop="operateContent" label="操作内容" align="center" v-if="columns[1].visible" show-overflow-tooltip></el-table-column>
         <!-- 操作类型 -->
         <el-table-column prop="type" label="操作类型" align="center" v-if="columns[2].visible">
@@ -175,10 +162,13 @@
                 <el-form-item label="操作用户：">{{ formData.nickname }}</el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="操作模块：">{{ formData.moduleName }}</el-form-item>
+                <el-form-item label="操作地址：">{{ formData.operateIp }} / {{ formData.operateLocation }}</el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="操作地址：">{{ formData.operateIp }} / {{ formData.operateLocation }}</el-form-item>
+                <el-form-item label="操作结果：">
+                  <el-tag type="success" v-if="formData.status">成功</el-tag>
+                  <el-tag type="danger" v-else>失败</el-tag>
+                </el-form-item>
               </el-col>
               <el-col :span="24">
                 <el-form-item label="操作内容：">{{ formData.operateContent }}</el-form-item>
@@ -202,13 +192,7 @@
                   {{ formData.costTime }}ms
                 </el-form-item>
               </el-col>
-              <el-col :span="8">
-                <el-form-item label="操作结果：">
-                  <el-tag type="success" v-if="formData.status">成功</el-tag>
-                  <el-tag type="danger" v-else>失败</el-tag>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
+              <el-col :span="12">
                 <el-form-item label="请求类型：">
                   <el-tag type="primary" v-if="formData.requestMethod === 'POST'">POST</el-tag>
                   <el-tag type="success" v-else-if="formData.requestMethod === 'GET'">GET</el-tag>
@@ -216,7 +200,7 @@
                   <el-tag type="danger" v-else>DELETE</el-tag>
                 </el-form-item>
               </el-col>
-              <el-col :span="8">
+              <el-col :span="12">
                 <el-form-item label="操作类型：">
                   <el-tag type="success" v-if="formData.type === 1">新增</el-tag>
                   <el-tag type="primary" v-else-if="formData.type == 2">修改</el-tag>
@@ -240,7 +224,6 @@ import PageTitle from '../../../components/PageTitle/index.vue'
 import Pagination from '../../../components/Pagination/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
 import { listOperateLogs, deleteOperateLog, clearOperateLogs } from '../../../api/operateLog'
-import { listModuleOptions } from '../../../api/module'
 import { listUserOptions } from '../../../api/user'
 
 export default {
@@ -266,8 +249,6 @@ export default {
         currentPage: 1,
         // 页面大小
         pageSize: 10,
-        // 模块ID
-        moduleId: undefined,
         // 操作类型
         type: undefined,
         // 请求类型
@@ -366,8 +347,6 @@ export default {
           label: '查询'
         }
       ],
-      // 模块选项数据
-      moduleOptions: [],
       // 用户选项数据
       userOptions: []
     }
@@ -408,10 +387,6 @@ export default {
     },
     // 查询模块选项数据
     listOptions () {
-      // 调用后端接口
-      listModuleOptions().then((res) => {
-        this.moduleOptions = res
-      })
       listUserOptions().then((res) => {
         this.userOptions = res
       })
@@ -438,8 +413,6 @@ export default {
     },
     // 点击重置按钮
     handleReset () {
-      // 模块ID
-      this.queryParams.moduleId = ''
       // 操作类型
       this.queryParams.type = ''
       // 请求类型

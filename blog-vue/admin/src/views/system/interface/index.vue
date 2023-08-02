@@ -99,11 +99,11 @@
           <el-row :gutter="15">
             <!-- 模块名称 -->
             <el-form-item label="模块名称" prop="name">
-              <el-input v-model="formData.name" placeholder="请输入模块名称" clearable></el-input>
+              <el-input v-model="formData.name" placeholder="请输入模块名称" size="small" clearable></el-input>
             </el-form-item>
             <!-- 模块描述 -->
             <el-form-item label="模块描述" prop="description">
-              <el-input type="textarea" rows="3" autosize v-model="formData.description" placeholder="请输入模块描述" clearable></el-input>
+              <el-input type="textarea" rows="5" autosize v-model="formData.description" placeholder="请输入模块描述" clearable></el-input>
             </el-form-item>
           </el-row>
         </el-form>
@@ -294,6 +294,9 @@ export default {
           // 在获取表格数据时会关闭等待框
           that.getTableData()
           that.$message.success('删除成功')
+        }).catch(() => {
+          // 关闭加载框
+          that.loading = false
         })
       }).catch(() => {
 
