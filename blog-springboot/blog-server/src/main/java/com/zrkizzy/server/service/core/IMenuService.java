@@ -1,5 +1,6 @@
 package com.zrkizzy.server.service.core;
 
+import com.zrkizzy.data.vo.MenuVO;
 import com.zrkizzy.data.vo.route.RouterVO;
 
 import java.util.List;
@@ -17,4 +18,11 @@ public interface IMenuService {
      * @return 当前登录用户的菜单
      */
     List<RouterVO> getRoutes();
+
+    /**
+     * 获取菜单列表
+     *
+     * @return 菜单列表
+     */
+    List<MenuVO> listMenu();
 }
