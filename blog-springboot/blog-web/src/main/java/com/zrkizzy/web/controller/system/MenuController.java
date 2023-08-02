@@ -1,15 +1,14 @@
 package com.zrkizzy.web.controller.system;
 
 import com.zrkizzy.common.base.response.Result;
+import com.zrkizzy.data.query.MenuQuery;
 import com.zrkizzy.data.vo.MenuVO;
 import com.zrkizzy.data.vo.route.RouterVO;
 import com.zrkizzy.server.service.core.IMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,8 +33,8 @@ public class MenuController {
     }
 
     @ApiOperation("获取菜单数据")
-    @GetMapping("/list")
-    public Result<List<MenuVO>> list() {
-        return Result.success(menuService.listMenu());
+    @PostMapping("/list")
+    public Result<List<MenuVO>> list(@RequestBody MenuQuery menuQuery) {
+        return Result.success(menuService.listMenu(menuQuery));
     }
 }

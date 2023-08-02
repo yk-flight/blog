@@ -65,6 +65,12 @@ public class Menu extends BaseEntity {
     private Boolean visible;
 
     /**
+     * 状态，0：禁用，1：正常
+     */
+    @ApiModelProperty("菜单状态")
+    private Boolean status;
+
+    /**
      * 图标
      */
     @ApiModelProperty("图标")

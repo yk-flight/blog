@@ -2,6 +2,8 @@ package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zrkizzy.data.domain.core.Menu;
+import com.zrkizzy.data.query.MenuQuery;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -28,4 +30,13 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @return 角色对应菜单
      */
     List<Menu> getRoutes(String roleName);
+
+    /**
+     * 查询符合条件的所有菜单数据
+     *
+     * @param menuQuery 菜单信息查询对象
+     * @return 符合条件的菜单集合
+     */
+    List<Menu> listMenus(@Param("menuQuery") MenuQuery menuQuery);
+
 }

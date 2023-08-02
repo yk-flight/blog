@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zrkizzy.data.mapper.MenuMapper">
     <sql id="BaseColumn">
-        id, `name`, parent_id, `path`, component, is_cache, is_link, visible, icon, `order`, create_time, update_time
+        id, `name`, parent_id, `path`, component, is_cache, is_link, visible, status, icon, `order`, create_time, update_time
     </sql>
 
     <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.core.Menu">
@@ -15,6 +15,7 @@
         <result column="is_cache" property="isCache" />
         <result column="is_link" property="isLink" />
         <result column="visible" property="visible" />
+        <result column="status" property="status" />
         <result column="icon" property="icon" />
         <result column="order" property="order" />
         <result column="create_time" property="createTime" />
@@ -41,13 +42,35 @@
                 LEFT JOIN tb_role r ON r.`name` = #{roleName}
                 LEFT JOIN tb_menu_role mr ON mr.role_id = r.id
         WHERE
-            mr.menu_id = m.id
+            mr.menu_id = m.id AND
+            m.status = 1
     </select>
 
     <!-- 获取所有菜单 -->
     <select id="getAllRoutes" resultMap="BaseResultMap">
         SELECT
             <include refid="BaseColumn"></include>
-        FROM tb_menu
+        FROM
+            tb_menu
+        WHERE
+            status = 1
+    </select>
+    
+    <!-- 查询符合条件的所有菜单数据 -->
+    <select id="listMenus" resultMap="BaseResultMap">
+        SELECT
+            <include refid="BaseColumn"></include>
+        FROM tb_menu m
+        <where>
+            <if test="null != menuQuery.name and '' != menuQuery.name">
+                AND `name` LIKE CONCAT('%', #{menuQuery.name}, '%')
+            </if>
+            <if test="null != menuQuery.status">
+                AND status = #{menuQuery.status}
+            </if>
+            <if test="null != menuQuery.dataRange and 2 == menuQuery.dataRange.size">
+                AND create_time BETWEEN #{menuQuery.dataRange[0]} AND #{menuQuery.dataRange[1]}
+            </if>
+        </where>
     </select>
 </mapper>

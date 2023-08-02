@@ -1,5 +1,6 @@
 package com.zrkizzy.server.service.core;
 
+import com.zrkizzy.data.query.MenuQuery;
 import com.zrkizzy.data.vo.MenuVO;
 import com.zrkizzy.data.vo.route.RouterVO;
 
@@ -22,7 +23,8 @@ public interface IMenuService {
     /**
      * 获取菜单列表
      *
+     * @param menuQuery 菜单信息查询对象
      * @return 菜单列表
      */
-    List<MenuVO> listMenu();
+    List<MenuVO> listMenu(MenuQuery menuQuery);
 }

@@ -3,6 +3,7 @@ package com.zrkizzy.server.service.core.impl;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.core.Menu;
 import com.zrkizzy.data.mapper.MenuMapper;
+import com.zrkizzy.data.query.MenuQuery;
 import com.zrkizzy.data.vo.MenuVO;
 import com.zrkizzy.data.vo.route.MetaVO;
 import com.zrkizzy.data.vo.route.RouterVO;
@@ -193,12 +194,13 @@ public class MenuServiceImpl implements IMenuService {
     /**
      * 获取菜单列表
      *
+     * @param menuQuery 菜单信息查询对象
      * @return 菜单列表
      */
     @Override
-    public List<MenuVO> listMenu() {
+    public List<MenuVO> listMenu(MenuQuery menuQuery) {
         // 复制集合
-        List<Menu> menus = setMenuChildren(menuMapper.getAllRoutes(), 0L);
+        List<Menu> menus = setMenuChildren(menuMapper.listMenus(menuQuery), 0L);
         // 定义返回结果
         List<MenuVO> result = new ArrayList<>();
         // 封装当前菜单列表
@@ -232,6 +234,7 @@ public class MenuServiceImpl implements IMenuService {
      * @return 菜单数据返回对象集合
      */
     private List<MenuVO> getMenuChildren(List<Menu> menus) {
+        // 如果子菜单为空则返回
         if (CollectionUtils.isEmpty(menus)) {
             return null;
         }

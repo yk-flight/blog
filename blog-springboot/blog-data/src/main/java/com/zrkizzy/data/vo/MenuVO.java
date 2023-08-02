@@ -50,6 +50,11 @@ public class MenuVO extends BaseVO implements Comparable<MenuVO> {
     private Boolean visible;
 
     /**
+     * 菜单状态：0: 禁用，1: 正常
+     */
+    private Boolean status;
+
+    /**
      * 图标
      */
     private String icon;
