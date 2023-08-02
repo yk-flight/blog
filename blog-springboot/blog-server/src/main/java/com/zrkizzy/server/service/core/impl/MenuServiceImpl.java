@@ -199,50 +199,9 @@ public class MenuServiceImpl implements IMenuService {
      */
     @Override
     public List<MenuVO> listMenu(MenuQuery menuQuery) {
+        List<Menu> menuList = menuMapper.listMenus(menuQuery);
         // 复制集合
-        List<Menu> menus = setMenuChildren(menuMapper.listMenus(menuQuery), 0L);
-        // 定义返回结果
-        List<MenuVO> result = new ArrayList<>();
-        // 封装当前菜单列表
-        for (Menu menu : menus) {
-            // 根据具体的Menu对象来构建MenuVO返回对象
-            MenuVO menuVO = buildMenuVO(menu);
-            result.add(menuVO);
-        }
-        Collections.sort(result);
-        return result;
-    }
-
-    /**
-     * 构建菜单返回对象
-     *
-     * @param menu 菜单数据对象
-     * @return 菜单数据返回对象
-     */
-    private MenuVO buildMenuVO(Menu menu) {
-        // 复制菜单返回对象
-        MenuVO menuVO = BeanCopyUtil.copy(menu, MenuVO.class);
-        // 设置子菜单数据
-        menuVO.setChildren(getMenuChildren(menu.getChildren()));
-        return menuVO;
-    }
-
-    /**
-     * 设置子菜单数据
-     *
-     * @param menus 菜单集合
-     * @return 菜单数据返回对象集合
-     */
-    private List<MenuVO> getMenuChildren(List<Menu> menus) {
-        // 如果子菜单为空则返回
-        if (CollectionUtils.isEmpty(menus)) {
-            return null;
-        }
-        // 转集合
-        List<MenuVO> result = BeanCopyUtil.copyList(menus, MenuVO.class);
-        // 给排序子菜单
-        Collections.sort(result);
-        return result;
+        return BeanCopyUtil.copyList(menuList, MenuVO.class);
     }
 
 }
