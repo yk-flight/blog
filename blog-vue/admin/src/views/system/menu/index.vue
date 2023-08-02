@@ -5,6 +5,22 @@
       <el-row class="search-container" type="flex">
         <el-col :span="24" :xs="24">
           <el-form size="small" :inline="true" v-show="showSearch" label-width="68px" :model="queryParams" ref="queryForm">
+
+            <el-form-item label="菜单名称">
+              <el-input v-model="queryParams.name" class="search-item" placeholder="请输入菜单名称名称" size="small" clearable></el-input>
+            </el-form-item>
+
+            <el-form-item label="菜单状态">
+              <el-select v-model="queryParams.status" placeholder="请选择菜单状态" size="small" class="search-item" clearable>
+                <el-option
+                  v-for="item in statusOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+
             <!-- 创建时间 -->
             <el-form-item label="创建时间" size="small">
               <el-date-picker
@@ -31,38 +47,34 @@
             新增
           </el-button>
         </el-col>
-        <el-col :span="1.5">
-          <el-button type="success" icon="el-icon-edit" size="mini" :disabled="single" @click="handleUpdate">编辑</el-button>
-        </el-col>
-        <el-col :span="1.5">
-          <el-button type="danger" icon="el-icon-delete" size="mini" :disabled="multiple" @click="handleDelete" :loading="buttonLoading">删除</el-button>
-        </el-col>
         <right-toolbar :showSearch.sync="showSearch" :columns="columns" @getTableData="getTableData"></right-toolbar>
       </el-row>
 
-      <el-table v-loading="loading" element-loading-text="正在加载表格数据" :data="tableData" @selection-change="handleSelectionChange" border>
+      <el-table v-loading="loading" element-loading-text="正在加载表格数据" :data="tableData" row-key="id" :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
         <template slot="empty">
           <el-empty :image-size="200"></el-empty>
         </template>
-        <el-table-column type="selection" width="50" align="center" />
         <!-- 菜单名称 -->
         <el-table-column prop="name" label="菜单名称" align="center" v-if="columns[0].visible"></el-table-column>
-        <!-- 父菜单 -->
-        <el-table-column prop="parentId" label="父菜单" align="center" v-if="columns[1].visible"></el-table-column>
+        <!-- 图标 -->
+        <el-table-column prop="icon" label="图标" align="center" width="80" v-if="columns[7].visible">
+          <template slot-scope="scope">
+            <svg-icon :icon="scope.row.icon"></svg-icon>
+          </template>
+        </el-table-column>
+        <!-- 排序 -->
+        <el-table-column prop="order" label="排序" align="center" width="80" v-if="columns[8].visible"></el-table-column>
         <!-- 访问路径 -->
         <el-table-column prop="path" label="访问路径" align="center" v-if="columns[2].visible"></el-table-column>
-        <!-- 组件 -->
-        <el-table-column prop="component" label="组件" align="center" v-if="columns[3].visible"></el-table-column>
+        <!-- 组件路径 -->
+        <el-table-column prop="component" label="组件路径" align="center" v-if="columns[3].visible"></el-table-column>
         <!-- 是否缓存 -->
-        <el-table-column prop="isCache" label="是否缓存" align="center" v-if="columns[4].visible"></el-table-column>
-        <!-- 是否外链 -->
-        <el-table-column prop="isLink" label="是否外链" align="center" v-if="columns[5].visible"></el-table-column>
-        <!-- 是否隐藏 -->
-        <el-table-column prop="visible" label="是否隐藏" align="center" v-if="columns[6].visible"></el-table-column>
-        <!-- 图标 -->
-        <el-table-column prop="icon" label="图标" align="center" v-if="columns[7].visible"></el-table-column>
-        <!-- 菜单顺序 -->
-        <el-table-column prop="order" label="菜单顺序" align="center" v-if="columns[8].visible"></el-table-column>
+        <el-table-column prop="status" label="状态" align="center" v-if="columns[4].visible">
+          <template slot-scope="scope">
+            <el-tag type="primary" v-if="scope.row.status">正常</el-tag>
+            <el-tag type="danger" v-else>禁用</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column prop="createTime" label="创建时间" align="center" v-if="columns[9].visible">
           <template slot-scope="scope">
             <span>{{ scope.row.createTime | dateFilter }}</span>
@@ -80,15 +92,6 @@
           </template>
         </el-table-column>
       </el-table>
-
-      <!-- 分页器 -->
-      <pagination
-        :background="false"
-        :total="total"
-        :page.sync="queryParams.currentPage"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getTableData"
-      />
     </div>
 
     <!-- 菜单信息对话框 -->
@@ -115,9 +118,9 @@
             <el-form-item label="访问路径" prop="path">
               <el-input v-model="formData.path" placeholder="请输入访问路径" clearable></el-input>
             </el-form-item>
-            <!-- 组件 -->
-            <el-form-item label="组件" prop="component">
-              <el-input v-model="formData.component" placeholder="请输入组件" clearable></el-input>
+            <!-- 组件路径 -->
+            <el-form-item label="组件路径" prop="component">
+              <el-input v-model="formData.component" placeholder="请输入组件路径" clearable></el-input>
             </el-form-item>
             <!-- 是否缓存 -->
             <el-form-item label="是否缓存" prop="isCache">
@@ -135,9 +138,9 @@
             <el-form-item label="图标" prop="icon">
               <el-input v-model="formData.icon" placeholder="请输入图标" clearable></el-input>
             </el-form-item>
-            <!-- 菜单顺序 -->
-            <el-form-item label="菜单顺序" prop="order">
-              <el-input v-model="formData.order" placeholder="请输入菜单顺序" clearable></el-input>
+            <!-- 排序 -->
+            <el-form-item label="排序" prop="order">
+              <el-input v-model="formData.order" placeholder="请输入排序" clearable></el-input>
             </el-form-item>
           </el-row>
         </el-form>
@@ -165,14 +168,13 @@
 </template>
 <script>
 import PageTitle from '../../../components/PageTitle/index.vue'
-import Pagination from '../../../components/Pagination/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
 import { listMenus, saveMenu, getMenuById, deleteMenu } from '../../../api/menu'
 
 export default {
   name: 'Menu',
 
-  components: { PageTitle, Pagination, RightToolbar },
+  components: { PageTitle, RightToolbar },
 
   data () {
     return {
@@ -188,10 +190,10 @@ export default {
       loading: false,
       // 查询参数
       queryParams: {
-        // 页数
-        currentPage: 1,
-        // 页面大小
-        pageSize: 10,
+        // 菜单名称
+        name: undefined,
+        // 菜单状态
+        status: undefined,
         // 时间范围
         dataRange: []
       },
@@ -203,7 +205,7 @@ export default {
         parentId: undefined,
         // 访问路径
         path: undefined,
-        // 组件
+        // 组件路径
         component: undefined,
         // 是否缓存
         isCache: undefined,
@@ -213,7 +215,7 @@ export default {
         visible: undefined,
         // 图标
         icon: undefined,
-        // 菜单顺序
+        // 排序
         order: undefined
       },
       // 菜单表单校验规则
@@ -231,8 +233,8 @@ export default {
         { key: 1, label: '父菜单', visible: true },
         // 访问路径
         { key: 2, label: '访问路径', visible: true },
-        // 组件
-        { key: 3, label: '组件', visible: true },
+        // 组件路径
+        { key: 3, label: '组件路径', visible: true },
         // 是否缓存
         { key: 4, label: '是否缓存', visible: true },
         // 是否外链
@@ -241,21 +243,26 @@ export default {
         { key: 6, label: '是否隐藏', visible: true },
         // 图标
         { key: 7, label: '图标', visible: true },
-        // 菜单顺序
-        { key: 8, label: '菜单顺序', visible: true },
+        // 排序
+        { key: 8, label: '排序', visible: true },
         { key: 9, label: '创建时间', visible: true },
         { key: 10, label: '更新时间', visible: true }
       ],
       // 表格数据
       tableData: [],
-      // 表头选中的数据
-      ids: [],
-      // 多数据禁用
-      single: true,
-      // 单数据禁用
-      multiple: true,
       // 对话框标题
-      menuTitle: ''
+      menuTitle: '',
+      // 菜单状态选项
+      statusOptions: [
+        {
+          value: 1,
+          label: '正常'
+        },
+        {
+          value: 0,
+          label: '禁用'
+        }
+      ]
     }
   },
 
@@ -279,8 +286,7 @@ export default {
       this.loading = true
       listMenus(this.queryParams).then((res) => {
         // 赋值数据参数
-        this.tableData = res.list
-        this.total = res.total
+        this.tableData = res
         // 关闭等待框
         this.loading = false
       }).catch(() => {
@@ -295,7 +301,14 @@ export default {
     },
     // 点击重置按钮
     handleReset () {
-      this.queryParams.dataRange = []
+      this.queryParams = {
+        // 菜单名称
+        name: undefined,
+        // 菜单状态
+        status: undefined,
+        // 时间范围
+        dataRange: []
+      }
     },
     // 打开菜单信息对话框
     handleOpen () {
@@ -399,15 +412,6 @@ export default {
         // 菜单ID
         id: undefined
       }
-    },
-    // 多选框
-    handleSelectionChange (selection) {
-      // 获取当前选中数组的ID
-      this.ids = selection.map(item => item.id)
-      // 表头的编辑是否可以点击
-      this.single = selection.length !== 1
-      // 表头的删除是否可以点击
-      this.multiple = !selection.length
     }
   }
 }
@@ -420,5 +424,8 @@ export default {
 }
 .search-item {
   width: 240px;
+}
+.card {
+  min-height: calc(100vh - 165px);
 }
 </style>

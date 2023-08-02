@@ -103,7 +103,7 @@
             </el-form-item>
             <!-- 模块描述 -->
             <el-form-item label="模块描述" prop="description">
-              <el-input type="textarea" rows="5" autosize v-model="formData.description" placeholder="请输入模块描述" clearable></el-input>
+              <el-input type="textarea" :rows="3" v-model="formData.description" placeholder="请输入模块描述" clearable></el-input>
             </el-form-item>
           </el-row>
         </el-form>

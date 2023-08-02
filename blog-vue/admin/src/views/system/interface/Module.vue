@@ -27,8 +27,8 @@
       </el-row>
       <el-row :gutter="10" class="button-container">
         <el-col :span="1.5">
-          <el-button type="primary" icon="el-icon-plus" @click="handleAdd" size="mini">
-            新增
+          <el-button type="primary" icon="el-icon-edit" @click="handleEdit" size="mini">
+            编辑
           </el-button>
         </el-col>
         <el-col :span="1.5">
@@ -250,7 +250,7 @@ export default {
       this.moduleResourceVisible = false
     },
     // 点击新增按钮
-    handleAdd () {
+    handleEdit () {
       this.moduleResourceTitle = '新增请求资源'
       // 清除表单数据
       this.resetForm()
