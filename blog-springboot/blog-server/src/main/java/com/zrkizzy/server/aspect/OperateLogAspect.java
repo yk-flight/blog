@@ -129,8 +129,6 @@ public class OperateLogAspect {
             operateLog.setOperateLocation(IpUtil.getIpLocation(ip));
             // ID
             operateLog.setId(snowFlakeUtil.nextId());
-            // 请求所属模块ID
-            operateLog.setModuleId(SystemContext.getModuleId());
             // 操作内容
             operateLog.setOperateContent(SystemContext.getOperateContent());
 

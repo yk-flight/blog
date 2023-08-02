@@ -17,7 +17,6 @@
     <resultMap id="RoleSecurityDTO" type="com.zrkizzy.data.dto.resource.RoleSecurityDTO">
         <result column="url" property="url" />
         <result column="method" property="method" />
-        <result column="module_id" property="moduleId" />
         <result column="description" property="description" />
         <collection property="roles" ofType="java.lang.String">
             <constructor>
@@ -32,7 +31,6 @@
             res.method AS method,
             res.url AS url,
             res.description AS description,
-            mr.module_id AS module_id,
             r.mark AS role_mark
         FROM
             tb_resource res

@@ -6,7 +6,6 @@
     <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.OperateLog">
         <id column="id" property="id" />
         <result column="operate_content" property="operateContent" />
-        <result column="module_id" property="moduleId" />
         <result column="type" property="type" />
         <result column="method_name" property="methodName" />
         <result column="request_method" property="requestMethod" />
@@ -23,7 +22,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, operate_content, module_id, `type`, method_name, request_method, user_id, operate_ip, operate_location, operate_param, operate_result, status, cost_time, create_time, update_time
+        id, operate_content, `type`, method_name, request_method, user_id, operate_ip, operate_location, operate_param, operate_result, status, cost_time, create_time, update_time
     </sql>
 
     <!-- 清空操作日志 -->
@@ -34,7 +33,6 @@
     <resultMap id="operateLogVo" type="com.zrkizzy.data.vo.OperateLogVO">
         <id column="id" property="id" />
         <result column="operate_content" property="operateContent" />
-        <result column="module_name" property="moduleName" />
         <result column="type" property="type" />
         <result column="method_name" property="methodName" />
         <result column="request_method" property="requestMethod" />
@@ -53,7 +51,6 @@
         SELECT
             o.id AS id,
             o.operate_content AS operate_content,
-            m.name AS module_name,
             o.`type` AS `type`,
             o.method_name AS method_name,
             o.request_method AS request_method,
@@ -67,15 +64,9 @@
             o.create_time AS create_time
         FROM
             tb_operate_log o,
-            tb_module m,
             tb_user u
         WHERE
-            o.module_id = m.id AND
             o.user_id = u.id
-
-            <if test="null != operateLogQuery.moduleId">
-                AND o.module_id = #{operateLogQuery.moduleId}
-            </if>
             <if test="null != operateLogQuery.userId">
                 AND o.user_id = #{operateLogQuery.userId}
             </if>

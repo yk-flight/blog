@@ -25,11 +25,6 @@ public class RoleSecurityDTO implements Serializable {
     private String method;
 
     /**
-     * 所属模块ID
-     */
-    private Long moduleId;
-
-    /**
      * 资源描述
      */
     private String description;

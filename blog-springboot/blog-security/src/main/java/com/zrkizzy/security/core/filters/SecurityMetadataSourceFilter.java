@@ -82,8 +82,6 @@ public class SecurityMetadataSourceFilter implements FilterInvocationSecurityMet
 //            log.info("校验的请求方式为：{}，校验请求的路径为：{}", resourceRoleDTO.getMethod(), resourceRoleDTO.getUrl());
             // 如果请求路径与请求方法一致则进行权限添加操作
             if (antPathMatcher.match(roleSecurityDTO.getUrl(), requestUrl) && roleSecurityDTO.getMethod().equals(method)) {
-                // 将当前请求的模块ID添加到全局线程变量中
-                SystemContext.setModuleId(roleSecurityDTO.getModuleId());
                 SystemContext.setOperateContent(roleSecurityDTO.getDescription());
 //                log.info("开始对当前请求：{} 进行授权", resourceRoleDTO.getUrl());
 //                log.info("授予的角色集合为： {}", Arrays.toString(resourceRoleDTO.getRoles().toArray()));

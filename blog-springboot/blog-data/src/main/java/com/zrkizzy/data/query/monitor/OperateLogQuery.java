@@ -19,11 +19,6 @@ import java.util.List;
 public class OperateLogQuery extends BasePage {
 
     /**
-     * 模块ID
-     */
-    private Long moduleId;
-
-    /**
      * 操作类型 0 其他操作，1 新增，2 修改， 3 删除， 4 查询
      */
     private Byte type;

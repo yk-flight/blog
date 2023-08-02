@@ -25,12 +25,6 @@ public class OperateLog extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 模块ID
-     */
-    @ApiModelProperty(value = "模块ID")
-    private Long moduleId;
-
-    /**
      * 操作内容
      */
     @ApiModelProperty(value = "操作内容")

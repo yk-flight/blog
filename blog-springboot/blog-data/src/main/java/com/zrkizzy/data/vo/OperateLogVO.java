@@ -23,11 +23,6 @@ public class OperateLogVO extends BaseVO {
     private String operateContent;
 
     /**
-     * 模块名称
-     */
-    private String moduleName;
-
-    /**
      * 操作类型 0 其他操作，1 新增，2 修改， 3 删除， 4 查询
      */
     private Byte type;
