@@ -83,4 +83,16 @@
         </foreach>
     </insert>
 
+    <!-- 根据模块ID集合批量删除 -->
+    <delete id="deleteByModuleIds">
+        DELETE FROM
+                tb_module_resource
+            <where>
+            module_id IN
+               <foreach collection="moduleIds" item="id" separator="," open="(" close=")">
+                   #{id}
+               </foreach>
+            </where>
+    </delete>
+
 </mapper>

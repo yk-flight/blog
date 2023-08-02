@@ -82,6 +82,8 @@ public enum HttpStatusEnum {
     PASSWORD_UPDATE_ERROR(2008, "密码更新失败"),
     MODULE_RESOURCE_ERROR(2009, "分配模块请求资源失败"),
     MODULE_ROLE_ERROR(2010, "分配模块角色失败"),
+    MODULE_ROLE_ASSOCIATION(2011, "部分模块有角色关联模块，不允许删除"),
+    MODULE_RESOURCE_DELETE(2012, "部分模块对应资源删除失败"),
     FILE_EXIST_ERROR(3000, "当前文件已经存在，请勿重复上传"),
     FILE_UPLOAD_ERROR(3001, "文件上传失败"),
     FILE_SELECT_ERROR(3002, "请选择要删除的文件"),

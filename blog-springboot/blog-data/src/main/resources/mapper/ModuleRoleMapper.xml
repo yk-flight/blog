@@ -23,6 +23,21 @@
             role_id = #{roleId}
     </select>
 
+    <!-- 统计模块ID集合对应的数据总数 -->
+    <select id="countByModuleIds" resultType="java.lang.Integer">
+        SELECT
+            COUNT(1)
+        FROM
+            tb_module_role
+        <where>
+            module_id IN
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+        </where>
+
+    </select>
+
     <!-- 添加模块角色关联信息 -->
     <insert id="insertBatch">
         INSERT INTO

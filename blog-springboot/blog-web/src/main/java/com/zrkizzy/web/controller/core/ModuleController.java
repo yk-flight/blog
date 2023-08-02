@@ -69,7 +69,7 @@ public class ModuleController {
         if (moduleService.deleteBatch(ids)) {
             return Result.success();
         }
-        return Result.failure(HttpStatusEnum.INTERNAL_SERVER_ERROR, "资源模块数据删除失败");
+        return Result.failure(HttpStatusEnum.MODULE_RESOURCE_DELETE);
     }
 
 }

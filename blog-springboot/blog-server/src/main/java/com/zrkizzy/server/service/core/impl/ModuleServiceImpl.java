@@ -3,13 +3,18 @@ package com.zrkizzy.server.service.core.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zrkizzy.common.base.response.OptionsVO;
+import com.zrkizzy.common.enums.HttpStatusEnum;
+import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.utils.SnowFlakeUtil;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.core.Module;
 import com.zrkizzy.data.dto.resource.ModuleDTO;
 import com.zrkizzy.data.mapper.ModuleMapper;
+import com.zrkizzy.data.mapper.ModuleResourceMapper;
+import com.zrkizzy.data.mapper.ModuleRoleMapper;
 import com.zrkizzy.data.query.resource.ModuleQuery;
 import com.zrkizzy.data.vo.resource.ModuleTreeVO;
+import com.zrkizzy.security.core.filters.SecurityMetadataSourceFilter;
 import com.zrkizzy.server.service.core.IModuleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +37,16 @@ import java.util.List;
 public class ModuleServiceImpl implements IModuleService {
 
     @Autowired
+    private SecurityMetadataSourceFilter securityMetadataSourceFilter;
+
+    @Autowired
     private SnowFlakeUtil snowFlakeUtil;
+
+    @Autowired
+    private ModuleRoleMapper moduleRoleMapper;
+
+    @Autowired
+    private ModuleResourceMapper moduleResourceMapper;
 
     @Autowired
     private ModuleMapper moduleMapper;
@@ -113,8 +127,25 @@ public class ModuleServiceImpl implements IModuleService {
      * @return true：删除成功，false：删除失败
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean deleteBatch(List<Long> ids) {
-        return moduleMapper.deleteBatchIds(ids) == ids.size();
+        // 1. tb_module_role中如果有role_id对应则不能删除
+        Integer count = moduleRoleMapper.countByModuleIds(ids);
+        if (count > 0) {
+            // 抛出当前模块有角色关联无法删除异常
+            throw new BusinessException(HttpStatusEnum.MODULE_ROLE_ASSOCIATION);
+        }
+        // 2. 删除tb_module_resource对应的数据
+        if (moduleResourceMapper.deleteByModuleIds(ids) == ids.size()) {
+            // 删除失败则抛出模块资源删除异常
+            throw new BusinessException(HttpStatusEnum.MODULE_RESOURCE_DELETE);
+        }
+        // 3. 删除成功后清除动态权限
+        if (moduleMapper.deleteBatchIds(ids) == ids.size()) {
+            securityMetadataSourceFilter.clearDataSource();
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
     }
 
     /**

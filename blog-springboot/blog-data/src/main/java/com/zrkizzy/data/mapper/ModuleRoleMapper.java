@@ -38,4 +38,11 @@ public interface ModuleRoleMapper extends BaseMapper<ModuleRole> {
      */
     Integer insertBatch(@Param("moduleRoleList") List<ModuleRole> moduleRoleList);
 
+    /**
+     * 统计指定模块ID集合的数据数量
+     *
+     * @param ids 模块ID集合
+     * @return 模块ID集合对应的数据总数
+     */
+    Integer countByModuleIds(@Param("ids") List<Long> ids);
 }

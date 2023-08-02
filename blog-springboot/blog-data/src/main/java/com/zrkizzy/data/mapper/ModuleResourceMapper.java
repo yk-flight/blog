@@ -61,4 +61,11 @@ public interface ModuleResourceMapper extends BaseMapper<ModuleResource> {
      */
     Integer insertBatch(@Param("moduleResourceList") List<ModuleResource> moduleResourceList);
 
+    /**
+     * 根据模块ID集合批量删除
+     *
+     * @param moduleIds 模块ID集合
+     * @return 受影响行数
+     */
+    Integer deleteByModuleIds(@Param("moduleIds") List<Long> moduleIds);
 }
