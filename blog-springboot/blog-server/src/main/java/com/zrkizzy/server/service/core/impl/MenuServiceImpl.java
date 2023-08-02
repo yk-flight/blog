@@ -10,6 +10,7 @@ import com.zrkizzy.data.vo.route.RouterVO;
 import com.zrkizzy.security.util.SecurityUtil;
 import com.zrkizzy.server.service.core.IMenuService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static com.zrkizzy.common.constant.CommonConst.*;
 
@@ -201,7 +203,79 @@ public class MenuServiceImpl implements IMenuService {
     public List<MenuVO> listMenu(MenuQuery menuQuery) {
         List<Menu> menuList = menuMapper.listMenus(menuQuery);
         // 复制集合
-        return BeanCopyUtil.copyList(menuList, MenuVO.class);
+        List<Menu> menus = setMenuChildren(menuList, 0L);
+        if (StringUtils.hasLength(menuQuery.getName()) ||
+                null != menuQuery.getStatus() ||
+                (!CollectionUtils.isEmpty(menuQuery.getDataRange()) && menuQuery.getDataRange().size() == 2)) {
+            // 如果封装后的对象为空
+            if (CollectionUtils.isEmpty(menus)) {
+                // 直接返回查询的全部数据
+                return BeanCopyUtil.copyList(menuList, MenuVO.class);
+            }
+            // 判断是否有没有被封装的子菜单
+            int count = 0;
+            Map<Long, Menu> map = new HashedMap<>();
+            // 获取所有菜单的数量
+            for (Menu menu : menus) {
+                // 计算所有子菜单数量
+                count += menu.getChildren().size();
+                // 添加当前菜单信息到Map集合中
+                map.put(menu.getId(), menu);
+            }
+            // 如果封装子菜单后的所有菜单数量与查询出的不一致说明有子菜单被过滤
+            if (count + menus.size() != menuList.size()) {
+                // 添加子菜单到集合中
+                for (Menu menu : menuList) {
+                    // 如果集合中不存在当前菜单对象的父菜单ID、当前菜单对象的ID，则说明在设置子菜单时将子菜单剔除出了集合
+                    if (!map.containsKey(menu.getParentId()) && !map.containsKey(menu.getId())) {
+                        // 添加被剔除的子菜单
+                        menus.add(menu);
+                    }
+                }
+            }
+        }
+        // 定义返回结果
+        List<MenuVO> result = new ArrayList<>();
+        // 封装当前菜单列表
+        for (Menu menu : menus) {
+            // 根据具体的Menu对象来构建MenuVO返回对象
+            MenuVO menuVO = buildMenuVO(menu);
+            result.add(menuVO);
+        }
+        Collections.sort(result);
+        return result;
+    }
+
+    /**
+     * 构建菜单返回对象
+     *
+     * @param menu 菜单数据对象
+     * @return 菜单数据返回对象
+     */
+    private MenuVO buildMenuVO(Menu menu) {
+        // 复制菜单返回对象
+        MenuVO menuVO = BeanCopyUtil.copy(menu, MenuVO.class);
+        // 设置子菜单数据
+        menuVO.setChildren(getMenuChildren(menu.getChildren()));
+        return menuVO;
+    }
+
+    /**
+     * 设置子菜单数据
+     *
+     * @param menus 菜单集合
+     * @return 菜单数据返回对象集合
+     */
+    private List<MenuVO> getMenuChildren(List<Menu> menus) {
+        // 如果子菜单为空则返回
+        if (CollectionUtils.isEmpty(menus)) {
+            return null;
+        }
+        // 转集合
+        List<MenuVO> result = BeanCopyUtil.copyList(menus, MenuVO.class);
+        // 给排序子菜单
+        Collections.sort(result);
+        return result;
     }
 
 }

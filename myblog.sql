@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 02/08/2023 22:19:59
+ Date: 03/08/2023 00:39:48
 */
 
 SET NAMES utf8mb4;
@@ -201,6 +201,7 @@ INSERT INTO `tb_login_info` VALUES (1686615025369743360, '2675525537@qq.com', '1
 INSERT INTO `tb_login_info` VALUES (1686715449984679936, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-08-02 20:27:55');
 INSERT INTO `tb_login_info` VALUES (1686716481636663296, '1@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-08-02 20:32:01');
 INSERT INTO `tb_login_info` VALUES (1686716619499241472, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-08-02 20:32:34');
+INSERT INTO `tb_login_info` VALUES (1686747583441010688, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-08-02 22:35:37');
 
 -- ----------------------------
 -- Table structure for tb_menu

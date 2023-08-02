@@ -1,5 +1,6 @@
 package com.zrkizzy.data.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zrkizzy.common.base.response.BaseVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,6 +23,7 @@ public class MenuVO extends BaseVO implements Comparable<MenuVO> {
     /**
      * 父菜单ID
      */
+    @JsonFormat(shape =JsonFormat.Shape.STRING)
     private Long parentId;
 
     /**
