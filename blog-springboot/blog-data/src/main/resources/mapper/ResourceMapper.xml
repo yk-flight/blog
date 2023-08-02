@@ -14,17 +14,20 @@
         <result column="update_time" property="updateTime" />
     </resultMap>
 
-    <!-- 资源角色映射集合 -->
-    <resultMap id="ResourceRoleDTO" type="com.zrkizzy.data.dto.resource.ResourceRoleDTO">
+    <resultMap id="RoleSecurityDTO" type="com.zrkizzy.data.dto.resource.RoleSecurityDTO">
         <result column="url" property="url" />
         <result column="method" property="method" />
         <result column="module_id" property="moduleId" />
         <result column="description" property="description" />
-        <result column="role_mark" property="roleMark" />
+        <collection property="roles" ofType="java.lang.String">
+            <constructor>
+                <arg column="role_mark"/>
+            </constructor>
+        </collection>
     </resultMap>
 
-    <!-- 加载资源角色数据 -->
-    <select id="loadResourceRoleData" resultMap="ResourceRoleDTO">
+    <!-- 加载角色权限数据 -->
+    <select id="loadResourceRoleData" resultMap="RoleSecurityDTO">
         SELECT
             res.method AS method,
             res.url AS url,

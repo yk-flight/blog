@@ -22,7 +22,7 @@ public class FreemarkerUtil {
     /**
      * Freemarker模板文件路径
      */
-    private static final String FILE_PATH = "E:\\JavaProject\\blog\\blog-springboot\\blog-generator\\src\\main\\resources\\template\\";
+    private static final String FILE_PATH = "/Users/zhangrongkang/workspace/IdeaProject/blog/blog-springboot/blog-generator/src/main/resources/template/";
 
     /**
      * Freemarker模板类

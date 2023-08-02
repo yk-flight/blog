@@ -2,7 +2,7 @@ package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zrkizzy.data.domain.core.Resource;
-import com.zrkizzy.data.dto.resource.ResourceRoleDTO;
+import com.zrkizzy.data.dto.resource.RoleSecurityDTO;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ import java.util.List;
 public interface ResourceMapper extends BaseMapper<Resource> {
 
     /**
-     * 加载资源角色数据
+     * 加载角色权限数据
      *
-     * @return 资源角色数据集合
+     * @return 角色权限数据集合
      */
-    List<ResourceRoleDTO> loadResourceRoleData();
+    List<RoleSecurityDTO> loadResourceRoleData();
 }
