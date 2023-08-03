@@ -26,10 +26,10 @@ public interface MenuMapper extends BaseMapper<Menu> {
     /**
      * 根据角色名称获取对应菜单
      *
-     * @param roleName 角色名称
+     * @param roleMark 角色标识
      * @return 角色对应菜单
      */
-    List<Menu> getRoutes(String roleName);
+    List<Menu> getRoutes(String roleMark);
 
     /**
      * 查询符合条件的所有菜单数据
@@ -37,6 +37,14 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @param menuQuery 菜单信息查询对象
      * @return 符合条件的菜单集合
      */
-    List<Menu> listMenus(@Param("menuQuery") MenuQuery menuQuery);
+    List<Menu> listAllMenus(@Param("menuQuery") MenuQuery menuQuery);
 
+    /**
+     * 查询指定角色符合条件的所有菜单数据
+     *
+     * @param menuQuery 菜单信息查询对象
+     * @param roleMark 角色标识
+     * @return 符合条件的菜单集合
+     */
+    List<Menu> listMenus(@Param("menuQuery") MenuQuery menuQuery, @Param("roleMark") String roleMark);
 }

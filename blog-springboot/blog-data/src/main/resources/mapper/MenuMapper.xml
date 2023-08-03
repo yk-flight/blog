@@ -40,8 +40,8 @@
             m.update_time AS update_time
         FROM
             tb_menu m
-                LEFT JOIN tb_role r ON r.`name` = #{roleName}
-                LEFT JOIN tb_menu_role mr ON mr.role_id = r.id
+                LEFT JOIN tb_role r ON r.mark = #{roleMark}
+                LEFT JOIN tb_menu_role mr ON mr.role_id = r.id AND m.id = mr.menu_id
         WHERE
             mr.menu_id = m.id AND
             m.status = 1
@@ -58,7 +58,7 @@
     </select>
     
     <!-- 查询符合条件的所有菜单数据 -->
-    <select id="listMenus" resultMap="BaseResultMap">
+    <select id="listAllMenus" resultMap="BaseResultMap">
         SELECT
             <include refid="BaseColumn"></include>
         FROM tb_menu m
@@ -71,6 +71,40 @@
             </if>
             <if test="null != menuQuery.dataRange and 2 == menuQuery.dataRange.size">
                 AND create_time BETWEEN #{menuQuery.dataRange[0]} AND #{menuQuery.dataRange[1]}
+            </if>
+        </where>
+    </select>
+
+    <!-- 查询指定角色符合条件的所有菜单数据 -->
+    <select id="listMenus" resultMap="BaseResultMap">
+        SELECT DISTINCT
+            m.id AS id,
+            m.`name` AS name,
+            m.parent_id AS parent_id,
+            m.`path` AS path,
+            m.type AS type,
+            m.component AS component,
+            m.is_cache AS is_cache,
+            m.is_link AS is_link,
+            m.status AS status,
+            m.visible AS visible,
+            m.icon AS icon,
+            m.`order` AS `order`,
+            m.create_time AS create_time,
+            m.update_time AS update_time
+        FROM
+            tb_menu m
+                INNER JOIN tb_role r ON r.mark = #{roleMark}
+                INNER JOIN tb_menu_role mr ON mr.role_id = r.id AND m.id = mr.menu_id
+        <where>
+            <if test="null != menuQuery.name and '' != menuQuery.name">
+                AND m.`name` LIKE CONCAT('%', #{menuQuery.name}, '%')
+            </if>
+            <if test="null != menuQuery.status">
+                AND m.status = #{menuQuery.status}
+            </if>
+            <if test="null != menuQuery.dataRange and 2 == menuQuery.dataRange.size">
+                AND m.create_time BETWEEN #{menuQuery.dataRange[0]} AND #{menuQuery.dataRange[1]}
             </if>
         </where>
     </select>

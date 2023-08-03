@@ -201,12 +201,18 @@ public class MenuServiceImpl implements IMenuService {
      */
     @Override
     public List<MenuVO> listMenu(MenuQuery menuQuery) {
-        List<Menu> menuList = menuMapper.listMenus(menuQuery);
+        // 获取菜单集合
+        List<Menu> menuList = securityUtil.isAdmin() ?
+                // 角色为管理员则获取全部菜单
+                menuMapper.listAllMenus(menuQuery) :
+                // 否则根据角色获取对应菜单
+                menuMapper.listMenus(menuQuery, securityUtil.getLoginUserRole());
         // 复制集合
         List<Menu> menus = setMenuChildren(menuList, 0L);
         if (StringUtils.hasLength(menuQuery.getName()) ||
                 null != menuQuery.getStatus() ||
                 (!CollectionUtils.isEmpty(menuQuery.getDataRange()) && menuQuery.getDataRange().size() == 2)) {
+            System.out.println("进来了判断");
             // 如果封装后的对象为空
             if (CollectionUtils.isEmpty(menus)) {
                 // 直接返回查询的全部数据
