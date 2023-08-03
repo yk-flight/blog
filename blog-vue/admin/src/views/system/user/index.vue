@@ -400,7 +400,7 @@ export default {
     // 打开用户信息对话框
     handleOpen () {
       // 清除表单数据
-      this.resetForm()
+      this.reset()
       this.userVisible = true
     },
     // 更多操作触发
@@ -419,7 +419,7 @@ export default {
     },
     // 关闭用户对话框表单
     handleClose () {
-      this.resetForm()
+      this.reset()
       this.userVisible = false
     },
     // 打开分配用户角色对话框
@@ -584,7 +584,7 @@ export default {
       })
     },
     // 重置表单
-    resetForm () {
+    reset () {
       // 清除校验条件
       this.formData = {
         // 用户ID
@@ -599,9 +599,7 @@ export default {
         remark: undefined
       }
       // 清除表单的校验
-      if (this.$refs.userForm) {
-        this.$refs.userForm.clearValidate()
-      }
+      this.resetForm('userForm')
     },
     // 多选框
     handleSelectionChange (selection) {

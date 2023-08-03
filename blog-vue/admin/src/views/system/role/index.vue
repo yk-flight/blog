@@ -322,12 +322,12 @@ export default {
     // 打开角色信息对话框
     handleOpen () {
       // 清除表单数据
-      this.resetForm()
+      this.reset()
       this.roleVisible = true
     },
     // 关闭角色对话框表单
     handleClose () {
-      this.resetForm()
+      this.reset()
       this.roleVisible = false
     },
     // 点击新增按钮
@@ -419,7 +419,7 @@ export default {
       }
     },
     // 重置表单
-    resetForm () {
+    reset () {
       // 清除校验条件
       this.formData = {
         // 角色ID
@@ -432,9 +432,7 @@ export default {
         description: undefined
       }
       // 清除表单的校验
-      if (this.$refs.roleForm) {
-        this.$refs.roleForm.clearValidate()
-      }
+      this.resetForm('roleForm')
     },
     // 多选框
     handleSelectionChange (selection) {

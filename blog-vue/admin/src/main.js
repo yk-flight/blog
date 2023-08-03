@@ -14,11 +14,16 @@ import 'nprogress/nprogress.css'
 import './style/css/style.css'
 import './style/scss/index.scss'
 
+import { resetForm } from './utils/common'
+
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(SvgIcons)
 Vue.use(TagCloud)
 Vue.use(Vue2Editor)
+
+// 全局挂载方法
+Vue.prototype.resetForm = resetForm
 
 // 时间过滤器
 Object.keys(filters).forEach((key) => {
