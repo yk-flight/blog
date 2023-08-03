@@ -121,10 +121,10 @@
           <el-row :gutter="15">
             <el-col :span="24">
               <el-form-item label="上级菜单" prop="parentId">
+                <!-- :options="menuOptions"
+                  :normalizer="normalizer" -->
                 <!-- <treeselect
                   v-model="formData.parentId"
-                  :options="menuOptions"
-                  :normalizer="normalizer"
                   :show-count="true"
                   placeholder="选择上级菜单"
                 /> -->
@@ -274,7 +274,7 @@
 <script>
 import PageTitle from '../../../components/PageTitle/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
-import IconSelect from '../../../components/IconSelect/index.vue'
+import IconSelect from '../../../components/IconSelect/index'
 import { listMenus, saveMenu, getMenuById, deleteMenu } from '../../../api/menu'
 
 export default {
@@ -466,6 +466,8 @@ export default {
         // 打开编辑菜单对话框
         this.menuVisible = true
         // 关闭加载框
+        this.menuLoading = false
+      }).catch(() => {
         this.menuLoading = false
       })
     },

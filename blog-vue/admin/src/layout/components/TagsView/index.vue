@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import ContextMenu from './ContextMenu.vue'
+import ContextMenu from './ContextMenu'
 
 export default {
   name: 'TagsView',
@@ -121,7 +121,7 @@ export default {
 
   .tags-view-left {
     float: left;
-    width: calc(100% - 110px);
+    width: calc(100% - 20px);
     // /* 设置超出滚动 */
     overflow-x: auto;
     overflow-y: hidden;
