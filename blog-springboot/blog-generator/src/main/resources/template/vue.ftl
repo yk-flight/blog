@@ -254,12 +254,12 @@ export default {
     // 打开${objectName}信息对话框
     handleOpen () {
       // 清除表单数据
-      this.resetForm()
+      this.reset()
       this.${entityLowerName}Visible = true
     },
     // 关闭${objectName}对话框表单
     handleClose () {
-      this.resetForm()
+      this.reset()
       this.${entityLowerName}Visible = false
     },
     // 点击新增按钮
@@ -347,7 +347,7 @@ export default {
       })
     },
     // 重置表单
-    resetForm () {
+    reset () {
       // 清除校验条件
       this.formData = {
         // ${objectName}ID
@@ -359,6 +359,8 @@ export default {
           </#if>
         </#list>
       }
+      // 清除表单校验
+      this.resetForm('${entityLowerName}Form')
     },
     // 多选框
     handleSelectionChange (selection) {
