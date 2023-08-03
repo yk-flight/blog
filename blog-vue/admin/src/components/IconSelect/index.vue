@@ -1,13 +1,13 @@
 <template>
     <div class="icon-body">
-      <el-input v-model="name" class="icon-search" clearable placeholder="请输入图标名称" @clear="filterIcons" @input="filterIcons">
-        <i slot="suffix" class="el-icon-search el-input__icon" />
+      <el-input v-model="name" class="icon-search" clearable placeholder="请输入图标名称" @clear="filterIcons" @input="filterIcons" size="small">
+        <i slot="suffix" class="el-icon-search el-input__icon"></i>
       </el-input>
       <div class="icon-list">
         <div class="list-container">
-          <div v-for="(item, index) in iconList" class="icon-item-wrapper" :key="index" @click="selectedIcon(item)">
+          <div v-for="(item, index) in iconList" class="icon-item-wrapper" :key="index" @click="selectIcon(item)">
             <div :class="['icon-item', { active: activeIcon === item }]">
-              <svg-icon :icon-class="item" class-name="icon" style="height: 25px;width: 16px;"/>
+              <svg-icon :icon="item" class-name="icon" style="height: 25px; width: 16px; margin-right: 5px;"/>
               <span>{{ item }}</span>
             </div>
           </div>
@@ -38,8 +38,8 @@ export default {
         this.iconList = this.iconList.filter(item => item.includes(this.name))
       }
     },
-    selectedIcon (name) {
-      this.$emit('selected', name)
+    selectIcon (name) {
+      this.$emit('selectIcon', name)
       document.body.click()
     },
     reset () {

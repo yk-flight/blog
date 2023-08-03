@@ -146,12 +146,12 @@
                   trigger="click"
                   @show="$refs['iconSelect'].reset()"
                 >
+                  <IconSelect ref="iconSelect" @selectIcon="selectIcon" :active-icon="formData.icon" />
                   <el-input slot="reference" v-model="formData.icon" size="small" placeholder="点击选择图标" readonly>
-                    <IconSelect ref="iconSelect" @selected="selectIcon" :active-icon="formData.icon" />
                     <svg-icon
                       v-if="formData.icon"
                       slot="prefix"
-                      :icon-class="formData.icon"
+                      :icon="formData.icon"
                       style="width: 25px;"
                     />
                     <i v-else slot="prefix" class="el-icon-search el-input__icon"></i>
@@ -564,7 +564,7 @@ export default {
     },
     // 选择图标
     selectIcon (name) {
-      this.form.icon = name
+      this.formData.icon = name
     }
   }
 }
