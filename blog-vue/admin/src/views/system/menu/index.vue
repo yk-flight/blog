@@ -144,10 +144,10 @@
                   placement="bottom-start"
                   width="460"
                   trigger="click"
+                  @show="$refs['iconSelect'].reset()"
                 >
-                <!-- @show="$refs['iconSelect'].reset()" -->
-                  <!-- <IconSelect ref="iconSelect" @selected="selected" :active-icon="formData.icon" /> -->
-                  <el-input slot="reference" v-model="formData.icon" placeholder="点击选择图标" readonly>
+                  <el-input slot="reference" v-model="formData.icon" size="small" placeholder="点击选择图标" readonly>
+                    <IconSelect ref="iconSelect" @selected="selectIcon" :active-icon="formData.icon" />
                     <svg-icon
                       v-if="formData.icon"
                       slot="prefix"
@@ -161,15 +161,37 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="菜单名称" prop="name">
-                <el-input v-model="formData.name" placeholder="请输入菜单名称" />
+                <el-input v-model="formData.name" size="small" placeholder="请输入菜单名称" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="显示排序" prop="order">
-                <el-input-number v-model="formData.order" controls-position="right" :min="0" />
+                <el-input-number v-model="formData.order" size="small" controls-position="right" :min="0" />
               </el-form-item>
             </el-col>
-            <el-col :span="12" v-if="formData.type != 'F'">
+            <el-col :span="12" v-if="formData.type === 'P'">
+              <el-form-item prop="component">
+                <span slot="label">
+                  <el-tooltip content="访问的组件路径，如：`system/user/index`，默认在`views`目录下" placement="top">
+                    <i class="el-icon-question"></i>
+                  </el-tooltip>
+                  组件路径
+                </span>
+                <el-input v-model="formData.component" placeholder="请输入组件路径" size="small" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item prop="path">
+                <span slot="label">
+                  <el-tooltip content="访问的路由地址，如：`user`，如外网地址需内链访问则以`http(s)://`开头" placement="top">
+                    <i class="el-icon-question"></i>
+                  </el-tooltip>
+                  路由地址
+                </span>
+                <el-input v-model="formData.path" placeholder="请输入路由地址" size="small" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
               <el-form-item prop="isFrame">
                 <span slot="label">
                   <el-tooltip content="选择是外链则路由地址需要以`http(s)://`开头" placement="top">
@@ -181,28 +203,6 @@
                   <el-radio :label="1">是</el-radio>
                   <el-radio :label="0">否</el-radio>
                 </el-radio-group>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item prop="path">
-                <span slot="label">
-                  <el-tooltip content="访问的路由地址，如：`user`，如外网地址需内链访问则以`http(s)://`开头" placement="top">
-                  <i class="el-icon-question"></i>
-                  </el-tooltip>
-                  路由地址
-                </span>
-                <el-input v-model="formData.path" placeholder="请输入路由地址" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12" v-if="formData.type === 'P'">
-              <el-form-item prop="component">
-                <span slot="label">
-                  <el-tooltip content="访问的组件路径，如：`system/user/index`，默认在`views`目录下" placement="top">
-                  <i class="el-icon-question"></i>
-                  </el-tooltip>
-                  组件路径
-                </span>
-                <el-input v-model="formData.component" placeholder="请输入组件路径" />
               </el-form-item>
             </el-col>
             <el-col :span="12" v-if="formData.type === 'P'">
@@ -274,12 +274,13 @@
 <script>
 import PageTitle from '../../../components/PageTitle/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
+import IconSelect from '../../../components/IconSelect/index.vue'
 import { listMenus, saveMenu, getMenuById, deleteMenu } from '../../../api/menu'
 
 export default {
   name: 'Menu',
 
-  components: { PageTitle, RightToolbar },
+  components: { PageTitle, RightToolbar, IconSelect },
 
   data () {
     return {
@@ -321,7 +322,7 @@ export default {
         // 组件路径
         component: undefined,
         // 是否缓存
-        isCache: undefined,
+        isCache: 0,
         // 是否外链
         isLink: 0,
         // 是否隐藏
@@ -546,7 +547,7 @@ export default {
         // 组件路径
         component: undefined,
         // 是否缓存
-        isCache: undefined,
+        isCache: 0,
         // 是否外链
         isLink: 0,
         // 是否隐藏
@@ -560,6 +561,10 @@ export default {
       }
       // 清除表单校验规则
       this.resetForm('menuForm')
+    },
+    // 选择图标
+    selectIcon (name) {
+      this.form.icon = name
     }
   }
 }
