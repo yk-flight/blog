@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import java.util.List;
 
 /**
+ * 菜单数据返回对象
+ *
  * @author zhangrongkang
  * @since 2023/8/2
  */
@@ -30,6 +32,11 @@ public class MenuVO extends BaseVO implements Comparable<MenuVO> {
      * 访问路径
      */
     private String path;
+
+    /**
+     * 菜单类型
+     */
+    private Character type;
 
     /**
      * 组件

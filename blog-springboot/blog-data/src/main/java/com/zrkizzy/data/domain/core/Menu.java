@@ -29,6 +29,12 @@ public class Menu extends BaseEntity {
     private String name;
 
     /**
+     * 菜单类型
+     */
+    @ApiModelProperty("菜单类型")
+    private Character type;
+
+    /**
      * 父菜单ID
      */
     @ApiModelProperty("父菜单ID")

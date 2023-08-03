@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 03/08/2023 00:39:48
+ Date: 03/08/2023 21:52:01
 */
 
 SET NAMES utf8mb4;
@@ -202,6 +202,8 @@ INSERT INTO `tb_login_info` VALUES (1686715449984679936, '2675525537@qq.com', '1
 INSERT INTO `tb_login_info` VALUES (1686716481636663296, '1@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-08-02 20:32:01');
 INSERT INTO `tb_login_info` VALUES (1686716619499241472, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-08-02 20:32:34');
 INSERT INTO `tb_login_info` VALUES (1686747583441010688, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-08-02 22:35:37');
+INSERT INTO `tb_login_info` VALUES (1687063236039409664, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-08-03 19:29:54');
+INSERT INTO `tb_login_info` VALUES (1687098901963735040, '2675525537@qq.com', '127.0.0.1', '本地登录', 'Chrome 11', 'Windows 10', 1, '登录成功', '2023-08-03 21:51:37');
 
 -- ----------------------------
 -- Table structure for tb_menu
@@ -210,6 +212,7 @@ DROP TABLE IF EXISTS `tb_menu`;
 CREATE TABLE `tb_menu`  (
   `id` bigint(20) NOT NULL COMMENT '主键',
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '菜单名称',
+  `type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '菜单类型：D：目录，P：页面',
   `parent_id` bigint(20) NULL DEFAULT NULL COMMENT '父菜单',
   `path` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '访问路径',
   `component` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '组件',
@@ -227,31 +230,31 @@ CREATE TABLE `tb_menu`  (
 -- ----------------------------
 -- Records of tb_menu
 -- ----------------------------
-INSERT INTO `tb_menu` VALUES (1647951751875133440, '内容管理', 0, 'content', NULL, 0, 0, 0, 0, 'content', 1, '2023-04-17 21:17:07', '2023-08-02 21:49:29');
-INSERT INTO `tb_menu` VALUES (1647951751875133441, '网站管理', 0, 'website', NULL, 0, 0, 0, 1, 'message', 2, '2023-04-17 21:17:46', '2023-08-02 21:39:32');
-INSERT INTO `tb_menu` VALUES (1647951751875133442, '项目文档', 0, 'https://www.zrkizzy.com', NULL, 0, 1, 0, 1, 'guide', 5, '2023-04-17 21:19:30', '2023-08-02 21:39:33');
-INSERT INTO `tb_menu` VALUES (1647952968122630144, '文章管理', 1647951751875133440, 'article', 'content/article/index', 0, 0, 0, 1, 'article-create', 1, '2023-04-17 21:22:42', '2023-08-02 21:39:34');
-INSERT INTO `tb_menu` VALUES (1648539108017963008, '评论管理', 1647951751875133440, 'comment', 'content/comment/index', 0, 0, 0, 1, 'comments', 2, '2023-04-19 12:09:46', '2023-08-02 21:39:35');
-INSERT INTO `tb_menu` VALUES (1651040949146484736, '留言管理', 1647951751875133440, 'message', 'content/message/index', 0, 0, 0, 1, 'message', 3, '2023-04-26 09:51:28', '2023-08-02 21:39:53');
-INSERT INTO `tb_menu` VALUES (1651040949146484737, '分类管理', 1647951751875133440, 'category', 'content/category/index', 0, 0, 0, 1, 'category', 4, '2023-04-26 09:52:57', '2023-08-02 21:39:36');
-INSERT INTO `tb_menu` VALUES (1651042040491802625, '标签管理', 1647951751875133440, 'tags', 'content/tags/index', 0, 0, 0, 1, 'tags', 5, '2023-04-26 09:53:51', '2023-08-02 21:39:50');
-INSERT INTO `tb_menu` VALUES (1651217423560343552, '文件管理', 1647951751875133441, 'file', 'website/file/index', 0, 0, 0, 1, 'article-ranking', 1, '2023-04-26 21:33:29', '2023-08-02 21:39:37');
-INSERT INTO `tb_menu` VALUES (1651217423560343553, '相册管理', 1647951751875133441, 'photo', 'website/photo/index', 0, 0, 0, 1, 'tool', 2, '2023-04-26 21:33:31', '2023-08-02 21:39:49');
-INSERT INTO `tb_menu` VALUES (1651217423560343554, '页面管理', 1647951751875133441, 'page', 'website/page/index', 0, 0, 0, 1, 'documentation', 3, '2023-04-26 21:33:29', '2023-08-02 21:39:37');
-INSERT INTO `tb_menu` VALUES (1651217423560343555, '角色管理', 1652313423859417088, 'role', 'system/role/index', 0, 0, 0, 1, 'role', 4, '2023-04-26 21:33:29', '2023-08-02 21:39:48');
-INSERT INTO `tb_menu` VALUES (1651217423560343556, '友链管理', 1647951751875133441, 'link', 'website/link/index', 0, 0, 0, 1, 'personnel', 5, '2023-04-26 21:33:29', '2023-08-02 21:39:38');
-INSERT INTO `tb_menu` VALUES (1651217423560343557, '用户管理', 1652313423859417088, 'user', 'system/user/index', 0, 0, 0, 1, 'personnel-manage', 6, '2023-04-26 21:33:29', '2023-08-02 21:39:47');
-INSERT INTO `tb_menu` VALUES (1651217423560343558, '公告管理', 1647951751875133441, 'notice', 'website/notice/index', 0, 0, 0, 1, 'email', 7, '2023-04-26 21:33:29', '2023-08-02 21:39:38');
-INSERT INTO `tb_menu` VALUES (1651217423560343559, '接口管理', 1652313423859417088, 'interface', 'system/interface/index', 0, 0, 0, 1, 'dict', 8, '2023-04-26 21:33:29', '2023-08-02 21:39:46');
-INSERT INTO `tb_menu` VALUES (1651217423560343560, '菜单管理', 1652313423859417088, 'menu', 'system/menu/index', 0, 0, 0, 1, 'menu', 9, '2023-04-26 21:33:29', '2023-08-02 21:39:39');
-INSERT INTO `tb_menu` VALUES (1651217423560343561, '网站配置', 1647951751875133441, 'config', 'website/config/index', 0, 0, 0, 1, 'edit', 10, '2023-04-26 21:33:29', '2023-08-02 21:39:40');
-INSERT INTO `tb_menu` VALUES (1651227500568641536, '系统监控', 0, 'monitor', NULL, 0, 0, 0, 1, 'monitor', 4, '2023-04-26 22:15:11', '2023-08-02 21:39:40');
-INSERT INTO `tb_menu` VALUES (1651227500568641537, '在线用户', 1651227500568641536, 'online', 'monitor/online/index', 0, 0, 0, 1, 'online', 1, '2023-04-26 22:15:55', '2023-08-02 21:39:41');
-INSERT INTO `tb_menu` VALUES (1651227500568641538, '服务监控', 1651227500568641536, 'server', 'monitor/server/index', 0, 0, 0, 1, 'server', 2, '2023-04-26 22:16:24', '2023-08-02 21:39:41');
-INSERT INTO `tb_menu` VALUES (1651227500568641539, '缓存管理', 1651227500568641536, 'cache', 'monitor/cache/index', 0, 0, 0, 1, 'redis', 3, '2023-04-26 22:16:59', '2023-08-02 21:39:42');
-INSERT INTO `tb_menu` VALUES (1651227500568641540, '操作日志', 1651227500568641536, 'operate-log', 'monitor/operate-log/index', 0, 0, 0, 1, 'form', 4, '2023-04-26 22:18:09', '2023-08-02 21:39:42');
-INSERT INTO `tb_menu` VALUES (1651227500568641541, '登录日志', 1651227500568641536, 'login-log', 'monitor/login-log/index', 0, 0, 0, 1, 'logininfor', 5, '2023-04-26 22:18:32', '2023-08-02 21:39:43');
-INSERT INTO `tb_menu` VALUES (1652313423859417088, '系统管理', 0, 'system', NULL, 0, 0, 0, 1, 'system', 3, '2023-04-29 22:08:18', '2023-08-02 21:39:44');
+INSERT INTO `tb_menu` VALUES (1647951751875133440, '内容管理', 'D', 0, 'content', NULL, 0, 0, 0, 0, 'content', 1, '2023-04-17 21:17:07', '2023-08-03 19:34:54');
+INSERT INTO `tb_menu` VALUES (1647951751875133441, '网站管理', 'D', 0, 'website', NULL, 0, 0, 0, 1, 'message', 2, '2023-04-17 21:17:46', '2023-08-03 19:34:56');
+INSERT INTO `tb_menu` VALUES (1647951751875133442, '项目文档', 'D', 0, 'https://www.zrkizzy.com', NULL, 0, 1, 0, 1, 'guide', 5, '2023-04-17 21:19:30', '2023-08-03 19:34:58');
+INSERT INTO `tb_menu` VALUES (1647952968122630144, '文章管理', 'P', 1647951751875133440, 'article', 'content/article/index', 0, 0, 0, 1, 'article-create', 1, '2023-04-17 21:22:42', '2023-08-03 19:35:00');
+INSERT INTO `tb_menu` VALUES (1648539108017963008, '评论管理', 'P', 1647951751875133440, 'comment', 'content/comment/index', 0, 0, 0, 1, 'comments', 2, '2023-04-19 12:09:46', '2023-08-03 19:35:01');
+INSERT INTO `tb_menu` VALUES (1651040949146484736, '留言管理', 'P', 1647951751875133440, 'message', 'content/message/index', 0, 0, 0, 1, 'message', 3, '2023-04-26 09:51:28', '2023-08-03 19:35:09');
+INSERT INTO `tb_menu` VALUES (1651040949146484737, '分类管理', 'P', 1647951751875133440, 'category', 'content/category/index', 0, 0, 0, 1, 'category', 4, '2023-04-26 09:52:57', '2023-08-03 19:35:02');
+INSERT INTO `tb_menu` VALUES (1651042040491802625, '标签管理', 'P', 1647951751875133440, 'tags', 'content/tags/index', 0, 0, 0, 1, 'tags', 5, '2023-04-26 09:53:51', '2023-08-03 19:35:02');
+INSERT INTO `tb_menu` VALUES (1651217423560343552, '文件管理', 'P', 1647951751875133441, 'file', 'website/file/index', 0, 0, 0, 1, 'article-ranking', 1, '2023-04-26 21:33:29', '2023-08-03 19:35:08');
+INSERT INTO `tb_menu` VALUES (1651217423560343553, '相册管理', 'P', 1647951751875133441, 'photo', 'website/photo/index', 0, 0, 0, 1, 'tool', 2, '2023-04-26 21:33:31', '2023-08-03 19:35:03');
+INSERT INTO `tb_menu` VALUES (1651217423560343554, '页面管理', 'P', 1647951751875133441, 'page', 'website/page/index', 0, 0, 0, 1, 'documentation', 3, '2023-04-26 21:33:29', '2023-08-03 19:35:06');
+INSERT INTO `tb_menu` VALUES (1651217423560343555, '角色管理', 'P', 1652313423859417088, 'role', 'system/role/index', 0, 0, 0, 1, 'role', 4, '2023-04-26 21:33:29', '2023-08-03 19:35:04');
+INSERT INTO `tb_menu` VALUES (1651217423560343556, '友链管理', 'P', 1647951751875133441, 'link', 'website/link/index', 0, 0, 0, 1, 'personnel', 5, '2023-04-26 21:33:29', '2023-08-03 19:35:05');
+INSERT INTO `tb_menu` VALUES (1651217423560343557, '用户管理', 'P', 1652313423859417088, 'user', 'system/user/index', 0, 0, 0, 1, 'personnel-manage', 6, '2023-04-26 21:33:29', '2023-08-03 19:35:11');
+INSERT INTO `tb_menu` VALUES (1651217423560343558, '公告管理', 'P', 1647951751875133441, 'notice', 'website/notice/index', 0, 0, 0, 1, 'email', 7, '2023-04-26 21:33:29', '2023-08-03 19:35:12');
+INSERT INTO `tb_menu` VALUES (1651217423560343559, '接口管理', 'P', 1652313423859417088, 'interface', 'system/interface/index', 0, 0, 0, 1, 'dict', 8, '2023-04-26 21:33:29', '2023-08-03 19:35:12');
+INSERT INTO `tb_menu` VALUES (1651217423560343560, '菜单管理', 'P', 1652313423859417088, 'menu', 'system/menu/index', 0, 0, 0, 1, 'menu', 9, '2023-04-26 21:33:29', '2023-08-03 19:35:13');
+INSERT INTO `tb_menu` VALUES (1651217423560343561, '网站配置', 'P', 1647951751875133441, 'config', 'website/config/index', 0, 0, 0, 1, 'edit', 10, '2023-04-26 21:33:29', '2023-08-03 19:35:14');
+INSERT INTO `tb_menu` VALUES (1651227500568641536, '系统监控', 'D', 0, 'monitor', NULL, 0, 0, 0, 1, 'monitor', 4, '2023-04-26 22:15:11', '2023-08-03 19:35:16');
+INSERT INTO `tb_menu` VALUES (1651227500568641537, '在线用户', 'P', 1651227500568641536, 'online', 'monitor/online/index', 0, 0, 0, 1, 'online', 1, '2023-04-26 22:15:55', '2023-08-03 19:35:19');
+INSERT INTO `tb_menu` VALUES (1651227500568641538, '服务监控', 'P', 1651227500568641536, 'server', 'monitor/server/index', 0, 0, 0, 1, 'server', 2, '2023-04-26 22:16:24', '2023-08-03 19:35:20');
+INSERT INTO `tb_menu` VALUES (1651227500568641539, '缓存管理', 'P', 1651227500568641536, 'cache', 'monitor/cache/index', 0, 0, 0, 1, 'redis', 3, '2023-04-26 22:16:59', '2023-08-03 19:35:21');
+INSERT INTO `tb_menu` VALUES (1651227500568641540, '操作日志', 'P', 1651227500568641536, 'operate-log', 'monitor/operate-log/index', 0, 0, 0, 1, 'form', 4, '2023-04-26 22:18:09', '2023-08-03 19:35:21');
+INSERT INTO `tb_menu` VALUES (1651227500568641541, '登录日志', 'P', 1651227500568641536, 'login-log', 'monitor/login-log/index', 0, 0, 0, 1, 'logininfor', 5, '2023-04-26 22:18:32', '2023-08-03 19:35:22');
+INSERT INTO `tb_menu` VALUES (1652313423859417088, '系统管理', 'D', 0, 'system', NULL, 0, 0, 0, 1, 'system', 3, '2023-04-29 22:08:18', '2023-08-03 19:35:24');
 
 -- ----------------------------
 -- Table structure for tb_menu_role
