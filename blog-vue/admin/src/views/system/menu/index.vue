@@ -134,7 +134,7 @@
               <el-form-item label="菜单类型" prop="type">
                 <el-radio-group v-model="formData.type">
                   <el-radio label="D">目录</el-radio>
-                  <el-radio label="C">菜单</el-radio>
+                  <el-radio label="P">菜单</el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
@@ -160,13 +160,13 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="菜单名称" prop="menuName">
-                <el-input v-model="formData.menuName" placeholder="请输入菜单名称" />
+              <el-form-item label="菜单名称" prop="name">
+                <el-input v-model="formData.name" placeholder="请输入菜单名称" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="显示排序" prop="orderNum">
-                <el-input-number v-model="formData.orderNum" controls-position="right" :min="0" />
+              <el-form-item label="显示排序" prop="order">
+                <el-input-number v-model="formData.order" controls-position="right" :min="0" />
               </el-form-item>
             </el-col>
             <el-col :span="12" v-if="formData.type != 'F'">
@@ -177,13 +177,13 @@
                   </el-tooltip>
                   是否外链
                 </span>
-                <el-radio-group v-model="formData.isFrame">
-                  <el-radio label="0">是</el-radio>
-                  <el-radio label="1">否</el-radio>
+                <el-radio-group v-model="formData.isLink">
+                  <el-radio :label="1">是</el-radio>
+                  <el-radio :label="0">否</el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
-            <el-col :span="12" v-if="formData.type != 'F'">
+            <el-col :span="12">
               <el-form-item prop="path">
                 <span slot="label">
                   <el-tooltip content="访问的路由地址，如：`user`，如外网地址需内链访问则以`http(s)://`开头" placement="top">
@@ -194,7 +194,7 @@
                 <el-input v-model="formData.path" placeholder="请输入路由地址" />
               </el-form-item>
             </el-col>
-            <el-col :span="12" v-if="formData.type == 'C'">
+            <el-col :span="12" v-if="formData.type === 'P'">
               <el-form-item prop="component">
                 <span slot="label">
                   <el-tooltip content="访问的组件路径，如：`system/user/index`，默认在`views`目录下" placement="top">
@@ -205,18 +205,7 @@
                 <el-input v-model="formData.component" placeholder="请输入组件路径" />
               </el-form-item>
             </el-col>
-            <el-col :span="12" v-if="formData.type != 'D'">
-              <el-form-item prop="perms">
-                <el-input v-model="formData.perms" placeholder="请输入权限标识" maxlength="100" />
-                <span slot="label">
-                  <el-tooltip content="控制器中定义的权限字符，如：@PreAuthorize(`@ss.hasPermi('system:user:list')`)" placement="top">
-                  <i class="el-icon-question"></i>
-                  </el-tooltip>
-                  权限字符
-                </span>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12" v-if="formData.type == 'C'">
+            <el-col :span="12" v-if="formData.type === 'P'">
               <el-form-item prop="isCache">
                 <span slot="label">
                   <el-tooltip content="选择是则会被`keep-alive`缓存，需要匹配组件的`name`和地址保持一致" placement="top">
@@ -225,8 +214,8 @@
                   是否缓存
                 </span>
                 <el-radio-group v-model="formData.isCache">
-                  <el-radio label="0">缓存</el-radio>
-                  <el-radio label="1">不缓存</el-radio>
+                  <el-radio :label="0">不缓存</el-radio>
+                  <el-radio :label="1">缓存</el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
@@ -253,11 +242,8 @@
                   菜单状态
                 </span>
                 <el-radio-group v-model="formData.status">
-                  <!-- <el-radio
-                    v-for="dict in dict.type.sys_normal_disable"
-                    :key="dict.value"
-                    :label="dict.value"
-                  >{{dict.label}}</el-radio> -->
+                  <el-radio :label="0">禁用</el-radio>
+                  <el-radio :label="1">正常</el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
@@ -343,7 +329,9 @@ export default {
         // 图标
         icon: undefined,
         // 排序
-        order: undefined
+        order: undefined,
+        // 菜单状态
+        status: 1
       },
       // 菜单表单校验规则
       rules: {
@@ -449,12 +437,12 @@ export default {
     // 打开菜单信息对话框
     handleOpen () {
       // 清除表单数据
-      this.resetForm()
+      this.reset()
       this.menuVisible = true
     },
     // 关闭菜单对话框表单
     handleClose () {
-      this.resetForm()
+      this.reset()
       this.menuVisible = false
     },
     // 点击新增按钮
@@ -542,7 +530,7 @@ export default {
       })
     },
     // 重置表单
-    resetForm () {
+    reset () {
       // 清除校验条件
       this.formData = {
         // 菜单ID
@@ -566,8 +554,12 @@ export default {
         // 图标
         icon: undefined,
         // 排序
-        order: undefined
+        order: undefined,
+        // 菜单状态
+        status: 1
       }
+      // 清除表单校验规则
+      this.resetForm('menuForm')
     }
   }
 }

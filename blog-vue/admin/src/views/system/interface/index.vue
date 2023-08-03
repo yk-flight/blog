@@ -243,12 +243,12 @@ export default {
     // 打开资源模块信息对话框
     handleOpen () {
       // 清除表单数据
-      this.resetForm()
+      this.reset()
       this.moduleVisible = true
     },
     // 关闭资源模块对话框表单
     handleClose () {
-      this.resetForm()
+      this.reset()
       this.moduleVisible = false
     },
     // 点击新增按钮
@@ -298,9 +298,7 @@ export default {
           // 关闭加载框
           that.loading = false
         })
-      }).catch(() => {
-
-      })
+      }).catch(() => {})
     },
     // 提交表单
     submitForm () {
@@ -336,7 +334,7 @@ export default {
       })
     },
     // 重置表单
-    resetForm () {
+    reset () {
       // 清除校验条件
       this.formData = {
         // 资源模块ID
@@ -344,6 +342,8 @@ export default {
         // 模块名称
         name: undefined
       }
+      // 清除表单校验
+      this.resetForm('moduleForm')
     },
     // 多选框
     handleSelectionChange (selection) {
