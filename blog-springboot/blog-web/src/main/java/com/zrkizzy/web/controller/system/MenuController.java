@@ -51,4 +51,10 @@ public class MenuController {
     public Result<List<OptionsVO>> listMenuOptions() {
         return Result.success(menuService.listMenuOptions());
     }
+
+    @ApiOperation("保存菜单信息")
+    @PostMapping("/save")
+    public Result<Boolean> save(@RequestBody MenuDTO menuDTO) {
+        return Result.success();
+    }
 }

@@ -2,7 +2,7 @@ package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zrkizzy.common.base.response.OptionsVO;
-import com.zrkizzy.data.domain.core.Menu;
+import com.zrkizzy.data.domain.system.Menu;
 import com.zrkizzy.data.query.MenuQuery;
 import org.apache.ibatis.annotations.Param;
 

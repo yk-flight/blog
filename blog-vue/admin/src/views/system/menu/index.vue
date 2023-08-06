@@ -524,6 +524,7 @@ export default {
         // 开启加载框
         that.buttonLoading = true
         that.menuLoading = true
+        console.log(this.formData)
         // 提交表单
         saveMenu(that.formData).then((res) => {
           // 根据是否存在ID输出对应消息

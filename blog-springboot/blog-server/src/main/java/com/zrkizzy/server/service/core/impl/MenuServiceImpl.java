@@ -2,7 +2,7 @@ package com.zrkizzy.server.service.core.impl;
 
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
-import com.zrkizzy.data.domain.core.Menu;
+import com.zrkizzy.data.domain.system.Menu;
 import com.zrkizzy.data.mapper.MenuMapper;
 import com.zrkizzy.data.query.MenuQuery;
 import com.zrkizzy.data.vo.MenuVO;

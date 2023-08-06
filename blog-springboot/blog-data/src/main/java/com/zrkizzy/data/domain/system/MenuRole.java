@@ -1,4 +1,4 @@
-package com.zrkizzy.data.domain.core;
+package com.zrkizzy.data.domain.system;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;

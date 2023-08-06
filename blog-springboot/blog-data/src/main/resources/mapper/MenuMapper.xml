@@ -6,7 +6,7 @@
         id, `name`, parent_id, `type`, `path`, component, is_cache, is_link, visible, status, icon, `order`, create_time, update_time
     </sql>
 
-    <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.core.Menu">
+    <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.system.Menu">
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="parent_id" property="parentId" />
@@ -134,7 +134,7 @@
     </select>
 
     <!-- 根据菜单ID查询菜单对象 -->
-    <select id="getMenuById" resultType="com.zrkizzy.data.domain.core.Menu">
+    <select id="getMenuById" resultType="com.zrkizzy.data.domain.system.Menu">
         SELECT
             <include refid="BaseColumn"></include>
         FROM
