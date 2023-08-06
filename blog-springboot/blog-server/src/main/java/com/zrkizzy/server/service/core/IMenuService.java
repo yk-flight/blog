@@ -52,4 +52,12 @@ public interface IMenuService {
      * @return 是否保存成功
      */
     Boolean save(MenuDTO menuDTO);
+
+    /**
+     * 删除指定菜单
+     *
+     * @param menuId 菜单ID
+     * @return 是否删除成功
+     */
+    Boolean delete(Long menuId);
 }

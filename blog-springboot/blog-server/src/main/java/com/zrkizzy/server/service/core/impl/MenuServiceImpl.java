@@ -1,8 +1,11 @@
 package com.zrkizzy.server.service.core.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zrkizzy.common.annotation.OperateLogAnnotation;
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.constant.AnnotationConst;
+import com.zrkizzy.common.enums.HttpStatusEnum;
+import com.zrkizzy.common.exception.BusinessException;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.system.Menu;
 import com.zrkizzy.data.dto.system.MenuDTO;
@@ -303,6 +306,36 @@ public class MenuServiceImpl implements IMenuService {
             return update(menuDTO);
         }
         return insert(menuDTO);
+    }
+
+    /**
+     * 删除指定菜单
+     *
+     * @param menuId 菜单ID
+     * @return 是否删除成功
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Boolean delete(Long menuId) {
+        // 检查是否可以删除
+        checkMenuDelete(menuId);
+        return menuMapper.deleteById(menuId) == 1;
+    }
+
+    /**
+     * 检查当前菜单是否可以删除
+     *
+     * @param menuId 菜单ID
+     */
+    private void checkMenuDelete(Long menuId) {
+        // 定义查询条件
+        QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("parent_id", menuId);
+        // 查询当前要删除的菜单是否有子菜单
+        if (menuMapper.selectCount(queryWrapper) > 0) {
+            // 抛出目录不为空不允许删除异常
+            throw new BusinessException(HttpStatusEnum.DIRECTORY_NOT_EMPTY);
+        }
     }
 
     /**

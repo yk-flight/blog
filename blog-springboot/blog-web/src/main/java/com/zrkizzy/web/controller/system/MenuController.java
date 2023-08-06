@@ -1,7 +1,9 @@
 package com.zrkizzy.web.controller.system;
 
+import com.zrkizzy.common.annotation.OperateLogAnnotation;
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.base.response.Result;
+import com.zrkizzy.common.constant.AnnotationConst;
 import com.zrkizzy.data.dto.system.MenuDTO;
 import com.zrkizzy.data.query.MenuQuery;
 import com.zrkizzy.data.vo.MenuVO;
@@ -60,4 +62,14 @@ public class MenuController {
         Boolean result = menuService.save(menuDTO);
         return Result.success(result);
     }
+
+    @ApiOperation("删除指定菜单")
+    @DeleteMapping("/delete/{id}")
+    @OperateLogAnnotation(type = AnnotationConst.DELETE)
+    public Result<Boolean> delete(@PathVariable Long id) {
+        // 删除指定菜单
+        Boolean result = menuService.delete(id);
+        return Result.success(result);
+    }
+
 }
