@@ -132,4 +132,14 @@
             m.parent_id = 0 AND
             mr.role_id = #{roleId}
     </select>
+
+    <!-- 根据菜单ID查询菜单对象 -->
+    <select id="getMenuById" resultType="com.zrkizzy.data.domain.core.Menu">
+        SELECT
+            <include refid="BaseColumn"></include>
+        FROM
+            tb_menu
+        WHERE
+            id = #{menuId}
+    </select>
 </mapper>

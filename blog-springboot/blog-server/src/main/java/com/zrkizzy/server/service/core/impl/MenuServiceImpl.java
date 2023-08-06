@@ -275,6 +275,18 @@ public class MenuServiceImpl implements IMenuService {
     }
 
     /**
+     * 获取指定菜单数据
+     *
+     * @param menuId 菜单ID
+     * @return 菜单数据返回对象
+     */
+    @Override
+    public MenuVO getMenuById(Long menuId) {
+        Menu menu = menuMapper.getMenuById(menuId);
+        return BeanCopyUtil.copy(menu, MenuVO.class);
+    }
+
+    /**
      * 构建菜单返回对象
      *
      * @param menu 菜单数据对象

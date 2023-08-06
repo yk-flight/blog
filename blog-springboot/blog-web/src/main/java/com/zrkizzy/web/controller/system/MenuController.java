@@ -39,6 +39,13 @@ public class MenuController {
         return Result.success(menuService.listMenu(menuQuery));
     }
 
+    @ApiOperation("获取指定菜单数据")
+    @GetMapping("/getMenuById/{id}")
+    public Result<MenuVO> getMenuById(@PathVariable Long id) {
+        MenuVO menuVO = menuService.getMenuById(id);
+        return Result.success(menuVO);
+    }
+
     @ApiOperation("获取菜单选项")
     @GetMapping("/listMenuOptions")
     public Result<List<OptionsVO>> listMenuOptions() {

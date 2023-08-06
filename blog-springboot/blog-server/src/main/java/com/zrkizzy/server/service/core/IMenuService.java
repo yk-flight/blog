@@ -35,4 +35,13 @@ public interface IMenuService {
      * @return 菜单选项集合
      */
     List<OptionsVO> listMenuOptions();
+
+    /**
+     * 获取指定菜单数据
+     *
+     * @param menuId 菜单ID
+     * @return 菜单数据返回对象
+     */
+    MenuVO getMenuById(Long menuId);
+
 }
