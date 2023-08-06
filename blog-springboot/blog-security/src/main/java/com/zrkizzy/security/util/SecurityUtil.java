@@ -56,12 +56,12 @@ public class SecurityUtil {
     }
 
     /**
-     * 获取当前登录用户的角色标识
+     * 获取当前登录角色ID
      *
-     * @return 角色标识
+     * @return 角色ID
      */
-    public String getLoginUserRoleMark() {
-        return getUserDetails().getRoleMark();
+    public Long getLoginUserRoleId() {
+        return getUserDetails().getRole().getId();
     }
 
     /**

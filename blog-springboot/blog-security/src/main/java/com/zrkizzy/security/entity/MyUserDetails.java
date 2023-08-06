@@ -1,5 +1,6 @@
 package com.zrkizzy.security.entity;
 
+import com.zrkizzy.data.domain.core.Role;
 import com.zrkizzy.data.domain.core.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -44,6 +45,15 @@ public class MyUserDetails implements UserDetails {
     }
 
     /**
+     * 获取用户登录角色
+     * 
+     * @return 用户角色
+     */
+    public Role getRole() {
+        return user.getRoles().get(0);
+    }
+
+    /**
      * 获取登录的用户对象
      *
      * @return 用户对象
@@ -67,7 +77,7 @@ public class MyUserDetails implements UserDetails {
      * @return 角色名称
      */
     public String getRoleName() {
-        return user.getRoles().get(0).getName();
+        return getRole().getName();
     }
 
     /**
@@ -76,7 +86,7 @@ public class MyUserDetails implements UserDetails {
      * @return 角色标识
      */
     public String getRoleMark() {
-        return user.getRoles().get(0).getMark();
+        return getRole().getMark();
     }
 
     /**
