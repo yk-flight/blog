@@ -1,5 +1,6 @@
 package com.zrkizzy.web.controller.system;
 
+import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.base.response.Result;
 import com.zrkizzy.data.query.MenuQuery;
 import com.zrkizzy.data.vo.MenuVO;
@@ -36,5 +37,11 @@ public class MenuController {
     @PostMapping("/list")
     public Result<List<MenuVO>> list(@RequestBody MenuQuery menuQuery) {
         return Result.success(menuService.listMenu(menuQuery));
+    }
+
+    @ApiOperation("获取菜单选项")
+    @GetMapping("/listMenuOptions")
+    public Result<List<OptionsVO>> listMenuOptions() {
+        return Result.success(menuService.listMenuOptions());
     }
 }

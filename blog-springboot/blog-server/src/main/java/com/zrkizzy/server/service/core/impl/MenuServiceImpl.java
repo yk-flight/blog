@@ -1,5 +1,6 @@
 package com.zrkizzy.server.service.core.impl;
 
+import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.core.Menu;
 import com.zrkizzy.data.mapper.MenuMapper;
@@ -250,6 +251,27 @@ public class MenuServiceImpl implements IMenuService {
         }
         Collections.sort(result);
         return result;
+    }
+
+    /**
+     * 获取菜单选项
+     *
+     * @return 菜单选项集合
+     */
+    @Override
+    public List<OptionsVO> listMenuOptions() {
+        // 获取当前登录用户角色
+        Long roleId = securityUtil.getLoginUserRoleId();
+        List<OptionsVO> options = null;
+        // 如果当前登录用户是管理员
+        if (securityUtil.isAdmin()) {
+            options = menuMapper.listAllMenuOptions();
+        } else {
+            options = menuMapper.listMenuOptions(roleId);
+        }
+        options.add(0, new OptionsVO(0L, "主菜单"));
+        // 返回查询的
+        return options;
     }
 
     /**

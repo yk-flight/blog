@@ -108,4 +108,28 @@
             </if>
         </where>
     </select>
+
+    <!-- 菜单选项 -->
+    <resultMap id="menuOptions" type="com.zrkizzy.common.base.response.OptionsVO">
+        <id column="id" property="value" />
+        <result column="name" property="label" />
+    </resultMap>
+
+    <!-- 查询所有菜单选项 -->
+    <select id="listAllMenuOptions" resultMap="menuOptions">
+        SELECT id, name FROM tb_menu WHERE parent_id = 0
+    </select>
+
+    <!-- 查询指定角色具有的所有菜单选项 -->
+    <select id="listMenuOptions" resultMap="menuOptions">
+        SELECT
+            m.id AS id,
+            m.name AS name
+        FROM
+            tb_menu m
+                LEFT JOIN tb_menu_role mr ON mr.menu_id = m.id
+        WHERE
+            m.parent_id = 0 AND
+            mr.role_id = #{roleId}
+    </select>
 </mapper>

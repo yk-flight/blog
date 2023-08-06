@@ -1,6 +1,7 @@
 package com.zrkizzy.data.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.data.domain.core.Menu;
 import com.zrkizzy.data.query.MenuQuery;
 import org.apache.ibatis.annotations.Param;
@@ -47,4 +48,19 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @return 符合条件的菜单集合
      */
     List<Menu> listMenus(@Param("menuQuery") MenuQuery menuQuery, @Param("roleMark") String roleMark);
+
+    /**
+     * 查询所有菜单选项
+     *
+     * @return 当前用户具有的菜单选项
+     */
+    List<OptionsVO> listAllMenuOptions();
+
+    /**
+     * 查询对应角色的菜单选项
+     *
+     * @param roleId 角色ID
+     * @return 角色对应的菜单选项
+     */
+    List<OptionsVO> listMenuOptions(Long roleId);
 }
