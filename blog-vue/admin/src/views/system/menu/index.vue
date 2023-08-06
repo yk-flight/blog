@@ -75,7 +75,7 @@
           </template>
         </el-table-column>
         <!-- 排序 -->
-        <el-table-column prop="order" label="排序" align="center" width="80" v-if="columns[2].visible"></el-table-column>
+        <el-table-column prop="sort" label="排序" align="center" width="80" v-if="columns[2].visible"></el-table-column>
         <!-- 访问路径 -->
         <el-table-column prop="path" label="访问路径" align="center" v-if="columns[3].visible"></el-table-column>
         <!-- 组件路径 -->
@@ -166,8 +166,8 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="显示排序" prop="order">
-                <el-input-number v-model="formData.order" size="small" controls-position="right" :min="0" />
+              <el-form-item label="显示排序" prop="sort">
+                <el-input-number v-model="formData.sort" size="small" controls-position="right" :min="0" />
               </el-form-item>
             </el-col>
             <el-col :span="12" v-if="formData.type === 'P'">
@@ -331,7 +331,7 @@ export default {
         // 图标
         icon: undefined,
         // 排序
-        order: undefined,
+        sort: undefined,
         // 菜单状态
         status: true
       },
@@ -340,7 +340,7 @@ export default {
         // 菜单名称
         name: [{ required: true, message: '菜单名称不能为空', trigger: 'blur' }],
         // 排序
-        order: [{ required: true, message: '菜单顺序不能为空', trigger: 'blur' }],
+        sort: [{ required: true, message: '菜单顺序不能为空', trigger: 'blur' }],
         // 访问路径
         path: [{ required: true, message: '路由地址不能为空', trigger: 'blur' }]
       },
@@ -490,12 +490,6 @@ export default {
     // 点击删除事件
     handleDelete (row) {
       const that = this
-      let menuIds = []
-      if (row.id) {
-        menuIds.push(row.id)
-      } else {
-        menuIds = this.ids
-      }
       this.$confirm('是否确认删除选中的菜单数据？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -503,7 +497,7 @@ export default {
       }).then(() => {
         that.buttonLoading = true
         that.loading = true
-        deleteMenu(menuIds).then((res) => {
+        deleteMenu(row.id).then((res) => {
           that.buttonLoading = false
           that.$message.success('删除成功')
           // 刷新数据
@@ -524,7 +518,6 @@ export default {
         // 开启加载框
         that.buttonLoading = true
         that.menuLoading = true
-        console.log(this.formData)
         // 提交表单
         saveMenu(that.formData).then((res) => {
           // 根据是否存在ID输出对应消息
@@ -574,7 +567,7 @@ export default {
         // 图标
         icon: undefined,
         // 排序
-        order: undefined,
+        sort: undefined,
         // 菜单状态
         status: true
       }

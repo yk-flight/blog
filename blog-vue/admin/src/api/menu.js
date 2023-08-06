@@ -35,11 +35,10 @@ export const getMenuById = (id) => {
 /**
  * 批量删除菜单信息
  */
-export const deleteMenu = (data) => {
+export const deleteMenu = (id) => {
   return request({
-    url: '/admin/menu/delete',
-    method: 'DELETE',
-    data: data
+    url: `/admin/menu/delete/${id}`,
+    method: 'DELETE'
   })
 }
 
