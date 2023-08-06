@@ -64,11 +64,4 @@ public interface MenuMapper extends BaseMapper<Menu> {
      */
     List<OptionsVO> listMenuOptions(@Param("roleId") Long roleId);
 
-    /**
-     * 根据菜单ID查询菜单对象
-     *
-     * @param menuId 菜单ID
-     * @return 菜单对象
-     */
-    Menu getMenuById(Long menuId);
 }

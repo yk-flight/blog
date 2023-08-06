@@ -58,7 +58,7 @@ public class RouterVO implements Comparable<RouterVO>, Serializable {
      * 菜单序号
      */
     @JsonIgnore
-    private Integer order;
+    private Integer sort;
 
     /**
      * 自定义排序规则
@@ -67,6 +67,6 @@ public class RouterVO implements Comparable<RouterVO>, Serializable {
      */
     @Override
     public int compareTo(RouterVO routerVO) {
-        return this.order - routerVO.getOrder();
+        return this.sort - routerVO.getSort();
     }
 }

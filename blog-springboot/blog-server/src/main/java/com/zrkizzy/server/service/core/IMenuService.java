@@ -1,6 +1,7 @@
 package com.zrkizzy.server.service.core;
 
 import com.zrkizzy.common.base.response.OptionsVO;
+import com.zrkizzy.data.dto.system.MenuDTO;
 import com.zrkizzy.data.query.MenuQuery;
 import com.zrkizzy.data.vo.MenuVO;
 import com.zrkizzy.data.vo.route.RouterVO;
@@ -44,4 +45,11 @@ public interface IMenuService {
      */
     MenuVO getMenuById(Long menuId);
 
+    /**
+     * 保存菜单信息
+     *
+     * @param menuDTO 菜单数据传输对象
+     * @return 是否保存成功
+     */
+    Boolean save(MenuDTO menuDTO);
 }

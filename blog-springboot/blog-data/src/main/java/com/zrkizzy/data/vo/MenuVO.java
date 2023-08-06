@@ -71,7 +71,7 @@ public class MenuVO extends BaseVO implements Comparable<MenuVO> {
     /**
      * 菜单顺序
      */
-    private Integer order;
+    private Integer sort;
 
     /**
      * 子菜单
@@ -85,7 +85,7 @@ public class MenuVO extends BaseVO implements Comparable<MenuVO> {
      */
     @Override
     public int compareTo(MenuVO menuVO) {
-        return this.order - menuVO.getOrder();
+        return this.sort - menuVO.getSort();
     }
 
 }

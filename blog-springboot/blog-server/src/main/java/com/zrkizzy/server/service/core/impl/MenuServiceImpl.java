@@ -1,8 +1,11 @@
 package com.zrkizzy.server.service.core.impl;
 
+import com.zrkizzy.common.annotation.OperateLogAnnotation;
 import com.zrkizzy.common.base.response.OptionsVO;
+import com.zrkizzy.common.constant.AnnotationConst;
 import com.zrkizzy.common.utils.bean.BeanCopyUtil;
 import com.zrkizzy.data.domain.system.Menu;
+import com.zrkizzy.data.dto.system.MenuDTO;
 import com.zrkizzy.data.mapper.MenuMapper;
 import com.zrkizzy.data.query.MenuQuery;
 import com.zrkizzy.data.vo.MenuVO;
@@ -117,7 +120,7 @@ public class MenuServiceImpl implements IMenuService {
                 .path(getRouterPath(menu))
                 .children(getRouterChildren(menu.getChildren()))
                 .redirect(getRouterRedirect(menu.getChildren()))
-                .order(menu.getOrder())
+                .sort(menu.getSort())
                 .meta(new MetaVO(menu.getName(), menu.getIcon(), menu.getIsCache(), getRouterLink(menu)))
                 .build();
     }
@@ -282,8 +285,48 @@ public class MenuServiceImpl implements IMenuService {
      */
     @Override
     public MenuVO getMenuById(Long menuId) {
-        Menu menu = menuMapper.getMenuById(menuId);
+        Menu menu = menuMapper.selectById(menuId);
         return BeanCopyUtil.copy(menu, MenuVO.class);
+    }
+
+    /**
+     * 保存菜单信息
+     *
+     * @param menuDTO 菜单数据传输对象
+     * @return 是否保存成功
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean save(MenuDTO menuDTO) {
+        // 根据ID判断添加或删除
+        if (null != menuDTO.getId()) {
+            return update(menuDTO);
+        }
+        return insert(menuDTO);
+    }
+
+    /**
+     * 添加菜单数据
+     *
+     * @param menuDTO 菜单数据传输对象
+     * @return 是否添加成功
+     */
+    @OperateLogAnnotation(type = AnnotationConst.ADD)
+    private Boolean insert(MenuDTO menuDTO) {
+        Menu menu = BeanCopyUtil.copy(menuDTO, Menu.class);
+        return menuMapper.insert(menu) == 1;
+    }
+
+    /**
+     * 更新菜单数据
+     *
+     * @param menuDTO 菜单数据传输对象
+     * @return 是否更新成功
+     */
+    @OperateLogAnnotation(type = AnnotationConst.UPDATE)
+    private Boolean update(MenuDTO menuDTO) {
+        Menu menu = BeanCopyUtil.copy(menuDTO, Menu.class);
+        return menuMapper.updateById(menu) == 1;
     }
 
     /**

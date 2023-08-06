@@ -2,6 +2,7 @@ package com.zrkizzy.web.controller.system;
 
 import com.zrkizzy.common.base.response.OptionsVO;
 import com.zrkizzy.common.base.response.Result;
+import com.zrkizzy.data.dto.system.MenuDTO;
 import com.zrkizzy.data.query.MenuQuery;
 import com.zrkizzy.data.vo.MenuVO;
 import com.zrkizzy.data.vo.route.RouterVO;
@@ -9,6 +10,7 @@ import com.zrkizzy.server.service.core.IMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,7 +56,8 @@ public class MenuController {
 
     @ApiOperation("保存菜单信息")
     @PostMapping("/save")
-    public Result<Boolean> save(@RequestBody MenuDTO menuDTO) {
-        return Result.success();
+    public Result<Boolean> save(@Validated @RequestBody MenuDTO menuDTO) {
+        Boolean result = menuService.save(menuDTO);
+        return Result.success(result);
     }
 }

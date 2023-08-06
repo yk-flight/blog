@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * @since 2023/4/17
  */
 @Data
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @ApiModel("菜单对象")
 @TableName("tb_menu")
@@ -86,7 +88,7 @@ public class Menu extends BaseEntity {
      * 菜单顺序
      */
     @ApiModelProperty("菜单顺序")
-    private Integer order;
+    private Integer sort;
 
     /**
      * 子菜单

@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zrkizzy.data.mapper.MenuMapper">
     <sql id="BaseColumn">
-        id, `name`, parent_id, `type`, `path`, component, is_cache, is_link, visible, status, icon, `order`, create_time, update_time
+        id, `name`, parent_id, `type`, `path`, component, is_cache, is_link, visible, status, icon, `sort`, create_time, update_time
     </sql>
 
     <resultMap id="BaseResultMap" type="com.zrkizzy.data.domain.system.Menu">
@@ -18,7 +18,7 @@
         <result column="visible" property="visible" />
         <result column="status" property="status" />
         <result column="icon" property="icon" />
-        <result column="order" property="order" />
+        <result column="sort" property="sort" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
@@ -35,7 +35,7 @@
             m.is_link AS is_link,
             m.visible AS visible,
             m.icon AS icon,
-            m.`order` AS `order`,
+            m.`sort` AS `sort`,
             m.create_time AS create_time,
             m.update_time AS update_time
         FROM
@@ -89,7 +89,7 @@
             m.status AS status,
             m.visible AS visible,
             m.icon AS icon,
-            m.`order` AS `order`,
+            m.`sort` AS `sort`,
             m.create_time AS create_time,
             m.update_time AS update_time
         FROM
@@ -133,13 +133,4 @@
             mr.role_id = #{roleId}
     </select>
 
-    <!-- 根据菜单ID查询菜单对象 -->
-    <select id="getMenuById" resultType="com.zrkizzy.data.domain.system.Menu">
-        SELECT
-            <include refid="BaseColumn"></include>
-        FROM
-            tb_menu
-        WHERE
-            id = #{menuId}
-    </select>
 </mapper>
