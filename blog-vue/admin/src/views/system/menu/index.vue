@@ -43,7 +43,7 @@
       </el-row>
       <el-row :gutter="10" class="button-container">
         <el-col :span="1.5">
-          <el-button type="primary" icon="el-icon-plus" @click="handleAdd" size="mini">
+          <el-button type="primary" icon="el-icon-plus" @click="handleAdd(null)" size="mini">
             新增
           </el-button>
         </el-col>
@@ -110,7 +110,7 @@
     <!-- 菜单信息对话框 -->
     <el-dialog
       :title="menuTitle"
-      width="680px"
+      width="620px"
       :modal-append-to-body="true"
       :append-to-body="true"
       :close-on-click-modal="false"
@@ -121,13 +121,14 @@
           <el-row :gutter="15">
             <el-col :span="24">
               <el-form-item label="上级菜单" prop="parentId">
-                <!-- :options="menuOptions"
-                  :normalizer="normalizer" -->
-                <!-- <treeselect
-                  v-model="formData.parentId"
-                  :show-count="true"
-                  placeholder="选择上级菜单"
-                /> -->
+                <el-select style="width: 100%;" v-model="formData.parentId" placeholder="选择上级菜单" size="small" clearable>
+                  <el-option
+                    v-for="item in menuOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="24">
@@ -200,8 +201,8 @@
                   是否外链
                 </span>
                 <el-radio-group v-model="formData.isLink">
-                  <el-radio :label="1">是</el-radio>
-                  <el-radio :label="0">否</el-radio>
+                  <el-radio :label="true">是</el-radio>
+                  <el-radio :label="false">否</el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
@@ -214,8 +215,8 @@
                   是否缓存
                 </span>
                 <el-radio-group v-model="formData.isCache">
-                  <el-radio :label="0">不缓存</el-radio>
-                  <el-radio :label="1">缓存</el-radio>
+                  <el-radio :label="false">不缓存</el-radio>
+                  <el-radio :label="true">缓存</el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
@@ -228,8 +229,8 @@
                   显示状态
                 </span>
                 <el-radio-group v-model="formData.visible">
-                  <el-radio :label="0">显示</el-radio>
-                  <el-radio :label="1">隐藏</el-radio>
+                  <el-radio :label="false">显示</el-radio>
+                  <el-radio :label="true">隐藏</el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
@@ -242,8 +243,8 @@
                   菜单状态
                 </span>
                 <el-radio-group v-model="formData.status">
-                  <el-radio :label="0">禁用</el-radio>
-                  <el-radio :label="1">正常</el-radio>
+                  <el-radio :label="true">正常</el-radio>
+                  <el-radio :label="false">禁用</el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
@@ -275,7 +276,7 @@
 import PageTitle from '../../../components/PageTitle/index.vue'
 import RightToolbar from '../../../components/RightToolbar/index.vue'
 import IconSelect from '../../../components/IconSelect/index'
-import { listMenus, saveMenu, getMenuById, deleteMenu } from '../../../api/menu'
+import { listMenus, saveMenu, getMenuById, deleteMenu, listMenuOptions } from '../../../api/menu'
 
 export default {
   name: 'Menu',
@@ -322,17 +323,17 @@ export default {
         // 组件路径
         component: undefined,
         // 是否缓存
-        isCache: 0,
+        isCache: false,
         // 是否外链
-        isLink: 0,
+        isLink: false,
         // 是否隐藏
-        visible: 0,
+        visible: false,
         // 图标
         icon: undefined,
         // 排序
         order: undefined,
         // 菜单状态
-        status: 1
+        status: true
       },
       // 菜单表单校验规则
       rules: {
@@ -379,21 +380,19 @@ export default {
           value: 0,
           label: '禁用'
         }
-      ]
+      ],
+      // 菜单选项
+      menuOptions: []
     }
   },
 
-  computed: {},
-
-  watch: {},
-
-  created () {},
-
-  mounted () {
+  created () {
     // 赋值当前页面内容
     this.title = this.$route.meta.title
     // 查询表格数据
     this.getTableData()
+    // 获取菜单选项
+    this.getMenuOptions()
   },
 
   methods: {
@@ -409,6 +408,19 @@ export default {
       }).catch(() => {
         // 确保加载框可以关闭
         this.loading = false
+      })
+    },
+    // 加载菜单选项
+    getMenuOptions () {
+      // 打开加载框
+      this.menuLoading = true
+      listMenuOptions().then((res) => {
+        // 获取到菜单选项数据
+        this.menuOptions = res
+        // 关闭加载框
+        this.menuLoading = false
+      }).catch(() => {
+        this.menuLoading = false
       })
     },
     // 展开/折叠
@@ -447,16 +459,20 @@ export default {
       this.menuVisible = false
     },
     // 点击新增按钮
-    handleAdd () {
+    handleAdd (row) {
       this.menuTitle = '新增菜单'
       this.handleOpen()
+      if (row) {
+        this.formData.parentId = row.id
+      }
     },
     // 点击编辑按钮
     handleUpdate (row) {
       // 修改对话框标题
       this.menuTitle = '更新菜单'
       // 获取到传来的ID
-      const menuId = row.id || this.ids
+      const menuId = row.id
+      this.menuVisible = true
       // 打开加载框
       this.menuLoading = true
       // 根据菜单ID获取对应的数据
@@ -541,7 +557,7 @@ export default {
         // 菜单名称
         name: undefined,
         // 父菜单
-        parentId: undefined,
+        parentId: '0',
         // 访问路径
         path: undefined,
         // 菜单类型
@@ -549,17 +565,17 @@ export default {
         // 组件路径
         component: undefined,
         // 是否缓存
-        isCache: 0,
+        isCache: false,
         // 是否外链
-        isLink: 0,
+        isLink: false,
         // 是否隐藏
-        visible: 0,
+        visible: false,
         // 图标
         icon: undefined,
         // 排序
         order: undefined,
         // 菜单状态
-        status: 1
+        status: true
       }
       // 清除表单校验规则
       this.resetForm('menuForm')

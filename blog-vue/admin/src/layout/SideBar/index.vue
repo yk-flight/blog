@@ -2,10 +2,10 @@
   <div :class="{'has-logo':showLogo}" :style="{ backgroundColor: settings.sideTheme === 'theme-dark' ? variable.menuBackground : variable.menuLightBackground }">
     <logo v-if="showLogo" :collapse="isCollapse"></logo>
     <el-scrollbar :class="settings.sideTheme">
+      <!-- :unique-opened="true" -->
       <el-menu
         :default-active="activeMenu"
         :collapse="isCollapse"
-        :unique-opened="true"
         :background-color="settings.sideTheme === 'theme-dark' ? variable.menuBackground : variable.menuLightBackground"
         :text-color="settings.sideTheme === 'theme-dark' ? variable.menuText : variable.menuLightText"
         :active-text-color="settings.theme"

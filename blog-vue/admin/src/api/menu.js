@@ -42,3 +42,13 @@ export const deleteMenu = (data) => {
     data: data
   })
 }
+
+/**
+ * 获取菜单选项
+ */
+export const listMenuOptions = () => {
+  return request({
+    url: '/admin/menu/listMenuOptions',
+    method: 'GET'
+  })
+}
