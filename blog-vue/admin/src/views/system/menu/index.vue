@@ -118,7 +118,7 @@
       :before-close="handleClose">
       <div class="menu-wrapper" v-loading="menuLoading" element-loading-text="正在加载菜单信息">
         <el-form ref="menuForm" :model="formData" :rules="rules" label-width="100px" label-position="right" size="small">
-          <el-row :gutter="20">
+          <el-row :gutter="20" class="form-row">
             <el-col :span="24">
               <el-form-item label="上级菜单" prop="parentId">
                 <el-select style="width: 100%;" v-model="formData.parentId" placeholder="选择上级菜单" clearable>
@@ -593,7 +593,7 @@ export default {
 .card {
   min-height: calc(100vh - 165px);
 }
-.el-row {
+.form-row {
   display:flex;
   flex-wrap: wrap;
 }
