@@ -4,37 +4,34 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "animate.css": "^4.1.1",
-    "axios": "^1.3.4",
-    "core-js": "^3.6.5",
-    "nprogress": "^0.2.0",
-    "svg-sprite-loader": "^6.0.11",
-    "vue": "^2.6.11",
-    "vue-router": "^3.2.0",
-    "vue-typed-js": "^0.1.2",
-    "vuetify": "^2.6.14",
-    "vuex": "^3.4.0"
+    "core-js": "^3.8.3",
+    "vue": "^2.6.14",
+    "vue-router": "^3.5.1",
+    "vuetify": "^2.6.0",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.3",
-    "@vue/cli-plugin-babel": "~4.5.15",
-    "@vue/cli-plugin-router": "~4.5.15",
-    "@vue/cli-plugin-vuex": "~4.5.15",
-    "@vue/cli-service": "~4.5.15",
-    "less": "^3.0.4",
-    "less-loader": "^5.0.0",
-    "sass": "~1.32.0",
-    "sass-loader": "^10.0.0",
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "@vue/eslint-config-standard": "^6.1.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "sass": "^1.32.7",
+    "sass-loader": "^12.0.0",
     "vue-cli-plugin-vuetify": "~2.5.8",
-    "vue-template-compiler": "^2.6.11",
+    "vue-template-compiler": "^2.6.14",
     "vuetify-loader": "^1.7.0"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+  }
 }
