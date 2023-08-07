@@ -117,11 +117,11 @@
       :visible="menuVisible"
       :before-close="handleClose">
       <div class="menu-wrapper" v-loading="menuLoading" element-loading-text="正在加载菜单信息">
-        <el-form ref="menuForm" :model="formData" :rules="rules" label-width="100px" label-position="right">
-          <el-row :gutter="15">
+        <el-form ref="menuForm" :model="formData" :rules="rules" label-width="100px" label-position="right" size="small">
+          <el-row :gutter="20">
             <el-col :span="24">
               <el-form-item label="上级菜单" prop="parentId">
-                <el-select style="width: 100%;" v-model="formData.parentId" placeholder="选择上级菜单" size="small" clearable>
+                <el-select style="width: 100%;" v-model="formData.parentId" placeholder="选择上级菜单" clearable>
                   <el-option
                     v-for="item in menuOptions"
                     :key="item.value"
@@ -139,7 +139,7 @@
                 </el-radio-group>
               </el-form-item>
             </el-col>
-            <el-col :span="24" v-if="formData.type != 'F'">
+            <el-col :span="24">
               <el-form-item label="菜单图标" prop="icon">
                 <el-popover
                   placement="bottom-start"
@@ -148,7 +148,7 @@
                   @show="$refs['iconSelect'].reset()"
                 >
                   <IconSelect ref="iconSelect" @selectIcon="selectIcon" :active-icon="formData.icon" />
-                  <el-input slot="reference" v-model="formData.icon" size="small" placeholder="点击选择图标" readonly>
+                  <el-input slot="reference" v-model="formData.icon" placeholder="点击选择图标" readonly>
                     <svg-icon
                       v-if="formData.icon"
                       slot="prefix"
@@ -162,12 +162,12 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="菜单名称" prop="name">
-                <el-input v-model="formData.name" size="small" placeholder="请输入菜单名称" />
+                <el-input v-model="formData.name" placeholder="请输入菜单名称" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="显示排序" prop="sort">
-                <el-input-number v-model="formData.sort" size="small" controls-position="right" :min="0" />
+                <el-input-number v-model="formData.sort" controls-position="right" :min="0" />
               </el-form-item>
             </el-col>
             <el-col :span="12" v-if="formData.type === 'P'">
@@ -178,7 +178,7 @@
                   </el-tooltip>
                   组件路径
                 </span>
-                <el-input v-model="formData.component" placeholder="请输入组件路径" size="small" />
+                <el-input v-model="formData.component" placeholder="请输入组件路径" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -189,7 +189,7 @@
                   </el-tooltip>
                   路由地址
                 </span>
-                <el-input v-model="formData.path" placeholder="请输入路由地址" size="small" />
+                <el-input v-model="formData.path" placeholder="请输入路由地址" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -593,4 +593,9 @@ export default {
 .card {
   min-height: calc(100vh - 165px);
 }
+.el-row {
+  display:flex;
+  flex-wrap: wrap;
+}
+
 </style>
