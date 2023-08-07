@@ -1,9 +1,9 @@
 <template>
   <div
     class="banner-container"
-    style="background: url('https://www.static.banq.ink/photos/fa74451429d178e2682a3cf6e833c019.png') center center / cover no-repeat;"
+    style="background: url('https://rmt.dogedoge.com/fetch/fluid/storage/bg/vdysjx.png?w=1920&fmt=webp') center center / cover no-repeat;"
   >
-  <!-- https://rmt.dogedoge.com/fetch/fluid/storage/bg/vdysjx.png?w=1920&fmt=webp -->
+  <!-- https://www.static.banq.ink/photos/fa74451429d178e2682a3cf6e833c019.png -->
 
     <!-- 遮罩层 -->
     <div class="banner-shade"></div>
@@ -26,12 +26,20 @@
         fas fa-chevron-down
       </v-icon>
     </div>
+
+    <wave></wave>
   </div>
 </template>
 
 <script>
+import Wave from './components/Wave.vue';
+
 export default {
   name: "Banner",
+
+  components: {
+    Wave
+  },
 
   data() {
     return {
@@ -70,7 +78,7 @@ export default {
   position: absolute;
   top: -64px;
   width: 100%;
-  height: calc(100vh);
+  height: calc(75vh);
 
   .banner-shade {
     height: 100%;
