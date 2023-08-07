@@ -7,9 +7,9 @@
 
     <!-- 遮罩层 -->
     <div class="banner-shade"></div>
-
     <!-- 每日一言 -->
     <div class="banner-body">
+      <h1>雅康的个人博客</h1>
       <vue-typed-js
         v-if="typingTexts.length > 0"
         :strings="typingTexts"
@@ -19,15 +19,10 @@
         :typeSpeed="100"
         :backSpeed="100"
       >
-      <span class="typing"></span>
+        <span class="typing"></span>
       </vue-typed-js>
-      <!-- 向下跳动图标 -->
-      <v-icon color="#fff" class="icon-car" @click="scrollDown">
-        fas fa-chevron-down
-      </v-icon>
-    </div>
 
-    <wave></wave>
+    </div>
   </div>
 </template>
 
@@ -53,13 +48,6 @@ export default {
   },
 
   methods: {
-    // 向下滚动
-    scrollDown() {
-      window.scrollTo({
-        behavior: "smooth",
-        top: document.documentElement.clientHeight - 125,
-      });
-    },
     // 获取每日一言
     getWords() {
       this.$axios
@@ -78,7 +66,7 @@ export default {
   position: absolute;
   top: -64px;
   width: 100%;
-  height: calc(75vh);
+  height: calc(80vh);
 
   .banner-shade {
     height: 100%;
@@ -91,41 +79,19 @@ export default {
     position: absolute;
     top: 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
+    // margin-left: auto;
+    // margin-right: auto;
   }
   .blog-word {
     color: white;
-    font-weight: 500;
-    font-size: 2rem;
+    font-weight: 400;
+    font-size: 1.5rem;
     display: -webkit-box;
     word-break: break-word;
     -webkit-box-orient: vertical;
-  }
-
-  @keyframes bounce {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(30px);
-    }
-  }
-
-  .icon-car {
-    position: absolute;
-    bottom: 50px;
-    left: 50%;
-    font-size: 2rem;
-    color: #fff;
-    cursor: pointer;
-    animation-name: bounce;
-    animation-duration: 2.5s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
   }
 
   @media (max-width: 760px) {

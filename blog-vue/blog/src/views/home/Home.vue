@@ -11,7 +11,6 @@
       <!-- 文章列表 -->
       <v-card
         class="article-body"
-        :style="{ transform: 'translateY(' + boxY + 'px)' }"
         justify="center"
       >
           <!-- 占位内容 -->
@@ -605,7 +604,7 @@
 </template>
 
 <script>
-import Banner from "../../components/banner/Banner.vue";
+import Banner from "../../components/banner/Banner";
 
 export default {
   name: "Home",
@@ -624,35 +623,9 @@ export default {
     };
   },
   mounted() {
-    // 监听当前页面的滚动事件
-    window.addEventListener("scroll", this.handleScroll);
   },
   methods: {
     // 监听当前页面的滚动事件
-    handleScroll() {
-      // 定义当前监视器
-      const scrollTop =
-        document.documentElement.scrollTop || document.body.scrollTop;
-      // 鼠标滚轮移动方向，向下为1，向上为-1
-      this.scrollDirection = scrollTop - this.i > 0 ? 1 : -1;
-      this.i = scrollTop;
-      // 页面向下移动的情况
-      if (scrollTop > 0 && this.boxY >= -100 && this.scrollDirection == 1) {
-        this.boxY -= this.scrollDirection * 2;
-        // 防止文章主体超过边界
-        if (this.boxY <= -100 || scrollTop >= window.innerHeight) {
-          this.boxY = -100;
-        }
-      }
-      // 页面向上移动的情况
-      if (scrollTop <= 170 && this.boxY < 0 && this.scrollDirection == -1) {
-        this.boxY -= this.scrollDirection * 2;
-        // 防止文章主体超过边界
-        if (this.boxY >= 0 || scrollTop == 0) {
-          this.boxY = 0;
-        }
-      }
-    },
   },
 };
 </script>

@@ -10,25 +10,16 @@
           <span>世纪末的架构师</span>
         </div>
 
-        <!-- 使用breakpoint属性来定义何时显示汉堡按钮 -->
-        <v-menu
-          offset-y
-          close-on-click
-        >
+        <!-- 手机端导航栏 -->
+        <v-menu offset-y close-on-click>
           <template #activator="{ on }">
-            <v-icon
-              class="menu-icon"
-              v-on="on"
-              @click.stop="drawer = !drawer"
-              size="25"
-              color="#fff"
-            >
+            <v-icon class="menu-icon" v-on="on" @click.stop="drawer = !drawer" size="25" color="#fff">
               fas fa-bars
             </v-icon>
           </template>
         </v-menu>
         <!-- 在PC端显示完整菜单 -->
-        <div class=" navbar-body">
+        <div class="navbar-body">
           <ul>
             <li>
               <router-link to="/" class="navbar-item">
