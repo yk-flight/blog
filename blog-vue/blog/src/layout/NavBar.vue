@@ -7,52 +7,50 @@
 
     <v-spacer></v-spacer>
 
-    <div>
-      <ul>
-        <li>
-          <router-link to="/" class="navbar-item">
-            <v-icon>fas fa-home</v-icon>
-            <span>首页</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/home" class="navbar-item">
-            <v-icon>fas fa-archive</v-icon>
-            <span>归档</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/" class="navbar-item">
-            <v-icon>fas fa-th-large</v-icon>
-            <span>分类</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/" class="navbar-item">
-            <v-icon>fas fa-tags</v-icon>
-            <span>标签</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/about" class="navbar-item">
-            <v-icon>fas fa-user</v-icon>
-            <span>关于</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/" class="navbar-item">
-            <v-icon>fas fa-link</v-icon>
-            <span>友链</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/" class="navbar-item">
-            <v-icon>fas fa-comments</v-icon>
-            <span>留言</span>
-          </router-link>
-        </li>
-      </ul>
-    </div>
+    <ul>
+      <li :class="navbarClass">
+        <router-link to="/" >
+          <v-icon>fas fa-home</v-icon>
+          <span>首页</span>
+        </router-link>
+      </li>
+      <li :class="navbarClass">
+        <router-link to="/home">
+          <v-icon>fas fa-archive</v-icon>
+          <span>归档</span>
+        </router-link>
+      </li>
+      <li :class="navbarClass">
+        <router-link to="/">
+          <v-icon>fas fa-th-large</v-icon>
+          <span>分类</span>
+        </router-link>
+      </li>
+      <li :class="navbarClass">
+        <router-link to="/">
+          <v-icon>fas fa-tags</v-icon>
+          <span>标签</span>
+        </router-link>
+      </li>
+      <li :class="navbarClass">
+        <router-link to="/about">
+          <v-icon>fas fa-user</v-icon>
+          <span class="nav-btn">关于</span>
+        </router-link>
+      </li>
+      <li :class="navbarClass">
+        <router-link to="/">
+          <v-icon>fas fa-link</v-icon>
+          <span>友链</span>
+        </router-link>
+      </li>
+      <li :class="navbarClass">
+        <router-link to="/">
+          <v-icon>fas fa-comments</v-icon>
+          <span>留言</span>
+        </router-link>
+      </li>
+    </ul>
 
     <v-spacer></v-spacer>
 
@@ -76,6 +74,8 @@ export default {
     return {
       // 顶部导航栏背景色 transparent
       navColor: 'transparent',
+      // 样式
+      navbarClass: 'navbar-item',
       // 网站Logo
       logo: 'https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png'
     }
@@ -98,8 +98,12 @@ export default {
       const currentScroll = window.scrollY * 1.5
 
       if (currentScroll >= screenHeight) {
-        this.navColor = 'white'
+        // 滚动菜单样式
+        this.navbarClass = 'navbar-item-scroll'
+        this.navColor = 'indigo lighten-5'
       } else {
+        // 滚动菜单样式
+        this.navbarClass = 'navbar-item'
         this.navColor = 'transparent'
         // this.navColor = 'transparent'
       }
@@ -118,12 +122,15 @@ export default {
   align-items: center;
 }
 .navbar-item {
-  display: flex;
-  align-items: center;
   font-size: 16px;
-  margin: 0 3px;
   color: #fff;
   cursor: pointer;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 5px;
+  a {
+    color: #fff;
+  }
 
   .v-icon {
     margin-right: 5px;
@@ -131,44 +138,69 @@ export default {
     color: #fff;
   }
 }
-.navbar-item:hover {
-  transition: 0.8s;
-  color: rgba(66, 185, 133, 0.8);
-  // color: rgba(66, 185, 133, 0.8) !important;
+.navbar-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px; /* 设置横线的高度 */
+  border-radius: 2px;
+  background-color: #fff; /* 设置横线的颜色 */
+  transform: scaleX(0); /* 初始时横线不可见 */
+  transition: transform 0.5s ease-in-out; /* 添加过渡效果 */
+}
+
+.navbar-item:hover::after {
+  transform: scaleX(1); /* 悬停时横线出现 */
+}
+.navbar-item-scroll {
+  font-size: 16px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 5px;
+  color: #333;
+  cursor: pointer;
+
+  a {
+    color: #333;
+  }
 
   .v-icon {
-    transition: 0.8s;
-    color: #30a9de;
+    margin-right: 5px;
+    font-size: 14px;
+    color: #333;
   }
 }
 
-.navbar-item:hover:after {
-  width: 100%;
-}
-.navbar-item a:after {
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  z-index: -1;
-  width: 0;
-  height: 3px;
-  // background-color: rgba(66, 185, 133, 0.8);
-  background-color: #409eff;
+.navbar-item-scroll::after {
   content: "";
-  transition: all 0.3s ease-in-out;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px; /* 设置横线的高度 */
+  border-radius: 2px;
+  background-color: #333; /* 设置横线的颜色 */
+  transform: scaleX(0); /* 初始时横线不可见 */
+  transition: transform 0.5s ease-in-out; /* 添加过渡效果 */
+}
+
+.navbar-item-scroll:hover::after {
+  transform: scaleX(1); /* 悬停时横线出现 */
 }
 
 ul {
-  display: flex;
   list-style: none;
 
   li {
-    margin-right: 1rem;
+    margin: 0 0.5rem;
   }
 
   a {
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    color: #fff;
   }
 }
 </style>

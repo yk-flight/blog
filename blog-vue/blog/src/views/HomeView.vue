@@ -1,12 +1,14 @@
 <template>
   <div>
-    <banner></banner>
+    <banner />
+    <wave />
     <hello-world />
   </div>
 </template>
 
 <script>
 import Banner from '../components/Banner/index.vue'
+import Wave from '../components/Wave/index.vue'
 import HelloWorld from '../components/HelloWorld'
 
 export default {
@@ -14,7 +16,8 @@ export default {
 
   components: {
     HelloWorld,
-    Banner
+    Banner,
+    Wave
   }
 }
 </script>

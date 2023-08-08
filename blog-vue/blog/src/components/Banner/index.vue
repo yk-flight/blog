@@ -24,7 +24,6 @@ export default {
       //     cover = item.image
       //   }
       // })
-      console.log('background: url(' + cover + ') center center / cover no-repeat')
       // 返回对应的CSS
       return 'background: url(' + cover + ') center center / cover no-repeat'
     }
@@ -39,7 +38,7 @@ export default {
 <style lang="scss" scoped>
 .banner-container {
   width: 100%;
-  height: calc(90vh);
+  height: calc(80vh);
 }
 
 .banner-shade {
