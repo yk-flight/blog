@@ -1,7 +1,8 @@
 <template>
-  <v-container>
+  <v-container style="background: #000;">
     <v-row class="text-center">
       <v-col cols="12">
+        <p class="artboard">测试文本</p>
         <v-img
           :src="require('../assets/logo.svg')"
           class="my-3"
@@ -327,3 +328,11 @@ export default {
   })
 }
 </script>
+
+<style lang="scss" scoped>
+.artboard {
+  font-family: 'Fredericka the Great',Mulish,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  font-size: 3.5em;
+  line-height: 1.2;
+}
+</style>

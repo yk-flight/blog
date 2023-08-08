@@ -40,7 +40,12 @@ export default {
 
   data () {
     return {
-
+      icons: [
+        'mdi-facebook',
+        'mdi-twitter',
+        'mdi-linkedin',
+        'mdi-instagram'
+      ]
     }
   },
 
