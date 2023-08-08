@@ -1,8 +1,8 @@
 body {
-  cursor: url(https://blog-springbot.oss-cn-hangzhou.aliyuncs.com/css/default.cur),default;
+  cursor: url(https://blog-springbot.oss-cn-hangzhou.aliyuncs.com/css/default.cur),default !important;
 }
-a, button, img, li {
-  cursor: url(https://blog-springbot.oss-cn-hangzhou.aliyuncs.com/css/pointer.cur),default;
+a, button, img {
+  cursor: url(https://blog-springbot.oss-cn-hangzhou.aliyuncs.com/css/pointer.cur),default !important;
 }
 
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/

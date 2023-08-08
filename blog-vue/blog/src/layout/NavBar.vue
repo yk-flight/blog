@@ -1,9 +1,10 @@
 <template>
+  <div>
   <!-- 网页端导航栏 -->
-  <v-app-bar fixed short elevate-on-scroll hide-on-scroll elevation="0" :color="navColor">
-    <div class="d-flex align-center">
-      <v-img class="shrink mr-2" contain :src="logo" transition="scale-transition" width="30"/>
-    </div>
+  <v-app-bar short fixed elevate-on-scroll hide-on-scroll elevation="0" :color="navColor">
+    <router-link to="/">
+      <img class="blog-avatar" src="../assets/logo.png" transition="scale-transition" />
+    </router-link>
 
     <v-spacer></v-spacer>
 
@@ -64,6 +65,7 @@
     </v-btn>
 
   </v-app-bar>
+</div>
 </template>
 
 <script>
@@ -77,7 +79,7 @@ export default {
       // 样式
       navbarClass: 'navbar-item',
       // 网站Logo
-      logo: 'https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png'
+      logo: '../'
     }
   },
 
@@ -95,12 +97,12 @@ export default {
       // 屏幕高度
       const screenHeight = window.innerHeight || document.documentElement.clientHeight
       // 当前滚动位置
-      const currentScroll = window.scrollY * 1.5
+      const currentScroll = window.scrollY * 3
 
       if (currentScroll >= screenHeight) {
         // 滚动菜单样式
         this.navbarClass = 'navbar-item-scroll'
-        this.navColor = 'indigo lighten-5'
+        this.navColor = 'rgba(255,255,255)'
       } else {
         // 滚动菜单样式
         this.navbarClass = 'navbar-item'
@@ -202,5 +204,13 @@ ul {
     align-items: center;
     text-decoration: none;
   }
+}
+.blog-avatar {
+  width: 60px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+.blog-avatar:hover {
+  transform: rotate(360deg);
 }
 </style>

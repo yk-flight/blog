@@ -101,7 +101,7 @@ export default {
 /*Shrinking for mobile*/
 @media (max-width: 768px) {
   .waves {
-    height: 40px;
+    height: 10vh;
     min-height: 40px;
   }
   .content {
