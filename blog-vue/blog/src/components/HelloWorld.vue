@@ -1,6 +1,8 @@
 <template>
   <v-container>
     <v-card class="text-center">
+
+      <SideBar></SideBar>
       <v-col cols="12">
         <p class="artboard">测试文本</p>
         <v-img
@@ -271,8 +273,12 @@
 </template>
 
 <script>
+import SideBar from '../layout/SideBar/index.vue'
+
 export default {
   name: 'HelloWorld',
+
+  components: { SideBar },
 
   data: () => ({
     ecosystem: [
