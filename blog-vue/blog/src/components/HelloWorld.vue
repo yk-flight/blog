@@ -1,6 +1,6 @@
 <template>
-  <v-container style="background: #000;">
-    <v-row class="text-center">
+  <v-container>
+    <v-card class="text-center">
       <v-col cols="12">
         <p class="artboard">测试文本</p>
         <v-img
@@ -34,7 +34,7 @@
           What's next?
         </h2>
 
-        <v-row justify="center">
+        <v-card justify="center">
           <a
             v-for="(next, i) in whatsNext"
             :key="i"
@@ -44,7 +44,7 @@
           >
             {{ next.text }}
           </a>
-        </v-row>
+        </v-card>
       </v-col>
 
       <v-col
@@ -55,7 +55,7 @@
           Important Links
         </h2>
 
-        <v-row justify="center">
+        <v-card justify="center">
           <a
             v-for="(link, i) in importantLinks"
             :key="i"
@@ -65,7 +65,7 @@
           >
             {{ link.text }}
           </a>
-        </v-row>
+        </v-card>
       </v-col>
 
       <v-col
@@ -76,7 +76,7 @@
           Ecosystem
         </h2>
 
-        <v-row justify="center">
+        <v-card justify="center">
           <a
             v-for="(eco, i) in ecosystem"
             :key="i"
@@ -86,11 +86,11 @@
           >
             {{ eco.text }}
           </a>
-        </v-row>
+        </v-card>
       </v-col>
-    </v-row>
+    </v-card>
 
-    <v-row class="text-center">
+    <v-card class="text-center">
       <v-col cols="12">
         <v-img
           :src="require('../assets/logo.svg')"
@@ -123,7 +123,7 @@
           What's next?
         </h2>
 
-        <v-row justify="center">
+        <v-card justify="center">
           <a
             v-for="(next, i) in whatsNext"
             :key="i"
@@ -133,7 +133,7 @@
           >
             {{ next.text }}
           </a>
-        </v-row>
+        </v-card>
       </v-col>
 
       <v-col
@@ -144,7 +144,7 @@
           Important Links
         </h2>
 
-        <v-row justify="center">
+        <v-card justify="center">
           <a
             v-for="(link, i) in importantLinks"
             :key="i"
@@ -154,7 +154,7 @@
           >
             {{ link.text }}
           </a>
-        </v-row>
+        </v-card>
       </v-col>
 
       <v-col
@@ -165,7 +165,7 @@
           Ecosystem
         </h2>
 
-        <v-row justify="center">
+        <v-card justify="center">
           <a
             v-for="(eco, i) in ecosystem"
             :key="i"
@@ -175,11 +175,11 @@
           >
             {{ eco.text }}
           </a>
-        </v-row>
+        </v-card>
       </v-col>
-    </v-row>
+    </v-card>
 
-    <v-row class="text-center">
+    <v-card class="text-center">
       <v-col cols="12">
         <v-img
           :src="require('../assets/logo.svg')"
@@ -212,7 +212,7 @@
           What's next?
         </h2>
 
-        <v-row justify="center">
+        <v-card justify="center">
           <a
             v-for="(next, i) in whatsNext"
             :key="i"
@@ -222,7 +222,7 @@
           >
             {{ next.text }}
           </a>
-        </v-row>
+        </v-card>
       </v-col>
 
       <v-col
@@ -233,7 +233,7 @@
           Important Links
         </h2>
 
-        <v-row justify="center">
+        <v-card justify="center">
           <a
             v-for="(link, i) in importantLinks"
             :key="i"
@@ -243,7 +243,7 @@
           >
             {{ link.text }}
           </a>
-        </v-row>
+        </v-card>
       </v-col>
 
       <v-col
@@ -254,7 +254,7 @@
           Ecosystem
         </h2>
 
-        <v-row justify="center">
+        <v-card justify="center">
           <a
             v-for="(eco, i) in ecosystem"
             :key="i"
@@ -264,9 +264,9 @@
           >
             {{ eco.text }}
           </a>
-        </v-row>
+        </v-card>
       </v-col>
-    </v-row>
+    </v-card>
   </v-container>
 </template>
 

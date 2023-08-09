@@ -11,43 +11,43 @@
     <ul>
       <li :class="navbarClass">
         <router-link to="/" >
-          <v-icon>fas fa-home</v-icon>
+          <svg-icon icon="home"></svg-icon>
           <span>首页</span>
         </router-link>
       </li>
       <li :class="navbarClass">
         <router-link to="/home">
-          <v-icon>fas fa-archive</v-icon>
+          <svg-icon icon="form"></svg-icon>
           <span>归档</span>
         </router-link>
       </li>
       <li :class="navbarClass">
         <router-link to="/">
-          <v-icon>fas fa-th-large</v-icon>
+          <svg-icon icon="category"></svg-icon>
           <span>分类</span>
         </router-link>
       </li>
       <li :class="navbarClass">
         <router-link to="/">
-          <v-icon>fas fa-tags</v-icon>
+          <svg-icon icon="tags"></svg-icon>
           <span>标签</span>
         </router-link>
       </li>
       <li :class="navbarClass">
         <router-link to="/about">
-          <v-icon>fas fa-user</v-icon>
+          <svg-icon icon="guide"></svg-icon>
           <span class="nav-btn">关于</span>
         </router-link>
       </li>
       <li :class="navbarClass">
         <router-link to="/">
-          <v-icon>fas fa-link</v-icon>
+          <svg-icon icon="form"></svg-icon>
           <span>友链</span>
         </router-link>
       </li>
       <li :class="navbarClass">
         <router-link to="/">
-          <v-icon>fas fa-comments</v-icon>
+          <svg-icon icon="message"></svg-icon>
           <span>留言</span>
         </router-link>
       </li>
@@ -55,14 +55,14 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn
-      href="https://github.com/vuetifyjs/vuetify/releases/latest"
-      target="_blank"
-      text
-    >
-      <span class="mr-2">Latest Release</span>
-      <v-icon>mdi-open-in-new</v-icon>
-    </v-btn>
+    <div>
+      <div :class="navbarClass" style="margin: 0 5px;">
+        <svg-icon icon="search"></svg-icon>
+      </div>
+      <div :class="navbarClass" style="margin: 0 5px;">
+        <svg-icon icon="star"></svg-icon>
+      </div>
+    </div>
 
   </v-app-bar>
 </div>
@@ -76,8 +76,10 @@ export default {
     return {
       // 顶部导航栏背景色 transparent
       navColor: 'transparent',
-      // 样式
+      // 菜单样式
       navbarClass: 'navbar-item',
+      // 方法功能
+      functionClass: 'function-container',
       // 网站Logo
       logo: '../'
     }
@@ -134,7 +136,7 @@ export default {
     color: #fff;
   }
 
-  .v-icon {
+  .svg-icon {
     margin-right: 5px;
     font-size: 14px;
     color: #fff;
@@ -167,8 +169,7 @@ export default {
   a {
     color: #333;
   }
-
-  .v-icon {
+  .svg-icon {
     margin-right: 5px;
     font-size: 14px;
     color: #333;

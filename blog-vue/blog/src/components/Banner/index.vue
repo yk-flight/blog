@@ -25,7 +25,7 @@ export default {
       //   }
       // })
       // 返回对应的CSS
-      return 'background: url(' + cover + ') center center / cover no-repeat'
+      return 'background: url(' + cover + ') center center / cover no-repeat;background-attachment: fixed;'
     }
   },
 
@@ -38,7 +38,7 @@ export default {
 <style lang="scss" scoped>
 .banner-container {
   width: 100%;
-  height: calc(80vh);
+  height: calc(90vh);
 }
 
 .banner-shade {
