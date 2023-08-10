@@ -40,8 +40,8 @@ export default {
 .phone-container {
   background: url('../../../assets/images/iPhone-background.jpg') center center/ cover no-repeat;
   border: 9px solid #000;
-  height: 33.625rem;
-  width: 18.75rem;
+  height: 33.75rem;
+  width: 18.5rem;
   border-radius: 36px;
   box-shadow: 0 0 2px #000;
   transition: box-shadow 0.3s ease;
