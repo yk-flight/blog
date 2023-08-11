@@ -1,9 +1,9 @@
 <template>
-  <div class="wow animated slideInRight phone-container">
+  <div class="wow animated slideInLeft phone-container">
 
     <!-- 手机头部 -->
     <div class="phone-header" ref="phoneRef">
-      <span style="width: 25%;">00:31</span>
+      <span style="width: 27%;">00:31</span>
       <div class="island"></div>
       <div class="icon">
         <svg-icon icon="signal"></svg-icon>
@@ -50,8 +50,8 @@ export default {
 .phone-container {
   background: url('../../../assets/images/iPhone-background.jpg') center center/ cover no-repeat;
   border: 9px solid #000;
-  height: 33.75rem;
-  width: 18.5rem;
+  height: 32.75rem;
+  width: 100%;
   border-radius: 36px;
   box-shadow: 0 0 2px #000;
   transition: box-shadow 0.3s ease;
@@ -71,13 +71,13 @@ export default {
   align-items: center;
 
   .island {
-  width: 45%;
-  height: 1.25rem;
-  background-color: #000;
-  border-radius: 10px;
+    width: 40%;
+    height: 1.25rem;
+    background-color: #000;
+    border-radius: 10px;
   }
   .icon {
-    width: 25%;
+    width: 27%;
     .svg-icon {
       margin-left: 4px;
     }
@@ -86,13 +86,11 @@ export default {
 
 .phone-body {
   width: 100%;
-  height: 30rem;
+  height: 28.625rem;
   padding: 10px;
 }
 
 .phone-footer {
-  // position: relative;
-  // margin-top: 4.625rem;
   display: flex;
   justify-content: center;
   width: 100%;

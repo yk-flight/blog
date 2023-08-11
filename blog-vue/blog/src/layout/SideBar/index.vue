@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="SideBar">
     <Phone></Phone>
   </div>
 </template>
@@ -29,5 +29,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.SideBar {
+  position: sticky;
+  width: 16.5rem;
+  top: calc(1rem + 56px);
+  z-index: 1;
+}
 </style>

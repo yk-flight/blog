@@ -19,7 +19,7 @@ Vue.prototype.$wow = new WOW({
   // animation.css 动画的 class
   animateClass: 'animated',
   // 距离可视区域多少开始执行动画
-  offset: 200,
+  offset: 0,
   // 是否在移动设备上执行动画
   mobile: true,
   // 异步加载的内容是否有效

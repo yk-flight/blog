@@ -1,8 +1,5 @@
 <template>
-  <v-footer
-    dark
-    padless
-  >
+  <v-footer dark padless >
     <v-card
       flat
       tile

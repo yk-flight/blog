@@ -1,71 +1,71 @@
 <template>
   <div>
-  <!-- 网页端导航栏 -->
-  <v-app-bar short fixed elevate-on-scroll hide-on-scroll elevation="0" :color="navColor">
-    <router-link to="/">
-      <img class="blog-avatar" src="../assets/logo.png" transition="scale-transition" />
-    </router-link>
+    <!-- 网页端导航栏 -->
+    <v-app-bar short fixed elevate-on-scroll elevation="0" :color="navColor" style="backdrop-filter: blur(4px);">
+      <router-link to="/">
+        <img class="blog-avatar" src="../assets/logo.png" transition="scale-transition" />
+      </router-link>
 
-    <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
 
-    <ul>
-      <li :class="navbarClass">
-        <router-link to="/" >
-          <svg-icon icon="home"></svg-icon>
-          <span>首页</span>
-        </router-link>
-      </li>
-      <li :class="navbarClass">
-        <router-link to="/home">
-          <svg-icon icon="form"></svg-icon>
-          <span>归档</span>
-        </router-link>
-      </li>
-      <li :class="navbarClass">
-        <router-link to="/">
-          <svg-icon icon="category"></svg-icon>
-          <span>分类</span>
-        </router-link>
-      </li>
-      <li :class="navbarClass">
-        <router-link to="/">
-          <svg-icon icon="tags"></svg-icon>
-          <span>标签</span>
-        </router-link>
-      </li>
-      <li :class="navbarClass">
-        <router-link to="/about">
-          <svg-icon icon="guide"></svg-icon>
-          <span class="nav-btn">关于</span>
-        </router-link>
-      </li>
-      <li :class="navbarClass">
-        <router-link to="/">
-          <svg-icon icon="form"></svg-icon>
-          <span>友链</span>
-        </router-link>
-      </li>
-      <li :class="navbarClass">
-        <router-link to="/">
-          <svg-icon icon="message"></svg-icon>
-          <span>留言</span>
-        </router-link>
-      </li>
-    </ul>
+      <ul>
+        <li :class="navbarClass">
+          <router-link to="/" >
+            <svg-icon icon="home"></svg-icon>
+            <span>首页</span>
+          </router-link>
+        </li>
+        <li :class="navbarClass">
+          <router-link to="/home">
+            <svg-icon icon="form"></svg-icon>
+            <span>归档</span>
+          </router-link>
+        </li>
+        <li :class="navbarClass">
+          <router-link to="/">
+            <svg-icon icon="category"></svg-icon>
+            <span>分类</span>
+          </router-link>
+        </li>
+        <li :class="navbarClass">
+          <router-link to="/">
+            <svg-icon icon="tags"></svg-icon>
+            <span>标签</span>
+          </router-link>
+        </li>
+        <li :class="navbarClass">
+          <router-link to="/about">
+            <svg-icon icon="guide"></svg-icon>
+            <span class="nav-btn">关于</span>
+          </router-link>
+        </li>
+        <li :class="navbarClass">
+          <router-link to="/">
+            <svg-icon icon="form"></svg-icon>
+            <span>友链</span>
+          </router-link>
+        </li>
+        <li :class="navbarClass">
+          <router-link to="/">
+            <svg-icon icon="message"></svg-icon>
+            <span>留言</span>
+          </router-link>
+        </li>
+      </ul>
 
-    <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
 
-    <div>
-      <div :class="navbarClass" style="margin: 0 5px;">
-        <svg-icon icon="search"></svg-icon>
+      <div>
+        <div :class="navbarClass" style="margin: 0 5px;">
+          <svg-icon icon="search"></svg-icon>
+        </div>
+        <div :class="navbarClass" style="margin: 0 5px;">
+          <svg-icon icon="star"></svg-icon>
+        </div>
       </div>
-      <div :class="navbarClass" style="margin: 0 5px;">
-        <svg-icon icon="star"></svg-icon>
-      </div>
-    </div>
 
-  </v-app-bar>
-</div>
+    </v-app-bar>
+  </div>
 </template>
 
 <script>
@@ -99,18 +99,25 @@ export default {
       // 屏幕高度
       const screenHeight = window.innerHeight || document.documentElement.clientHeight
       // 当前滚动位置
-      const currentScroll = window.scrollY * 3
+      const currentScroll = window.scrollY
 
+      // 如果配置了展示Banner
+      // if () {
       if (currentScroll >= screenHeight) {
         // 滚动菜单样式
         this.navbarClass = 'navbar-item-scroll'
-        this.navColor = 'rgba(255,255,255)'
+        this.navColor = 'rgba(255,255,255, 0.65)'
       } else {
         // 滚动菜单样式
         this.navbarClass = 'navbar-item'
         this.navColor = 'transparent'
         // this.navColor = 'transparent'
       }
+      // } else {
+      // 没有配置展示Banner则固定顶部导航栏样式
+      // this.navbarClass = 'navbar-item-scroll'
+      // this.navColor = 'rgba(255,255,255, 0.65)'
+      // }
     }
   }
 }
