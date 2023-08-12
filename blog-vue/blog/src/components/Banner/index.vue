@@ -2,7 +2,7 @@
   <div class="banner-container" :style="cover">
     <!-- 文字层 -->
     <div class="animated animate__zoomInDown banner-body">
-      <h1>雅康的个人博客</h1>
+      <h1>雅康卓越</h1>
     </div>
   </div>
 </template>

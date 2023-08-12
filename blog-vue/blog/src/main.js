@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 import SvgIcons from './icons'
+import filters from './filter/index'
 
 import './styles/style.scss'
 import 'animate.css'
@@ -29,6 +30,11 @@ Vue.prototype.$wow = new WOW({
 
 Vue.use(SvgIcons)
 Vue.use(animated)
+
+// 时间过滤器
+Object.keys(filters).forEach((key) => {
+  Vue.filter(key, filters[key])
+})
 
 new Vue({
   router,

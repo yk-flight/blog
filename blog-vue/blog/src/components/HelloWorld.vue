@@ -1,8 +1,7 @@
 <template>
-  <v-container>
-    <!-- <v-card class="text-center"> -->
-    <div>
-      <SideBar></SideBar>
+  <v-container style="margin-top: 12px; display: flex;">
+    <SideBar></SideBar>
+    <div class="text-center" style="width: calc(100% - 16.5rem);margin-left: 20px;">
       <v-col cols="12">
         <p class="artboard">测试文本</p>
         <v-img
@@ -91,7 +90,6 @@
         </v-card>
       </v-col>
     </div>
-    <!-- </v-card> -->
   </v-container>
 </template>
 

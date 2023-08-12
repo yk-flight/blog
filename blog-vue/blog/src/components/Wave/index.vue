@@ -36,6 +36,7 @@ export default {
 
 <style lang="scss" scoped>
 .wave-container {
+  width: 100%;
   margin-top: -10vh;
   height: 20vh;
 }

@@ -32,7 +32,7 @@ export default {
 .SideBar {
   position: sticky;
   width: 16.5rem;
-  top: calc(1rem + 56px);
+  top: calc(1.5rem + 56px);
   z-index: 1;
 }
 </style>
