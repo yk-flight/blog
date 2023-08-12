@@ -2,8 +2,12 @@
   <div class="banner-container" :style="cover">
     <!-- 文字层 -->
     <div class="animated animate__zoomInDown banner-body">
-      <h1>雅康卓越</h1>
+      <h1>YK'S Blog</h1>
     </div>
+    <!-- 向下跳动图标 -->
+    <v-icon color="#fff" class="icon-car" @click="scrollDown">
+      fas fa-chevron-down
+    </v-icon>
   </div>
 </template>
 <script>
@@ -32,7 +36,13 @@ export default {
   },
 
   methods: {
-
+    // 向下滚动
+    scrollDown () {
+      window.scrollTo({
+        behavior: 'smooth',
+        top: document.documentElement.clientHeight - 125
+      })
+    }
   }
 }
 </script>
@@ -69,5 +79,31 @@ export default {
 
 h1 {
   color: #fff;
+}
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(30px);
+  }
+}
+.icon-car {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  animation-name: bounce;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+h1 {
+  font-family: OldEnglish,sans-serif;
+  font-size: 55px!important;
+  font-weight: lighter
 }
 </style>

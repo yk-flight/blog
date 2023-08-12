@@ -6,7 +6,7 @@ import vuetify from './plugins/vuetify'
 import SvgIcons from './icons'
 import filters from './filter/index'
 
-import './styles/style.scss'
+import './styles/index.scss'
 import 'animate.css'
 
 import { WOW } from 'wowjs'

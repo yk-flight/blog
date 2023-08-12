@@ -1,10 +1,6 @@
 <template>
-  <v-footer dark padless >
-    <v-card
-      flat
-      tile
-      class="indigo lighten-1 white--text text-center"
-    >
+  <v-footer dark padless>
+    <v-card flat tile class="lighten-1 white--text text-center" :style="cover">
       <v-card-text>
         <v-btn
           v-for="icon in icons"
@@ -43,6 +39,21 @@ export default {
         'mdi-linkedin',
         'mdi-instagram'
       ]
+    }
+  },
+
+  computed: {
+    cover () {
+    // 定义要拼接的CSS
+      const cover = 'https://www.static.banq.ink/photos/fa74451429d178e2682a3cf6e833c019.png'
+      // 循环获取首页的图片
+      // this.$store.getters.navBarList.forEach((item) => {
+      //   if (item.label === 'home') {
+      //     cover = item.image
+      //   }
+      // })
+      // 返回对应的CSS
+      return 'background: url(' + cover + ') bottom center / cover no-repeat;background-attachment: fixed;'
     }
   },
 
