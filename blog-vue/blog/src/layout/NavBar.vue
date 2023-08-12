@@ -2,8 +2,9 @@
   <div>
     <!-- 网页端导航栏 -->
     <v-app-bar short fixed elevate-on-scroll elevation="0" :color="navColor" style="backdrop-filter: blur(4px);">
-      <router-link to="/">
-        <img class="blog-avatar" src="../assets/logo.png" transition="scale-transition" />
+      <router-link to="/" :class="logoClass">
+        <!-- <img class="blog-avatar" src="../assets/logo.png" transition="scale-transition" /> -->
+        <span>雅康的个人博客</span>
       </router-link>
 
       <v-spacer></v-spacer>
@@ -56,11 +57,11 @@
       <v-spacer></v-spacer>
 
       <div>
-        <div :class="navbarClass" style="margin: 0 5px;">
+        <div :class="navbarClass" style="margin: 0 8px;">
           <svg-icon icon="search"></svg-icon>
         </div>
-        <div :class="navbarClass" style="margin: 0 5px;">
-          <svg-icon icon="star"></svg-icon>
+        <div :class="navbarClass" style="margin: 0 8px;">
+          <svg-icon icon="moon"></svg-icon>
         </div>
       </div>
 
@@ -80,8 +81,8 @@ export default {
       navbarClass: 'navbar-item',
       // 方法功能
       functionClass: 'function-container',
-      // 网站Logo
-      logo: '../'
+      // 网站标题CSS
+      logoClass: 'logo'
     }
   },
 
@@ -99,17 +100,19 @@ export default {
       // 屏幕高度
       const screenHeight = window.innerHeight || document.documentElement.clientHeight
       // 当前滚动位置
-      const currentScroll = window.scrollY
+      const currentScroll = window.scrollY + 20
 
       // 如果配置了展示Banner
       // if () {
       if (currentScroll >= screenHeight) {
         // 滚动菜单样式
         this.navbarClass = 'navbar-item-scroll'
+        this.logoClass = 'logo-scroll'
         this.navColor = 'rgba(255,255,255, 0.65)'
       } else {
         // 滚动菜单样式
         this.navbarClass = 'navbar-item'
+        this.logoClass = 'logo'
         this.navColor = 'transparent'
         // this.navColor = 'transparent'
       }
@@ -220,5 +223,27 @@ ul {
 }
 .blog-avatar:hover {
   transform: rotate(360deg);
+}
+.logo {
+  display: flex;
+  align-items: center;
+
+  span {
+    font-weight: 700;
+    margin-left: 5px;
+    font-size: 18px;
+    color: #fff;
+  }
+}
+.logo-scroll {
+  display: flex;
+  align-items: center;
+
+  span {
+    font-weight: 700;
+    margin-left: 5px;
+    font-size: 18px;
+    color: #000;
+  }
 }
 </style>

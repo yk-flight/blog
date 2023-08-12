@@ -31,7 +31,7 @@ export default {
 <style lang="scss" scoped>
 .SideBar {
   position: sticky;
-  width: 16.5rem;
+  width: 100%;
   top: calc(1.5rem + 56px);
   z-index: 1;
 }

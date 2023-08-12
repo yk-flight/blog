@@ -40,7 +40,7 @@ export default {
     scrollDown () {
       window.scrollTo({
         behavior: 'smooth',
-        top: document.documentElement.clientHeight - 125
+        top: document.documentElement.clientHeight
       })
     }
   }

@@ -1,9 +1,10 @@
 <template>
-  <v-container style="margin-top: 12px; display: flex;">
-    <SideBar></SideBar>
+  <v-container class="blog-container">
+    <div class="sidebar-container">
+      <SideBar></SideBar>
+    </div>
     <v-card class="text-center card-container" elevation="2">
       <v-col cols="12">
-        <p class="artboard">测试文本</p>
         <p class="artboard">测试文本</p>
         <p class="artboard">测试文本</p>
         <p class="artboard">测试文本</p>
@@ -171,6 +172,12 @@ export default {
 .card-container {
   width: calc(100% - 16.5rem);
   margin-left: 20px;
-  border-radius: 10px;
+}
+.sidebar-container {
+  width: 16.5rem;
+}
+.blog-container {
+  display: flex;
+  margin-top: 12px;
 }
 </style>

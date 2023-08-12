@@ -13,9 +13,6 @@ const setting = {
   mutations: {
     /**
      * 修改主题配置
-     *
-     * @param {*} state
-     * @param {*} param1
      */
     CHANGE_SETTING: (state, { key, value }) => {
       // 调用原型链上真正的 hasOwnProperty 方法，判断是否含有key属性
